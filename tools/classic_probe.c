@@ -7,6 +7,27 @@
 #include <inttypes.h>
 #include <errno.h>
 
+#ifdef PICO1715_COSIM
+#include "cosim/bridge.h"
+#define card_read cosim_read
+#define card_write cosim_write
+#define card_tick cosim_tick
+#define card_irq cosim_irq
+#define card_ack cosim_ack
+#define card_reti cosim_reti
+#define card_reset cosim_reset
+#define card_wait cosim_wait
+#else
+#define card_read pico1715_read
+#define card_write pico1715_write
+#define card_tick pico1715_tick
+#define card_irq pico1715_irq
+#define card_ack pico1715_ack
+#define card_reti pico1715_reti
+#define card_reset pico1715_reset
+#define card_wait pico1715_wait
+#endif
+
 static FILE *logfile;
 /* Headless motherboard fixture, separate from the expansion card. It injects
  * the keyboard's E0/ASCII serial frames through SIO receive registers. */
@@ -32,14 +53,14 @@ static int input(void *p, uint16_t a, uint8_t *data) {
     }
     return 1;
   }
-  return pico1715_read(p, a, data);
+  return card_read(p, a, data);
 }
 static void output(void *p, uint16_t a, uint8_t data) {
   fixture *f = p;
   if ((a & 255) == 14) {
     if (f->sio_register) f->sio_register = 0;
     else f->sio_register = data & 7;
-  } else pico1715_write(p, a, data);
+  } else card_write(p, a, data);
 }
 static void trace(void *p, const dac_trace_event *e) {
   (void)p;
@@ -106,14 +127,20 @@ int main(int argc, char **argv) {
   uint64_t reset_at = 0;
   uint8_t *reset_image = reset_phase ? malloc(819200) : NULL;
   if (reset_phase && !reset_image) return 2;
-  pc1715_card card = {&f, input, output, pico1715_tick,
-    pico1715_irq, pico1715_ack, pico1715_reti, pico1715_reset, pico1715_wait};
+  #ifdef PICO1715_COSIM
+  cosim_init(m, &f.controller);
+#endif
+  pc1715_card card = {&f, input, output, card_tick,
+    card_irq, card_ack, card_reti, card_reset, card_wait};
   pc1715_attach(m, &card);
   m->trace = (dac_trace_sink){trace, NULL, 0, 0};
   uint64_t handoff = 0;
   unsigned target = 0;
   for (unsigned i = 0; i < 100000000; i++) {
     pc1715_run(m, 1);
+#ifdef PICO1715_COSIM
+    cosim_observe();
+#endif
     if (!resets && ((reset_phase == 1 && f.controller.stream_active &&
                      f.controller.pos > 16) ||
                     (reset_phase == 2 && f.controller.write_active &&
@@ -147,6 +174,10 @@ int main(int argc, char **argv) {
     c.writes, c.rejected_writes, c.timing.enabled, m->wait_ticks, c.arrivals,
     c.overruns, c.underflows, c.drops, c.tx_early, c.tx_late, c.max_read_age,
     c.max_tx_interval, resets, reset_at, reset_unchanged);
+#ifdef PICO1715_COSIM
+  fprintf(stderr, "RTL requests=%" PRIu64 " acks=%" PRIu64 " reti=%" PRIu64 "\n",
+          cosim_requests(), cosim_acks(), cosim_returns());
+#endif
   /* Local diagnostic dump; never modify ROM or disk source files. */
   fwrite(m->ram, 1, sizeof(m->ram), outputs[1]);
   fwrite(disk, 1, 819200, outputs[2]);

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "target": "Pimoroni Pico Plus 2 PIM724 RP2350B",
+  "hardware_executed": false,
+  "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+  "sdk_version": "2.2.0",
+  "source_sha256": {
+    "firmware/CMakeLists.txt": "f148d624e5ae10726bab1b1789c51a13d66ac334659e0052c829eac2a37e18fc",
+    "firmware/main.c": "a016aba6b76631c94a243825602fee18257466f9018f253755d47a11ed3e0288",
+    "firmware/psram.c": "8c50e74c88f40b63d61366cc78913f6536c7e16652b18d5715cea14f4ea0fa3c",
+    "firmware/sd_crc.h": "0774f892cea39cc18df63d7259ed770c44fbf0bce339bcce7bb4a2a7a5e14fa3",
+    "firmware/sd_spi.c": "6aff6b3cbc829562a584f6646d50c05ffb697a89d84b48c6513897d3871942b8",
+    "firmware/sd_spi.h": "9fef348ba856dbadc5960bdd86445151b08c2eb647cc34d710acb4ac21ac7486",
+    "firmware/store.c": "05e14c8e426401e6e3d275a0a526fa6994a13026f60b3eed337d5565df601f35",
+    "firmware/store.h": "c8c8f68653cb1b61e8f09b99f129da88355b2e39797d3fd59e293cb4f6bae928",
+    "model/controller.c": "3002ed85cffc7818d9cd052415bf2e0b01eca117ecb2f8bc785602a759b9ab4f",
+    "model/controller.h": "7cf446651377f3eaca6b685bb3b4785b2c06b41ff2cc3823fe9368071916e82e",
+    "tools/make_uf2.py": "6ae021fbb9cb1f3035f1d79db8e4b6dcc239c94e3776d54be86cfceba7c3724b"
+  },
+  "toolchain": "arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119",
+  "builds": {
+    "readonly": {
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n  22400\t      0\t  12232\t  34632\t   8748\tbuild/firmware/pico1715.elf",
+      "artifacts": {
+        "pico1715.elf": "e4741ba888ca81f2856e9076914ace3492358f03e0e6a097fcdc47564380ebb9",
+        "pico1715.bin": "3a99bee1ab50d47e9788a9cc47f9e5d4241acafc6322cc30dde83a199ae6c46c",
+        "pico1715-final.uf2": "022caff69fac0471dcdd209173befb71d07bf241d970bd2a52c1eaada3f86fa1"
+      }
+    },
+    "experimental_writeback": {
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n  23352\t      0\t  12232\t  35584\t   8b00\tbuild/firmware-writeback/pico1715.elf",
+      "artifacts": {
+        "pico1715.elf": "3e46d10dc075cc40c21a1eb142e1aff526c7b59a2367ed1e6c3b90eabc793357",
+        "pico1715.bin": "747347dbed1c801f9f8769760b5890ae699b0420acde58ff0f3bba99a84ef78b",
+        "pico1715-final.uf2": "7a4fee3331ae41e1047bb15312aacc1537e4ba040ef998c6c15c011e85cbe3e1"
+      }
+    }
+  },
+  "validation": [
+    "read-only and writeback CMake builds passed",
+    "portable store CRC/bounds/recovery and four write-cut tests passed",
+    "store AddressSanitizer and UndefinedBehaviorSanitizer passed outside traced sandbox",
+    "SD image and UF2 envelope/roundtrip/refusal tests passed"
+  ]
+}

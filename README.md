@@ -10,19 +10,22 @@ The scheduled-byte card model boots the unchanged classic ROM into SCP 0006 and
 passes nine software regressions plus 36 latency/fault experiments.
 See the [timing results](docs/timing-contract.md) and
 [hardware requirements derived from them](hardware/timing-requirements.md).
-A [synthesizable bus-transport prototype](hardware/frontend.md) now covers
-normal-I/O decode, waits, read output gating and fault handling, with a
-reproducible RTL test suite. IRQ transport and Pico firmware are still pending.
-No PCB or electrical/timing qualification is claimed yet.
+The FPGA normal-I/O and interrupt frontend now passes all nine ROM/OS cases
+in RTL co-simulation. A 59-pin Olimex HX8K bench target is placed and routed,
+and Pico Plus 2 firmware builds with PSRAM, SD CRC checking and optional journaled
+writeback. See the [prototype build, wiring and parts guide](hardware/prototype.md).
+
+**Bench prototype, not ready to manufacture:** no firmware has run on hardware,
+no X2 electrical measurements have been made, and no qualified PCB exists.
+Co-simulation uses the C controller backend, not the compiled Pico firmware.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the
 **1715W/M**: the existing DAC emulator and available S550/TOS/M reference boot
 exercise the latter's 8272-based controller. They are useful infrastructure,
 not evidence that the ordinary 1715 controller has been implemented.
-The owner's earlier specimen inventory also leaves exact machine identity
-unresolved. Resolve this from the existing hardware records before committing
-the electrical design; it does not prevent starting the model.
+The owner's MB001 inventory identifies an ordinary 1715. Its board revision,
+connector orientation and electrical behavior still require physical verification.
 
 ## Run the existing emulator baseline
 
@@ -55,11 +58,12 @@ not qualified physical X2 signal edges.
 
 ## Next milestones
 
-1. Map the [tested transport reference](hardware/frontend.md) to a bench device,
-   implement its backend and IRQ/RETI path, and measure the electrical interface.
-2. Implement Pico firmware and SD/RAM caching; measure latency on a bus fixture.
-3. Confirm connector identity, electrical behavior and mechanics on the machine.
-4. Freeze schematic and layout only after those checks pass.
+1. Assemble the selected bench modules and verify PSRAM, SD and FPGA programming.
+2. Measure worst-case Pico mailbox latency and translated bus timing on a fixture.
+3. Verify X2 orientation, priority-chain wiring and mechanics on the actual 1715;
+   boot the unchanged ROM and repeat the read/write/persistence tests.
+4. Freeze the schematic, route the PCB, run ERC/DRC, and review manufacturing
+   outputs; qualify assembled prototypes before declaring RTM.
 
 See [hardware requirements](hardware/requirements.md),
 [modelling plan](docs/modelling.md), [classic controller contract](docs/classic-controller.md)
@@ -97,3 +101,16 @@ arguments for the full timing suite.
 **Scheduled bytes are not an electrically qualified hardware design.** Generic
 PIO modes, full motherboard peripherals, other formats and physical bus behavior
 remain outside this qualification.
+
+## Prototype validation
+
+```sh
+make test test-store test-frontend test-irq test-pico-top lint-frontend
+python3 tools/check_classic.py --cosim --dac ../dac-emulation \
+  --rom /path/r1715bt.bin --disk /path/r1715.cpm --out local/rtl-check
+```
+
+RTL co-simulation requires Verilator and a C++ compiler. See
+[reports/rtl-compatibility.json](reports/rtl-compatibility.json) for the nine-case
+result and source hashes, and [the prototype guide](hardware/prototype.md) for
+FPGA and firmware builds. ROMs and disk images remain external.

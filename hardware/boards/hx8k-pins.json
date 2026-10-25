@@ -1,0 +1,537 @@
+{
+  "schema": 1,
+  "board": "Olimex iCE40HX8K-EVB Rev B1",
+  "repository": "https://github.com/OLIMEX/iCE40HX8K-EVB",
+  "commit": "dba688dedb3ae08d05e81a0f56a847f155622d21",
+  "netlist_sha256": "fee2c5cb588c2378f7b09c41ec457541c05a058c175dfa67a4d3bf2b37f39fa7",
+  "signals": [
+    {
+      "signal": "clk100",
+      "board_net": "/SYSCLK",
+      "package_pin": "J3",
+      "header": null
+    },
+    {
+      "signal": "host_addr[0]",
+      "board_net": "/PIO0_00",
+      "package_pin": "C14",
+      "header": [
+        "EXT1",
+        "7"
+      ]
+    },
+    {
+      "signal": "host_addr[1]",
+      "board_net": "/PIO0_01",
+      "package_pin": "B15",
+      "header": [
+        "EXT1",
+        "9"
+      ]
+    },
+    {
+      "signal": "host_addr[2]",
+      "board_net": "/PIO0_02",
+      "package_pin": "D13",
+      "header": [
+        "EXT1",
+        "11"
+      ]
+    },
+    {
+      "signal": "host_addr[3]",
+      "board_net": "/PIO0_03",
+      "package_pin": "B14",
+      "header": [
+        "EXT1",
+        "13"
+      ]
+    },
+    {
+      "signal": "host_addr[4]",
+      "board_net": "/PIO0_04",
+      "package_pin": "C12",
+      "header": [
+        "EXT1",
+        "15"
+      ]
+    },
+    {
+      "signal": "host_addr[5]",
+      "board_net": "/PIO0_05",
+      "package_pin": "E11",
+      "header": [
+        "EXT1",
+        "17"
+      ]
+    },
+    {
+      "signal": "host_addr[6]",
+      "board_net": "/PIO0_06",
+      "package_pin": "C13",
+      "header": [
+        "EXT1",
+        "19"
+      ]
+    },
+    {
+      "signal": "host_addr[7]",
+      "board_net": "/PIO0_07",
+      "package_pin": "A16",
+      "header": [
+        "EXT1",
+        "21"
+      ]
+    },
+    {
+      "signal": "host_din[0]",
+      "board_net": "/PIO0_08",
+      "package_pin": "A15",
+      "header": [
+        "EXT1",
+        "23"
+      ]
+    },
+    {
+      "signal": "host_din[1]",
+      "board_net": "/PIO0_09",
+      "package_pin": "B13",
+      "header": [
+        "EXT1",
+        "25"
+      ]
+    },
+    {
+      "signal": "host_din[2]",
+      "board_net": "/PIO0_10",
+      "package_pin": "E10",
+      "header": [
+        "EXT1",
+        "27"
+      ]
+    },
+    {
+      "signal": "host_din[3]",
+      "board_net": "/PIO0_11",
+      "package_pin": "C11",
+      "header": [
+        "EXT1",
+        "29"
+      ]
+    },
+    {
+      "signal": "host_din[4]",
+      "board_net": "/PIO0_12",
+      "package_pin": "D11",
+      "header": [
+        "EXT1",
+        "31"
+      ]
+    },
+    {
+      "signal": "host_din[5]",
+      "board_net": "/PIO0_13",
+      "package_pin": "B12",
+      "header": [
+        "EXT1",
+        "33"
+      ]
+    },
+    {
+      "signal": "host_din[6]",
+      "board_net": "/PIO0_14",
+      "package_pin": "B10",
+      "header": [
+        "EXT1",
+        "35"
+      ]
+    },
+    {
+      "signal": "host_din[7]",
+      "board_net": "/PIO0_15",
+      "package_pin": "B11",
+      "header": [
+        "EXT1",
+        "37"
+      ]
+    },
+    {
+      "signal": "host_dout[0]",
+      "board_net": "/PIO0_16",
+      "package_pin": "C10",
+      "header": [
+        "EXT1",
+        "39"
+      ]
+    },
+    {
+      "signal": "host_dout[1]",
+      "board_net": "/PIO0_17",
+      "package_pin": "A10",
+      "header": [
+        "EXT1",
+        "40"
+      ]
+    },
+    {
+      "signal": "host_dout[2]",
+      "board_net": "/PIO0_18",
+      "package_pin": "A11",
+      "header": [
+        "EXT1",
+        "38"
+      ]
+    },
+    {
+      "signal": "host_dout[3]",
+      "board_net": "/PIO0_19",
+      "package_pin": "D10",
+      "header": [
+        "EXT1",
+        "36"
+      ]
+    },
+    {
+      "signal": "host_dout[4]",
+      "board_net": "/PIO0_20",
+      "package_pin": "C9",
+      "header": [
+        "EXT1",
+        "34"
+      ]
+    },
+    {
+      "signal": "host_dout[5]",
+      "board_net": "/PIO0_21",
+      "package_pin": "E9",
+      "header": [
+        "EXT1",
+        "32"
+      ]
+    },
+    {
+      "signal": "host_dout[6]",
+      "board_net": "/PIO0_22",
+      "package_pin": "D9",
+      "header": [
+        "EXT1",
+        "30"
+      ]
+    },
+    {
+      "signal": "host_dout[7]",
+      "board_net": "/PIO0_23",
+      "package_pin": "A9",
+      "header": [
+        "EXT1",
+        "28"
+      ]
+    },
+    {
+      "signal": "iorq_n",
+      "board_net": "/PIO0_24",
+      "package_pin": "F9",
+      "header": [
+        "EXT1",
+        "26"
+      ]
+    },
+    {
+      "signal": "m1_n",
+      "board_net": "/PIO0_25",
+      "package_pin": "C8",
+      "header": [
+        "EXT1",
+        "24"
+      ]
+    },
+    {
+      "signal": "mreq_n",
+      "board_net": "/PIO0_26",
+      "package_pin": "F7",
+      "header": [
+        "EXT1",
+        "22"
+      ]
+    },
+    {
+      "signal": "rd_n",
+      "board_net": "/PIO0_27",
+      "package_pin": "B9",
+      "header": [
+        "EXT1",
+        "20"
+      ]
+    },
+    {
+      "signal": "wr_n",
+      "board_net": "/PIO0_28",
+      "package_pin": "D8",
+      "header": [
+        "EXT1",
+        "18"
+      ]
+    },
+    {
+      "signal": "iei",
+      "board_net": "/PIO0_29",
+      "package_pin": "B8",
+      "header": [
+        "EXT1",
+        "16"
+      ]
+    },
+    {
+      "signal": "host_reset_n",
+      "board_net": "/PIO0_30",
+      "package_pin": "A7",
+      "header": [
+        "EXT1",
+        "14"
+      ]
+    },
+    {
+      "signal": "power_good",
+      "board_net": "/PIO0_31",
+      "package_pin": "C7",
+      "header": [
+        "EXT1",
+        "12"
+      ]
+    },
+    {
+      "signal": "host_oe",
+      "board_net": "/PIO0_32",
+      "package_pin": "B7",
+      "header": [
+        "EXT1",
+        "10"
+      ]
+    },
+    {
+      "signal": "wait_pull_low",
+      "board_net": "/PIO0_33",
+      "package_pin": "B6",
+      "header": [
+        "EXT2",
+        "7"
+      ]
+    },
+    {
+      "signal": "int_pull_low",
+      "board_net": "/PIO0_34",
+      "package_pin": "C6",
+      "header": [
+        "EXT2",
+        "9"
+      ]
+    },
+    {
+      "signal": "ieo",
+      "board_net": "/PIO0_35",
+      "package_pin": "D7",
+      "header": [
+        "EXT2",
+        "11"
+      ]
+    },
+    {
+      "signal": "fault",
+      "board_net": "/PIO0_36",
+      "package_pin": "A6",
+      "header": [
+        "EXT2",
+        "13"
+      ]
+    },
+    {
+      "signal": "pico_data[0]",
+      "board_net": "/PIO1_04",
+      "package_pin": "P16",
+      "header": [
+        "EXT2",
+        "28"
+      ]
+    },
+    {
+      "signal": "pico_data[1]",
+      "board_net": "/PIO1_05",
+      "package_pin": "M13",
+      "header": [
+        "EXT2",
+        "26"
+      ]
+    },
+    {
+      "signal": "pico_data[2]",
+      "board_net": "/PIO1_06",
+      "package_pin": "M14",
+      "header": [
+        "EXT2",
+        "24"
+      ]
+    },
+    {
+      "signal": "pico_data[3]",
+      "board_net": "/PIO1_07",
+      "package_pin": "L12",
+      "header": [
+        "EXT2",
+        "22"
+      ]
+    },
+    {
+      "signal": "pico_data[4]",
+      "board_net": "/PIO1_08",
+      "package_pin": "N16",
+      "header": [
+        "EXT2",
+        "20"
+      ]
+    },
+    {
+      "signal": "pico_data[5]",
+      "board_net": "/PIO1_09",
+      "package_pin": "L13",
+      "header": [
+        "EXT2",
+        "18"
+      ]
+    },
+    {
+      "signal": "pico_data[6]",
+      "board_net": "/PIO1_10",
+      "package_pin": "L14",
+      "header": [
+        "EXT2",
+        "16"
+      ]
+    },
+    {
+      "signal": "pico_data[7]",
+      "board_net": "/PIO1_11",
+      "package_pin": "K12",
+      "header": [
+        "EXT2",
+        "14"
+      ]
+    },
+    {
+      "signal": "pico_reg[0]",
+      "board_net": "/PIO1_12",
+      "package_pin": "M16",
+      "header": [
+        "EXT2",
+        "12"
+      ]
+    },
+    {
+      "signal": "pico_reg[1]",
+      "board_net": "/PIO1_13",
+      "package_pin": "J10",
+      "header": [
+        "EXT2",
+        "10"
+      ]
+    },
+    {
+      "signal": "pico_reg[2]",
+      "board_net": "/PIO1_14",
+      "package_pin": "M15",
+      "header": [
+        "EXT3",
+        "7"
+      ]
+    },
+    {
+      "signal": "pico_reg[3]",
+      "board_net": "/PIO1_15",
+      "package_pin": "J11",
+      "header": [
+        "EXT3",
+        "9"
+      ]
+    },
+    {
+      "signal": "pico_write",
+      "board_net": "/PIO1_16",
+      "package_pin": "L16",
+      "header": [
+        "EXT3",
+        "11"
+      ]
+    },
+    {
+      "signal": "pico_request",
+      "board_net": "/PIO1_17",
+      "package_pin": "K13",
+      "header": [
+        "EXT3",
+        "13"
+      ]
+    },
+    {
+      "signal": "pico_ack",
+      "board_net": "/PIO1_18",
+      "package_pin": "K14",
+      "header": [
+        "EXT3",
+        "15"
+      ]
+    },
+    {
+      "signal": "pico_index",
+      "board_net": "/PIO1_19",
+      "package_pin": "J15",
+      "header": [
+        "EXT3",
+        "17"
+      ]
+    },
+    {
+      "signal": "pico_mark",
+      "board_net": "/PIO1_20",
+      "package_pin": "K15",
+      "header": [
+        "EXT3",
+        "19"
+      ]
+    },
+    {
+      "signal": "ack_toggle",
+      "board_net": "/PIO1_21",
+      "package_pin": "K16",
+      "header": [
+        "EXT3",
+        "21"
+      ]
+    },
+    {
+      "signal": "reti_toggle",
+      "board_net": "/PIO1_22",
+      "package_pin": "J14",
+      "header": [
+        "EXT3",
+        "23"
+      ]
+    },
+    {
+      "signal": "ack_index",
+      "board_net": "/PIO1_23",
+      "package_pin": "J12",
+      "header": [
+        "EXT3",
+        "25"
+      ]
+    },
+    {
+      "signal": "backend_ready",
+      "board_net": "/PIO1_24",
+      "package_pin": "J13",
+      "header": [
+        "EXT3",
+        "27"
+      ]
+    }
+  ]
+}

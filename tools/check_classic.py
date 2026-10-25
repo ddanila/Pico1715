@@ -6,6 +6,8 @@ import json
 import os
 from pathlib import Path
 import shutil
+import sys
+import re
 import subprocess
 from classic_workload import install, small_file
 
@@ -28,7 +30,10 @@ def main():
     for key in ('dac', 'rom', 'disk', 'out'):
         parser.add_argument('--' + key, type=Path, required=True)
     parser.add_argument('--timed', action='store_true', help='scheduled 250 kbit/s bytes with transaction waits')
+    parser.add_argument("--cosim", action="store_true", help="run normal I/O and IRQ/RETI through Verilated RTL")
     args = parser.parse_args()
+    if args.cosim:
+        args.timed = True
     dac, rom, disk, out = (getattr(args, k).resolve() for k in ('dac', 'rom', 'disk', 'out'))
     pin = json.loads((ROOT / 'docs/sources.json').read_text())['dac']['commit']
     revision = subprocess.check_output(['git', '-C', str(dac), 'rev-parse', 'HEAD'], text=True).strip()
@@ -38,11 +43,17 @@ def main():
     require(digest(rom) == ROM_HASH and digest(disk) == DISK_HASH, 'unqualified external ROM/image')
     out.mkdir(parents=True, exist_ok=False)
     binary = out / 'classic-probe'
-    subprocess.run(['cc', '-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-I', str(dac),
-                    str(ROOT / 'tools/classic_probe.c'), str(ROOT / 'model/controller.c'),
-                    str(dac / 'machines/robotron1715/pc1715.c'),
-                    str(dac / 'common/cpu/z80.c'), str(dac / 'common/trace/trace.c'),
-                    '-o', str(binary)], check=True, timeout=120)
+    if args.cosim:
+        subprocess.run([sys.executable, str(ROOT / 'tools/build_cosim.py'), '--dac', str(dac),
+                        '--out', str(out / 'build')], check=True, timeout=180)
+        shutil.copyfile(out / 'build/classic-probe', binary)
+        binary.chmod(0o755)
+    else:
+        subprocess.run(['cc', '-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-I', str(dac),
+                        str(ROOT / 'tools/classic_probe.c'), str(ROOT / 'model/controller.c'),
+                        str(dac / 'machines/robotron1715/pc1715.c'),
+                        str(dac / 'common/cpu/z80.c'), str(dac / 'common/trace/trace.c'),
+                        '-o', str(binary)], check=True, timeout=120)
     for source, name in [('LICENSE', 'dac-LICENSE'), ('NOTICE', 'dac-NOTICE'),
                          ('third_party/cpu/chips/LICENSE', 'chips-LICENSE')]:
         shutil.copyfile(dac / source, out / name)
@@ -60,10 +71,16 @@ def main():
         elif readonly:
             cmd.append('readonly')
         before = digest(media)
-        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=60, env=environment)
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=180 if args.cosim else 60, env=environment)
         (folder / 'stderr.txt').write_text(proc.stderr)
         require(proc.returncode == (1 if absent else 0), f'{name}: probe failed: {proc.stderr}')
         report = json.loads(proc.stdout)
+        if args.cosim:
+            stats = re.search(r'RTL requests=(\d+) acks=(\d+) reti=(\d+)', proc.stderr)
+            require(stats is not None, 'missing RTL evidence')
+            report['rtl'] = dict(zip(('requests', 'acks', 'reti'), map(int, stats.groups())))
+            require(absent or all(report['rtl'][key] > 0 for key in ('requests', 'acks', 'reti')),
+                    'RTL path not exercised')
         screen = (folder / 'screen.txt').read_text()
         require(report['rom_handoff_target'] == (0 if absent else 0xd900), f'{name}: wrong ROM handoff')
         require(digest(media) == before, f'{name}: input modified')
@@ -109,12 +126,17 @@ def main():
             'absent media generated disk activity')
     require(missing['input_sha256'] == missing['output_sha256'], 'absent media changed image')
     require(digest(rom) == ROM_HASH and digest(disk) == DISK_HASH, 'external inputs changed')
-    report = {'schema': 2, 'profile': 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
+    report = {'schema': 2, 'profile': 'pc1715-rtl-cosim' if args.cosim else 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
               'rom_sha256': ROM_HASH, 'disk_sha256': DISK_HASH, 'rom_patched': False,
               'bios_patched': False, 'hardware_timing_qualified': False,
               'source_sha256': {name: digest(ROOT / name) for name in
                   ('model/controller.c', 'model/controller.h', 'tools/classic_probe.c',
                    'tools/classic_workload.py', 'tools/check_classic.py')}, 'cases': results}
+    if args.cosim:
+        report['source_sha256'].update({name: digest(ROOT / name) for name in
+            ('hardware/rtl/bus_frontend.v', 'hardware/rtl/irq_frontend.v', 'hardware/rtl/cosim_top.v',
+             'tools/cosim/bridge.cpp', 'tools/cosim/bridge.h', 'tools/build_cosim.py')})
+        report['limitations'] = 'C disk/controller backend; transaction-level waits; RTL normal I/O and IRQ/RETI; not physical timing'
     (out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(f'{len(results)} classic compatibility cases passed; report: {out / "report.json"}')
 

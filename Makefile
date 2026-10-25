@@ -32,3 +32,24 @@ lint-frontend:
 synth-frontend:
 	@mkdir -p build
 	yosys -Q -T -p 'read_verilog -sv hardware/rtl/bus_frontend.v; synth -top bus_frontend; check -assert; stat' > build/frontend-synthesis.log
+
+.PHONY: test-irq
+test-irq: build/irq-test
+	vvp build/irq-test
+build/irq-test: hardware/rtl/irq_frontend.v tests/irq_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s irq_tb -o $@ $^
+
+.PHONY: test-store
+test-store: build/store-test
+	./build/store-test
+build/store-test: tests/store_test.c firmware/store.c firmware/store.h firmware/sd_crc.h
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(WARN) tests/store_test.c firmware/store.c -o $@
+
+.PHONY: test-pico-top
+test-pico-top: build/pico-top-test
+	vvp build/pico-top-test
+build/pico-top-test: hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v tests/pico_top_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s pico_top_tb -o $@ $^

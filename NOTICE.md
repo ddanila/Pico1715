@@ -22,3 +22,11 @@ binary is redistributed here. Preserve those notices if distributing that build.
 ROMs, OS images and manual PDFs remain external inputs. Their hashes and source
 locations document identity, not a redistribution grant. The captured trace may
 include guest data and is not published automatically.
+
+The prototype firmware links the separately installed Raspberry Pi Pico SDK
+2.2.0 (BSD-3-Clause and its dependency notices). No SDK sources are vendored.
+The PSRAM driver is original code using documented AP Memory commands and
+RP2350 SDK register definitions. Olimex Rev B1 pin facts were extracted from
+its published netlist; no board schematic or layout was copied. The linked
+RP2040 spi-flasher programmer is an optional external GPL-2.0 tool, not part of
+this firmware or the MIT source distribution.
