@@ -7,8 +7,7 @@ The pinned DAC revision provides `machines/robotron1715`: a headless Z80,
 and an external-card callback interface. Pico1715's `model/controller.c`
 implements the card through that interface. It receives full I/O addresses,
 read/write cycles, ticks, reset, IRQ acknowledgement and RETI, but has no access
-to guest memory or instruction addresses. No DAC changes were needed for this
-controller milestone.
+to guest memory or instruction addresses. DAC now also supplies a deferred-I/O callback for transaction waits.
 
 `tools/classic_probe.c` composes that motherboard with the card and a minimal
 SIO receive fixture. Keyboard E0/ASCII frames arrive through I/O, and the
@@ -26,24 +25,20 @@ process exit or an observed ROM jump alone is not the acceptance criterion.
 See [the report](../reports/classic-compatibility.json) and
 [controller contract](classic-controller.md).
 
-## What the functional model deliberately abstracts
+## Scheduled timing and its limits
 
-Each I/O callback is delivered once per bus cycle. An input consumes one field
-byte; neither disk rotation nor PIO handshakes determine when that byte appears.
-A valid completed write updates a sector atomically. IRQ handling implements
-the sequences exercised by the qualified ROM/SCP, not every UB855 mode.
+The optional timed profile independently clocks receive and transmit bytes,
+implements register backpressure through DAC transaction waits, and exposes
+lost-byte/CRC/delay/reset faults. All nine scenarios pass in timed mode. See the
+[timing contract](timing-contract.md) for evidence, 36 experiments, exact delay
+semantics and remaining limitations.
 
-This is a usable stock-software regression model, not a cycle-accurate FDC.
-The next layer must explicitly model mark/byte availability, read overruns,
-PIO strobes and interrupt edges, CPU wait deadlines, and abort/reset behavior.
-Do not carry demand-driven byte generation directly into Pico firmware and
-assume the real Z80 will wait for it.
-
-DAC's card seam currently has no /WAIT, external-memory inhibition or DMA.
-SIO/CTC/CRT are not fully modelled on the plain motherboard. The keyboard fixture
-and screen observer make headless software tests possible without claiming
-complete peripheral emulation. Physical bus timing, connector identity,
-voltage translation and power sequencing remain separate qualification gates.
+Legacy functional mode remains a demand-driven comparison. Neither mode is a
+flux or full PIO simulation. Field acquisition is synthetic, valid writes update
+sectors atomically, and the WAIT adapter cannot qualify physical sampling edges.
+SIO/CTC/CRT are not fully modelled. External-memory inhibition and DMA are not
+implemented on the plain card seam. Connector identity, voltage translation,
+power sequencing and physical bus timing remain separate qualification gates.
 
 ## W/M baseline remains separate
 

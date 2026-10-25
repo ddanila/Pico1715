@@ -12,6 +12,11 @@ build/controller-test: tests/controller_test.c model/controller.c model/controll
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(WARN) tests/controller_test.c model/controller.c -o $@
 
-test: build/controller-test
+build/timing-test: tests/timing_test.c model/controller.c model/controller.h
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(WARN) tests/timing_test.c model/controller.c -o $@
+
+test: build/controller-test build/timing-test
+	./build/timing-test
 	./build/controller-test
 	python3 -m unittest discover -s tests -v

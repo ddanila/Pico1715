@@ -26,10 +26,8 @@ a sector-read mailbox. It is a working interpretation to verify against the
 controller schematic and the rest of the ROM. Software names such as `WaitRDY`
 are disassembler annotations, not proof of the physical signal driving them.
 
-Next: identify all PIO initialization words, status-bit producers, interrupt
-conditions and field/CRC data sequences. Establish whether repeated reads stall
-through /WAIT or depend on handshake timing. Check OS writes independently:
-successful boot-ROM reads would not qualify formatting or disk writes.
+The functional contract below and the newer [timing contract](timing-contract.md)
+record the subsequent PIO, write-path and handshake investigation.
 
 The W/M baseline at ports 40h/41h and its DMA cannot validate this interface.
 
@@ -118,26 +116,16 @@ mode-direction parsing, reset during an incomplete write, absent selection,
 unsupported density, and
 rejection of short, protected and corrupt-CRC writes.
 
-## What remains before stages 1 and 2 are fully closed
+## Scheduled-byte follow-up and remaining scope
 
-The **stock-software functional milestone passes** for these reference assets.
-This does not close the complete physical controller contract:
+The [timing milestone](timing-contract.md) now adds independent byte clocks,
+transaction waits, delay sweeps, missed bytes, CRC failures and mid-transfer
+reset recovery while preserving all nine software cases. Its report is separate
+from the historical functional report above.
 
-- Field delivery is demand-driven. Each accepted input cycle consumes one byte;
-  there is no shift-register clock, overrun, /WAIT, or exact mark/byte handshake.
-  The SD-card firmware must not depend on that simplification. Derive and test
-  worst-case response latency and buffering before choosing bus logic.
-- Index and mark interrupts implement the observed sequences, not all PIO modes,
-  nested daisy-chain behavior, or a complete CTC/SIO system.
-- Keyboard input is a headless SIO receive fixture delivering E0/ASCII frames.
-  Screen evidence is decoded from this SCP's RAM at F800h, not a simulated CRT.
-- Only drive A, one raw geometry and one SCP revision are qualified. Other ROMs,
-  OS revisions, disk geometries, detailed timeout/retry behavior, read-CRC
-  failures, mid-command reset and realistic delayed-byte faults still need
-  end-to-end coverage.
-- Confirm the owner's board revision, X2 orientation, interrupt-chain contact
-  discrepancy, electrical levels and reset behavior against physical evidence.
-
-Next high-value step: introduce timed byte/mark handshakes and explicit fault
-injection while retaining these software tests as the compatibility baseline.
-Do not label this model electrically validated or ready for PCB manufacture.
+Remaining gaps include continuous track rotation/flux, full PIO modes and nested
+interrupt chains, damaged-track writes, other drives/geometries/ROMs/OS versions,
+and full motherboard peripherals. Confirm the owner's board revision, X2
+orientation, interrupt-chain contact discrepancy, electrical levels and reset
+behavior before PCB manufacture. The [hardware requirements](../hardware/timing-requirements.md)
+identify the next prototype and measurement gates.

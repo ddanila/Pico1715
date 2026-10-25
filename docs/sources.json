@@ -3,10 +3,10 @@
   "reviewed": "2026-10-25",
   "dac": {
     "repository": "https://github.com/ddanila/dac-emulation",
-    "commit": "5dc3ab52dec0e8c647a3fbeebb74e04cd1f18d4f",
+    "commit": "59823402bd3209ca46f6ace0729f60989ed29e39",
     "profile": "robotron1715m-wm-reference",
     "license": "MIT plus dependencies/reference notices in external NOTICE",
-    "limitation": "Plain motherboard is headless; Pico1715 now supplies an external functional PIO/controller model. Byte/bus timing is not qualified. W/M remains a separate baseline.",
+    "limitation": "Plain motherboard is headless; Pico1715 supplies functional and scheduled-byte controller profiles. Transaction waits are modelled; physical timing remains unqualified. W/M remains separate.",
     "profiles": {
       "robotron1715": "kind 3; headless plain CPU/memory/bus and native card seam",
       "robotron1715m": "kind 2; bootable W/M reference"
@@ -41,6 +41,18 @@
       "name": "MAME rt1715",
       "url": "https://github.com/mamedev/mame/blob/master/src/mame/robotron/rt1715.cpp",
       "role": "Family/profile comparison; classic floppy support incomplete",
+      "redistributed": false
+    },
+    {
+      "name": "Zilog Z80 CPU user manual UM0080",
+      "url": "https://www.zilog.com/docs/z80/um0080.pdf",
+      "role": "I/O cycles and WAIT sampling; PDF pages 23\u201324",
+      "redistributed": false
+    },
+    {
+      "name": "Zilog Z80 peripherals user manual UM0081",
+      "url": "https://www.zilog.com/docs/z80/um0081.pdf",
+      "role": "PIO ready/strobe timing; PDF pages 211\u2013213",
       "redistributed": false
     }
   ]

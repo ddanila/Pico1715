@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -26,6 +27,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for key in ('dac', 'rom', 'disk', 'out'):
         parser.add_argument('--' + key, type=Path, required=True)
+    parser.add_argument('--timed', action='store_true', help='scheduled 250 kbit/s bytes with transaction waits')
     args = parser.parse_args()
     dac, rom, disk, out = (getattr(args, k).resolve() for k in ('dac', 'rom', 'disk', 'out'))
     pin = json.loads((ROOT / 'docs/sources.json').read_text())['dac']['commit']
@@ -45,6 +47,9 @@ def main():
                          ('third_party/cpu/chips/LICENSE', 'chips-LICENSE')]:
         shutil.copyfile(dac / source, out / name)
     results = {}
+    environment = {k: v for k, v in os.environ.items() if not k.startswith('PICO1715_')}
+    if args.timed:
+        environment['PICO1715_TIMED'] = '0'
 
     def run(name, media, command='', readonly=False, absent=False):
         folder = out / name
@@ -55,7 +60,7 @@ def main():
         elif readonly:
             cmd.append('readonly')
         before = digest(media)
-        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=60)
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=60, env=environment)
         (folder / 'stderr.txt').write_text(proc.stderr)
         require(proc.returncode == (1 if absent else 0), f'{name}: probe failed: {proc.stderr}')
         report = json.loads(proc.stdout)
@@ -63,6 +68,10 @@ def main():
         require(report['rom_handoff_target'] == (0 if absent else 0xd900), f'{name}: wrong ROM handoff')
         require(digest(media) == before, f'{name}: input modified')
         require((readonly or 'BIOS ERR' not in screen) and 'PICO TEST FAILED' not in screen, f'{name}: guest failure')
+        if args.timed:
+            require(report['timed'] == 1, f'{name}: timed model not enabled')
+            require(all(report[k] == 0 for k in ('overruns', 'underflows', 'tx_overruns', 'tx_underruns')),
+                    f'{name}: unexpected timing fault')
         report['input_sha256'] = before
         report['output_sha256'] = digest(folder / 'disk.img')
         report['screen'] = '\n'.join(line.rstrip() for line in screen.splitlines()).rstrip()
@@ -100,7 +109,7 @@ def main():
             'absent media generated disk activity')
     require(missing['input_sha256'] == missing['output_sha256'], 'absent media changed image')
     require(digest(rom) == ROM_HASH and digest(disk) == DISK_HASH, 'external inputs changed')
-    report = {'schema': 1, 'profile': 'pc1715-functional-card', 'dac_commit': revision,
+    report = {'schema': 2, 'profile': 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
               'rom_sha256': ROM_HASH, 'disk_sha256': DISK_HASH, 'rom_patched': False,
               'bios_patched': False, 'hardware_timing_qualified': False,
               'source_sha256': {name: digest(ROOT / name) for name in

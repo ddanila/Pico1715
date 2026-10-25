@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <errno.h>
 
 static FILE *logfile;
 /* Headless motherboard fixture, separate from the expansion card. It injects
@@ -54,6 +55,16 @@ static int read_file(const char *path, uint8_t *b, size_t n) {
   int ok = fread(b, 1, n, f) == n && fgetc(f) == EOF && !ferror(f);
   fclose(f); return ok;
 }
+static unsigned option(const char *name, unsigned fallback, unsigned maximum) {
+  const char *value = getenv(name);
+  if (!value) return fallback;
+  char *end; errno = 0;
+  unsigned long n = strtoul(value, &end, 10);
+  if (errno || !*value || *end || *value == '-' || n > maximum) {
+    fprintf(stderr, "invalid %s\n", name); exit(2);
+  }
+  return (unsigned)n;
+}
 int main(int argc, char **argv) {
   if (argc < 4 || argc > 6) {
     fprintf(stderr, "usage: %s ROM RAW-80x2x5x1024 EMPTY-OUTPUT-DIR [command] [readonly|absent]\n", argv[0]);
@@ -79,14 +90,41 @@ int main(int argc, char **argv) {
   if (pico1715_mount(&f.controller, disk, 819200, 80, 2, 5, 3)) return 2;
   f.controller.writable = argc != 6; /* Only this process-owned copy can be modified. */
   if (argc == 6 && !strcmp(argv[5], "absent")) f.controller.image = NULL;
+  if (getenv("PICO1715_TIMED")) {
+    f.controller.timing.enabled = 1;
+    f.controller.timing.read_delay = option("PICO1715_TIMED", 0, 1000000);
+    f.controller.timing.write_delay = option("PICO1715_WRITE_DELAY", 0, 1000000);
+    f.controller.timing.mark_delay = option("PICO1715_MARK_DELAY", 0, 1000000);
+    f.controller.timing.irq_delay = option("PICO1715_IRQ_DELAY", 0, 1000000);
+    f.controller.timing.fifo_depth = option("PICO1715_FIFO", 1, 16);
+    f.controller.timing.drop_byte = option("PICO1715_DROP_BYTE", 0, 1030);
+    f.controller.timing.corrupt_crc = option("PICO1715_CORRUPT_CRC", 0, 1);
+    f.controller.timing.no_wait = option("PICO1715_NO_WAIT", 0, 1);
+  }
+  unsigned reset_phase = option("PICO1715_RESET_PHASE", 0, 2);
+  unsigned resets = 0, reset_unchanged = 0;
+  uint64_t reset_at = 0;
+  uint8_t *reset_image = reset_phase ? malloc(819200) : NULL;
+  if (reset_phase && !reset_image) return 2;
   pc1715_card card = {&f, input, output, pico1715_tick,
-    pico1715_irq, pico1715_ack, pico1715_reti, pico1715_reset};
+    pico1715_irq, pico1715_ack, pico1715_reti, pico1715_reset, pico1715_wait};
   pc1715_attach(m, &card);
   m->trace = (dac_trace_sink){trace, NULL, 0, 0};
   uint64_t handoff = 0;
   unsigned target = 0;
   for (unsigned i = 0; i < 100000000; i++) {
     pc1715_run(m, 1);
+    if (!resets && ((reset_phase == 1 && f.controller.stream_active &&
+                     f.controller.pos > 16) ||
+                    (reset_phase == 2 && f.controller.write_active &&
+                     f.controller.write_pos > 16))) {
+      memcpy(reset_image, disk, 819200);
+      pc1715_reset(m);
+      reset_unchanged = !memcmp(reset_image, disk, 819200);
+      resets++; reset_at = i + 1;
+      f.key_pos = f.key_half = f.sio_register = 0; f.key_due = 20000000;
+      handoff = 0; target = 0;
+    }
     if (!handoff && m->cpu.cpu.pc == 0x204) {
       handoff = m->cpu.cycles;
       target = m->ram[0x81e] | (m->ram[0x81f] << 8);
@@ -97,10 +135,18 @@ int main(int argc, char **argv) {
     ",\"rom_handoff_target\":%u,\"fields\":%" PRIu64 ",\"bytes\":%" PRIu64
     ",\"index_interrupts\":%" PRIu64 ",\"steps\":%" PRIu64
     ",\"cylinder\":%u,\"sector\":%u,\"format\":%u,\"control\":%u,"
-    "\"writes\":%" PRIu64 ",\"rejected_writes\":%" PRIu64 "}\n",
+    "\"writes\":%" PRIu64 ",\"rejected_writes\":%" PRIu64
+    ",\"timed\":%u,\"wait_ticks\":%" PRIu64 ",\"arrivals\":%" PRIu64
+    ",\"overruns\":%" PRIu64 ",\"underflows\":%" PRIu64
+    ",\"drops\":%" PRIu64 ",\"tx_overruns\":%" PRIu64
+    ",\"tx_underruns\":%" PRIu64 ",\"max_read_age\":%" PRIu64
+    ",\"max_tx_interval\":%" PRIu64 ",\"resets\":%u,\"reset_at\":%" PRIu64
+    ",\"reset_image_unchanged\":%u}\n",
     m->cpu.cycles, m->cpu.cpu.pc, handoff, target, c.fields, c.bytes,
     c.interrupts, c.steps, c.cylinder, c.sector, c.format, c.control,
-    c.writes, c.rejected_writes);
+    c.writes, c.rejected_writes, c.timing.enabled, m->wait_ticks, c.arrivals,
+    c.overruns, c.underflows, c.drops, c.tx_early, c.tx_late, c.max_read_age,
+    c.max_tx_interval, resets, reset_at, reset_unchanged);
   /* Local diagnostic dump; never modify ROM or disk source files. */
   fwrite(m->ram, 1, sizeof(m->ram), outputs[1]);
   fwrite(disk, 1, 819200, outputs[2]);
@@ -116,6 +162,6 @@ int main(int argc, char **argv) {
     if (ferror(outputs[i])) failed = 1;
     if (fclose(outputs[i])) failed = 1;
   }
-  free(m); free(disk);
+  free(reset_image); free(m); free(disk);
   return handoff && !failed ? 0 : 1;
 }

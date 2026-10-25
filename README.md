@@ -6,8 +6,10 @@ Original project code and design files are MIT licensed; see [LICENSE](LICENSE).
 
 ## Status
 
-The functional card model boots the unchanged classic ROM into SCP 0006 and
-passes directory, file read/write, cold-reboot persistence and deletion tests.
+The scheduled-byte card model boots the unchanged classic ROM into SCP 0006 and
+passes nine software regressions plus 36 latency/fault experiments.
+See the [timing results](docs/timing-contract.md) and
+[hardware requirements derived from them](hardware/timing-requirements.md).
 No PCB, Pico firmware or electrical/timing qualification is claimed yet.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
@@ -50,13 +52,11 @@ not qualified physical X2 signal edges.
 
 ## Next milestones
 
-1. Close the remaining physical controller contract: byte timing, handshakes,
-   interrupt behavior and error recovery. Functional ROM/SCP behavior is tested.
-2. Add timed-byte and fault-injection coverage to the plain model, keeping the
-   nine passing software scenarios as regressions.
-3. Implement Pico firmware, SD caching and the bus frontend, then measure latency.
-4. Freeze schematic/connector/mechanics and create the prototype PCB after those
-   checks pass.
+1. Prototype deterministic bus decode, /WAIT, data gating and IRQ handling using
+   the [timing requirements](hardware/timing-requirements.md).
+2. Implement Pico firmware and SD/RAM caching; measure latency on a bus fixture.
+3. Confirm connector identity, electrical behavior and mechanics on the machine.
+4. Freeze schematic and layout only after those checks pass.
 
 See [hardware requirements](hardware/requirements.md),
 [modelling plan](docs/modelling.md), [classic controller contract](docs/classic-controller.md)
@@ -89,6 +89,8 @@ contract tests also cover malformed writes and interrupt/reset behavior.
 
 See [reports/classic-compatibility.json](reports/classic-compatibility.json) and
 [the controller contract and remaining gaps](docs/classic-controller.md).
-**Demand-driven fields are not a timing-qualified hardware design.** Generic
+Use `--timed` for scheduled bytes, or `tools/check_timing.py` with the same
+arguments for the full timing suite.
+**Scheduled bytes are not an electrically qualified hardware design.** Generic
 PIO modes, full motherboard peripherals, other formats and physical bus behavior
 remain outside this qualification.

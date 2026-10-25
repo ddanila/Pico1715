@@ -34,3 +34,6 @@ from ordinary /IORQ reads and writes, and verify PIO interrupt-chain requirement
 Do not substitute emulated RAM for display-accessed RAM until memory inhibition,
 display fetches and bus arbitration are understood. A successful software boot
 does not establish electrical safety or timing margin.
+
+See [timing and buffering requirements](timing-requirements.md) for the scheduled-byte
+results, proposed 16 KiB track buffering, frontend split and measurement gates.
