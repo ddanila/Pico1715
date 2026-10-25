@@ -34,8 +34,9 @@ storage callbacks. No invented port interface should replace the stock interface
 Derive register, PIO handshake, status, transfer and interrupt expectations from
 the ROM/manual, and test them independently of the emulator's device model.
 
-An ordinary-1715 profile will supply the CPU, memory and onboard peripherals;
-its external-controller accesses will dispatch to the card core. The same core
+The ordinary-1715 headless profile now supplies CPU, flat RAM and ROM overlay,
+with native external-card callbacks. Onboard peripherals are still unimplemented;
+the card core will supply controller responses through that seam. The same core
 can later run behind a Pico bus frontend. CPU/display timing, controller status
 deadlines and physical electrical qualification remain distinct checks.
 
@@ -48,3 +49,17 @@ deadlines and physical electrical qualification remain distinct checks.
 - Independent response expectations and bounded-time failures rather than hangs.
 - Separate reports for classic 1715 and W/M; no extrapolated family-wide success.
 - Physical bus timing and voltage tests before plugging a fabricated card in.
+
+## Implemented integration foundation
+
+DAC commit `5dc3ab52dec0e8c647a3fbeebb74e04cd1f18d4f` adds runtime kind 3,
+verification name `robotron1715`, and `dac_pc1715_attach` for native card models.
+I/O callbacks and interrupt acknowledgements are delivered once per bus cycle;
+RAM trace events retain DAC's per-tick convention. IRQ, RETI, reset and tick
+callbacks are available; /WAIT, external memory inhibition and DMA are not.
+
+Synthetic tests cover overlay writes, ROM disable, FIFO-read delivery, IRQ/RETI,
+reset, split-run equivalence and runtime rejection of unsupported devices.
+The external classic ROM runs for 10 million ticks and reaches PC 0412h in the
+controller-ready wait. No original controller is attached, and no disk boot or
+physical timing qualification is claimed. The W/M profile stays separate.

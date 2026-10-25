@@ -12,7 +12,8 @@ PROFILE = 'robotron1715m-wm-reference'
 SOURCES = [
     'machines/robotron1715m/robotron.c',
     'machines/robotron1715m/disk.c',
-    'machines/robotron1715m/keyboard.c',
+    'machines/robotron1715m/keyboard_board.c',
+    'machines/robotron1715m/keyboard_cpu.c',
     'machines/robotron1715m/sio.c',
     'common/cpu/z80.c', 'common/media/media.c', 'common/trace/trace.c',
 ]

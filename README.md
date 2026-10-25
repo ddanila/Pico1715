@@ -51,7 +51,7 @@ not qualified physical X2 signal edges.
 
 1. Establish the ordinary 1715 PIO/controller contract from schematics, boot ROM
    and SCP routines, with explicit differences from W/M.
-2. Add a separate ordinary-1715 machine profile and a portable card model with
+2. Attach a portable card model to DAC's new ordinary-1715 profile with
    independent expected responses. Run the original boot sequence against it.
 3. Boot, read, write and reboot an SD-image equivalent without changing guest ROM
    or BIOS. Test absent media, write protection, reset and timing boundaries.
@@ -63,3 +63,22 @@ See [hardware requirements](hardware/requirements.md),
 and [licensing/provenance](NOTICE.md). The initial passing W/M run is recorded in
 [reports/wm-baseline.json](reports/wm-baseline.json); local reference identities
 are listed in [docs/local-evidence.json](docs/local-evidence.json).
+
+## Plain PC1715 model
+
+The pinned DAC revision now includes `machines/robotron1715`, runtime kind 3,
+with 64 KB RAM, the original ROM overlay and native card callbacks. The stock
+reference ROM reaches its controller-ready wait without patching. This is a
+headless motherboard foundation; PIO/controller, onboard peripherals, display
+and OS boot are still unimplemented.
+
+```sh
+make -C ../dac-emulation build/pc1715-probe test-pc1715
+python3 ../dac-emulation/tools/check_pc1715_rom.py /path/r1715bt.bin \
+  --report local/plain-rom-check.json
+```
+
+The checker requires the specific ROM hash documented in
+[the classic-controller notes](docs/classic-controller.md). It never interprets
+startup progress as successful floppy boot. See
+[the recorded startup result](reports/classic-startup.json).

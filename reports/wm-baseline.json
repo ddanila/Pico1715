@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "profile": "robotron1715m-wm-reference",
-  "dac_commit": "d71829a993c864e4583bf209c1babf19f739c079",
+  "dac_commit": "5dc3ab52dec0e8c647a3fbeebb74e04cd1f18d4f",
   "adapter_sha256": "0b83bc77f2286ff2fd6d640c2acb43e028a3c68649749c98a6f61e9c06d8a82a",
-  "binary_sha256": "a7f4657267f6283564c9739d8f313af5108c15c9d7d4996bfa5781ab579492da",
+  "binary_sha256": "c7aaddd8678951650619a2e131ab5e66bdacf07efaf483ec04072405512484a3",
   "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
   "inputs": {
     "rom": {

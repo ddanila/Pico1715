@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "rom_sha256": "51cb80639b5667f2611da71ce7305061566cf3474bda7db6fc82709d08e46d01",
+  "qualification": "stock ROM startup into missing-controller wait only",
+  "checks": {
+    "exact_budget": true,
+    "overlay_disabled": true,
+    "startup_controller_writes": true,
+    "in_controller_wait": true,
+    "no_disk_boot_claim": true,
+    "input_unchanged": true
+  },
+  "passed": true,
+  "result": {
+    "profile": "pc1715-headless-no-controller",
+    "clock_hz": 2458000,
+    "cycles": 10000000,
+    "pc": 1042,
+    "rom_enabled": 0,
+    "io_reads": 0,
+    "io_writes": 58,
+    "unclaimed_reads": 0,
+    "disk_boot_supported": false,
+    "ports": [
+      {
+        "port": 0,
+        "reads": 0,
+        "writes": 3
+      },
+      {
+        "port": 1,
+        "reads": 0,
+        "writes": 3
+      },
+      {
+        "port": 2,
+        "reads": 0,
+        "writes": 3
+      },
+      {
+        "port": 3,
+        "reads": 0,
+        "writes": 3
+      },
+      {
+        "port": 4,
+        "reads": 0,
+        "writes": 11
+      },
+      {
+        "port": 5,
+        "reads": 0,
+        "writes": 11
+      },
+      {
+        "port": 6,
+        "reads": 0,
+        "writes": 5
+      },
+      {
+        "port": 7,
+        "reads": 0,
+        "writes": 6
+      },
+      {
+        "port": 32,
+        "reads": 0,
+        "writes": 9
+      },
+      {
+        "port": 33,
+        "reads": 0,
+        "writes": 3
+      },
+      {
+        "port": 40,
+        "reads": 0,
+        "writes": 1
+      }
+    ]
+  }
+}
