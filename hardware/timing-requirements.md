@@ -77,3 +77,7 @@ mandating a CPLD. A small frontend prototype is the next decision gate.
    measure worst-case latency under cache misses and storage stalls.
 5. Only then freeze schematic, BOM, connector/mechanical drawing and layout;
    run ERC/DRC and manufacturing review before ordering prototypes.
+
+The [executable frontend reference](frontend.md) now implements normal-I/O
+decode, waits, read gating and mailbox fault handling. It provides a GPIO budget
+and bench handoff; IRQ/RETI and physical timing remain open.

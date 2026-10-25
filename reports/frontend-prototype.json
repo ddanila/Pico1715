@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "profile": "normal-io-frontend-reference",
+  "physical_timing_qualified": false,
+  "stock_software_cosimulated": false,
+  "device_fitted": false,
+  "fixture_clock_hz": 50000000,
+  "watchdog_cycles": 4096,
+  "checks": 7208,
+  "completed_transactions": 556,
+  "tools": {
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()",
+    "verilator": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1)",
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)"
+  },
+  "validation": [
+    "model unit tests",
+    "RTL simulation",
+    "RTL lint",
+    "generic synthesis and structural check"
+  ],
+  "source_sha256": {
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "tests/frontend_tb.v": "8c3f2356b9d4a9fc7272fbabd02c4ce1f636085a9bd154262fc797be458c7f7d",
+    "tools/check_frontend.py": "94473d6369e2c7f27ccb3009786887166898936f66b1e4e74b862a6fa87ac5ee",
+    "Makefile": "9da517c936045363c1da32b8f16c1203dbbb98d6206cf4eb8878101e0d7fad04"
+  }
+}

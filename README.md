@@ -10,7 +10,10 @@ The scheduled-byte card model boots the unchanged classic ROM into SCP 0006 and
 passes nine software regressions plus 36 latency/fault experiments.
 See the [timing results](docs/timing-contract.md) and
 [hardware requirements derived from them](hardware/timing-requirements.md).
-No PCB, Pico firmware or electrical/timing qualification is claimed yet.
+A [synthesizable bus-transport prototype](hardware/frontend.md) now covers
+normal-I/O decode, waits, read output gating and fault handling, with a
+reproducible RTL test suite. IRQ transport and Pico firmware are still pending.
+No PCB or electrical/timing qualification is claimed yet.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the
@@ -52,8 +55,8 @@ not qualified physical X2 signal edges.
 
 ## Next milestones
 
-1. Prototype deterministic bus decode, /WAIT, data gating and IRQ handling using
-   the [timing requirements](hardware/timing-requirements.md).
+1. Map the [tested transport reference](hardware/frontend.md) to a bench device,
+   implement its backend and IRQ/RETI path, and measure the electrical interface.
 2. Implement Pico firmware and SD/RAM caching; measure latency on a bus fixture.
 3. Confirm connector identity, electrical behavior and mechanics on the machine.
 4. Freeze schematic and layout only after those checks pass.

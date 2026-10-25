@@ -20,3 +20,15 @@ test: build/controller-test build/timing-test
 	./build/timing-test
 	./build/controller-test
 	python3 -m unittest discover -s tests -v
+
+.PHONY: test-frontend lint-frontend synth-frontend
+test-frontend: build/frontend-test
+	vvp build/frontend-test
+build/frontend-test: hardware/rtl/bus_frontend.v tests/frontend_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s frontend_tb -o $@ $^
+lint-frontend:
+	verilator --lint-only -Wall --top-module bus_frontend hardware/rtl/bus_frontend.v
+synth-frontend:
+	@mkdir -p build
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/bus_frontend.v; synth -top bus_frontend; check -assert; stat' > build/frontend-synthesis.log
