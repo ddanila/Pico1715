@@ -1,65 +1,58 @@
-# Using the existing emulator
+# Modelling Pico1715
 
-## What we have
+## Plain PC1715 integration
 
-`dac-emulation/machines/robotron1715m` runs an unpatched S550 ROM and TOS/M disk.
-It has CPU/DMA-aware I/O traces, disk adapters, device tests and native/browser
-runners. The local `robotron-s642-e2e` environment is also a W/M setup. These are
-valuable host-side tools, but neither establishes ordinary-1715 floppy behaviour.
+The pinned DAC revision provides `machines/robotron1715`: a headless Z80,
+64 KB RAM, a 2 KB read-only ROM overlay with writes reaching underlying RAM,
+and an external-card callback interface. Pico1715's `model/controller.c`
+implements the card through that interface. It receives full I/O addresses,
+read/write cycles, ticks, reset, IRQ acknowledgement and RETI, but has no access
+to guest memory or instruction addresses. No DAC changes were needed for this
+controller milestone.
 
-The ordinary 1715 MAME source maps two Z80 PIOs at ports 00h–03h and 04h–07h,
-and a floppy enable write at 20h. Its ordinary floppy-enable handler is a stub;
-the W/M 8272 implementation is not a replacement. These are source observations
-to cross-check with primary schematics, not a completed controller specification.
+`tools/classic_probe.c` composes that motherboard with the card and a minimal
+SIO receive fixture. Keyboard E0/ASCII frames arrive through I/O, and the
+runner observes this SCP revision's screen RAM at F800h. It never patches guest
+instructions, injects return values into registers, or bypasses BIOS/BDOS calls.
+It records controller reads/writes/interrupt acknowledgements, exports a separate
+disk copy, and captures RAM for inspection. Outputs use exclusive file creation.
 
-## Current adapter
+`tools/check_classic.py` enforces the pinned clean DAC revision and exact ROM/SCP
+hashes. Nine scenarios cover cold boot/DIR, SAVE, saved-file persistence, a
+2,560-byte BDOS write/read/compare, TYPE after cold boot, deletion and its
+persistence, write protection, and absent media. All writes use private copies.
+It verifies hashes and independently parses the created files; a successful
+process exit or an observed ROM jump alone is not the acceptance criterion.
+See [the report](../reports/classic-compatibility.json) and
+[controller contract](classic-controller.md).
 
-`tools/dac_capture.c` attaches an observer to DAC's public trace sink. It records
-IR, IW and IA with full address, data, scheduling tick and CPU/DMA identity. It
-does not replace any device, intercept guest PCs or patch guest ROM. A bounded
-run produces a final text screen and counters. The Python wrapper pins the
-external source revision, hashes inputs and records whether the prompt appeared.
+## What the functional model deliberately abstracts
 
-The adapter only accepts the explicit W/M reference profile. Supplying a classic
-1715 ROM to it is not a way to emulate a classic 1715. The built-in device remains
-the producer of read values; replaying this trace alone would not independently
-validate a new implementation. Repeated callbacks can describe one held cycle.
-Cycle stamps must not be treated as logic-analyser edge timings.
+Each I/O callback is delivered once per bus cycle. An input consumes one field
+byte; neither disk rotation nor PIO handshakes determine when that byte appears.
+A valid completed write updates a sector atomically. IRQ handling implements
+the sequences exercised by the qualified ROM/SCP, not every UB855 mode.
 
-## Controller-model boundary
+This is a usable stock-software regression model, not a cycle-accurate FDC.
+The next layer must explicitly model mark/byte availability, read overruns,
+PIO strobes and interrupt edges, CPU wait deadlines, and abort/reset behavior.
+Do not carry demand-driven byte generation directly into Pico firmware and
+assume the real Z80 will wait for it.
 
-Implement the future card core independently from host file I/O and Pico SDK:
-bus read/write requests, elapsed emulated time, reset, interrupt state and backing
-storage callbacks. No invented port interface should replace the stock interface.
-Derive register, PIO handshake, status, transfer and interrupt expectations from
-the ROM/manual, and test them independently of the emulator's device model.
+DAC's card seam currently has no /WAIT, external-memory inhibition or DMA.
+SIO/CTC/CRT are not fully modelled on the plain motherboard. The keyboard fixture
+and screen observer make headless software tests possible without claiming
+complete peripheral emulation. Physical bus timing, connector identity,
+voltage translation and power sequencing remain separate qualification gates.
 
-The ordinary-1715 headless profile now supplies CPU, flat RAM and ROM overlay,
-with native external-card callbacks. Onboard peripherals are still unimplemented;
-the card core will supply controller responses through that seam. The same core
-can later run behind a Pico bus frontend. CPU/display timing, controller status
-deadlines and physical electrical qualification remain distinct checks.
+## W/M baseline remains separate
 
-## Evidence required before calling it compatible
+`tools/dac_capture.c` observes the existing `robotron1715m` model running S550 and
+TOS/M. The wrapper `tools/capture_dac.py` verifies dependency identity and input
+hashes and records CPU/DMA-aware traces. This uses the W/M 8272 controller and
+cannot validate the ordinary 1715's custom two-PIO controller.
 
-- Reset and stock-ROM boot with identified ROM/media hashes.
-- Directory/read plus write/export/reboot checks with unchanged source images.
-- Correct no-disk, write-protect, reset-during-transfer and malformed-command
-  behaviour, including status polling and interrupts used by the ROM/OS.
-- Independent response expectations and bounded-time failures rather than hangs.
-- Separate reports for classic 1715 and W/M; no extrapolated family-wide success.
-- Physical bus timing and voltage tests before plugging a fabricated card in.
-
-## Implemented integration foundation
-
-DAC commit `5dc3ab52dec0e8c647a3fbeebb74e04cd1f18d4f` adds runtime kind 3,
-verification name `robotron1715`, and `dac_pc1715_attach` for native card models.
-I/O callbacks and interrupt acknowledgements are delivered once per bus cycle;
-RAM trace events retain DAC's per-tick convention. IRQ, RETI, reset and tick
-callbacks are available; /WAIT, external memory inhibition and DMA are not.
-
-Synthetic tests cover overlay writes, ROM disable, FIFO-read delivery, IRQ/RETI,
-reset, split-run equivalence and runtime rejection of unsupported devices.
-The external classic ROM runs for 10 million ticks and reaches PC 0412h in the
-controller-ready wait. No original controller is attached, and no disk boot or
-physical timing qualification is claimed. The W/M profile stays separate.
+The earlier [classic startup report](../reports/classic-startup.json) is retained
+as a no-controller negative baseline. It reaches the ROM's controller-ready wait;
+[the newer compatibility report](../reports/classic-compatibility.json) supplies
+the positive evidence with the functional card attached.

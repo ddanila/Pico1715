@@ -65,6 +65,14 @@
       "sha256": "f724763d5e48c0f15341e95d7b85f645533dd7dfa270cbce4e44d3025e62b23b",
       "role": "TOS/M original TD0-derived raw image",
       "redistributed": false
+    },
+    {
+      "name": "classic-scp0006-image",
+      "local_hint": "../robotron-s642-e2e/disks/r1715fdd/r1715.cpm",
+      "bytes": 819200,
+      "sha256": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+      "role": "Qualified classic SCP 0006 03/08/87, 80x2x5x1024 raw image; distribution provenance unconfirmed",
+      "redistributed": false
     }
   ]
 }

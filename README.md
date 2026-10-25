@@ -6,8 +6,9 @@ Original project code and design files are MIT licensed; see [LICENSE](LICENSE).
 
 ## Status
 
-Research and host modelling have started. No PCB, working controller replacement,
-Pico firmware or electrical qualification is claimed yet.
+The functional card model boots the unchanged classic ROM into SCP 0006 and
+passes directory, file read/write, cold-reboot persistence and deletion tests.
+No PCB, Pico firmware or electrical/timing qualification is claimed yet.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the
@@ -49,36 +50,45 @@ not qualified physical X2 signal edges.
 
 ## Next milestones
 
-1. Establish the ordinary 1715 PIO/controller contract from schematics, boot ROM
-   and SCP routines, with explicit differences from W/M.
-2. Attach a portable card model to DAC's new ordinary-1715 profile with
-   independent expected responses. Run the original boot sequence against it.
-3. Boot, read, write and reboot an SD-image equivalent without changing guest ROM
-   or BIOS. Test absent media, write protection, reset and timing boundaries.
-4. Choose Pico, RAM and bus logic from measured/modelled requirements, then create
-   schematics and a PCB. Validate voltages and bus timing on hardware.
+1. Close the remaining physical controller contract: byte timing, handshakes,
+   interrupt behavior and error recovery. Functional ROM/SCP behavior is tested.
+2. Add timed-byte and fault-injection coverage to the plain model, keeping the
+   nine passing software scenarios as regressions.
+3. Implement Pico firmware, SD caching and the bus frontend, then measure latency.
+4. Freeze schematic/connector/mechanics and create the prototype PCB after those
+   checks pass.
 
 See [hardware requirements](hardware/requirements.md),
-[modelling plan](docs/modelling.md), [first classic-ROM findings](docs/classic-controller.md)
+[modelling plan](docs/modelling.md), [classic controller contract](docs/classic-controller.md)
 and [licensing/provenance](NOTICE.md). The initial passing W/M run is recorded in
 [reports/wm-baseline.json](reports/wm-baseline.json); local reference identities
 are listed in [docs/local-evidence.json](docs/local-evidence.json).
 
 ## Plain PC1715 model
 
-The pinned DAC revision now includes `machines/robotron1715`, runtime kind 3,
-with 64 KB RAM, the original ROM overlay and native card callbacks. The stock
-reference ROM reaches its controller-ready wait without patching. This is a
-headless motherboard foundation; PIO/controller, onboard peripherals, display
-and OS boot are still unimplemented.
+The pinned DAC revision supplies `machines/robotron1715` (runtime kind 3) with
+64 KB RAM, the original ROM overlay and native card callbacks. This repository's
+`model/controller.c` attaches to it without changing the emulator or guest code.
+The runner adds a headless keyboard fixture and reads the text screen from RAM.
 
 ```sh
-make -C ../dac-emulation build/pc1715-probe test-pc1715
-python3 ../dac-emulation/tools/check_pc1715_rom.py /path/r1715bt.bin \
-  --report local/plain-rom-check.json
+make test
+python3 tools/check_classic.py \
+  --dac ../dac-emulation \
+  --rom /path/r1715bt.bin \
+  --disk /path/r1715.cpm \
+  --out local/classic-check
 ```
 
-The checker requires the specific ROM hash documented in
-[the classic-controller notes](docs/classic-controller.md). It never interprets
-startup progress as successful floppy boot. See
-[the recorded startup result](reports/classic-startup.json).
+The checker requires the ROM and SCP image hashes recorded in
+[local-evidence.json](docs/local-evidence.json), and a fresh output directory.
+Inputs are read-only; writes affect disposable copies. It tests original-image
+boot/DIR, SAVE, persistence, a disk-loaded BDOS read/write workload, TYPE after
+cold boot, deletion/persistence, write protection, and absent media. Model-only
+contract tests also cover malformed writes and interrupt/reset behavior.
+
+See [reports/classic-compatibility.json](reports/classic-compatibility.json) and
+[the controller contract and remaining gaps](docs/classic-controller.md).
+**Demand-driven fields are not a timing-qualified hardware design.** Generic
+PIO modes, full motherboard peripherals, other formats and physical bus behavior
+remain outside this qualification.
