@@ -102,6 +102,13 @@ arguments for the full timing suite.
 PIO modes, full motherboard peripherals, other formats and physical bus behavior
 remain outside this qualification.
 
+## Bench adapter and fixture
+
+The [buffered adapter schematic](hardware/interface/README.md) includes hardware
+output gating and dual-rail supervision. The [standalone FPGA/Pico fixture](hardware/bench-fixture.md)
+checks 515 mailbox transactions, IRQ/vector/RETI and returns a UART result.
+Both are bench artifacts: no physical pass or X2 contact assignment is claimed.
+
 ## Prototype validation
 
 ```sh

@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y iverilog verilator yosys
-      - run: make test test-store test-frontend test-irq test-pico-top lint-frontend synth-frontend
+      - run: make test test-store test-frontend test-irq test-pico-top test-bench-fixture lint-bench-fixture lint-frontend synth-frontend
       - run: verilator --lint-only -Wall --top-module pico1715_top hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v
       - run: cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -g tests/store_test.c firmware/store.c -o build/store-sanitize && ./build/store-sanitize

@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "target": "Olimex iCE40HX8K-EVB Rev B1",
+  "top": "bench_fixture",
+  "hardware_executed": false,
+  "internal_timing_passed": true,
+  "electrical_timing_qualified": false,
+  "fmax": {
+    "clk100$SB_IO_IN_$glb_clk": {
+      "achieved": 655.3079833984375,
+      "constraint": 100
+    },
+    "divider[1]_$glb_clk": {
+      "achieved": 75.84375762939453,
+      "constraint": 25
+    },
+    "dut.clk50_$glb_clk": {
+      "achieved": 113.96012115478516,
+      "constraint": 50
+    }
+  },
+  "utilization": {
+    "ICESTORM_LC": {
+      "available": 7680,
+      "used": 726
+    },
+    "ICESTORM_PLL": {
+      "available": 2,
+      "used": 0
+    },
+    "ICESTORM_RAM": {
+      "available": 32,
+      "used": 0
+    },
+    "SB_GB": {
+      "available": 8,
+      "used": 5
+    },
+    "SB_IO": {
+      "available": 206,
+      "used": 27
+    },
+    "SB_WARMBOOT": {
+      "available": 1,
+      "used": 0
+    }
+  },
+  "source_sha256": {
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "hardware/rtl/irq_frontend.v": "6fd7e8cc7aaef997b75751181235e34ce847969ffa6a644e2628cfd13c32c4f6",
+    "hardware/rtl/pico1715_top.v": "9dbd78d9b445e6ad4f9141288387ab6fd64975f0eafb81961573ba08f1a479f7",
+    "hardware/rtl/bench_fixture.v": "f29716e7d31475ba6ec158c73cccebb035f7d6589ee81636742d69ea2b2a1e89",
+    "hardware/boards/hx8k-fixture.pcf": "95259690ade5facf0886207a88eadf12ca1ee1156f3e407aab63464fb6e4cdca",
+    "hardware/boards/hx8k-pins.json": "155a30d99ac81e32cd0890af7cdc6cf4885600a8765e502bca8bad5422184a6e",
+    "hardware/boards/fixture-clocks.sdc": "79939b5466fcb2551cc11f87446cb396b9e705b4f136691c3f796f3a0996d863"
+  },
+  "bitstream_sha256": "6fe22697f43ec22ab7b9c475723c85ef31b170fd72e15297e80f31da34044eeb",
+  "commands": [
+    [
+      "yosys",
+      "-Q",
+      "-T",
+      "-p",
+      "read_verilog -sv hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/bench_fixture.v; synth_ice40 -top bench_fixture -json \"/home/ddanila/fun/Pico1715/build/fixture/design.json\"; check -assert; stat"
+    ],
+    [
+      "local/nextpnr-build/nextpnr-ice40",
+      "--hx8k",
+      "--package",
+      "ct256",
+      "--json",
+      "/home/ddanila/fun/Pico1715/build/fixture/design.json",
+      "--pcf",
+      "hardware/boards/hx8k-fixture.pcf",
+      "--asc",
+      "/home/ddanila/fun/Pico1715/build/fixture/design.asc",
+      "--freq",
+      "100",
+      "--report",
+      "/home/ddanila/fun/Pico1715/build/fixture/timing.json",
+      "--sdc",
+      "hardware/boards/fixture-clocks.sdc"
+    ],
+    [
+      "local/fpga-tools/usr/bin/icepack",
+      "/home/ddanila/fun/Pico1715/build/fixture/design.asc",
+      "/home/ddanila/fun/Pico1715/build/fixture/design.bin"
+    ]
+  ],
+  "tool_versions": {
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)",
+    "local/nextpnr-build/nextpnr-ice40": "\"nextpnr-ice40\" -- Next Generation Place and Route (Version 22c5adf)"
+  },
+  "nextpnr_source_commit": "22c5adf423ecb602dfc1250d10f740ccfff0786a"
+}

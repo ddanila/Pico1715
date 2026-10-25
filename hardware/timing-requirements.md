@@ -1,5 +1,10 @@
 # Bus frontend and buffering requirements
 
+> Historical modelling requirements. Current hardware choices and implementation
+> are in [prototype.md](prototype.md), the [adapter schematic](interface/README.md),
+> and [bench fixture](bench-fixture.md). Physical qualification remains open.
+
+
 This is the implementation contract following the
 [scheduled-byte experiments](../docs/timing-contract.md). It is not a released
 schematic, component selection, or authorization to order a PCB.

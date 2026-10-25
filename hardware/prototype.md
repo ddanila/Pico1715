@@ -18,7 +18,7 @@ and any additional local taxes. Nothing has been purchased.
 | SD breakout | Adafruit 4682, direct 3.3 V SPI/SDIO; no resistor-divider level conversion | [$3.50, in stock](https://www.adafruit.com/product/4682) |
 | SD card | Dedicated 8–32 GB SDHC from a normal retailer; existing spare acceptable | Exact vendor/card remains to be qualified |
 | Programmer | A second RP2040 Pico is the low-cost candidate; also useful later for SWD | See qualification below |
-| Interface | Three SN74LVC245A receiver groups at 3.3 V, SN74AHCT245 host data driver at 5 V; separate priority output and open-drain WAIT/INT circuitry | Circuit/package selection remains draft |
+| Interface | Three SN74LVC245A receiver groups at 3.3 V, SN74AHCT541 host data driver at 5 V; separate priority output and open-drain WAIT/INT circuitry | Circuit/package selection remains draft |
 
 The current FPGA top uses 59 package pins including the oscillator. Smaller
 boards exposing about 32 GPIO are not drop-in substitutes. The Olimex SRAM is
@@ -52,6 +52,8 @@ quality. Probe only within the instrument's input voltage limits.
   [build report](../reports/firmware-build.json). Portable journal/CRC tests
   exercise failed writes, replay and corrupt records. No SD or PSRAM hardware
   has been exercised.
+* A [concrete adapter schematic](interface/README.md) and
+  [standalone mailbox fixture](bench-fixture.md) are now available.
 
 ## Build
 
@@ -144,8 +146,9 @@ freezing the schematic.
 Provide a common ground and decoupling, but do not tie independent module 3.3 V
 regulator outputs together. External gating must keep host drivers disabled
 through FPGA configuration, missing Pico, reset, brownout and either supply
-missing. `power_good` is an externally supplied qualification input, not a
-complete power supervisor circuit in this repository. `host_oe` is active high;
+missing. `power_good` is supplied by the dual-rail supervisor logic in the
+[bench adapter schematic](interface/README.md). Its dynamic behavior remains
+unmeasured. `host_oe` is active high;
 the driver interface must implement the appropriate inversion and fail-safe
 pull-up at an active-low OE pin.
 

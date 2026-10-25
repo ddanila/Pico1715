@@ -2,3 +2,5 @@
 /local/
 __pycache__/
 *.pyc
+
+*.kicad_prl

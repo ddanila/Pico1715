@@ -1,5 +1,10 @@
 # Hardware draft — no component or pin assignment is frozen
 
+> Historical modelling requirements. Current hardware choices and implementation
+> are in [prototype.md](prototype.md), the [adapter schematic](interface/README.md),
+> and [bench fixture](bench-fixture.md). Physical qualification remains open.
+
+
 ## Agreed scope
 
 - X2-connected replacement for the absent original floppy controller.

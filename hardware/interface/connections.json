@@ -1,0 +1,2181 @@
+{
+  "schema": 1,
+  "revision": "A",
+  "x2_contact_assignment_verified": false,
+  "parts": [
+    {
+      "ref": "U1",
+      "value": "SN74LVC245ADWR",
+      "pins": [
+        [
+          1,
+          "DIR",
+          "input",
+          "V3P3"
+        ],
+        [
+          19,
+          "OE_N",
+          "input",
+          "GND"
+        ],
+        [
+          20,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          10,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "A0",
+          "bidirectional",
+          "H_A0"
+        ],
+        [
+          3,
+          "A1",
+          "bidirectional",
+          "H_A1"
+        ],
+        [
+          4,
+          "A2",
+          "bidirectional",
+          "H_A2"
+        ],
+        [
+          5,
+          "A3",
+          "bidirectional",
+          "H_A3"
+        ],
+        [
+          6,
+          "A4",
+          "bidirectional",
+          "H_A4"
+        ],
+        [
+          7,
+          "A5",
+          "bidirectional",
+          "H_A5"
+        ],
+        [
+          8,
+          "A6",
+          "bidirectional",
+          "H_A6"
+        ],
+        [
+          9,
+          "A7",
+          "bidirectional",
+          "H_A7"
+        ],
+        [
+          18,
+          "B0",
+          "bidirectional",
+          "F_A0"
+        ],
+        [
+          17,
+          "B1",
+          "bidirectional",
+          "F_A1"
+        ],
+        [
+          16,
+          "B2",
+          "bidirectional",
+          "F_A2"
+        ],
+        [
+          15,
+          "B3",
+          "bidirectional",
+          "F_A3"
+        ],
+        [
+          14,
+          "B4",
+          "bidirectional",
+          "F_A4"
+        ],
+        [
+          13,
+          "B5",
+          "bidirectional",
+          "F_A5"
+        ],
+        [
+          12,
+          "B6",
+          "bidirectional",
+          "F_A6"
+        ],
+        [
+          11,
+          "B7",
+          "bidirectional",
+          "F_A7"
+        ]
+      ],
+      "x": 71.12,
+      "y": 59.69,
+      "footprint": "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc245a.pdf"
+    },
+    {
+      "ref": "U2",
+      "value": "SN74LVC245ADWR",
+      "pins": [
+        [
+          1,
+          "DIR",
+          "input",
+          "V3P3"
+        ],
+        [
+          19,
+          "OE_N",
+          "input",
+          "GND"
+        ],
+        [
+          20,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          10,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "A0",
+          "bidirectional",
+          "H_D0"
+        ],
+        [
+          3,
+          "A1",
+          "bidirectional",
+          "H_D1"
+        ],
+        [
+          4,
+          "A2",
+          "bidirectional",
+          "H_D2"
+        ],
+        [
+          5,
+          "A3",
+          "bidirectional",
+          "H_D3"
+        ],
+        [
+          6,
+          "A4",
+          "bidirectional",
+          "H_D4"
+        ],
+        [
+          7,
+          "A5",
+          "bidirectional",
+          "H_D5"
+        ],
+        [
+          8,
+          "A6",
+          "bidirectional",
+          "H_D6"
+        ],
+        [
+          9,
+          "A7",
+          "bidirectional",
+          "H_D7"
+        ],
+        [
+          18,
+          "B0",
+          "bidirectional",
+          "F_DI0"
+        ],
+        [
+          17,
+          "B1",
+          "bidirectional",
+          "F_DI1"
+        ],
+        [
+          16,
+          "B2",
+          "bidirectional",
+          "F_DI2"
+        ],
+        [
+          15,
+          "B3",
+          "bidirectional",
+          "F_DI3"
+        ],
+        [
+          14,
+          "B4",
+          "bidirectional",
+          "F_DI4"
+        ],
+        [
+          13,
+          "B5",
+          "bidirectional",
+          "F_DI5"
+        ],
+        [
+          12,
+          "B6",
+          "bidirectional",
+          "F_DI6"
+        ],
+        [
+          11,
+          "B7",
+          "bidirectional",
+          "F_DI7"
+        ]
+      ],
+      "x": 168.91,
+      "y": 59.69,
+      "footprint": "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc245a.pdf"
+    },
+    {
+      "ref": "U3",
+      "value": "SN74LVC245ADWR",
+      "pins": [
+        [
+          1,
+          "DIR",
+          "input",
+          "V3P3"
+        ],
+        [
+          19,
+          "OE_N",
+          "input",
+          "GND"
+        ],
+        [
+          20,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          10,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "A0",
+          "bidirectional",
+          "H_IORQ_N"
+        ],
+        [
+          3,
+          "A1",
+          "bidirectional",
+          "H_M1_N"
+        ],
+        [
+          4,
+          "A2",
+          "bidirectional",
+          "H_MREQ_N"
+        ],
+        [
+          5,
+          "A3",
+          "bidirectional",
+          "H_RD_N"
+        ],
+        [
+          6,
+          "A4",
+          "bidirectional",
+          "H_WR_N"
+        ],
+        [
+          7,
+          "A5",
+          "bidirectional",
+          "H_IEI"
+        ],
+        [
+          8,
+          "A6",
+          "bidirectional",
+          "H_RESET_N"
+        ],
+        [
+          9,
+          "A7",
+          "bidirectional",
+          "UNUSED_RX"
+        ],
+        [
+          18,
+          "B0",
+          "bidirectional",
+          "F_IORQ_N"
+        ],
+        [
+          17,
+          "B1",
+          "bidirectional",
+          "F_M1_N"
+        ],
+        [
+          16,
+          "B2",
+          "bidirectional",
+          "F_MREQ_N"
+        ],
+        [
+          15,
+          "B3",
+          "bidirectional",
+          "F_RD_N"
+        ],
+        [
+          14,
+          "B4",
+          "bidirectional",
+          "F_WR_N"
+        ],
+        [
+          13,
+          "B5",
+          "bidirectional",
+          "F_IEI"
+        ],
+        [
+          12,
+          "B6",
+          "bidirectional",
+          "F_RESET_N"
+        ],
+        [
+          11,
+          "B7",
+          "bidirectional",
+          null
+        ]
+      ],
+      "x": 266.7,
+      "y": 59.69,
+      "footprint": "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc245a.pdf"
+    },
+    {
+      "ref": "U4",
+      "value": "SN74AHCT541DWR",
+      "pins": [
+        [
+          1,
+          "OE1_N",
+          "input",
+          "GND"
+        ],
+        [
+          19,
+          "OE2_N",
+          "input",
+          "DATA_OE_N"
+        ],
+        [
+          20,
+          "VCC",
+          "power_in",
+          "V5_HOST"
+        ],
+        [
+          10,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "A0",
+          "input",
+          "F_DO0"
+        ],
+        [
+          3,
+          "A1",
+          "input",
+          "F_DO1"
+        ],
+        [
+          4,
+          "A2",
+          "input",
+          "F_DO2"
+        ],
+        [
+          5,
+          "A3",
+          "input",
+          "F_DO3"
+        ],
+        [
+          6,
+          "A4",
+          "input",
+          "F_DO4"
+        ],
+        [
+          7,
+          "A5",
+          "input",
+          "F_DO5"
+        ],
+        [
+          8,
+          "A6",
+          "input",
+          "F_DO6"
+        ],
+        [
+          9,
+          "A7",
+          "input",
+          "F_DO7"
+        ],
+        [
+          18,
+          "B0",
+          "tri_state",
+          "H_D0"
+        ],
+        [
+          17,
+          "B1",
+          "tri_state",
+          "H_D1"
+        ],
+        [
+          16,
+          "B2",
+          "tri_state",
+          "H_D2"
+        ],
+        [
+          15,
+          "B3",
+          "tri_state",
+          "H_D3"
+        ],
+        [
+          14,
+          "B4",
+          "tri_state",
+          "H_D4"
+        ],
+        [
+          13,
+          "B5",
+          "tri_state",
+          "H_D5"
+        ],
+        [
+          12,
+          "B6",
+          "tri_state",
+          "H_D6"
+        ],
+        [
+          11,
+          "B7",
+          "tri_state",
+          "H_D7"
+        ]
+      ],
+      "x": 364.49,
+      "y": 59.69,
+      "footprint": "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74ahct541.pdf"
+    },
+    {
+      "ref": "U5",
+      "value": "SN74AHCT1G125DBVR",
+      "pins": [
+        [
+          1,
+          "OE_N",
+          "input",
+          "IEO_OE_N"
+        ],
+        [
+          2,
+          "A",
+          "input",
+          "F_IEO"
+        ],
+        [
+          3,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          4,
+          "Y",
+          "tri_state",
+          "H_IEO"
+        ],
+        [
+          5,
+          "VCC",
+          "power_in",
+          "V5_HOST"
+        ]
+      ],
+      "x": 462.28,
+      "y": 59.69,
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74ahct1g125.pdf"
+    },
+    {
+      "ref": "U6",
+      "value": "SN74LVC08ADR",
+      "pins": [
+        [
+          7,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          14,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          1,
+          "1A",
+          "input",
+          "PG3"
+        ],
+        [
+          2,
+          "1B",
+          "input",
+          "PG5"
+        ],
+        [
+          3,
+          "1Y",
+          "output",
+          "POWER_GOOD"
+        ],
+        [
+          4,
+          "2A",
+          "input",
+          "POWER_GOOD"
+        ],
+        [
+          5,
+          "2B",
+          "input",
+          "CDONE"
+        ],
+        [
+          6,
+          "2Y",
+          "output",
+          "CONFIG_OK"
+        ],
+        [
+          9,
+          "3A",
+          "input",
+          "CONFIG_OK"
+        ],
+        [
+          10,
+          "3B",
+          "input",
+          "BACKEND_READY"
+        ],
+        [
+          8,
+          "3Y",
+          "output",
+          "BACKEND_OK"
+        ],
+        [
+          12,
+          "4A",
+          "input",
+          "BACKEND_OK"
+        ],
+        [
+          13,
+          "4B",
+          "input",
+          "F_RESET_N"
+        ],
+        [
+          11,
+          "4Y",
+          "output",
+          "RESET_OK"
+        ]
+      ],
+      "x": 71.12,
+      "y": 129.54,
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf"
+    },
+    {
+      "ref": "U7",
+      "value": "SN74LVC08ADR",
+      "pins": [
+        [
+          7,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          14,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          1,
+          "1A",
+          "input",
+          "RESET_OK"
+        ],
+        [
+          2,
+          "1B",
+          "input",
+          "ARM"
+        ],
+        [
+          3,
+          "1Y",
+          "output",
+          "ARMED"
+        ],
+        [
+          4,
+          "2A",
+          "input",
+          "GND"
+        ],
+        [
+          5,
+          "2B",
+          "input",
+          "GND"
+        ],
+        [
+          6,
+          "2Y",
+          "output",
+          null
+        ],
+        [
+          9,
+          "3A",
+          "input",
+          "GND"
+        ],
+        [
+          10,
+          "3B",
+          "input",
+          "GND"
+        ],
+        [
+          8,
+          "3Y",
+          "output",
+          null
+        ],
+        [
+          12,
+          "4A",
+          "input",
+          "GND"
+        ],
+        [
+          13,
+          "4B",
+          "input",
+          "GND"
+        ],
+        [
+          11,
+          "4Y",
+          "output",
+          null
+        ]
+      ],
+      "x": 168.91,
+      "y": 129.54,
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf"
+    },
+    {
+      "ref": "U8",
+      "value": "SN74LVC00ADR",
+      "pins": [
+        [
+          7,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          14,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          1,
+          "1A",
+          "input",
+          "ARMED"
+        ],
+        [
+          2,
+          "1B",
+          "input",
+          "F_HOST_OE"
+        ],
+        [
+          3,
+          "1Y",
+          "output",
+          "DATA_EN_N"
+        ],
+        [
+          4,
+          "2A",
+          "input",
+          "ARMED"
+        ],
+        [
+          5,
+          "2B",
+          "input",
+          "F_WAIT"
+        ],
+        [
+          6,
+          "2Y",
+          "output",
+          "WAIT_EN_N"
+        ],
+        [
+          9,
+          "3A",
+          "input",
+          "ARMED"
+        ],
+        [
+          10,
+          "3B",
+          "input",
+          "F_INT"
+        ],
+        [
+          8,
+          "3Y",
+          "output",
+          "INT_EN_N"
+        ],
+        [
+          12,
+          "4A",
+          "input",
+          "ARMED"
+        ],
+        [
+          13,
+          "4B",
+          "input",
+          "ARMED"
+        ],
+        [
+          11,
+          "4Y",
+          "output",
+          "IEO_EN_N"
+        ]
+      ],
+      "x": 266.7,
+      "y": 129.54,
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc00a.pdf"
+    },
+    {
+      "ref": "U9",
+      "value": "SN74LVC07ADR",
+      "pins": [
+        [
+          7,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          14,
+          "VCC",
+          "power_in",
+          "V3P3"
+        ],
+        [
+          1,
+          "1A",
+          "input",
+          "DATA_EN_N"
+        ],
+        [
+          2,
+          "1Y",
+          "open_collector",
+          "DATA_OE_N"
+        ],
+        [
+          3,
+          "2A",
+          "input",
+          "WAIT_EN_N"
+        ],
+        [
+          4,
+          "2Y",
+          "open_collector",
+          "H_WAIT_N"
+        ],
+        [
+          5,
+          "3A",
+          "input",
+          "INT_EN_N"
+        ],
+        [
+          6,
+          "3Y",
+          "open_collector",
+          "H_INT_N"
+        ],
+        [
+          9,
+          "4A",
+          "input",
+          "IEO_EN_N"
+        ],
+        [
+          8,
+          "4Y",
+          "open_collector",
+          "IEO_OE_N"
+        ],
+        [
+          11,
+          "5A",
+          "input",
+          "V3P3"
+        ],
+        [
+          10,
+          "5Y",
+          "open_collector",
+          null
+        ],
+        [
+          13,
+          "6A",
+          "input",
+          "V3P3"
+        ],
+        [
+          12,
+          "6Y",
+          "open_collector",
+          null
+        ]
+      ],
+      "x": 364.49,
+      "y": 129.54,
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc07a.pdf"
+    },
+    {
+      "ref": "U10",
+      "value": "TLV803EA30DBZR",
+      "pins": [
+        [
+          1,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "RESET_N",
+          "open_collector",
+          "PG3"
+        ],
+        [
+          3,
+          "VDD",
+          "power_in",
+          "V3P3"
+        ]
+      ],
+      "x": 462.28,
+      "y": 129.54,
+      "footprint": "Package_TO_SOT_SMD:SOT-23",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tlv803e.pdf"
+    },
+    {
+      "ref": "U11",
+      "value": "TLV803EA46DBZR",
+      "pins": [
+        [
+          1,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          2,
+          "RESET_N",
+          "open_collector",
+          "PG5"
+        ],
+        [
+          3,
+          "VDD",
+          "power_in",
+          "V5_HOST"
+        ]
+      ],
+      "x": 539.75,
+      "y": 129.54,
+      "footprint": "Package_TO_SOT_SMD:SOT-23",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tlv803e.pdf"
+    },
+    {
+      "ref": "J1",
+      "value": "HOST_ADDRESS",
+      "pins": [
+        [
+          1,
+          "H_A0",
+          "passive",
+          "H_A0"
+        ],
+        [
+          2,
+          "H_A1",
+          "passive",
+          "H_A1"
+        ],
+        [
+          3,
+          "H_A2",
+          "passive",
+          "H_A2"
+        ],
+        [
+          4,
+          "H_A3",
+          "passive",
+          "H_A3"
+        ],
+        [
+          5,
+          "H_A4",
+          "passive",
+          "H_A4"
+        ],
+        [
+          6,
+          "H_A5",
+          "passive",
+          "H_A5"
+        ],
+        [
+          7,
+          "H_A6",
+          "passive",
+          "H_A6"
+        ],
+        [
+          8,
+          "H_A7",
+          "passive",
+          "H_A7"
+        ],
+        [
+          9,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 63.5,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J2",
+      "value": "HOST_DATA",
+      "pins": [
+        [
+          1,
+          "H_D0",
+          "passive",
+          "H_D0"
+        ],
+        [
+          2,
+          "H_D1",
+          "passive",
+          "H_D1"
+        ],
+        [
+          3,
+          "H_D2",
+          "passive",
+          "H_D2"
+        ],
+        [
+          4,
+          "H_D3",
+          "passive",
+          "H_D3"
+        ],
+        [
+          5,
+          "H_D4",
+          "passive",
+          "H_D4"
+        ],
+        [
+          6,
+          "H_D5",
+          "passive",
+          "H_D5"
+        ],
+        [
+          7,
+          "H_D6",
+          "passive",
+          "H_D6"
+        ],
+        [
+          8,
+          "H_D7",
+          "passive",
+          "H_D7"
+        ],
+        [
+          9,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 154.94,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J3",
+      "value": "HOST_CONTROL",
+      "pins": [
+        [
+          1,
+          "H_IORQ_N",
+          "passive",
+          "H_IORQ_N"
+        ],
+        [
+          2,
+          "H_M1_N",
+          "passive",
+          "H_M1_N"
+        ],
+        [
+          3,
+          "H_MREQ_N",
+          "passive",
+          "H_MREQ_N"
+        ],
+        [
+          4,
+          "H_RD_N",
+          "passive",
+          "H_RD_N"
+        ],
+        [
+          5,
+          "H_WR_N",
+          "passive",
+          "H_WR_N"
+        ],
+        [
+          6,
+          "H_IEI",
+          "passive",
+          "H_IEI"
+        ],
+        [
+          7,
+          "H_RESET_N",
+          "passive",
+          "H_RESET_N"
+        ],
+        [
+          8,
+          "H_WAIT_N",
+          "passive",
+          "H_WAIT_N"
+        ],
+        [
+          9,
+          "H_INT_N",
+          "passive",
+          "H_INT_N"
+        ],
+        [
+          10,
+          "H_IEO",
+          "passive",
+          "H_IEO"
+        ],
+        [
+          11,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 252.73,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J4",
+      "value": "FPGA_ADDRESS",
+      "pins": [
+        [
+          1,
+          "F_A0",
+          "passive",
+          "F_A0"
+        ],
+        [
+          2,
+          "F_A1",
+          "passive",
+          "F_A1"
+        ],
+        [
+          3,
+          "F_A2",
+          "passive",
+          "F_A2"
+        ],
+        [
+          4,
+          "F_A3",
+          "passive",
+          "F_A3"
+        ],
+        [
+          5,
+          "F_A4",
+          "passive",
+          "F_A4"
+        ],
+        [
+          6,
+          "F_A5",
+          "passive",
+          "F_A5"
+        ],
+        [
+          7,
+          "F_A6",
+          "passive",
+          "F_A6"
+        ],
+        [
+          8,
+          "F_A7",
+          "passive",
+          "F_A7"
+        ],
+        [
+          9,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 350.52,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J5",
+      "value": "FPGA_DATA_IN",
+      "pins": [
+        [
+          1,
+          "F_DI0",
+          "passive",
+          "F_DI0"
+        ],
+        [
+          2,
+          "F_DI1",
+          "passive",
+          "F_DI1"
+        ],
+        [
+          3,
+          "F_DI2",
+          "passive",
+          "F_DI2"
+        ],
+        [
+          4,
+          "F_DI3",
+          "passive",
+          "F_DI3"
+        ],
+        [
+          5,
+          "F_DI4",
+          "passive",
+          "F_DI4"
+        ],
+        [
+          6,
+          "F_DI5",
+          "passive",
+          "F_DI5"
+        ],
+        [
+          7,
+          "F_DI6",
+          "passive",
+          "F_DI6"
+        ],
+        [
+          8,
+          "F_DI7",
+          "passive",
+          "F_DI7"
+        ],
+        [
+          9,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 448.31,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J6",
+      "value": "FPGA_DATA_OUT",
+      "pins": [
+        [
+          1,
+          "F_DO0",
+          "passive",
+          "F_DO0"
+        ],
+        [
+          2,
+          "F_DO1",
+          "passive",
+          "F_DO1"
+        ],
+        [
+          3,
+          "F_DO2",
+          "passive",
+          "F_DO2"
+        ],
+        [
+          4,
+          "F_DO3",
+          "passive",
+          "F_DO3"
+        ],
+        [
+          5,
+          "F_DO4",
+          "passive",
+          "F_DO4"
+        ],
+        [
+          6,
+          "F_DO5",
+          "passive",
+          "F_DO5"
+        ],
+        [
+          7,
+          "F_DO6",
+          "passive",
+          "F_DO6"
+        ],
+        [
+          8,
+          "F_DO7",
+          "passive",
+          "F_DO7"
+        ],
+        [
+          9,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 539.75,
+      "y": 203.2,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J7",
+      "value": "FPGA_CONTROL",
+      "pins": [
+        [
+          1,
+          "F_IORQ_N",
+          "passive",
+          "F_IORQ_N"
+        ],
+        [
+          2,
+          "F_M1_N",
+          "passive",
+          "F_M1_N"
+        ],
+        [
+          3,
+          "F_MREQ_N",
+          "passive",
+          "F_MREQ_N"
+        ],
+        [
+          4,
+          "F_RD_N",
+          "passive",
+          "F_RD_N"
+        ],
+        [
+          5,
+          "F_WR_N",
+          "passive",
+          "F_WR_N"
+        ],
+        [
+          6,
+          "F_IEI",
+          "passive",
+          "F_IEI"
+        ],
+        [
+          7,
+          "F_RESET_N",
+          "passive",
+          "F_RESET_N"
+        ],
+        [
+          8,
+          "F_HOST_OE",
+          "passive",
+          "F_HOST_OE"
+        ],
+        [
+          9,
+          "F_WAIT",
+          "passive",
+          "F_WAIT"
+        ],
+        [
+          10,
+          "F_INT",
+          "passive",
+          "F_INT"
+        ],
+        [
+          11,
+          "F_IEO",
+          "passive",
+          "F_IEO"
+        ],
+        [
+          12,
+          "POWER_GOOD",
+          "passive",
+          "POWER_GOOD"
+        ],
+        [
+          13,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 71.12,
+      "y": 273.05,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J8",
+      "value": "QUALIFIERS",
+      "pins": [
+        [
+          1,
+          "CDONE",
+          "passive",
+          "CDONE"
+        ],
+        [
+          2,
+          "BACKEND_READY",
+          "passive",
+          "BACKEND_READY"
+        ],
+        [
+          3,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 175.26,
+      "y": 273.05,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J9",
+      "value": "EXTERNAL_RAILS",
+      "pins": [
+        [
+          1,
+          "V3P3",
+          "power_out",
+          "V3P3"
+        ],
+        [
+          2,
+          "V5_HOST",
+          "power_out",
+          "V5_HOST"
+        ],
+        [
+          3,
+          "GND",
+          "power_out",
+          "GND"
+        ]
+      ],
+      "x": 266.7,
+      "y": 273.05,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "JP1",
+      "value": "ARM_SHUNT",
+      "pins": [
+        [
+          1,
+          "V3P3",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "ARM",
+          "passive",
+          "ARM"
+        ]
+      ],
+      "x": 358.14,
+      "y": 273.05,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J10",
+      "value": "SCOPE",
+      "pins": [
+        [
+          1,
+          "GND",
+          "passive",
+          "GND"
+        ],
+        [
+          2,
+          "ARMED",
+          "passive",
+          "ARMED"
+        ],
+        [
+          3,
+          "F_HOST_OE",
+          "passive",
+          "F_HOST_OE"
+        ],
+        [
+          4,
+          "DATA_OE_N",
+          "passive",
+          "DATA_OE_N"
+        ],
+        [
+          5,
+          "F_WAIT",
+          "passive",
+          "F_WAIT"
+        ],
+        [
+          6,
+          "H_WAIT_N",
+          "passive",
+          "H_WAIT_N"
+        ],
+        [
+          7,
+          "F_INT",
+          "passive",
+          "F_INT"
+        ],
+        [
+          8,
+          "H_INT_N",
+          "passive",
+          "H_INT_N"
+        ],
+        [
+          9,
+          "PG3",
+          "passive",
+          "PG3"
+        ],
+        [
+          10,
+          "PG5",
+          "passive",
+          "PG5"
+        ]
+      ],
+      "x": 462.28,
+      "y": 273.05,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R1",
+      "value": "2k2",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "PG3"
+        ]
+      ],
+      "x": 45.72,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R2",
+      "value": "22k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "PG3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 124.46,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R3",
+      "value": "2k2",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "PG5"
+        ]
+      ],
+      "x": 203.2,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R4",
+      "value": "22k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "PG5"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 281.94,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R5",
+      "value": "1k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "DATA_OE_N"
+        ]
+      ],
+      "x": 359.41,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R6",
+      "value": "1k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "IEO_OE_N"
+        ]
+      ],
+      "x": 438.15,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R7",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "ARM"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 516.89,
+      "y": 320.04,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R8",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CDONE"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 45.72,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R9",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "BACKEND_READY"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 124.46,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R10",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "F_HOST_OE"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 203.2,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R11",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "F_WAIT"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 281.94,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R12",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "F_INT"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 359.41,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R13",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "F_IEO"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 438.15,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R14",
+      "value": "4k7",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "UNUSED_RX"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 516.89,
+      "y": 342.9,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C1",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 45.72,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C2",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 124.46,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C3",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 203.2,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C4",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 281.94,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C5",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 359.41,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C6",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 438.15,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C7",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 516.89,
+      "y": 367.03,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C8",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 45.72,
+      "y": 387.35,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C9",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 124.46,
+      "y": 387.35,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C10",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V3P3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 203.2,
+      "y": 387.35,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "C11",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_HOST"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 281.94,
+      "y": 387.35,
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "datasheet": ""
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "x2_contact_assignment_verified": false,
+  "pcb_ready": false,
+  "checks": {
+    "kicad_version": "10.0.6",
+    "erc_errors": 0,
+    "erc_warnings": 0,
+    "gating_truth_table_cases": 512,
+    "fixture_normal_transactions": 515,
+    "fixture_irq_reti_uart": "passed in simulation",
+    "fixture_fault_cases": 4,
+    "existing_unit_and_rtl_tests": "passed"
+  },
+  "source_sha256": {
+    "hardware/interface/bench-interface.kicad_sch": "d5c8aa894cdc668723e8d40ffa3965b8b7ca57c704d27da44922a1e89212bc04",
+    "hardware/interface/Pico1715.kicad_sym": "46cb46d24852733878edfdeb38a2a11fd675fd7db3445ed932811aa91914e7de",
+    "hardware/interface/connections.json": "812f61a1f397b5e166a5ed6ff735a6d3109847695ea6f90bd25de05bd8611a5b",
+    "tools/generate_interface.py": "e08f0338d5a86eac89c3c7c30a3d0145759cb9338ddd3bf1e47f4b49ceb0f45d",
+    "tools/check_interface.py": "8abf2494c844e219759a4625fc2f63f79dc47b94092b2ded57f5fd3e57dde952",
+    "hardware/rtl/bench_fixture.v": "f29716e7d31475ba6ec158c73cccebb035f7d6589ee81636742d69ea2b2a1e89",
+    "tests/bench_fixture_tb.v": "153fcdfa1f2d4ea893061fd2990cc1932b1e6b734852d13bb66bb9f7c31d3cea",
+    "tools/read_fixture.py": "979f269e928b0f46bcd551c03eb0bb55ed8aa9348bfe8d6fd22678b1716e2ed7",
+    "tests/test_fixture_report.py": "b5e14c3f4c8849aecf606f201c83ab7e79cae53b7b7ccb6947077fcc8b43a4ed"
+  },
+  "limitations": [
+    "No electrical measurements or physical fixture run",
+    "No X2 contact assignment or motherboard orientation verification",
+    "Standalone fixture bypasses 5 V adapter and does not exercise sustained disk-sector traffic",
+    "Power-ramp, translated timing and real CPU fetch data timing remain unqualified"
+  ]
+}

@@ -53,3 +53,19 @@ test-pico-top: build/pico-top-test
 build/pico-top-test: hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v tests/pico_top_tb.v
 	@mkdir -p build
 	iverilog -g2012 -Wall -s pico_top_tb -o $@ $^
+
+.PHONY: test-bench-fixture lint-bench-fixture
+test-bench-fixture: build/bench-fixture-test
+	vvp build/bench-fixture-test
+build/bench-fixture-test: hardware/rtl/bench_fixture.v hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v tests/bench_fixture_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s bench_fixture_tb -o $@ $^
+lint-bench-fixture:
+	verilator --lint-only -Wall --top-module bench_fixture hardware/rtl/bench_fixture.v hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v
+
+.PHONY: test-interface
+test-interface:
+	@mkdir -p build
+	kicad-cli sch erc hardware/interface/bench-interface.kicad_sch --exit-code-violations --output build/interface-erc.rpt
+	kicad-cli sch export netlist hardware/interface/bench-interface.kicad_sch --format kicadxml --output build/interface.net.xml
+	python3 tools/check_interface.py --netlist build/interface.net.xml
