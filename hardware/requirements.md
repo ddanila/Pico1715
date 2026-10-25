@@ -27,8 +27,10 @@ but cache size alone does not prove controller compatibility.
 
 The ordinary 1715 X1/X2 manual has 29 contacts in each of rows A and B. Previous
 transcriptions have an IEI location discrepancy against the index-2B schematic.
-Confirm row orientation, IEI/IEO, BAO, signal direction, open-collector behaviour,
-straps and board revision from primary documents before assigning nets.
+The [documented common contacts](x2-pinout.md) are assigned in the schematic;
+A10/B10 are isolated at an open patch header. Verify physical row orientation,
+priority-chain routing and board revision before machine connection.
+Unused bus-master and memory-inhibit contacts remain unconnected.
 Do not apply that connector table blindly to a W/M board.
 
 Budget /WAIT assertion against the CPU sampling deadline, including decode and

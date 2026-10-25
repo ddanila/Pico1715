@@ -129,7 +129,7 @@ Pin mapping is checked against the manufacturer's Rev B1 netlist, commit
 python3 tools/verify_hx8k_pins.py --netlist /path/to/RevB1.net
 ```
 
-Do not infer X2 contact numbering from this logical map. Confirm the actual
+Use the [source-checked X2 table](x2-pinout.md) for contact numbering. Confirm the actual
 motherboard revision, contact orientation, ground contacts and priority-chain
 insertion before assigning an X2 connector footprint.
 

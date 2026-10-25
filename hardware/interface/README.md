@@ -1,4 +1,4 @@
-# Buffered bench adapter, revision A
+# Buffered bench adapter, revision B
 
 Editable source: [bench-interface.kicad_sch](bench-interface.kicad_sch), with
 project and original symbol library beside it. Open the project in KiCad 10.
@@ -7,9 +7,11 @@ project and original symbol library beside it. Open the project in KiCad 10.
 [generate_interface.py](../../tools/generate_interface.py).
 
 **Schematic draft for bench assembly, not a released 1715 card.** There is no PCB
-layout. J1–J3 are numbered logical harness headers, not X2 contacts. No connector
-footprint is assigned until the motherboard orientation and interrupt-chain
-contact discrepancy have been resolved on the actual board.
+layout. X2 now uses the documented A1–A29/B1–B29 contacts; J1–J3 remain
+logical breakout headers on those nets. The [contact table](../x2-pinout.md)
+records the sources and the A10/B10 interrupt-chain exception. J11 isolates
+those two contacts until configured; R15 holds card IEI high while unpatched.
+The connector footprint still needs mechanical and orientation verification.
 
 ## Circuit
 
@@ -107,7 +109,7 @@ unpowered. Power both modules before linking them and do not hot-plug that cable
    scope captures; a static logic test does not qualify brownouts.
 6. Remove the manual sources and fixture pull-ups. Connect the production FPGA
    mapping and Pico only after the standalone mailbox test below passes. Keep
-   the 1715 disconnected until X2 mapping and timing are reviewed.
+   the 1715 disconnected until physical orientation, IRQ routing and timing are reviewed.
 
 ## Timing measurements still required
 

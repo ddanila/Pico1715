@@ -107,7 +107,8 @@ remain outside this qualification.
 The [buffered adapter schematic](hardware/interface/README.md) includes hardware
 output gating and dual-rail supervision. The [standalone FPGA/Pico fixture](hardware/bench-fixture.md)
 checks 515 mailbox transactions, IRQ/vector/RETI and returns a UART result.
-Both are bench artifacts: no physical pass or X2 contact assignment is claimed.
+Both are bench artifacts: [X2 common contacts](hardware/x2-pinout.md) are now
+source-checked and assigned; physical validation and IRQ-chain configuration remain pending.
 
 ## Prototype validation
 

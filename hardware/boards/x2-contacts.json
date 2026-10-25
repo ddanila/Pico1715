@@ -1,0 +1,371 @@
+{
+  "schema": 1,
+  "machine": "classic PC1715, not W/M",
+  "sources": [
+    {
+      "url": "https://xepb.org/robotron/docs/pc_serv.pdf",
+      "location": "printed page 44, X1/X2 contact table",
+      "sha256": "c356e50a5499a0fb9a0a204e833eb47406dd5f2d0246c26e27320eec6b8b1d49"
+    },
+    {
+      "url": "https://www.sax.de/~zander/pc1715/pc_zres.pdf",
+      "location": "Zander index-2B redraw (2009); IEI labelled X1:A10",
+      "sha256": "d96efdeeefcf214c7f5044c03ff5165203bc7781afd0852e8de94b623c5b5c63"
+    },
+    {
+      "url": "https://www.robotrontechnik.de/downloads/GUN/GUN_Sch.pdf",
+      "location": "GUN ST1 on X1; A10 labelled IEIO; B10 wired",
+      "sha256": "0394c22f16ff4494109a868b9d75f8f0cef9149b19c3f3d75d9f216c3b1a1d0a"
+    }
+  ],
+  "contacts": [
+    {
+      "contact": "A1",
+      "source_signal": "0V",
+      "net": "GND",
+      "status": "documented"
+    },
+    {
+      "contact": "A2",
+      "source_signal": "0V",
+      "net": "GND",
+      "status": "documented"
+    },
+    {
+      "contact": "A3",
+      "source_signal": "/PIOCS0",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A4",
+      "source_signal": "DB7",
+      "net": "H_D7",
+      "status": "documented"
+    },
+    {
+      "contact": "A5",
+      "source_signal": "DB5",
+      "net": "H_D5",
+      "status": "documented"
+    },
+    {
+      "contact": "A6",
+      "source_signal": "DB3",
+      "net": "H_D3",
+      "status": "documented"
+    },
+    {
+      "contact": "A7",
+      "source_signal": "DB1",
+      "net": "H_D1",
+      "status": "documented"
+    },
+    {
+      "contact": "A8",
+      "source_signal": "/WR",
+      "net": "H_WR_N",
+      "status": "documented"
+    },
+    {
+      "contact": "A9",
+      "source_signal": "/MREQ",
+      "net": "H_MREQ_N",
+      "status": "documented"
+    },
+    {
+      "contact": "A10",
+      "source_signal": "IEI (X2 only)",
+      "net": "X2_A10_CONTACT",
+      "status": "disputed_interrupt_chain"
+    },
+    {
+      "contact": "A11",
+      "source_signal": "AB14",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A12",
+      "source_signal": "AB12",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A13",
+      "source_signal": "AB10",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A14",
+      "source_signal": "AB8",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A15",
+      "source_signal": "5N (-5V)",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A16",
+      "source_signal": "AB6",
+      "net": "H_A6",
+      "status": "documented"
+    },
+    {
+      "contact": "A17",
+      "source_signal": "AB4",
+      "net": "H_A4",
+      "status": "documented"
+    },
+    {
+      "contact": "A18",
+      "source_signal": "AB2",
+      "net": "H_A2",
+      "status": "documented"
+    },
+    {
+      "contact": "A19",
+      "source_signal": "AB0",
+      "net": "H_A0",
+      "status": "documented"
+    },
+    {
+      "contact": "A20",
+      "source_signal": "/RESET",
+      "net": "H_RESET_N",
+      "status": "documented"
+    },
+    {
+      "contact": "A21",
+      "source_signal": "TAKT-X2",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A22",
+      "source_signal": "/IODI",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A23",
+      "source_signal": "/NMI",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A24",
+      "source_signal": "/WAIT",
+      "net": "H_WAIT_N",
+      "status": "documented"
+    },
+    {
+      "contact": "A25",
+      "source_signal": "/RFSH",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A26",
+      "source_signal": "/M1",
+      "net": "H_M1_N",
+      "status": "documented"
+    },
+    {
+      "contact": "A27",
+      "source_signal": "/BAO",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A28",
+      "source_signal": "12P (+12V)",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "A29",
+      "source_signal": "5P (+5V)",
+      "net": "V5_HOST",
+      "status": "documented"
+    },
+    {
+      "contact": "B1",
+      "source_signal": "0V",
+      "net": "GND",
+      "status": "documented"
+    },
+    {
+      "contact": "B2",
+      "source_signal": "0V",
+      "net": "GND",
+      "status": "documented"
+    },
+    {
+      "contact": "B3",
+      "source_signal": "/PIOCS1",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B4",
+      "source_signal": "DB6",
+      "net": "H_D6",
+      "status": "documented"
+    },
+    {
+      "contact": "B5",
+      "source_signal": "DB4",
+      "net": "H_D4",
+      "status": "documented"
+    },
+    {
+      "contact": "B6",
+      "source_signal": "DB2",
+      "net": "H_D2",
+      "status": "documented"
+    },
+    {
+      "contact": "B7",
+      "source_signal": "DB0",
+      "net": "H_D0",
+      "status": "documented"
+    },
+    {
+      "contact": "B8",
+      "source_signal": "/RD",
+      "net": "H_RD_N",
+      "status": "documented"
+    },
+    {
+      "contact": "B9",
+      "source_signal": "/MEMDI",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B10",
+      "source_signal": "IEO (X1 only)",
+      "net": "X2_B10_CONTACT",
+      "status": "disputed_interrupt_chain"
+    },
+    {
+      "contact": "B11",
+      "source_signal": "AB15",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B12",
+      "source_signal": "AB13",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B13",
+      "source_signal": "AB11",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B14",
+      "source_signal": "AB9",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B15",
+      "source_signal": "12N (-12V)",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B16",
+      "source_signal": "AB7",
+      "net": "H_A7",
+      "status": "documented"
+    },
+    {
+      "contact": "B17",
+      "source_signal": "AB5",
+      "net": "H_A5",
+      "status": "documented"
+    },
+    {
+      "contact": "B18",
+      "source_signal": "AB3",
+      "net": "H_A3",
+      "status": "documented"
+    },
+    {
+      "contact": "B19",
+      "source_signal": "AB1",
+      "net": "H_A1",
+      "status": "documented"
+    },
+    {
+      "contact": "B20",
+      "source_signal": "/BUSRQ",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B21",
+      "source_signal": "/LT107CS",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B22",
+      "source_signal": "/CTCCS1",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B23",
+      "source_signal": "/INT",
+      "net": "H_INT_N",
+      "status": "documented"
+    },
+    {
+      "contact": "B24",
+      "source_signal": "/IORQ",
+      "net": "H_IORQ_N",
+      "status": "documented"
+    },
+    {
+      "contact": "B25",
+      "source_signal": "/KRF0",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B26",
+      "source_signal": "/SIOCS1",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B27",
+      "source_signal": "NC",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B28",
+      "source_signal": "12P (+12V)",
+      "net": null,
+      "status": "documented"
+    },
+    {
+      "contact": "B29",
+      "source_signal": "5P (+5V)",
+      "net": "V5_HOST",
+      "status": "documented"
+    }
+  ]
+}

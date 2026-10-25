@@ -21,6 +21,9 @@ J8	QUALIFIERS	-	-
 J9	EXTERNAL_RAILS	-	-
 JP1	ARM_SHUNT	-	-
 J10	SCOPE	-	-
+X2	PC1715_X2	-	-
+J11	IRQ_PATCH	-	-
+R15	10k	Resistor_SMD:R_0805_2012Metric	-
 R1	2k2	Resistor_SMD:R_0805_2012Metric	-
 R2	22k	Resistor_SMD:R_0805_2012Metric	-
 R3	2k2	Resistor_SMD:R_0805_2012Metric	-
