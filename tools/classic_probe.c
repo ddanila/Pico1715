@@ -9,6 +9,10 @@
 
 #ifdef PICO1715_COSIM
 #include "cosim/bridge.h"
+#ifdef P1715_FIRMWARE_COSIM
+void firmware_cosim_start(int absent);
+void firmware_cosim_export(void);
+#endif
 #define card_read cosim_read
 #define card_write cosim_write
 #define card_tick cosim_tick
@@ -110,7 +114,9 @@ int main(int argc, char **argv) {
   fixture f = {.command = argc >= 5 ? argv[4] : "", .key_due = 20000000};
   if (pico1715_mount(&f.controller, disk, 819200, 80, 2, 5, 3)) return 2;
   f.controller.writable = argc != 6; /* Only this process-owned copy can be modified. */
+  #ifndef P1715_FIRMWARE_COSIM
   if (argc == 6 && !strcmp(argv[5], "absent")) f.controller.image = NULL;
+#endif
   if (getenv("PICO1715_TIMED")) {
     f.controller.timing.enabled = 1;
     f.controller.timing.read_delay = option("PICO1715_TIMED", 0, 1000000);
@@ -129,6 +135,9 @@ int main(int argc, char **argv) {
   if (reset_phase && !reset_image) return 2;
   #ifdef PICO1715_COSIM
   cosim_init(m, &f.controller);
+#ifdef P1715_FIRMWARE_COSIM
+  firmware_cosim_start(argc == 6 && !strcmp(argv[5], "absent"));
+#endif
 #endif
   pc1715_card card = {&f, input, output, card_tick,
     card_irq, card_ack, card_reti, card_reset, card_wait};
@@ -136,7 +145,8 @@ int main(int argc, char **argv) {
   m->trace = (dac_trace_sink){trace, NULL, 0, 0};
   uint64_t handoff = 0;
   unsigned target = 0;
-  for (unsigned i = 0; i < 100000000; i++) {
+  unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 100000000);
+  for (unsigned i = 0; i < cycle_limit; i++) {
     pc1715_run(m, 1);
 #ifdef PICO1715_COSIM
     cosim_observe();
@@ -157,6 +167,9 @@ int main(int argc, char **argv) {
       target = m->ram[0x81e] | (m->ram[0x81f] << 8);
     }
   }
+  #ifdef P1715_FIRMWARE_COSIM
+  firmware_cosim_export();
+#endif
   pico1715_controller c = f.controller;
   printf("{\"cycles\":%" PRIu64 ",\"pc\":%u,\"rom_handoff_cycle\":%" PRIu64
     ",\"rom_handoff_target\":%u,\"fields\":%" PRIu64 ",\"bytes\":%" PRIu64

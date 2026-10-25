@@ -42,8 +42,10 @@ quality. Probe only within the instrument's input voltage limits.
 * Nine unchanged ROM/SCP regressions pass through Verilated normal-I/O and IRQ
   frontend logic: [report](../reports/rtl-compatibility.json).
 * The physical-board top's shared mailbox, vector mirrors and IRQ notifications
-  have a separate RTL test. Co-simulation uses `cosim_top`, a C disk backend and
-  synthetic mailbox completion; it does **not** execute the Pico firmware.
+  also run against the host-compiled production firmware service loop and
+  journal code: [firmware co-simulation](../docs/firmware-cosim.md).
+  The older `cosim_top` profile remains a C-controller reference comparison.
+  Neither profile executes RP2350 instructions or models analog hardware.
 * The HX8K target is fully pin-constrained, synthesized, placed and routed:
   [fit report](../reports/hx8k-fit.json). Internal clock timing passes; external
   asynchronous I/O timing, metastability probability and translators remain

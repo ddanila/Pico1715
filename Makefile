@@ -69,3 +69,10 @@ test-interface:
 	kicad-cli sch erc hardware/interface/bench-interface.kicad_sch --exit-code-violations --output build/interface-erc.rpt
 	kicad-cli sch export netlist hardware/interface/bench-interface.kicad_sch --format kicadxml --output build/interface.net.xml
 	python3 tools/check_interface.py --netlist build/interface.net.xml
+
+.PHONY: test-firmware-service
+test-firmware-service: build/firmware-service-test
+	./build/firmware-service-test
+build/firmware-service-test: tests/firmware_service_test.c firmware/service.c firmware/service.h firmware/platform.h firmware/store.c firmware/store.h model/controller.c model/controller.h tools/firmware_host/host_hal.c tools/firmware_host/host_hal.h
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(WARN) -DP1715_HOST_SIM -Itools/firmware_host tests/firmware_service_test.c firmware/service.c firmware/store.c model/controller.c tools/firmware_host/host_hal.c -o $@

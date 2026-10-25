@@ -8,6 +8,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y iverilog verilator yosys
-      - run: make test test-store test-frontend test-irq test-pico-top test-bench-fixture lint-bench-fixture lint-frontend synth-frontend
+      - run: make test test-store test-firmware-service test-frontend test-irq test-pico-top test-bench-fixture lint-bench-fixture lint-frontend synth-frontend
       - run: verilator --lint-only -Wall --top-module pico1715_top hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v
       - run: cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -g tests/store_test.c firmware/store.c -o build/store-sanitize && ./build/store-sanitize
+      - run: cc -std=c11 -Wall -Wextra -Werror -fsanitize=undefined -g -DP1715_HOST_SIM -Itools/firmware_host tests/firmware_service_test.c firmware/service.c firmware/store.c model/controller.c tools/firmware_host/host_hal.c -o build/firmware-service-ubsan && ./build/firmware-service-ubsan
+      - run: verilator --lint-only -Wall --top-module firmware_cosim_top hardware/rtl/firmware_cosim_top.v hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v
+      - uses: actions/checkout@v4
+        with:
+          repository: ddanila/dac-emulation
+          ref: 59823402bd3209ca46f6ace0729f60989ed29e39
+          path: build/dac
+      - run: python3 tools/build_cosim.py --firmware --dac build/dac --out build/firmware-cosim
+      - run: python3 tests/firmware_cosim_smoke.py build/firmware-cosim/classic-probe

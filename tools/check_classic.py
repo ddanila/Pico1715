@@ -31,7 +31,11 @@ def main():
         parser.add_argument('--' + key, type=Path, required=True)
     parser.add_argument('--timed', action='store_true', help='scheduled 250 kbit/s bytes with transaction waits')
     parser.add_argument("--cosim", action="store_true", help="run normal I/O and IRQ/RETI through Verilated RTL")
+    parser.add_argument('--firmware-cosim', action='store_true',
+                        help='run shared Pico service/storage code against the board-level RTL')
     args = parser.parse_args()
+    if args.firmware_cosim:
+        args.cosim = True
     if args.cosim:
         args.timed = True
     dac, rom, disk, out = (getattr(args, k).resolve() for k in ('dac', 'rom', 'disk', 'out'))
@@ -45,7 +49,7 @@ def main():
     binary = out / 'classic-probe'
     if args.cosim:
         subprocess.run([sys.executable, str(ROOT / 'tools/build_cosim.py'), '--dac', str(dac),
-                        '--out', str(out / 'build')], check=True, timeout=180)
+                        '--out', str(out / 'build'), *(['--firmware'] if args.firmware_cosim else [])], check=True, timeout=180)
         shutil.copyfile(out / 'build/classic-probe', binary)
         binary.chmod(0o755)
     else:
@@ -81,6 +85,16 @@ def main():
             report['rtl'] = dict(zip(('requests', 'acks', 'reti'), map(int, stats.groups())))
             require(absent or all(report['rtl'][key] > 0 for key in ('requests', 'acks', 'reti')),
                     'RTL path not exercised')
+        if args.firmware_cosim:
+            stats = re.search(r'Firmware state=(\d+) requests=(\d+) sd_reads=(\d+) sd_writes=(\d+) dirty=(\d+) error=(\d+)', proc.stderr)
+            require(stats is not None, 'missing firmware evidence')
+            report['firmware'] = dict(zip(('state', 'requests', 'sd_reads', 'sd_writes', 'dirty', 'error'), map(int, stats.groups())))
+            fw = report['firmware']
+            require(fw['state'] == (0xe2 if absent else 2), 'unexpected firmware startup state')
+            require(fw['dirty'] == fw['error'] == 0, 'firmware storage did not drain cleanly')
+            require(absent or (fw['requests'] == report['rtl']['requests'] and fw['sd_reads'] >= 1602),
+                    'firmware service/storage path not exercised')
+            require(not report['writes'] or fw['sd_writes'] > 0, 'guest writes did not reach journaled SD')
         screen = (folder / 'screen.txt').read_text()
         require(report['rom_handoff_target'] == (0 if absent else 0xd900), f'{name}: wrong ROM handoff')
         require(digest(media) == before, f'{name}: input modified')
@@ -126,7 +140,7 @@ def main():
             'absent media generated disk activity')
     require(missing['input_sha256'] == missing['output_sha256'], 'absent media changed image')
     require(digest(rom) == ROM_HASH and digest(disk) == DISK_HASH, 'external inputs changed')
-    report = {'schema': 2, 'profile': 'pc1715-rtl-cosim' if args.cosim else 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
+    report = {'schema': 2, 'profile': 'pc1715-firmware-rtl-cosim' if args.firmware_cosim else 'pc1715-rtl-cosim' if args.cosim else 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
               'rom_sha256': ROM_HASH, 'disk_sha256': DISK_HASH, 'rom_patched': False,
               'bios_patched': False, 'hardware_timing_qualified': False,
               'source_sha256': {name: digest(ROOT / name) for name in
@@ -137,6 +151,17 @@ def main():
             ('hardware/rtl/bus_frontend.v', 'hardware/rtl/irq_frontend.v', 'hardware/rtl/cosim_top.v',
              'tools/cosim/bridge.cpp', 'tools/cosim/bridge.h', 'tools/build_cosim.py')})
         report['limitations'] = 'C disk/controller backend; transaction-level waits; RTL normal I/O and IRQ/RETI; not physical timing'
+    if args.firmware_cosim:
+        report['source_sha256'].update({name: digest(ROOT / name) for name in
+            ('firmware/main.c', 'firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
+             'firmware/store.c', 'firmware/store.h', 'firmware/CMakeLists.txt',
+             'tools/firmware_host/bridge.cpp', 'tools/firmware_host/host_hal.c',
+             'tools/firmware_host/host_hal.h', 'hardware/rtl/pico1715_top.v',
+             'hardware/rtl/firmware_cosim_top.v')})
+        report['limitations'] = ('Host-compiled shared firmware service and storage code; simulated GPIO, '
+            'microsecond clock, PSRAM and SD block device; cooperative storage worker; '
+            '1 us service polling; DAC deferred I/O and synthetic keyboard; '
+            'not ARM instruction execution, SPI/QMI electrical emulation, multicore contention or physical timing')
     (out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(f'{len(results)} classic compatibility cases passed; report: {out / "report.json"}')
 

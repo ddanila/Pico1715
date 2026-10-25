@@ -40,6 +40,15 @@ SIO/CTC/CRT are not fully modelled. External-memory inhibition and DMA are not
 implemented on the plain card seam. Connector identity, voltage translation,
 power sequencing and physical bus timing remain separate qualification gates.
 
+## Shared firmware and board-level RTL
+
+The `--firmware-cosim` profile connects the production `firmware/service.c` and
+`firmware/store.c` to the actual `pico1715_top` RTL, including the bidirectional
+mailbox, vector mirrors, IRQ/RETI toggles and backend-ready gating. A host HAL
+supplies GPIO, clock, PSRAM and SD blocks. See [the execution boundary, evidence
+and reproduction commands](firmware-cosim.md). This closes the direct C-backend
+bypass in the earlier RTL profile; it does not emulate the RP2350 instruction set.
+
 ## W/M baseline remains separate
 
 `tools/dac_capture.c` observes the existing `robotron1715m` model running S550 and
