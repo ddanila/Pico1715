@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "profile": "robotron1715m-wm-reference",
+  "dac_commit": "d71829a993c864e4583bf209c1babf19f739c079",
+  "adapter_sha256": "0b83bc77f2286ff2fd6d640c2acb43e028a3c68649749c98a6f61e9c06d8a82a",
+  "binary_sha256": "a7f4657267f6283564c9739d8f313af5108c15c9d7d4996bfa5781ab579492da",
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "inputs": {
+    "rom": {
+      "bytes": 2048,
+      "sha256": "37e58472a049e1785c3521ec6b23c2d269d93fa5fede696dc7bd72eabb4af031"
+    },
+    "prom": {
+      "bytes": 256,
+      "sha256": "8a085e4b8988c47de9ca05bdd65cfa7657d45b87efb72e3ee6a0bbcbf6bab23b"
+    },
+    "disk": {
+      "bytes": 819200,
+      "sha256": "f724763d5e48c0f15341e95d7b85f645533dd7dfa270cbce4e44d3025e62b23b"
+    }
+  },
+  "requested_ticks": 100000000,
+  "input_files_unchanged": true,
+  "boot_prompt_observed": true,
+  "passed": true,
+  "state": {
+    "profile": "robotron1715m-wm-reference",
+    "ticks": 100000000,
+    "pc": 62496,
+    "disk_reads": 78,
+    "disk_writes": 0,
+    "events": 395169,
+    "dropped": 0
+  },
+  "trace": {
+    "events": 395169,
+    "by_kind_port_master": {
+      "IA:00:cpu": 74,
+      "IR:00:cpu": 413,
+      "IR:0e:cpu": 41445,
+      "IR:1c:cpu": 112115,
+      "IR:1d:cpu": 4777,
+      "IR:34:cpu": 2,
+      "IR:40:dma": 10,
+      "IR:41:dma": 79872,
+      "IW:00:cpu": 10242,
+      "IW:04:cpu": 1,
+      "IW:05:cpu": 2,
+      "IW:06:cpu": 2,
+      "IW:08:cpu": 2,
+      "IW:09:cpu": 2,
+      "IW:0e:cpu": 41456,
+      "IW:0f:cpu": 7,
+      "IW:10:cpu": 2,
+      "IW:11:cpu": 2,
+      "IW:12:cpu": 4,
+      "IW:16:cpu": 9,
+      "IW:17:cpu": 9,
+      "IW:18:cpu": 3696,
+      "IW:19:cpu": 1853,
+      "IW:1a:cpu": 7,
+      "IW:1d:cpu": 4905,
+      "IW:20:cpu": 264,
+      "IW:24:cpu": 93871,
+      "IW:28:cpu": 125
+    }
+  },
+  "screen_sha256": "81d919963048cd7c467e61ae127b2f80f9a694904e0a5e89dea5347d82b21867",
+  "trace_sha256": "7668622d3ce876047dfea377161e47c6b511da71239749f2255150d9429e093c",
+  "limitations": [
+    "W/M baseline only; no classic-1715 or card model",
+    "Observer events, not physical bus-edge timing",
+    "Boot/read only; no write or persistence qualification"
+  ]
+}

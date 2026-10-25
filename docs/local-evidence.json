@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "inspected": "2026-10-25",
+  "files": [
+    {
+      "name": "classic-boot-rom",
+      "local_hint": "/tmp/r1715bt.bin",
+      "bytes": 2048,
+      "sha256": "51cb80639b5667f2611da71ce7305061566cf3474bda7db6fc82709d08e46d01",
+      "role": "classic-1715 reference; specimen identity unconfirmed",
+      "redistributed": false
+    },
+    {
+      "name": "classic-boot-disassembly",
+      "local_hint": "/tmp/r1715bt.lst",
+      "bytes": 39464,
+      "sha256": "f9080edf1a76adbbaba961ba1c279aa9c4d8f03823c3af2607ff76d177b975c4",
+      "role": "Corti 2002 reference annotation; not bundled",
+      "redistributed": false
+    },
+    {
+      "name": "schematics-scan",
+      "local_hint": "/tmp/PC-1715-Schaltplaene.pdf",
+      "bytes": 31837204,
+      "sha256": "9d020e9dd41662f85b6a9a44e300cc9800ef20284c2a689e005f69a84f6e3fd3",
+      "role": "reference scan; exact board coverage to audit",
+      "redistributed": false
+    },
+    {
+      "name": "service-manual",
+      "local_hint": "/tmp/1715-service.pdf",
+      "bytes": 179188,
+      "sha256": "c356e50a5499a0fb9a0a204e833eb47406dd5f2d0246c26e27320eec6b8b1d49",
+      "role": "classic bus table",
+      "redistributed": false
+    },
+    {
+      "name": "mainboard-schematic",
+      "local_hint": "/tmp/1715-zre-schematic.pdf",
+      "bytes": 150258,
+      "sha256": "d96efdeeefcf214c7f5044c03ff5165203bc7781afd0852e8de94b623c5b5c63",
+      "role": "index 2B",
+      "redistributed": false
+    },
+    {
+      "name": "wm-boot-rom",
+      "local_hint": "../dac/public/media/robotron/s550.bin",
+      "bytes": 2048,
+      "sha256": "37e58472a049e1785c3521ec6b23c2d269d93fa5fede696dc7bd72eabb4af031",
+      "role": "W/M baseline only",
+      "redistributed": false
+    },
+    {
+      "name": "wm-cas-prom",
+      "local_hint": "../dac/public/media/robotron/cas.bin",
+      "bytes": 256,
+      "sha256": "8a085e4b8988c47de9ca05bdd65cfa7657d45b87efb72e3ee6a0bbcbf6bab23b",
+      "role": "W/M baseline only",
+      "redistributed": false
+    },
+    {
+      "name": "wm-os-image",
+      "local_hint": "../dac/public/media/robotron/tosm10.img",
+      "bytes": 819200,
+      "sha256": "f724763d5e48c0f15341e95d7b85f645533dd7dfa270cbce4e44d3025e62b23b",
+      "role": "TOS/M original TD0-derived raw image",
+      "redistributed": false
+    }
+  ]
+}

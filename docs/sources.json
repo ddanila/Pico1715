@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "reviewed": "2026-10-25",
+  "dac": {
+    "repository": "https://github.com/ddanila/dac-emulation",
+    "commit": "d71829a993c864e4583bf209c1babf19f739c079",
+    "profile": "robotron1715m-wm-reference",
+    "license": "MIT plus dependencies/reference notices in external NOTICE",
+    "limitation": "W/M 8272 profile, not ordinary PC1715 controller"
+  },
+  "references": [
+    {"name": "PC1715 service manual", "url": "https://xepb.org/robotron/docs/pc_serv.pdf", "role": "Primary manual; X1/X2 table on PDF page 44", "redistributed": false},
+    {"name": "PC1715 index-2B mainboard schematic", "url": "https://www.sax.de/~zander/pc1715/pc_zres.pdf", "role": "Bus wiring; resolve manual discrepancies", "redistributed": false},
+    {"name": "GUN card", "url": "https://www.robotrontechnik.de/html/eigenbau/gun.htm", "role": "Architectural reference only", "redistributed": false},
+    {"name": "PicoMEM", "url": "https://github.com/FreddyVRetro/ISA-PicoMEM", "role": "Architectural reference only; GPL v2 software, hardware not open", "redistributed": false},
+    {"name": "MAME rt1715", "url": "https://github.com/mamedev/mame/blob/master/src/mame/robotron/rt1715.cpp", "role": "Family/profile comparison; classic floppy support incomplete", "redistributed": false}
+  ]
+}
