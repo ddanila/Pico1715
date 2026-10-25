@@ -21,7 +21,8 @@ no X2 electrical measurements have been made, and no qualified PCB exists.
 The firmware co-simulator compiles the same service loop and journal code for
 host execution and connects them to the board-level RTL. GPIO, time, PSRAM and
 SD blocks are simulated; this does not execute RP2350 instructions or qualify
-physical timing. See [firmware co-simulation](docs/firmware-cosim.md).
+physical timing. See [firmware co-simulation](docs/firmware-cosim.md) and
+[delayed storage, reset and recovery qualification](docs/firmware-storage-faults.md).
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the

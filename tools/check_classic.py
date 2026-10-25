@@ -33,7 +33,11 @@ def main():
     parser.add_argument("--cosim", action="store_true", help="run normal I/O and IRQ/RETI through Verilated RTL")
     parser.add_argument('--firmware-cosim', action='store_true',
                         help='run shared Pico service/storage code against the board-level RTL')
+    parser.add_argument('--sd-write-delay-us', type=int, default=0,
+                        help='simulated SD block write latency in the firmware worker')
     args = parser.parse_args()
+    if not 0 <= args.sd_write_delay_us <= 1000000 or (args.sd_write_delay_us and not args.firmware_cosim):
+        parser.error('SD delay requires --firmware-cosim and a value from 0 to 1000000')
     if args.firmware_cosim:
         args.cosim = True
     if args.cosim:
@@ -65,6 +69,8 @@ def main():
     environment = {k: v for k, v in os.environ.items() if not k.startswith('PICO1715_')}
     if args.timed:
         environment['PICO1715_TIMED'] = '0'
+    if args.firmware_cosim:
+        environment['PICO1715_SD_WRITE_DELAY_US'] = str(args.sd_write_delay_us)
 
     def run(name, media, command='', readonly=False, absent=False):
         folder = out / name
@@ -89,6 +95,12 @@ def main():
             stats = re.search(r'Firmware state=(\d+) requests=(\d+) sd_reads=(\d+) sd_writes=(\d+) dirty=(\d+) error=(\d+)', proc.stderr)
             require(stats is not None, 'missing firmware evidence')
             report['firmware'] = dict(zip(('state', 'requests', 'sd_reads', 'sd_writes', 'dirty', 'error'), map(int, stats.groups())))
+            storage = re.search(r'Storage delay_us=(\d+) yields=(\d+) resets_while_busy=(\d+)', proc.stderr)
+            require(storage is not None, 'missing storage scheduling evidence')
+            report['storage_schedule'] = dict(zip(('delay_us', 'yields', 'resets_while_busy'), map(int, storage.groups())))
+            require(report['storage_schedule']['delay_us'] == args.sd_write_delay_us, 'wrong SD latency')
+            require(not (args.sd_write_delay_us and report['writes']) or report['storage_schedule']['yields'] > 0,
+                    'delayed worker not exercised')
             fw = report['firmware']
             require(fw['state'] == (0xe2 if absent else 2), 'unexpected firmware startup state')
             require(fw['dirty'] == fw['error'] == 0, 'firmware storage did not drain cleanly')
@@ -152,6 +164,7 @@ def main():
              'tools/cosim/bridge.cpp', 'tools/cosim/bridge.h', 'tools/build_cosim.py')})
         report['limitations'] = 'C disk/controller backend; transaction-level waits; RTL normal I/O and IRQ/RETI; not physical timing'
     if args.firmware_cosim:
+        report['sd_write_delay_us'] = args.sd_write_delay_us
         report['source_sha256'].update({name: digest(ROOT / name) for name in
             ('firmware/main.c', 'firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
              'firmware/store.c', 'firmware/store.h', 'firmware/CMakeLists.txt',

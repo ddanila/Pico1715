@@ -12,6 +12,7 @@
 #ifdef P1715_FIRMWARE_COSIM
 void firmware_cosim_start(int absent);
 void firmware_cosim_export(void);
+int firmware_cosim_storage_busy(void);
 #endif
 #define card_read cosim_read
 #define card_write cosim_write
@@ -128,7 +129,11 @@ int main(int argc, char **argv) {
     f.controller.timing.corrupt_crc = option("PICO1715_CORRUPT_CRC", 0, 1);
     f.controller.timing.no_wait = option("PICO1715_NO_WAIT", 0, 1);
   }
+#ifdef P1715_FIRMWARE_COSIM
+  unsigned reset_phase = option("PICO1715_RESET_PHASE", 0, 3);
+#else
   unsigned reset_phase = option("PICO1715_RESET_PHASE", 0, 2);
+#endif
   unsigned resets = 0, reset_unchanged = 0;
   uint64_t reset_at = 0;
   uint8_t *reset_image = reset_phase ? malloc(819200) : NULL;
@@ -151,13 +156,20 @@ int main(int argc, char **argv) {
 #ifdef PICO1715_COSIM
     cosim_observe();
 #endif
-    if (!resets && ((reset_phase == 1 && f.controller.stream_active &&
+    int reset_during_storage = 0;
+#ifdef P1715_FIRMWARE_COSIM
+    reset_during_storage = reset_phase == 3 && firmware_cosim_storage_busy();
+#endif
+    if (!resets && (reset_during_storage || (reset_phase == 1 && f.controller.stream_active &&
                      f.controller.pos > 16) ||
                     (reset_phase == 2 && f.controller.write_active &&
                      f.controller.write_pos > 16))) {
-      memcpy(reset_image, disk, 819200);
+      /* Firmware has a separate PSRAM cache; the original disk buffer is only
+       * its eventual SD export and cannot prove reset preservation. */
+      uint8_t *cache = f.controller.image ? f.controller.image : disk;
+      memcpy(reset_image, cache, 819200);
       pc1715_reset(m);
-      reset_unchanged = !memcmp(reset_image, disk, 819200);
+      reset_unchanged = !memcmp(reset_image, cache, 819200);
       resets++; reset_at = i + 1;
       f.key_pos = f.key_half = f.sio_register = 0; f.key_due = 20000000;
       handoff = 0; target = 0;

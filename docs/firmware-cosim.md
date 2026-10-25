@@ -67,9 +67,12 @@ suite still requires the externally supplied ROM and disk.
 
 This is host compilation of shared production C, not execution of the ARM ELF or
 UF2. SD SPI commands, CRC transport, QMI/PSRAM signalling and Pico SDK multicore
-machinery are replaced by deterministic host operations. SD block transfers
-complete immediately; the storage worker runs cooperatively every 100 simulated
-microseconds when dirty blocks exist. Locking is consequently uncontended.
+machinery are replaced by deterministic host operations. By default SD block transfers complete immediately. With
+`--sd-write-delay-us`, each worker write yields on a separate POSIX `ucontext`
+stack while the emulated CPU, FPGA and serving loop continue. A dirty worker
+starts at a 100-microsecond polling boundary. Interleaving occurs at SD operations
+outside the image lock; locking is consequently uncontended. The host clock
+remains monotonic across 1715 resets so pending SD deadlines remain meaningful.
 
 The firmware polls on changes of the microsecond timer, quantized to CPU ticks.
 Idle FPGA clocks can be skipped once the normal mailbox has settled; observed
@@ -78,7 +81,8 @@ not firmware execution-time bounds, full CDC behavior, or physical /WAIT margins
 The motherboard's keyboard is still a minimal SIO receive fixture; full CTC/SIO
 priority-chain integration is a separate remaining task.
 
-Further useful work includes delayed/failing storage in this combined profile,
-reset during active transfers and writeback, multicore interleaving, and more OS
-images. Existing controller fault tests and journal cut-point tests remain useful
-but do not automatically qualify those scenarios through the combined path.
+The [storage/reset qualification](firmware-storage-faults.md) adds delayed stock-OS
+workloads, three stock-ROM reset scenarios and 42 scripted firmware/RTL fault
+cases. Full instruction-level multicore interleaving, wider OS coverage and
+physical measurements remain separate work. The legacy controller-only timing
+injection options are not firmware-storage fault controls.

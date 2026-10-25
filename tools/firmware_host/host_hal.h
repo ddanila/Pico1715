@@ -27,5 +27,13 @@ static inline void sleep_us(unsigned n){(void)n;}
 static inline void __dmb(void){}
 void host_storage_init(const uint8_t *,bool absent);
 const uint8_t *host_storage_image(void);
+/* Fault fixture: preserve SD, discard volatile board state on a power cycle. */
+void host_storage_power_cycle(void);
+const uint8_t *host_storage_block(uint32_t lba);
+extern unsigned host_torn_bytes;
+/* Called before the block completes, including an injected failing operation.
+ * Fixtures may advance the serving core/RTL here while the worker is suspended.
+ * Never invoke the storage worker recursively from this hook. */
+extern void (*host_io_hook)(bool writing,uint32_t lba);
 extern uint64_t host_sd_reads,host_sd_writes,host_fail_read,host_fail_write;
 #endif
