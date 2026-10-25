@@ -1,4 +1,4 @@
-# Buffered bench adapter, revision B
+# Buffered bench adapter, revision C
 
 Editable source: [bench-interface.kicad_sch](bench-interface.kicad_sch), with
 project and original symbol library beside it. Open the project in KiCad 10.
@@ -9,8 +9,9 @@ project and original symbol library beside it. Open the project in KiCad 10.
 **Schematic draft for bench assembly, not a released 1715 card.** There is no PCB
 layout. X2 now uses the documented A1–A29/B1–B29 contacts; J1–J3 remain
 logical breakout headers on those nets. The [contact table](../x2-pinout.md)
-records the sources and the A10/B10 interrupt-chain exception. J11 isolates
-those two contacts until configured; R15 holds card IEI high while unpatched.
+records the original sheets resolving A10/B10 direction. R16/R17 connect
+A10 to card IEO and B10 to card IEI; R15 biases IEI high. J11 provides probe
+access. Remove R16/R17 before changing the patch routing.
 The connector footprint still needs mechanical and orientation verification.
 
 ## Circuit
@@ -141,3 +142,6 @@ The current design has zero ERC errors/warnings. The exported netlist is also
 checked for pin/rail/direction connectivity and all 512 combinations of the six
 qualifiers plus three drive requests. These checks are digital/connectivity
 checks; neither is an analog simulation or hardware result.
+
+The [desk review](../x2-desk-review.md) records the resolved IRQ chain, assembly
+orientation, conditional WAIT budget and delayed-data RETI regression.

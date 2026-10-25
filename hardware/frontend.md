@@ -161,7 +161,7 @@ Before the first machine connection:
    address, /IORQ, /M1, /RD, /WR, /WAIT, data, /OE, request, ACK, reset and fault.
 3. Measure assertion/setup/hold and bus turnaround; stop either endpoint and
    reset/power-cycle each rail independently. Verify no contention or back-power.
-4. Resolve the X2 orientation/interrupt-chain discrepancy, then connect through
+4. Confirm the source-resolved X2 orientation/IRQ routing on the specimen, then connect through
    the verified interface and run the existing stock-software workloads.
 
 This work supplies the transport reference and reproducible fault tests for that

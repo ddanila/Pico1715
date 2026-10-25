@@ -62,6 +62,9 @@ x2=json.loads((ROOT/'hardware/boards/x2-contacts.json').read_text())
 add('X2','PC1715_X2',[(c['contact'],c['source_signal'].split(' (')[0],'passive',c['net']) for c in x2['contacts']],760,85)
 connector('J11','IRQ_PATCH',['X2_A10_CONTACT','X2_B10_CONTACT','H_IEI','H_IEO'],760,390)
 add('R15','10k',[(1,'1','passive','V5_HOST'),(2,'2','passive','H_IEI')],760,440,'Resistor_SMD:R_0805_2012Metric')
+# Removable zero-ohm links reproduce original FDC sheet 11, A1:2 pins 24/22.
+add('R16','0R',[(1,'1','passive','X2_A10_CONTACT'),(2,'2','passive','H_IEO')],90,240,'Resistor_SMD:R_0805_2012Metric')
+add('R17','0R',[(1,'1','passive','X2_B10_CONTACT'),(2,'2','passive','H_IEI')],230,240,'Resistor_SMD:R_0805_2012Metric')
 # Exact resistor connections, with values and labels visible on the page.
 rs=[('2k2','V3P3','PG3'),('22k','PG3','GND'),('2k2','V5_HOST','PG5'),('22k','PG5','GND'),
     ('1k','V5_HOST','DATA_OE_N'),('1k','V5_HOST','IEO_OE_N'),('4k7','ARM','GND'),
@@ -95,7 +98,7 @@ for c in parts:
         props+=f'(property {q(name)} {q(val)} (at {c["x"]} {c["y"]+dy} 0) (effects (font (size 1.27 1.27))'+(' hide' if name in ['Footprint','Datasheet'] else '')+')) '
     instances.append(f'(symbol (lib_id "Pico1715:{sym}") (at {c["x"]} {c["y"]} 0) (unit 1) (in_bom yes) (on_board yes) (uuid {uid(ref)}) {props} (instances (project "bench-interface" (path "/{rootid}" (reference "{ref}") (unit 1)))))')
 text=[]
-for y,t in [(18,'Pico1715 buffered bench adapter — rev B / NOT MACHINE-QUALIFIED'),(25,'X2 common contacts assigned from manual. J11 IRQ patch OPEN by default. JP1 open = disarmed. Host footprint pending.'),(33,'V3P3 from FPGA board only; V5_HOST from host or isolated fixture supply. Common GND. Never parallel module regulator outputs.'),(42,'WAIT/INT pull-ups belong to the host/fixture. U9 is open-drain. C1-C11: one 100 nF per IC; place at supply pins.'),(437,'Pull-ups, fail-safe pull-downs and local decoupling. Pin-explicit boxes; resistor/capacitor values identify passive function.')]:
+for y,t in [(18,'Pico1715 buffered bench adapter — rev C / NOT MACHINE-QUALIFIED'),(25,'X2: A10 = card IEO, B10 = card IEI via R16/R17. J11 probe/override. JP1 open = disarmed. Host footprint pending.'),(33,'V3P3 from FPGA board only; V5_HOST from host or isolated fixture supply. Common GND. Never parallel module regulator outputs.'),(42,'WAIT/INT pull-ups belong to the host/fixture. U9 is open-drain. C1-C11: one 100 nF per IC; place at supply pins.'),(437,'Pull-ups, fail-safe pull-downs and local decoupling. Pin-explicit boxes; resistor/capacitor values identify passive function.')]:
     text.append(f'(text {q(t)} (at 20 {y*0.7+(4 if y<50 else 0)} 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid {uid(t)}))')
 s=f'(kicad_sch (version 20250114) (generator "pico1715") (uuid {rootid}) (paper "A2") (lib_symbols '+''.join(libs)+') '+''.join(instances+wires+labels+ncs+text)+')\n'
 OUT.mkdir(exist_ok=True)
@@ -104,7 +107,7 @@ OUT.mkdir(exist_ok=True)
 (OUT/'sym-lib-table').write_text('(sym_lib_table (lib (name "Pico1715") (type "KiCad") (uri "${KIPRJMOD}/Pico1715.kicad_sym") (options "") (descr "Original pin-explicit adapter symbols")))\n')
 flibs=sorted({c['footprint'].split(':')[0] for c in parts if c['footprint']})
 (OUT/'fp-lib-table').write_text('(fp_lib_table '+''.join('(lib (name "'+n+'") (type "KiCad") (uri "${KICAD10_FOOTPRINT_DIR}/'+n+'.pretty") (options "") (descr ""))' for n in flibs)+')\n')
-(OUT/'connections.json').write_text(json.dumps({'schema':1,'revision':'B','x2_common_contacts_source_checked':True,'interrupt_chain_configured':False,'physical_orientation_verified':False,'parts':parts},indent=2)+'\n')
+(OUT/'connections.json').write_text(json.dumps({'schema':1,'revision':'C','x2_common_contacts_source_checked':True,'interrupt_chain_configured':True,'irq_profile':'classic_original_fdc','physical_orientation_verified':False,'parts':parts},indent=2)+'\n')
 # TSV is a connection list, not an order-ready production BOM.
 (OUT/'bom.tsv').write_text('Reference\tValue\tFootprint\tDatasheet\n'+''.join('\t'.join((str(c[k]) or '-') for k in ['ref','value','footprint','datasheet'])+'\n' for c in parts))
-print(f'Generated {len(parts)} parts; X2 common contacts assigned; IRQ patch open; physical orientation pending')
+print(f'Generated {len(parts)} parts; X2 common contacts assigned; classic IRQ links fitted; physical orientation pending')

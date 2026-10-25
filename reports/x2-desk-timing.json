@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "electrical_timing_qualified": false,
+  "source_sha256": {
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+    "hardware/rtl/pico1715_top.v": "9dbd78d9b445e6ad4f9141288387ab6fd64975f0eafb81961573ba08f1a479f7",
+    "hardware/boards/hx8k.pcf": "2418873b1c836628da9670601835b25cf856e84be6723abfc0368a2a43872e20",
+    "hardware/boards/hx8k-pins.json": "155a30d99ac81e32cd0890af7cdc6cf4885600a8765e502bca8bad5422184a6e"
+  },
+  "cpu_hz": 2458000,
+  "cpu_period_ns": 406.83482506102524,
+  "fpga_period_ns": 20,
+  "timing_sha256": "7398af52b759d572bf318b59bd0779646f7dc830f6e3f394dd20bacfd50ddf71",
+  "routed_async_envelope_ns": 14.082000017166138,
+  "envelope_endpoints": [
+    "backend_ready$sb_io",
+    "host_oe$sb_io"
+  ],
+  "translator_max_ns": {
+    "SN74LVC245A": 6.3,
+    "SN74LVC00A": 4.3,
+    "SN74LVC07A": 3.6
+  },
+  "conditional_wait_assert_path_ns": 28.282000017166137,
+  "wait_margin_ns": null,
+  "wait_pullup_ohms": 3300,
+  "ideal_release_to_2V_ns": {
+    "50": 84.28622792138847,
+    "100": 168.57245584277695,
+    "200": 337.1449116855539
+  },
+  "unresolved": [
+    "U880 clock-to-IORQ/RD/WR maximum and WAIT setup at actual grade",
+    "Motherboard output buffer delay, routing and actual loading",
+    "Routed WAIT endpoint constraint and hazards, not only worst async summary",
+    "Data/OE/WAIT relative minimum and maximum delays including AHCT541",
+    "IACK window and RETI fetch-data validity",
+    "Power-ramp and analog signal integrity"
+  ]
+}

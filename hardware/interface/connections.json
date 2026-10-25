@@ -1,8 +1,9 @@
 {
   "schema": 1,
-  "revision": "B",
+  "revision": "C",
   "x2_common_contacts_source_checked": true,
-  "interrupt_chain_configured": false,
+  "interrupt_chain_configured": true,
+  "irq_profile": "classic_original_fdc",
   "physical_orientation_verified": false,
   "parts": [
     {
@@ -2040,6 +2041,50 @@
       ],
       "x": 539.75,
       "y": 308.61,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R16",
+      "value": "0R",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "X2_A10_CONTACT"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "H_IEO"
+        ]
+      ],
+      "x": 71.12,
+      "y": 167.64,
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "datasheet": ""
+    },
+    {
+      "ref": "R17",
+      "value": "0R",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "X2_B10_CONTACT"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "H_IEI"
+        ]
+      ],
+      "x": 168.91,
+      "y": 167.64,
       "footprint": "Resistor_SMD:R_0805_2012Metric",
       "datasheet": ""
     },

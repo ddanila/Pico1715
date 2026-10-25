@@ -12,32 +12,38 @@
     "fixture_fault_cases": 4,
     "existing_unit_and_rtl_tests": "passed",
     "x2_contacts_checked": 58,
-    "x2_irq_patch_isolated": true,
     "x2_negative_mutations_rejected": [
       "swapped data contact",
       "5V contact connected to ground",
-      "A10 hardwired to card IEI"
-    ]
+      "reversed IRQ direction"
+    ],
+    "x2_classic_irq_links_verified": true,
+    "irq_delayed_data_regression": "15 checks passed; old RTL fails",
+    "integrated_frontend": "38 checks passed"
   },
   "source_sha256": {
-    "hardware/interface/bench-interface.kicad_sch": "d89aeede20d9f376cb0410fd5259eeb2862c2e0393ca29d6d0fca2afa57539f5",
-    "hardware/interface/Pico1715.kicad_sym": "b67e5d8406f92378ef27256c3198f68f3dd2392744d15d820a75d12951c3a6da",
-    "hardware/interface/connections.json": "da88359d71818ce5333a447422652d75ccf568e52bfd991f6cef4f6eeff123a7",
-    "tools/generate_interface.py": "01eb28d4f95898cb9383ff4011905b8c7952e78817325871fabb5f285842422b",
-    "tools/check_interface.py": "0e6b44704f320e825b3aae32c599e230054ee41f96240ec351b42bb3a173742d",
+    "hardware/interface/bench-interface.kicad_sch": "63aed3ea997dc8f87dd1b81fa5f50c3c609599da7f3e14ba8162f90efd41e780",
+    "hardware/interface/Pico1715.kicad_sym": "0519aa81ad1123323a3eaad90a8c90ab11140ffef1409871283e19f9b95fa2da",
+    "hardware/interface/connections.json": "b62c7f1fc2cb48986973b0facf8cab35231f48df73fac514181e4f3730773166",
+    "tools/generate_interface.py": "855dccc985467651ef0cd2e3ce408fa9a698fc7303d9b1842b05f976924123d5",
+    "tools/check_interface.py": "6dc2a43436d06c304aa9be573db72d7ed2f1ed9b8ad0280b3842ef0e160e0169",
     "hardware/rtl/bench_fixture.v": "f29716e7d31475ba6ec158c73cccebb035f7d6589ee81636742d69ea2b2a1e89",
     "tests/bench_fixture_tb.v": "153fcdfa1f2d4ea893061fd2990cc1932b1e6b734852d13bb66bb9f7c31d3cea",
     "tools/read_fixture.py": "979f269e928b0f46bcd551c03eb0bb55ed8aa9348bfe8d6fd22678b1716e2ed7",
     "tests/test_fixture_report.py": "b5e14c3f4c8849aecf606f201c83ab7e79cae53b7b7ccb6947077fcc8b43a4ed",
-    "hardware/boards/x2-contacts.json": "cf620371711f5558a5b7fd4ebcf85aa19833ce0969104b782925adb4d8f6b33b"
+    "hardware/boards/x2-contacts.json": "56f37710254cc9c190538fc2d90a0ecf5d6a222fc7d02706457de73f123f2f7c",
+    "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+    "tests/irq_tb.v": "a44e838cfb66db21fcd404d00d4d0aa0695c293386b25ede250618da7f6bf02b"
   },
   "limitations": [
     "No electrical measurements or physical fixture run",
-    "Physical motherboard orientation and A10/B10 priority-chain routing remain unverified; common contact mapping is source-checked",
+    "Specimen orientation and connector fit unverified; mapping and IRQ direction resolved from original drawings",
     "Standalone fixture bypasses 5 V adapter and does not exercise sustained disk-sector traffic",
     "Power-ramp, translated timing and real CPU fetch data timing remain unqualified"
   ],
   "x2_common_contacts_source_checked": true,
-  "interrupt_chain_configured": false,
-  "physical_orientation_verified": false
+  "interrupt_chain_configured": true,
+  "physical_orientation_verified": false,
+  "irq_profile": "classic_original_fdc",
+  "assembly_drawing_orientation_resolved": true
 }

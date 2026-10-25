@@ -126,6 +126,6 @@ from the historical functional report above.
 Remaining gaps include continuous track rotation/flux, full PIO modes and nested
 interrupt chains, damaged-track writes, other drives/geometries/ROMs/OS versions,
 and full motherboard peripherals. Confirm the owner's board revision, X2
-orientation, interrupt-chain contact discrepancy, electrical levels and reset
+orientation, specimen interrupt-chain continuity, electrical levels and reset
 behavior before PCB manufacture. The [hardware requirements](../hardware/timing-requirements.md)
 identify the next prototype and measurement gates.

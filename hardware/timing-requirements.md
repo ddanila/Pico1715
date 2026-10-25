@@ -73,7 +73,9 @@ mandating a CPLD. A small frontend prototype is the next decision gate.
 ## Gate before PCB order
 
 1. Confirm the owner's mainboard revision and X2 orientation; resolve the
-   existing interrupt-chain contact discrepancy against hardware.
+   source-resolved interrupt-chain routing against the specimen. See
+   [the desk review](x2-desk-review.md) for original-sheet evidence and the
+   conditional timing budget.
 2. Freeze the GPIO and electrical design, including power/reset states and
    CPU/translator setup/hold calculations.
 3. Demonstrate selected read/write, /WAIT, IRQ acknowledge and reset on a bus

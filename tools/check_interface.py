@@ -62,9 +62,11 @@ for row in 'AB':
             assert n is None or n.startswith('unconnected-'), (pin,n)
 for i,net in enumerate(['X2_A10_CONTACT','X2_B10_CONTACT','H_IEI','H_IEO'],1):
     assert nets[('J11',i)]==net
-for pin in ['A10','B10']:
+for pin,link,out in [('A10','R16','H_IEO'),('B10','R17','H_IEI')]:
     members={ref for (ref,num),net in nets.items() if net==nets[('X2',pin)]}
-    assert members=={'X2','J11'}, (pin,members)
+    assert members=={'X2','J11',link}, (pin,members)
+    assert nets[(link,1)]==nets[('X2',pin)] and nets[(link,2)]==out
+    assert next(c['value'] for c in m['parts'] if c['ref']==link)=='0R'
 assert nets[('R15',1)]=='V5_HOST' and nets[('R15',2)]=='H_IEI'
 # Evaluate the NETLIST gates, not a hardcoded copy of the gating formula.
 qualifiers=['PG3','PG5','CDONE','BACKEND_READY','F_RESET_N','ARM']
@@ -82,4 +84,4 @@ for bits in itertools.product((0,1),repeat=9):
     for enable,request in zip(['DATA_EN_N','WAIT_EN_N','INT_EN_N'],requests):
         assert v[enable]==1-(armed & v[request])
     assert v['IEO_EN_N']==1-armed
-print('interface PASS: exported pin connectivity, rail/direction contract, 58 X2 contacts and isolated IRQ patch, 512 gating combinations')
+print('interface PASS: exported pin connectivity, rail/direction contract, 58 X2 contacts and classic IRQ links, 512 gating combinations')

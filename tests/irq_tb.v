@@ -13,7 +13,8 @@ module irq_tb;
  task step;begin @(negedge clk);#1;end endtask
  task check(input bit ok,input [511:0] msg);begin checks++;if(!ok)$fatal(1,"%0s",msg);end endtask
  task fetch(input [7:0] data);begin
- host_data=data;m1_n=0;mreq_n=0;rd_n=0;repeat(4)step();m1_n=1;mreq_n=1;rd_n=1;step();end endtask
+ host_data=8'h00;m1_n=0;mreq_n=0;rd_n=0;repeat(3)step();
+ host_data=data;repeat(3)step();m1_n=1;mreq_n=1;rd_n=1;host_data=8'hff;step();end endtask
  initial begin
  step();reset_n=1;step();pending=1;step();check(int_pull_low&&!ieo,"pending claims chain");
  iei=0;step();check(!int_pull_low&&!ieo,"higher priority blocks");
@@ -27,7 +28,12 @@ module irq_tb;
  check(in_service&&retis==0,"only M1 fetches decode RETI");
  fetch(8'hed);fetch(8'h45);check(in_service,"RETN is not RETI");
  iei=0;fetch(8'hed);fetch(8'h4d);check(in_service,"higher-priority RETI cannot release us");
- iei=1;fetch(8'hed);fetch(8'h4d);check(!in_service&&retis==1&&ieo,"RETI releases service once");
+ // A transient early 4D after ED must not falsely release service.
+ iei=1;fetch(8'hed);host_data=8'h4d;m1_n=0;mreq_n=0;rd_n=0;repeat(3)step();
+ check(in_service,"early fetch byte cannot release service");
+ host_data=8'h00;repeat(3)step();m1_n=1;mreq_n=1;rd_n=1;step();
+ check(in_service&&retis==0,"final non-RETI byte defeats stale 4D");
+ fetch(8'hed);fetch(8'h4d);check(!in_service&&retis==1&&ieo,"RETI releases service once");
  pending=1;step();m1_n=0;iorq_n=0;step();check(data_enable,"second IACK owned");
  power_good=0;#1;check(!data_enable&&!int_pull_low,"power loss gates IRQ outputs");
  step();check(!in_service,"reset clears interrupt state");

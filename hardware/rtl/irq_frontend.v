@@ -15,13 +15,15 @@ module irq_frontend(
     wire iack = !m1_n && !iorq_n;
     wire fetch = !m1_n && !mreq_n && !rd_n && iorq_n;
     reg ack_seen, ack_owned, fetch_seen, ed_prefix;
+    reg [7:0] fetch_data;
+    reg fetch_iei;
     assign int_pull_low = alive && iei && pending && !in_service;
     assign ieo = alive && iei && !in_service && !pending;
     assign data_enable = alive && iack && ack_owned;
     always @(posedge clk or negedge alive) begin
         if (!alive) begin
             in_service<=0; ack_seen<=0; ack_owned<=0; fetch_seen<=0;
-            ed_prefix<=0; vector_data<=0; ack_pulse<=0; reti_pulse<=0;
+            ed_prefix<=0; fetch_data<=0; fetch_iei<=0; vector_data<=0; ack_pulse<=0; reti_pulse<=0;
         end else begin
             ack_pulse<=0; reti_pulse<=0;
             if (!iack) begin ack_seen<=0; ack_owned<=0; end
@@ -31,13 +33,17 @@ module irq_frontend(
                     ack_owned<=1; vector_data<=vector; in_service<=1; ack_pulse<=1;
                 end
             end
-            if (!fetch) fetch_seen<=0;
-            else if (!fetch_seen) begin
-                fetch_seen<=1;
-                if (ed_prefix && host_data==8'h4d && in_service && iei) begin
+            // Track throughout memory access; early bus data may be stale.
+            // Decode the final in-window sample once the fetch ends. Physical
+            // qualification must establish valid data/IEI for the last clock.
+            if (fetch) begin
+                fetch_seen<=1; fetch_data<=host_data; fetch_iei<=iei;
+            end else if (fetch_seen) begin
+                fetch_seen<=0;
+                if (ed_prefix && fetch_data==8'h4d && in_service && fetch_iei) begin
                     in_service<=0; reti_pulse<=1;
                 end
-                ed_prefix <= host_data==8'hed;
+                ed_prefix <= fetch_data==8'hed;
             end
         end
     end

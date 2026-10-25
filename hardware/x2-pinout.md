@@ -4,24 +4,51 @@ The common bus contacts are assigned from the service manual (printed page 44),
 cross-checked for the shared bus against the index-2B redraw and GUN X1 card.
 These are electrical contact identifiers, **not a mating-face drawing**. No
 mechanical footprint or physical motherboard orientation is qualified yet.
+The original assembly drawing orientation is established below.
 The machine-readable source is [x2-contacts.json](boards/x2-contacts.json).
 
-## Interrupt-chain exception
+## Interrupt chain resolved from the original sheets
 
-The manual calls A10 IEI on X2 only and B10 IEO on X1 only. The index-2B
-redraw labels IEI X1:A10. GUN on X1 calls A10 IEIO and wires B10; it does
-not resolve the X2 discrepancy. Do not assume X1 and X2 are identical:
-their A21 clock nets also differ. GUN is corroboration of shared contact
-positions, not validation of our floppy interrupt or WAIT implementation.
+The original ZRE sheet (PDF page 7, drawing 1.93.300101.5/04, index 2B)
+labels **X2:A10 IEI**, connected to CTC A30 pin 13. CTC IEO pin 11 feeds
+SIO A29 IEI pin 6; SIO IEO pin 7 exits at **X1:B10**. The 2009 redraw's
+X1:A10 label is inconsistent with this original. X2 B10 is not shown driven
+on this motherboard sheet.
 
-X2 A10/B10 terminate only at J11 pins 1/2. J11 pins 3/4 are card IEI/IEO.
-Leave J11 open by default. R15 pulls card IEI high through 10 kΩ to host 5 V;
-IEO has no connection to either disputed contact. This default is for bench
-tests, not a qualified stock-ROM interrupt-chain configuration. After tracing
-the actual board chain, patch the confirmed upstream priority to J11.3 and
-the confirmed downstream priority to J11.4. B10 may require no connection;
-do not infer it is an X2 IEO from the X1 table. Record the board revision and
-routing before a machine test. J1–J3 remain logical breakout headers.
+The original floppy-controller sheet (PDF page 14, printed sheet 11,
+1.93.300102.3/04) independently shows **X2:B10 -> PIO A1:2 IEI pin 24**,
+with R1:3 = 1 kΩ to 5P, and **PIO IEO pin 22 -> X2:A10**. Thus motherboard
+IEI means an input to the motherboard chain, driven by the card's IEO.
+The former assumption that A10 should feed card IEI was incorrect.
+
+Revision C fits removable 0 Ω links R16 (X2 A10 to H_IEO) and R17
+(X2 B10 to H_IEI). R15 retains the 10 kΩ input pull-up appropriate to our
+CMOS receiver; it does not copy the original bipolar PIO's 1 kΩ value.
+This gives the floppy controller priority ahead of CTC, then SIO, then
+X1 expansion. J11 remains a probe/override header: pins 1/2 are A10/B10;
+pins 3/4 are card IEI/IEO. Remove R16/R17 before applying alternative
+patch routing. Do not add opposite-direction links with them fitted.
+An unpowered/disarmed card releases IEO; the motherboard's R10.2 3.3 kΩ
+pull-up biases CTC IEI high. This is not an active chain bypass.
+
+GUN is an X1 card and is not a substitute for the X2 controller drawing.
+Its connector's A10 naming does not establish an X2 input direction.
+These conclusions apply to the documented classic board, not W/M machines.
+
+## Drawing orientation
+
+Original assembly drawing 1.93.300101.5/09 (PDF page 5) is a component
+placement view. Orient it with keyboard X3 at left, external X4/X5/X6 at
+right, and X1 along the bottom edge. X2 is immediately above X1. Its pin-1
+end is left; B1 is on the CPU-facing row, A1 on the X1-facing row. Numbering
+increases toward the right. This resolves the motherboard drawing orientation.
+A card mating-face view and a solder-side PCB view can be mirrored relative
+to it: preserve A/B contact names rather than reinterpreting numeric headers.
+
+A footprint still requires the selected mating connector's pitch, row spacing,
+mounting holes, pin-tail geometry and view convention. The placement scan is
+not a dimensioned connector drawing. The specimen revision and fit remain
+physical checks; the source orientation is no longer unknown.
 
 ## Contacts
 
@@ -99,3 +126,6 @@ supplies and +12 V are not connected to the card.
 
 Source hashes are recorded in the JSON. External drawings are referenced, not
 redistributed; the card schematic and symbols remain original MIT work.
+
+Original scanned source: `PC-1715-Schaltplaene.pdf`, SHA-256 recorded in the JSON;
+PDF pages 5, 7 and 14 take precedence over the later redraw.
