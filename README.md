@@ -168,6 +168,11 @@ Both are bench artifacts: [X2 common contacts](hardware/x2-pinout.md) are now
 source-checked and assigned, including original-controller IRQ direction. Physical
 validation and connector footprint selection remain pending.
 
+The [four-contact EFS test fixture](hardware/efs58-coupon/README.md) provides
+printed holder STL/STEP files, a routed passive breakout PCB and fabrication
+files. It lets us screen a modern loose socket before committing to a full
+58-contact replacement. Mating fit still requires sacrificial-contact trials.
+
 ## Prototype validation
 
 ```sh

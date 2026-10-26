@@ -1,0 +1,46 @@
+{
+  "front": {
+    "valid_solid": true,
+    "watertight_mesh": true,
+    "volume_mm3": 181.925665,
+    "triangles": 3404,
+    "bounds_mm": [
+      20.0,
+      10.0,
+      1.0
+    ]
+  },
+  "body_c15": {
+    "valid_solid": true,
+    "watertight_mesh": true,
+    "volume_mm3": 808.751725,
+    "triangles": 4076,
+    "bounds_mm": [
+      20.0,
+      10.0,
+      4.9
+    ]
+  },
+  "body_c25": {
+    "valid_solid": true,
+    "watertight_mesh": true,
+    "volume_mm3": 803.769159,
+    "triangles": 4076,
+    "bounds_mm": [
+      20.0,
+      10.0,
+      4.9
+    ]
+  },
+  "body_c35": {
+    "valid_solid": true,
+    "watertight_mesh": true,
+    "volume_mm3": 798.50385,
+    "triangles": 4076,
+    "bounds_mm": [
+      20.0,
+      10.0,
+      4.9
+    ]
+  }
+}

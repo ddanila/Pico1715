@@ -162,3 +162,15 @@ test-carrier-pcb:
 .PHONY: test-efs58
 test-efs58:
 	python3 tests/efs58_test.py
+
+.PHONY: test-efs58-coupon test-efs58-coupon-cad export-efs58-coupon
+test-efs58-coupon:
+	python3 tests/efs58_coupon_test.py
+
+test-efs58-coupon-cad:
+	mkdir -p build/efs58-coupon
+	kicad-cli sch erc hardware/efs58-coupon/coupon.kicad_sch --exit-code-violations -o build/efs58-coupon/erc.rpt
+	kicad-cli pcb drc hardware/efs58-coupon/coupon.kicad_pcb --schematic-parity --exit-code-violations -o build/efs58-coupon/drc.rpt
+
+export-efs58-coupon:
+	python3 tools/export_efs58_coupon.py

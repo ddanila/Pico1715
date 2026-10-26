@@ -1,5 +1,11 @@
 # PC1715 EFS58 mating connector investigation
 
+For an independent printed-housing experiment, see the
+[four-contact coupon](../../efs58-coupon/README.md). It includes STL/STEP models,
+a routed passive test PCB and contact screening instructions. Its modern socket
+candidate is not yet qualified for EFS blades and does not replace this reference
+or remove the carrier X2 footprint hold.
+
 2026-10-26. The documented card-side connector is **Buchsenleiste 202-58,
 TGL 29331/03**: a female, 58-contact, two-row connector with right-angle PCB
 tails. The missing dimensional drawing has now been recovered. Form 7 is our

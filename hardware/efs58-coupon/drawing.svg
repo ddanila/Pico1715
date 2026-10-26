@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="740" viewBox="0 0 1100 740">
+<rect width="1100" height="740" fill="#f8fafc"/>
+<style>text{font-family:sans-serif;fill:#172b42} .title{font-size:28px;font-weight:bold} .sub{font-size:19px;font-weight:bold} .small{font-size:16px} .dim{font-size:14px;fill:#42566a}</style>
+<text x="35" y="45" class="title">Pico1715 / four-contact test fixture</text>
+<text x="35" y="77" class="small">Unpowered experiment • dimensions in mm • not a full EFS58 mating housing</text>
+<text x="45" y="125" class="sub">Mating face, looking into the sockets</text>
+<rect x="60.0" y="155.0" width="360" height="180" fill="#dceaf5" stroke="#42566a"/>
+<rect x="60.0" y="155.0" width="36" height="36" fill="#f8fafc" stroke="#f8fafc"/>
+<circle cx="114" cy="245" r="21.599999999999998" fill="#f8fafc" stroke="#42566a"/>
+<circle cx="366" cy="245" r="21.599999999999998" fill="#f8fafc" stroke="#42566a"/>
+<circle cx="217.5" cy="222.5" r="10.799999999999999" fill="#f8fafc" stroke="#42566a"/>
+<path d="M217.5,222.5 L165.5,197.5" fill="none" stroke="#42566a"/>
+<text x="155.5" y="192.5" class="small">C1</text>
+<circle cx="262.5" cy="222.5" r="10.799999999999999" fill="#f8fafc" stroke="#42566a"/>
+<path d="M262.5,222.5 L314.5,197.5" fill="none" stroke="#42566a"/>
+<text x="304.5" y="192.5" class="small">C2</text>
+<circle cx="217.5" cy="267.5" r="10.799999999999999" fill="#f8fafc" stroke="#42566a"/>
+<path d="M217.5,267.5 L165.5,297.5" fill="none" stroke="#42566a"/>
+<text x="155.5" y="292.5" class="small">C3</text>
+<circle cx="262.5" cy="267.5" r="10.799999999999999" fill="#f8fafc" stroke="#42566a"/>
+<path d="M262.5,267.5 L314.5,297.5" fill="none" stroke="#42566a"/>
+<text x="304.5" y="292.5" class="small">C4</text>
+<text x="55" y="370" class="dim">20 × 10 body; M2 holes on 14 mm centres</text>
+<text x="55" y="394" class="dim">Contacts: 2.5 mm pitch in BOTH directions</text>
+<text x="55" y="418" class="dim">Clipped corner aligns with KEY on PCB</text>
+<text x="590" y="125" class="sub">Section through the two left sockets</text>
+<rect x="630" y="165" width="250" height="30.0" fill="#b9d7ee" stroke="#42566a"/>
+<rect x="630" y="195" width="250" height="135.0" fill="#dceaf5" stroke="#42566a"/>
+<rect x="670" y="195" width="40" height="131.70000000000002" fill="#f8fafc" stroke="#42566a"/>
+<rect x="681" y="165" width="18" height="30" fill="#f8fafc" stroke="#42566a"/>
+<rect x="674" y="195" width="32" height="22.8" fill="#e8c06a" stroke="#42566a"/>
+<rect x="678" y="217.8" width="24" height="102.90000000000002" fill="#e8c06a" stroke="#42566a"/>
+<rect x="686" y="320.70000000000005" width="8" height="95.4" fill="#e8c06a" stroke="#42566a"/>
+<rect x="790" y="195" width="40" height="131.70000000000002" fill="#f8fafc" stroke="#42566a"/>
+<rect x="801" y="165" width="18" height="30" fill="#f8fafc" stroke="#42566a"/>
+<rect x="794" y="195" width="32" height="22.8" fill="#e8c06a" stroke="#42566a"/>
+<rect x="798" y="217.8" width="24" height="102.90000000000002" fill="#e8c06a" stroke="#42566a"/>
+<rect x="806" y="320.70000000000005" width="8" height="95.4" fill="#e8c06a" stroke="#42566a"/>
+<rect x="630" y="342.0" width="250" height="48.0" fill="#77b9a1" stroke="#42566a"/>
+<rect x="683" y="342.0" width="14" height="48.0" fill="#f8fafc" stroke="#42566a"/>
+<rect x="686" y="342.0" width="8" height="74.10000000000002" fill="#e8c06a" stroke="#42566a"/>
+<rect x="803" y="342.0" width="14" height="48.0" fill="#f8fafc" stroke="#42566a"/>
+<rect x="806" y="342.0" width="8" height="74.10000000000002" fill="#e8c06a" stroke="#42566a"/>
+<path d="M885,165 L920,166" fill="none" stroke="#42566a"/>
+<text x="925" y="170" class="dim">Z 0 / face</text>
+<path d="M885,195 L920,196" fill="none" stroke="#42566a"/>
+<text x="925" y="200" class="dim">1.0 / socket mouth</text>
+<path d="M885,330.0 L920,317.0" fill="none" stroke="#42566a"/>
+<text x="925" y="321.0" class="dim">5.5 / body back</text>
+<path d="M885,342.0 L920,346.0" fill="none" stroke="#42566a"/>
+<text x="925" y="350.0" class="dim">5.9 / PCB front</text>
+<path d="M885,390.0 L920,391.0" fill="none" stroke="#42566a"/>
+<text x="925" y="395.0" class="dim">7.5 / PCB back</text>
+<path d="M885,416.09999999999997 L920,417.09999999999997" fill="none" stroke="#42566a"/>
+<text x="925" y="421.09999999999997" class="dim">8.37 / tail end</text>
+<text x="595" y="456" class="dim">Gold = socket envelope; springs omitted</text>
+<text x="595" y="478" class="dim">0.4 mm body/PCB gap, except at screw feet</text>
+<text x="45" y="500" class="sub">Assembly</text>
+<text x="45" y="530" class="small">1. Qualify a loose socket on a sacrificial EFS blade first.</text>
+<text x="45" y="556" class="small">2. Insert four sockets into one body; close with the front plate.</text>
+<text x="45" y="582" class="small">3. Fit PCB, align KEY, install two M2 × 12 screws and nuts.</text>
+<text x="45" y="608" class="small">4. Solder from the PCB back; check four independent paths.</text>
+<text x="45" y="654" class="dim">Print one front and the three clearance variants: c15 / c25 / c35.</text>
+<text x="45" y="680" class="dim">Broad ears obstruct adjacent host pins. Use loose test pins; never force this fixture onto the motherboard.</text>
+<text x="45" y="710" class="dim">Original MIT design • see README for sources, material limits and bench acceptance</text>
+</svg>
