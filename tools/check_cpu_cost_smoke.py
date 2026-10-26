@@ -19,7 +19,7 @@ require(subprocess.check_output(['git','-C',str(dac),'rev-parse','HEAD'],text=Tr
 for command in (['diff','--quiet'],['diff','--cached','--quiet']):
     subprocess.run(['git','-C',str(dac),*command],check=True)
 out.mkdir(parents=True,exist_ok=False)
-names = ('tools/check_cpu_cost_smoke.py','tests/cpu_cost_smoke.py','tools/firmware_costs.py',
+names = ('tests/stress/combined.json','tests/stress/overload.json','tools/check_cpu_cost_smoke.py','tests/cpu_cost_smoke.py','tools/firmware_costs.py',
          'tools/classic_probe.c','tools/build_cosim.py','tools/cosim/bridge.h',
          'tools/firmware_host/bridge.cpp','tools/firmware_host/host_hal.c','tools/firmware_host/host_hal.h',
          'firmware/service.c','firmware/service.h','firmware/platform.h','firmware/store.c','firmware/store.h',

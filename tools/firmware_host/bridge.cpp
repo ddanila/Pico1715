@@ -80,9 +80,63 @@ static void pause_core(unsigned delay){
     due=host_time_us+delay;
     if(swapcontext(current_core?&worker_context:&serving_context,&caller_context))std::abort();
 }
+static unsigned stress_period=257,stress_width,stress_phase,stress_extra[6];
+static unsigned sd_sequence[16],sd_count,sd_min=1000001,sd_max;
+static int index_phase_us;
+static uint64_t stress_hits[6],sd_calls,index_start_tick,index_resets,fault_iacks;
+static unsigned setting(const char *key,unsigned fallback,unsigned maximum){
+    const char *v=std::getenv(key);if(!v)return fallback;
+    if(!*v)std::exit(2);
+    for(const char *p=v;*p;p++)if(*p<'0'||*p>'9'){std::fprintf(stderr,"invalid %s\n",key);std::exit(2);}
+    char *end;errno=0;unsigned long n=std::strtoul(v,&end,10);
+    if(errno || *end || n>maximum){std::fprintf(stderr,"invalid %s\n",key);std::exit(2);}
+    return (unsigned)n;
+}
+static void stress_init(){
+    stress_period=setting("PICO1715_STRESS_PERIOD",257,1000000);
+    if(!stress_period)std::exit(2);
+    stress_width=setting("PICO1715_STRESS_WIDTH",0,stress_period);
+    stress_phase=setting("PICO1715_STRESS_PHASE",0,stress_period-1);
+    const char *names[]={"POLL","FIELD","READ","WRITE","COMMIT","SNAPSHOT"};
+    for(unsigned i=0;i<6;i++){
+        char key[64];std::snprintf(key,sizeof(key),"PICO1715_STRESS_EXTRA_%s",names[i]);
+        stress_extra[i]=setting(key,0,1000000);
+    }
+    if(const char *v=std::getenv("PICO1715_STRESS_INDEX_PHASE_US")){
+        const char *p=v;if(*p=='-')p++;
+        if(!*p)std::exit(2);
+        for(;*p;p++)if(*p<'0'||*p>'9')std::exit(2);
+        char *end;errno=0;long n=std::strtol(v,&end,10);
+        if(errno || *end || n< -100000 || n>100000)std::exit(2);
+        index_phase_us=(int)n;
+    }
+    if(const char *v=std::getenv("PICO1715_STRESS_SD_SEQUENCE")){
+        do{
+            if(sd_count==16 || *v<'0'||*v>'9')std::exit(2);
+            char *end;errno=0;unsigned long n=std::strtoul(v,&end,10);
+            if(errno || n>1000000 || (*end && *end!=','))std::exit(2);
+            sd_sequence[sd_count++]=(unsigned)n;
+            if(!*end)break;
+            v=end+1;
+        }while(true);
+    }
+}
+static void stress_report(){
+    std::fprintf(stderr,"Stress {\"config\":{\"period\":%u,\"width\":%u,\"phase\":%u,\"index_phase_us\":%d,\"extra_us\":[",stress_period,stress_width,stress_phase,index_phase_us);
+    for(unsigned i=0;i<6;i++)std::fprintf(stderr,"%s%u",i?",":"",stress_extra[i]);
+    std::fputs("],\"sd_delays_us\":[",stderr);
+    for(unsigned i=0;i<sd_count;i++)std::fprintf(stderr,"%s%u",i?",":"",sd_sequence[i]);
+    std::fputs("]},\"hits\":[",stderr);
+    for(unsigned i=0;i<6;i++)std::fprintf(stderr,"%s%llu",i?",":"",(unsigned long long)stress_hits[i]);
+    std::fprintf(stderr,"],\"sd_calls\":%llu,\"sd_min_us\":%u,\"sd_max_us\":%u,\"index_resets\":%llu,\"index_start_tick\":%llu,\"fault_iacks\":%llu}\n",(unsigned long long)sd_calls,sd_calls?sd_min:0,sd_max,(unsigned long long)index_resets,(unsigned long long)index_start_tick,(unsigned long long)fault_iacks);
+}
 static void charge(unsigned kind){
     assert(kind<P1715_COST_COUNT);cost_calls[kind]++;
-    if(costs[kind]){cost_yields++;pause_core(costs[kind]);}
+    unsigned delay=costs[kind];
+    if(stress_extra[kind] && (cost_calls[kind]-1+stress_phase)%stress_period<stress_width){
+        delay+=stress_extra[kind];stress_hits[kind]++;
+    }
+    if(delay){cost_yields++;pause_core(delay);}
 }
 static void image_lock(critical_section_t *,bool enter){
     assert(current_core<2);
@@ -105,8 +159,10 @@ static void serving_entry(){
     }
 }
 static void sd_pause(bool writing,uint32_t){
-    if(writing && sd_write_delay){
-        sd_yields++;pause_core(sd_write_delay);
+    if(writing){
+        unsigned delay=sd_count?sd_sequence[sd_calls%sd_count]:sd_write_delay;
+        sd_calls++;if(delay<sd_min)sd_min=delay;if(delay>sd_max)sd_max=delay;
+        if(delay){sd_yields++;pause_core(delay);}
     }
 }
 static void worker_entry(){
@@ -160,6 +216,7 @@ extern "C" void cosim_init(void *m,void *c) {
     if(!output_image) {std::fputs("missing initial image buffer\n",stderr);std::abort();}
 }
 extern "C" void firmware_cosim_start(int absent) {
+    stress_init();
     bool writable=card->writable;
     host_storage_init(output_image,absent);
     ready=p1715_service_init(card,writable)==0;
@@ -226,6 +283,10 @@ extern "C" void cosim_reset(void *) {
         if(host_time_us>=deadline){std::fputs("reset service deadline exceeded\n",stderr);std::abort();}
     }
     clock_epoch=host_time_us;
+    if(ready){
+        card->next_index=PICO1715_CLOCK_HZ/5+(int64_t)index_phase_us*PICO1715_CLOCK_HZ/1000000;
+        index_start_tick=card->next_index;index_resets++;
+    }
     rtl.reset_n=1;service(true);
     for(unsigned i=0;i<12;i++)clock_edge();
 }
@@ -260,7 +321,10 @@ extern "C" int cosim_irq(void *){pins();return rtl.int_pull_low;}
 extern "C" uint8_t cosim_ack(void *){
     rtl.obs_m1_n=rtl.obs_iorq_n=0;rtl.obs_mreq_n=rtl.obs_rd_n=1;
     clock_edge();clock_edge();
-    if(!rtl.host_data_enable)std::abort();
+    if(!rtl.host_data_enable){
+        if(!rtl.fault){std::fputs("undriven interrupt acknowledgement without fault\n",stderr);std::abort();}
+        fault_iacks++;return 0xff;
+    }
     return rtl.host_rdata;
 }
 extern "C" void cosim_reti(void *){}
@@ -300,6 +364,7 @@ extern "C" void firmware_cosim_export(void){
     }
     std::memcpy(output_image,host_storage_image(),P1715_IMAGE_BYTES);
     if(loss_file){std::fclose(loss_file);loss_file=nullptr;}
+    stress_report();
     std::fprintf(stderr,"Costs config=[%u,%u,%u,%u,%u,%u] calls=[%llu,%llu,%llu,%llu,%llu,%llu] yields=%llu lock_wait_us=%llu faults=%llu first_fault_us=%llu\n",
         costs[0],costs[1],costs[2],costs[3],costs[4],costs[5],
         (unsigned long long)cost_calls[0],(unsigned long long)cost_calls[1],(unsigned long long)cost_calls[2],

@@ -1,0 +1,35 @@
+{
+  "status": "simulator-abort-not-qualified",
+  "signal": "SIGABRT",
+  "frame": "cosim_ack",
+  "bridge_sha256": "f05e8020b22334346e59f23bb38a4df78af6d611c40634c9b0752ba1919bd36c",
+  "costs_us": [
+    1,
+    4,
+    8,
+    8,
+    4,
+    8
+  ],
+  "stress": {
+    "period": 17,
+    "width": 2,
+    "phase": 0,
+    "extra_us": [
+      1,
+      2,
+      0,
+      80,
+      4,
+      4
+    ],
+    "sd_delays_us": [
+      200,
+      5000,
+      20000
+    ],
+    "index_phase_us": 0
+  },
+  "trace_sha256": "1b4f1bd2eb0028ce62ac5ecfa09397258828ea741b5edcbf4d192bf546ed71b8",
+  "finding": "GDB backtrace locates abort in cosim_ack. The bridge required driven IACK data even after mailbox fault isolation. Replaced by counted FF read only while fault is asserted; non-fault undriven IACK still aborts."
+}

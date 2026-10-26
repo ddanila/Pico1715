@@ -106,6 +106,9 @@ during idle mailbox time without enlarging receive capacity; bounded first-loss
 traces distinguish throughput deficits from lock/interrupt stalls.
 [Transmit staging](transmit-staging.md) overlaps byte processing with CPU work,
 while gate-close, CRC, reset and power-fail checks retain data-integrity gates.
+[Combined stress](combined-stress.md) exercises processing bursts with variable
+SD latency and initial index offsets, preserving overload failures and checking
+sector contents after a logical-image remount.
 Replaying measured hardware costs remains future work;
 a watchdog pass alone does not qualify byte-service timing.
 

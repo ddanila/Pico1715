@@ -10,6 +10,7 @@ import sys
 import re
 import subprocess
 from classic_workload import install, small_file
+from firmware_costs import stress_profile, stress_environment, stress_evidence, validate_stress
 from firmware_costs import parse_costs, environment as cost_environment, evidence as cost_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +39,10 @@ def main():
                         help='simulated SD block write latency in the firmware worker')
     parser.add_argument('--firmware-costs-us', type=parse_costs, default=(0,0,0,0,0,0),
                         help='poll,field,read,write,commit,snapshot costs in microseconds')
+    parser.add_argument("--stress-profile", type=Path)
     args = parser.parse_args()
+    stress = stress_profile(json.loads(args.stress_profile.read_text()) if args.stress_profile else {})
+    if args.stress_profile and not args.firmware_cosim: parser.error("stress requires firmware co-simulation")
     if any(args.firmware_costs_us) and not args.firmware_cosim:
         parser.error('firmware costs require --firmware-cosim')
     if not 0 <= args.sd_write_delay_us <= 1000000 or (args.sd_write_delay_us and not args.firmware_cosim):
@@ -78,6 +82,7 @@ def main():
     if args.firmware_cosim:
         environment['PICO1715_SD_WRITE_DELAY_US'] = str(args.sd_write_delay_us)
         environment.update(cost_environment(args.firmware_costs_us))
+        environment.update(stress_environment(stress))
 
     def run(name, media, command='', readonly=False, absent=False):
         folder = out / name
@@ -87,6 +92,7 @@ def main():
             cmd.append('absent')
         elif readonly:
             cmd.append('readonly')
+        if args.firmware_cosim: environment['PICO1715_LOSS_TRACE'] = str(folder/'first-loss.csv')
         before = digest(media)
         proc = subprocess.run(cmd, text=True, capture_output=True, timeout=300 if args.cosim else 60, env=environment)
         (folder / 'stderr.txt').write_text(proc.stderr)
@@ -105,7 +111,10 @@ def main():
             require(absent or all(report['rtl'][key] > 0 for key in ('requests', 'acks', 'reti')),
                     'RTL path not exercised')
         if args.firmware_cosim:
+            report['stress'] = stress_evidence(proc.stderr)
+            require(report['stress']['config'] == stress, 'wrong stress configuration')
             report['costs'] = cost_evidence(proc.stderr)
+            validate_stress(report['stress'], report['costs']['calls'])
             require(report['costs']['config'] == list(args.firmware_costs_us), 'wrong firmware costs')
             require(not report['costs']['faults'], 'FPGA watchdog fault')
             stats = re.search(r'Firmware state=(\d+) requests=(\d+) sd_reads=(\d+) sd_writes=(\d+) dirty=(\d+) error=(\d+)', proc.stderr)

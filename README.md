@@ -123,6 +123,8 @@ boot, BDOS and persistence checks, preserving both passing and overloaded profil
 time while retaining the same two-byte capacity.
 [Transmit staging](docs/transmit-staging.md) acknowledges bounded byte capture
 before processing, preserving serializer deadlines and CRC validation.
+[Combined stress](docs/combined-stress.md) adds deterministic processing bursts,
+variable SD write latency and index-interrupt offsets, with overload and remount checks.
 
 ```sh
 make test

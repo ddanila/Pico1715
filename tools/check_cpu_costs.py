@@ -9,6 +9,7 @@ import subprocess
 import sys
 from check_classic import ROM_HASH, DISK_HASH, digest, require
 from classic_workload import install, small_file
+from firmware_costs import stress_profile, stress_environment, stress_evidence, validate_stress
 from firmware_costs import parse_costs, environment, evidence
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +18,9 @@ for key in ('dac','rom','disk','out'):
     p.add_argument('--'+key, required=True, type=Path)
 p.add_argument('--profile', action='append', required=True, help='name=poll,field,read,write,commit,snapshot')
 p.add_argument('--sd-write-delay-us', type=int, default=5000)
+p.add_argument("--stress-profile", type=Path)
 a = p.parse_args()
+stress = stress_profile(json.loads(a.stress_profile.read_text()) if a.stress_profile else {})
 profiles = {}
 for value in a.profile:
     name, sep, specification = value.partition('=')
@@ -51,12 +54,16 @@ for name,costs in profiles.items():
     folder=out/name;folder.mkdir()
     env={k:v for k,v in os.environ.items() if not k.startswith('PICO1715_')}
     env['PICO1715_LOSS_TRACE']=str(folder/'first-loss.csv')
+    env.update(stress_environment(stress))
     env.update(environment(costs));env.update(PICO1715_TIMED='0',PICO1715_SD_WRITE_DELAY_US=str(a.sd_write_delay_us))
     proc=subprocess.run([str(out/'build/classic-probe'),str(rom),str(media),str(folder),'PICOTEST\r'],
                         env=env,capture_output=True,text=True,timeout=300)
     (folder/'stdout.txt').write_text(proc.stdout);(folder/'stderr.txt').write_text(proc.stderr)
     require(proc.returncode in (0,1),f'{name}: probe execution error: {proc.stderr}')
     probe=json.loads(proc.stdout);cost=evidence(proc.stderr)
+    stress_stats=stress_evidence(proc.stderr)
+    validate_stress(stress_stats,cost['calls'])
+    require(stress_stats['config']==stress,'wrong stress configuration')
     require(cost['config']==list(costs),f'{name}: wrong cost profile')
     screen=(folder/'screen.txt').read_text()
     try: contents=small_file((folder/'disk.img').read_bytes(),b'PICOTESTTXT')==payload*20
@@ -67,7 +74,7 @@ for name,costs in profiles.items():
             'contents':contents, 'writes':probe['writes']>0 and not probe['rejected_writes'],
             'bytes':not any(probe[k] for k in ('overruns','underflows','tx_overruns','tx_underruns')),
             'watchdog':not cost['faults']}
-    cases[name]={'costs':cost,'probe':probe,'checks':checks,'accepted':all(checks.values()),
+    cases[name]={'stress':stress_stats,'costs':cost,'probe':probe,'checks':checks,'accepted':all(checks.values()),
                  'returncode':proc.returncode,'output_sha256':digest(folder/'disk.img'),
                  'screen':'\n'.join(line.rstrip() for line in screen.splitlines()).rstrip()}
     (folder/'report.json').write_text(json.dumps(cases[name],indent=2)+'\n')
