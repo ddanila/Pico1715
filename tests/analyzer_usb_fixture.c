@@ -3,11 +3,13 @@
 static p1715_analyzer_usb usb;
 static p1715_analyzer capture;
 static uint8_t memory[P1715_LA_RAM_SIZE];
-static uint32_t pins(void *p){(void)p;return 0;}
+static uint32_t input_pins;
+static uint64_t clock_us;
+static uint32_t pins(void *p){(void)p;return input_pins;}
 static void controls(void *p,uint32_t n){(void)p;(void)n;}
-static uint64_t now(void *p){(void)p;return 0;}
+static uint64_t now(void *p){(void)p;return clock_us;}
 static void fence(void *p){(void)p;}
-void fixture_init(void){p1715_usb_init(&usb,&capture,(p1715_analyzer_io){0,pins,controls,now,fence},memory,sizeof(memory),50000000);}
+void fixture_init(void){input_pins=0;clock_us=0;p1715_usb_init(&usb,&capture,(p1715_analyzer_io){0,pins,controls,now,fence},memory,sizeof(memory),50000000);}
 void fixture_feed(uint8_t n){p1715_usb_receive(&usb,n);}
 size_t fixture_read(uint8_t *out,size_t capacity){size_t n;const uint8_t *p=p1715_usb_output(&usb,&n);if(n>capacity)n=capacity;for(size_t i=0;i<n;i++)out[i]=p[i];p1715_usb_sent(&usb,n);return n;}
 void fixture_disconnect(void){p1715_usb_disconnect(&usb);}
@@ -18,3 +20,12 @@ int fixture_complete(const uint8_t *data,size_t size){
 }
 uint32_t fixture_stopping(void){return capture.stopping;}
 void fixture_error(void){capture.state=P1715_LA_ERROR;}
+
+void fixture_frame(const uint8_t *frame){
+ clock_us+=200;p1715_analyzer_step(&capture);
+ for(unsigned i=0;i<22;i++){
+  input_pins=(1u<<13)|(i<<8)|frame[i];clock_us++;p1715_analyzer_step(&capture);
+  input_pins=0;clock_us++;p1715_analyzer_step(&capture);
+  if(capture.state!=P1715_LA_REQUEST)break;
+ }
+}

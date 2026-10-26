@@ -4,6 +4,9 @@ An independent Pico-based replacement/expansion card for the Robotron PC 1715:
 SD-backed virtual floppies, external RAM and a buffered X2 bus interface.
 Original project code and design files are MIT licensed; see [LICENSE](LICENSE).
 
+Configurable [compact triggers and rolling history](docs/analyzer-triggers.md) now
+support event/address/data matching, bounded pre/post windows and USB download.
+
 ## Status
 
 The scheduled-byte card model boots the unchanged classic ROM into SCP 0006 and

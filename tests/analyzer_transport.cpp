@@ -28,7 +28,7 @@ struct Fixture {
   auto &f=*(Fixture *)v;
   uint32_t p=f.rtl.pico_data|(uint32_t(f.rtl.pico_index)<<8)|(uint32_t(f.rtl.pico_request)<<13);
   if(f.rtl.pico_request && f.fw.state==P1715_LA_REQUEST){
-   if((f.scenario=="crc" || f.scenario=="permanent_crc") && f.rtl.pico_index==7 && (!f.injected || f.scenario=="permanent_crc")){
+   if(((f.scenario=="crc" || f.scenario=="trigger-crc") || f.scenario=="permanent_crc") && f.rtl.pico_index==7 && (!f.injected || f.scenario=="permanent_crc")){
     p^=1;f.injected=true;
    }
    if(f.scenario=="index" && f.rtl.pico_index==5 && !f.injected){p^=1u<<8;f.injected=true;}
@@ -39,7 +39,7 @@ struct Fixture {
  static uint64_t time(void *v){auto &f=*(Fixture *)v;return f.tick*1000000/f.hz;}
  static void fence(void *v){auto &f=*(Fixture *)v;f.busy_until=f.tick+f.write_delay;}
  void step_controls(){
-  if(scenario=="lost_ack" && !injected && (ctrl&P1715_LA_ACK) && rtl.pico_index==21 && fw.records){
+  if((scenario=="lost_ack" || scenario=="trigger-lost-ack") && !injected && (ctrl&P1715_LA_ACK) && rtl.pico_index==21 && fw.records){
    injected=true;suppress_ack=true;
   }
   if(!(ctrl&P1715_LA_SYNC))suppress_ack=false;
@@ -51,7 +51,7 @@ struct Fixture {
 int main(int argc,char **argv){
  require(argc==3 || argc==4,"usage: transport-test scenario output-dir [full compact workload]");
  Fixture f;f.scenario=argv[1];std::string out=argv[2];
- const std::vector<std::string> modes={"normal","slow","crc","index","lost_ack","disconnect","overflow","full","permanent_crc"};
+ const std::vector<std::string> modes={"normal","slow","crc","index","lost_ack","disconnect","overflow","full","permanent_crc","trigger","trigger-early","trigger-never","trigger-overflow","trigger-crc","trigger-lost-ack"};
  require(std::find(modes.begin(),modes.end(),f.scenario)!=modes.end(),"scenario");
  std::vector<Record> source;
  if(argc==4){
@@ -74,19 +74,28 @@ int main(int argc,char **argv){
  auto buffer=f.ram.data()+P1715_LA_RAM_OFFSET;
  p1715_analyzer_io io{&f,Fixture::pins,Fixture::controls,Fixture::time,Fixture::fence};
  f.rtl.card_reset_n=0;f.rtl.clk=0;f.rtl.eval();f.rtl.clk=1;f.rtl.eval();f.rtl.card_reset_n=1;
- require(!p1715_analyzer_start(&f.fw,io,buffer,size,f.record_hz),"firmware initialization");
+ bool triggered_mode=f.scenario.rfind("trigger",0)==0;
+ p1715_trigger_config config{};
+ if(triggered_mode){
+  config={1,16,0xffff12c9u,0,8,4};
+  if(f.scenario=="trigger-early"){config.address=0xffff1201u;config.post=0;}
+  if(f.scenario=="trigger-never")config.address=0xffffffffu;
+  if(argc==4){config.kinds=64;config.address=0;}
+ }
+ require(!p1715_analyzer_start_trigger(&f.fw,io,buffer,size,f.record_hz,&config),"firmware initialization");
  std::vector<Record> selected;
  size_t cursor=0;
  uint64_t stall_start=uint64_t(f.hz)/1000,stall_end=stall_start;
  if(f.scenario=="disconnect")stall_end+=f.hz/2000; // 0.5 ms
- if(f.scenario=="overflow")stall_end+=f.hz/20; // 50 ms
+ if(f.scenario=="overflow" || f.scenario=="trigger-overflow")stall_end+=f.hz/20; // 50 ms
  const uint64_t last_due=source.empty()?0:uint64_t(get32(source.back().data()+8))+65535;
  uint64_t limit=last_due*f.hz/f.record_hz+f.hz/2;
  bool held=false;unsigned old_data=0,old_index=0;
  for(f.tick=0;f.tick<limit;f.tick++){
   bool paused=f.started && f.tick-f.origin>=stall_start && f.tick-f.origin<stall_end;
   if(f.tick%f.poll==0 && f.tick>=f.busy_until && !paused){
-   if(cursor==source.size() && f.started && f.tick>f.last_event)p1715_analyzer_stop(&f.fw);
+   if(cursor==source.size() && f.started && f.tick>f.last_event+(triggered_mode?f.hz/10:0) &&
+      (!triggered_mode || f.scenario=="trigger-never"))p1715_analyzer_stop(&f.fw);
    p1715_analyzer_step(&f.fw);
   }
   f.step_controls();
@@ -116,23 +125,50 @@ int main(int argc,char **argv){
   require(f.fw.state==P1715_LA_ERROR && f.fw.crc_errors==4 && f.fw.records==0 && !f.ctrl,"permanent error not fail-closed");
  }else{
   require(f.fw.state==P1715_LA_DONE,"capture did not finish");
+  size_t header=p1715_analyzer_header_size(&f.fw);
+  std::vector<uint8_t> file_data(header+f.fw.records*16);
+  require(!p1715_analyzer_read(&f.fw,0,file_data.data(),file_data.size()),"logical capture read");
+  buffer=file_data.data();
   require(!std::memcmp(buffer,"P1715CY\0",8),"final capture header");
   require(get32(buffer+16)==f.fw.records && get32(buffer+20)==f.rtl.dropped+f.fw.local_dropped,"loss metadata");
-  require(selected.size()==f.fw.records+f.rtl.dropped+f.fw.local_dropped,"unaccounted record loss/duplicate");
+  require(selected.size()==f.fw.records+f.rtl.dropped+f.fw.local_dropped+f.fw.omitted,"unaccounted record loss/duplicate");
   size_t match=0;
   for(unsigned i=0;i<f.fw.records;i++){
-   const uint8_t *r=buffer+32+i*16;
+   const uint8_t *r=buffer+header+i*16;
    while(match<selected.size() && get32(selected[match].data()+12)!=get32(r+12))match++;
    require(match<selected.size() && !std::memcmp(r,selected[match].data(),16),"record changed/reordered");match++;
   }
-  if(f.scenario=="normal" || f.scenario=="slow" || f.scenario=="crc" || f.scenario=="index" || f.scenario=="lost_ack" || f.scenario=="disconnect")
+  if(f.scenario=="normal" || f.scenario=="slow" || (f.scenario=="crc" || f.scenario=="trigger-crc") || f.scenario=="index" || f.scenario=="lost_ack" || f.scenario=="disconnect")
    require(!f.rtl.dropped && !f.fw.local_dropped,"unexpected loss");
   if(f.scenario=="crc")require(f.fw.crc_errors==1 && f.fw.retries==1,"CRC recovery");
   if(f.scenario=="index")require(f.fw.index_errors==1 && f.fw.retries==1,"index recovery");
   if(f.scenario=="lost_ack")require(f.fw.duplicates==1 && f.fw.retries==1,"commit deduplication");
   if(f.scenario=="overflow")require(f.rtl.dropped>0,"overflow not exercised");
   if(f.scenario=="full")require(f.fw.records==8 && f.fw.full && f.fw.local_dropped>0,"bounded buffer stop");
-  std::ofstream file(out+"/capture.p1715",std::ios::binary);file.write((char *)buffer,32+f.fw.records*16);require(file.good(),"capture write");
+  if(triggered_mode){
+   require(!f.fw.local_dropped && !f.fw.full,"trigger window capacity");
+   if(f.scenario=="trigger-never"){
+    require(!f.fw.triggered && f.fw.records==8 && f.fw.stop_reason==2,"untriggered manual snapshot");
+    for(unsigned i=0;i<8;i++)require(!std::memcmp(buffer+header+i*16,selected[selected.size()-8+i].data(),16),"last prehistory");
+   }else{
+    require(f.fw.triggered && f.fw.stop_reason==1 && f.fw.post_collected==config.post,"automatic trigger stop");
+    auto hit=std::find_if(selected.begin(),selected.end(),[&](const Record &r){
+     unsigned addr=unsigned(r[2])|(unsigned(r[3])<<8);
+     return ((config.kinds>>(r[0]>>4))&1) && !((addr^config.address)&(config.address>>16)) && !((r[1]^config.data)&(config.data>>8));
+    });
+    require(hit!=selected.end(),"reference trigger exists");
+    // For lossless profiles compare the entire window to an independent source slice.
+    if(!f.rtl.dropped){
+     size_t at=size_t(hit-selected.begin()),before=std::min(size_t(config.pre),at);
+     require(f.fw.trigger_index==before && f.fw.records==before+1+config.post,"trigger boundary");
+     for(unsigned i=0;i<f.fw.records;i++)require(!std::memcmp(buffer+header+i*16,selected[at-before+i].data(),16),"reference window differs");
+    }
+   }
+   if(f.scenario=="trigger-overflow")require(f.rtl.dropped>0,"trigger overflow exercised");
+   if(f.scenario=="trigger-crc")require(f.fw.crc_errors==1 && f.fw.retries==1,"trigger CRC recovery");
+   if(f.scenario=="trigger-lost-ack")require(f.fw.duplicates==1 && f.fw.retries==1,"trigger deduplication");
+  }
+  std::ofstream file(out+"/capture.p1715",std::ios::binary);file.write((char *)buffer,header+f.fw.records*16);require(file.good(),"capture write");
  }
  FILE *report=std::fopen((out+"/report.json").c_str(),"wx");require(report,"report open");
  std::fprintf(report,"{\"scenario\":\"%s\",\"state\":%u,\"fpga_clock_hz\":%u,\"poll_ticks\":%u,\"psram_delay_ticks\":%u,\"records\":%u,\"fpga_dropped\":%u,\"local_dropped\":%u,\"filtered\":%u,\"retries\":%u,\"duplicates\":%u,\"crc_errors\":%u,\"index_errors\":%u,\"ticks\":%llu}\n",

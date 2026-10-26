@@ -177,5 +177,9 @@ python3 tools/check_cycle_analyzer.py --dac ../dac-emulation \
 Output directories must be new. [FPGA–Pico transport and PSRAM buffering](analyzer-transport.md)
 now pass workload replay with bounded consumer stalls. [USB control/download](analyzer-usb.md)
 also passes shared-handler tests. Board receiver/pin revisions and bench timing remain
-separate gates. Compact pre/post-trigger capture is also still future work; the
-existing raw personality provides that feature today.
+separate gates. [Compact pre/post-trigger capture](analyzer-triggers.md) now runs in the Pico
+receiver; the separate raw personality retains its FPGA-local trigger support.
+
+[Triggered windows](analyzer-triggers.md) now use an extended version-2 header
+while preserving the 16-byte record format and chronological USB reads. Normal
+captures remain version 1. The host decoder/exporter accepts both.

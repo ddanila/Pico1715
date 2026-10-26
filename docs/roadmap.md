@@ -8,6 +8,9 @@ physical qualification are next; combined controller/analyzer hardware and PCB
 layout remain future work. Shutdown handling and optional backup-power signals remain
 a separate planned workstream.
 
+The [compact trigger increment](analyzer-triggers.md) now adds configurable
+event/address/data matching, rolling history and bounded post-trigger capture.
+
 ## Explicit analyzer mode and remote reset
 
 Add the [analyzer mode](analyzer-mode.md) as a first-class board feature: passive

@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: MIT
+import binascii
 import ctypes
+import struct
 import os
 from pathlib import Path
 import subprocess
@@ -47,6 +49,7 @@ class AnalyzerUSBTests(unittest.TestCase):
         cls.lib = ctypes.CDLL(str(library))
         cls.lib.fixture_read.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
         cls.lib.fixture_read.restype = ctypes.c_size_t
+        cls.lib.fixture_frame.argtypes = [ctypes.c_void_p]
         cls.lib.fixture_complete.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
 
     @classmethod
@@ -170,3 +173,135 @@ class AnalyzerUSBTests(unittest.TestCase):
             path = Path(d)/'capture.p1715'
             self.client.download(path)
             self.assertEqual(path.read_bytes(), self.blob)
+
+    def packet(self, payload, terminal=False, corrupt=False):
+        prefix = bytes((2 if terminal else 1, 1, 1 if terminal else 0, 0)) + payload
+        crc = binascii.crc_hqx(prefix, 0xffff) ^ int(corrupt)
+        self.lib.fixture_frame(prefix + struct.pack('<H', crc))
+
+    def event(self, seq, kind=4, address=None, data=0, corrupt=False):
+        record = trace.Cycle(kind, 0, data, seq if address is None else address, 0, 4, seq*10, seq)
+        self.packet(record.encode(), corrupt=corrupt)
+        return record
+
+    def finish(self, sent, dropped=0, filtered=0):
+        self.packet(struct.pack('<4I', dropped, filtered, sent, 0x170), terminal=True)
+        self.assertEqual(self.client.status()['state'], 4)
+
+    def downloaded(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d)/'capture'
+            self.client.download(path)
+            return trace.decode(path.read_bytes())
+
+    def test_trigger_ring_masks_boundary_and_tail(self):
+        self.client.configure_trigger(1, 16, 0xffff000a, 0xff55, 3, 2)
+        self.client.arm()
+        for seq in range(10): self.event(seq, data=0x55)
+        self.event(10, data=0)  # wrong data must not match
+        self.event(11, kind=5, address=10, data=0x55)  # wrong kind
+        self.event(12, address=10, data=0x55)
+        self.assertEqual(self.client.trigger_status()['trigger_index'], 3)
+        self.event(13); self.event(14)
+        self.assertTrue(self.lib.fixture_stopping())
+        self.event(15); self.event(16)  # already in FPGA FIFO when stop took effect
+        self.finish(17)
+        h, rows = self.downloaded()
+        self.assertEqual([r.sequence for r, _ in rows], list(range(9, 15)))
+        self.assertEqual(h.trigger[6:], (1, 3, 12, 11, 2, 1))
+        self.assertEqual((h.dropped, h.filtered), (0, 11))
+
+    def test_trigger_early_zero_windows_and_reset(self):
+        for kinds, kind, pre in [(16, 4, 0), (64, 6, 8), (256, 8, 0)]:
+            self.lib.fixture_init()
+            self.client.configure_trigger(1, kinds, 0, 0, pre, 0); self.client.arm()
+            self.event(0, kind=kind, address=0)
+            self.finish(1)
+            h, rows = self.downloaded()
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(h.trigger[7], 0)
+            self.assertEqual(h.trigger[-1], 1)
+
+    def test_manual_stop_before_or_after_trigger(self):
+        self.client.configure_trigger(1, 16, 0xffff0064, 0, 3, 5); self.client.arm()
+        for seq in range(10): self.event(seq)
+        self.client.command(3, 1)
+        self.event(10, address=100)  # drain must not fire a trigger after manual stop
+        self.finish(11)
+        h, rows = self.downloaded()
+        self.assertEqual([r.sequence for r, _ in rows], [7, 8, 9])
+        self.assertEqual(h.trigger[6:9], (0, 0xffffffff, 0xffffffff))
+        self.assertEqual(h.trigger[-1], 2)
+        self.client.configure_trigger(1, 16, 0, 0, 0, 5); self.client.arm()
+        self.event(0); self.event(1); self.client.command(3, 2)
+        self.event(2); self.finish(3)
+        h, rows = self.downloaded()
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(h.trigger[-2:], (1, 2))
+
+    def test_trigger_crc_duplicate_and_overflow_metadata(self):
+        self.client.configure_trigger(1, 16, 0xffff0004, 0, 2, 1); self.client.arm()
+        self.event(0); self.event(3)  # FPGA dropped sequences 1 and 2
+        self.event(4, corrupt=True)
+        self.assertFalse(self.client.trigger_status()['triggered'])
+        self.event(4); self.event(4)  # lost final ACK replay
+        self.event(5); self.finish(4, dropped=2)
+        h, rows = self.downloaded()
+        self.assertEqual([r.sequence for r, _ in rows], [0, 3, 4, 5])
+        self.assertEqual(h.dropped, 2)
+        self.assertEqual(self.client.status()['retries'], 1)
+
+    def test_trigger_config_atomic_and_active_rejection(self):
+        valid = (1, 16, 0xffff0005, 0, 2, 1)
+        self.client.configure_trigger(*valid)
+        for config in [(2, 16, 0, 0, 0, 0), (1, 2, 0, 0, 0, 0),
+                       (1, 16, 0, 0x10000, 0, 0), (1, 16, 0, 0, 0xffffffff, 1)]:
+            with self.assertRaises(RuntimeError): self.client.configure_trigger(*config)
+        request = usb.REQUEST.pack(b'P17Q', 1, 5, 0, 123, 0, 0, 24)
+        self.port.write(request + struct.pack('<2I', 1, 64))
+        self.lib.fixture_disconnect()
+        self.client.arm()
+        self.assertEqual(tuple(self.client.trigger_status()[f] for f in usb.TRIGGER_FIELDS[:6]), valid)
+        with self.assertRaises(RuntimeError): self.client.configure_trigger()
+        self.lib.fixture_disconnect()
+        self.assertEqual(self.client.trigger_status()['pre'], 2)
+
+    def test_trigger_interrupted_download_restart(self):
+        self.client.configure_trigger(1, 16, 0xffff005a, 0, 75, 10); self.client.arm()
+        for seq in range(101): self.event(seq)
+        self.finish(101)
+        original = self.client.command
+        def interrupt(cmd, *args):
+            if cmd == 4 and args[1] >= 1024: self.port.truncate = True
+            return original(cmd, *args)
+        self.client.command = interrupt
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d)/'capture'
+            with self.assertRaises(TimeoutError): self.client.download(path)
+            self.assertEqual(list(Path(d).iterdir()), [])
+        self.lib.fixture_disconnect(); self.port.truncate = False; self.client.command = original
+        h, rows = self.downloaded()
+        self.assertEqual([r.sequence for r, _ in rows], list(range(15, 101)))
+        self.assertEqual(h.trigger[7], 75)
+
+    def test_trigger_stop_during_initial_clear(self):
+        self.client.configure_trigger(1, 16, 0, 0, 0, 0); self.client.arm()
+        self.assertEqual(self.client.stop()['state'], 4)
+        h, rows = self.downloaded()
+        self.assertEqual(rows, [])
+        self.assertEqual(h.trigger[6], 0)
+        self.assertEqual(h.trigger[-1], 2)
+
+    def test_trigger_file_metadata_and_cli(self):
+        self.client.configure_trigger(1, 16, 0, 0, 0, 0); self.client.arm()
+        self.event(0); self.finish(1)
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d)/'capture'; csv = Path(d)/'trace.csv'
+            self.client.download(path)
+            subprocess.run([sys.executable, str(ROOT/'tools/cycle_trace.py'), str(path), '--csv', str(csv)], check=True, capture_output=True)
+            self.assertIn('trigger', csv.read_text().splitlines()[0])
+            self.assertTrue(csv.read_text().splitlines()[1].endswith(',1'))
+            original = path.read_bytes()
+            for offset, value in [(32, 0), (60, 4), (64, 10), (68, 1), (72, 1), (76, 0)]:
+                changed = bytearray(original); struct.pack_into('<I', changed, offset, value)
+                with self.assertRaises(ValueError): trace.decode(changed)

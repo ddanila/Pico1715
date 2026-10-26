@@ -20,6 +20,12 @@ typedef struct {
 } p1715_analyzer_io;
 enum {P1715_LA_HOLD=1,P1715_LA_REQUEST,P1715_LA_LOW,P1715_LA_DONE,P1715_LA_ERROR};
 typedef struct {
+ uint32_t enabled,kinds,address,data,pre,post;
+} p1715_trigger_config;
+typedef struct {
+ p1715_trigger_config trigger;
+ uint32_t head,omitted,trigger_index,trigger_sequence,post_collected,stop_reason;
+ bool triggered;
  p1715_analyzer_io io;
  uint8_t *ram;
  size_t size;
@@ -31,6 +37,11 @@ typedef struct {
  uint8_t frame[22],last_record[16];
 } p1715_analyzer;
 int p1715_analyzer_start(p1715_analyzer *,p1715_analyzer_io,uint8_t *,size_t,uint32_t);
+int p1715_analyzer_start_trigger(p1715_analyzer *,p1715_analyzer_io,uint8_t *,size_t,uint32_t,const p1715_trigger_config *);
+bool p1715_trigger_valid(const p1715_trigger_config *,size_t);
+size_t p1715_analyzer_header_size(const p1715_analyzer *);
+void p1715_analyzer_trigger_info(const p1715_analyzer *,uint8_t *);
+int p1715_analyzer_read(const p1715_analyzer *,uint32_t,uint8_t *,size_t);
 void p1715_analyzer_step(p1715_analyzer *);
 void p1715_analyzer_stop(p1715_analyzer *);
 #endif

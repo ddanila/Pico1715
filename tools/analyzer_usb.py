@@ -15,6 +15,8 @@ REQUEST = struct.Struct('<4sBBHIIII')
 RESPONSE = struct.Struct('<4sBBBBIIIII')
 FIELDS = ('state', 'generation', 'records', 'bytes', 'fpga_dropped',
           'local_dropped', 'filtered', 'retries', 'full', 'stopping')
+TRIGGER_FIELDS = ('enabled', 'kinds', 'address', 'data', 'pre', 'post', 'triggered',
+                  'trigger_index', 'trigger_sequence', 'omitted', 'post_collected', 'stop_reason')
 ERRORS = {1: 'invalid command', 2: 'capture state does not permit command',
           3: 'capture ID changed', 4: 'invalid read range', 5: 'capture unavailable'}
 
@@ -33,9 +35,9 @@ class Client:
             data.extend(piece)
         return bytes(data)
 
-    def command(self, command, generation=0, offset=0, length=0):
+    def command(self, command, generation=0, offset=0, length=0, payload=b''):
         self.request_id = (self.request_id + 1) & 0xffffffff
-        request = REQUEST.pack(b'P17Q', 1, command, 0, self.request_id, generation, offset, length)
+        request = REQUEST.pack(b'P17Q', 1, command, 0, self.request_id, generation, offset, length) + payload
         if self.port.write(request) != len(request):
             raise IOError('incomplete USB request')
         raw = self.exact(RESPONSE.size)
@@ -47,12 +49,16 @@ class Client:
             raise ValueError('USB response CRC mismatch')
         if error:
             raise RuntimeError(ERRORS.get(error, f'device error {error}'))
-        if command in (3, 4) and gen != generation:
+        if command in (3, 4, 5, 6) and gen != generation:
             raise ValueError('capture ID changed')
         if command == 4:
             if size != length:
                 raise ValueError('short capture chunk')
             return payload
+        if command in (5, 6):
+            if size != 48:
+                raise ValueError('invalid trigger status size')
+            return dict(zip(TRIGGER_FIELDS, struct.unpack('<12I', payload)))
         if size != 40:
             raise ValueError('invalid status size')
         status = dict(zip(FIELDS, struct.unpack('<10I', payload)))
@@ -62,6 +68,15 @@ class Client:
 
     def status(self):
         return self.command(1)
+
+    def configure_trigger(self, enabled=0, kinds=0, address=0, data=0, pre=0, post=0):
+        generation = self.status()['generation']
+        return self.command(5, generation, 0, 24, struct.pack('<6I', enabled, kinds, address, data, pre, post))
+
+    def trigger_status(self, generation=None):
+        if generation is None:
+            generation = self.status()['generation']
+        return self.command(6, generation)
 
     def arm(self):
         return self.command(2, self.status()['generation'])
@@ -90,7 +105,7 @@ class Client:
         if status['state'] != 4:
             raise RuntimeError('stop capture and wait for DONE before downloading')
         total = status['bytes']
-        if total != 32 + 16 * status['records'] or total > 7 * 1024 * 1024:
+        if total - 16 * status['records'] not in (32, 80) or total > 7 * 1024 * 1024:
             raise ValueError('invalid capture size')
         temporary = None
         try:
@@ -116,10 +131,36 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', required=True, help='CDC serial port, e.g. /dev/ttyACM0')
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ('status', 'arm', 'stop'):
+    for name in ('status', 'stop'):
         sub.add_parser(name)
+    arm = sub.add_parser('arm')
+    arm.add_argument('--trigger', choices=('io-read', 'io-write', 'io', 'iack', 'reset'))
+    arm.add_argument('--address', type=lambda s: int(s, 0))
+    arm.add_argument('--address-mask', type=lambda s: int(s, 0))
+    arm.add_argument('--data', type=lambda s: int(s, 0))
+    arm.add_argument('--data-mask', type=lambda s: int(s, 0))
+    arm.add_argument('--pre', type=int, default=0, help='preceding retained records')
+    arm.add_argument('--post', type=int, default=0, help='following retained records')
     sub.add_parser('download').add_argument('output', type=Path)
     args = parser.parse_args()
+    config = None
+    if args.command == 'arm':
+        if args.address_mask is None:
+            args.address_mask = 65535 if args.address is not None else 0
+        if args.data_mask is None:
+            args.data_mask = 255 if args.data is not None else 0
+        args.address = args.address or 0
+        args.data = args.data or 0
+        if not (0 <= args.address <= 65535 and 0 <= args.address_mask <= 65535 and
+                0 <= args.data <= 255 and 0 <= args.data_mask <= 255 and
+                0 <= args.pre <= 458746 and 0 <= args.post <= 458746):
+            parser.error('trigger masks/values or window size out of range')
+        if not args.trigger and any((args.address, args.address_mask, args.data, args.data_mask, args.pre, args.post)):
+            parser.error('trigger options require --trigger')
+        kinds = {'io-read': 16, 'io-write': 32, 'io': 48, 'iack': 64, 'reset': 256}
+        config = dict(enabled=int(bool(args.trigger)), kinds=kinds.get(args.trigger, 0),
+                      address=args.address | args.address_mask << 16,
+                      data=args.data | args.data_mask << 8, pre=args.pre, post=args.post)
     try:
         import serial
     except ImportError:
@@ -133,7 +174,10 @@ def main():
             port.dtr = True
             time.sleep(0.1)
             client = Client(port)
+            if config is not None:
+                client.configure_trigger(**config)
             result = client.download(args.output) if args.command == 'download' else getattr(client, args.command)()
+            result['trigger'] = client.trigger_status(result['generation'])
             print(json.dumps(result, indent=2))
     except (OSError, RuntimeError, ValueError, TimeoutError) as error:
         parser.exit(1, f'{error}\n')

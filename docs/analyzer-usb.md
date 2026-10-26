@@ -6,6 +6,9 @@ SDK CDC descriptors and the product string `Pico1715 Analyzer`; its SDK VID/PID
 is a development identity, not a newly allocated product identity. UART logging,
 1200-baud boot reset and the SDK vendor reset interface are disabled.
 
+[Configurable triggers](analyzer-triggers.md) extend this protocol with pre/post
+history and commands 5/6. Normal capture retains the original version-1 format.
+
 ## Host workflow
 
 Install `pyserial` in your Python environment, then use the explicitly selected
@@ -42,14 +45,14 @@ across reconnects or power cycles. Use one host client per port.
 
 ## Wire protocol, version 1
 
-All integers are little-endian. A host sends one fixed 24-byte request, then
+All integers are little-endian. Commands 1–4 use a fixed 24-byte request; CONFIGURE (5) appends 24 bytes. The host then
 consumes its full response before sending another. No text is mixed into CDC.
 
 | Request bytes | Value |
 | --- | --- |
 | 0–3 | `P17Q` |
 | 4 | version 1 |
-| 5 | command: STATUS=1, ARM=2, STOP=3, READ=4 |
+| 5 | command: STATUS=1, ARM=2, STOP=3, READ=4; extensions 5/6 below |
 | 6–7 | reserved zero |
 | 8–11 | host request ID, echoed |
 | 12–15 | expected capture ID; ignored for STATUS |

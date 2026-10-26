@@ -10,7 +10,8 @@ from cycle_trace import read_header, records
 
 ROOT = Path(__file__).resolve().parents[1]
 SCENARIOS = ('normal', 'slow', 'crc', 'index', 'lost_ack', 'disconnect',
-             'overflow', 'full', 'permanent_crc')
+             'overflow', 'full', 'permanent_crc', 'trigger', 'trigger-early',
+             'trigger-never', 'trigger-overflow', 'trigger-crc', 'trigger-lost-ack')
 
 
 def digest(path):
@@ -36,7 +37,7 @@ def main():
          'lint-analyzer-transport', 'synth-analyzer-transport'], 'rtl.log')
     run(['python3', 'tools/build_analyzer_transport.py', '--out', str(out / 'build')], 'build.log')
     results = {}
-    for name in (*SCENARIOS, *(('boot-normal', 'boot-slow') if args.workload else ())):
+    for name in (*SCENARIOS, *(('boot-normal', 'boot-slow', 'boot-trigger') if args.workload else ())):
         case = out / name
         case.mkdir()
         command = [str(out / 'build/transport-test'), name.removeprefix('boot-'), str(case)]
@@ -50,7 +51,9 @@ def main():
                 header = read_header(stream)
                 assert sum(1 for _ in records(stream, header)) == result['records']
             result['capture_sha256'] = digest(capture)
-            if name.startswith('boot-') and args.reference:
+            if header.trigger is not None:
+                result['trigger_metadata'] = header.trigger
+            if name in ('boot-normal', 'boot-slow') and args.reference:
                 assert result['capture_sha256'] == digest(args.reference), 'reference capture differs'
                 result['reference_identical'] = True
         else:

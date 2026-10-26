@@ -18,25 +18,34 @@ static void dispatch(p1715_analyzer_usb *u){
  uint32_t gen=get32(q+12),offset=get32(q+16),length=get32(q+20),count=0;
  uint8_t error=0,command=q[5];
  bool active=a->state>=P1715_LA_HOLD && a->state<=P1715_LA_LOW;
- if(q[4]!=1 || q[6] || q[7] || command<1 || command>4)error=1;
- else if(command!=4 && (offset || length))error=1;
+ if(q[4]!=1 || q[6] || q[7] || command<1 || command>6)error=1;
+ else if(command!=4 && command!=5 && (offset || length))error=1;
+ else if(command==5 && (offset || length!=24))error=1;
  else if(command!=1 && gen!=u->generation)error=3;
  else if(command==2){
   if(active)error=2;
   else if(!u->ram || u->generation==UINT32_MAX)error=5;
-  else if(p1715_analyzer_start(a,u->io,u->ram,u->capacity,u->clock_hz))error=5;
+  else if(p1715_analyzer_start_trigger(a,u->io,u->ram,u->capacity,u->clock_hz,&u->trigger))error=5;
   else u->generation++;
  }else if(command==3){
   if(active)p1715_analyzer_stop(a);
   else if(a->state!=P1715_LA_DONE)error=2;
  }else if(command==4){
-  uint32_t total=32+a->records*16;
+  uint32_t total=(uint32_t)p1715_analyzer_header_size(a)+a->records*16;
   if(a->state!=P1715_LA_DONE)error=2;
   else if(!length || length>P1715_USB_CHUNK || offset>total || length>total-offset)error=4;
-  else {memcpy(p,u->ram+offset,length);count=length;}
+  else if(p1715_analyzer_read(a,offset,p,length))error=4;
+  else count=length;
  }
- if(!error && command!=4){
-  uint32_t fields[]={a->state,u->generation,a->records,a->state==P1715_LA_DONE?32+a->records*16:0,
+ if(!error && command==5){
+  p1715_trigger_config c={get32(q+24),get32(q+28),get32(q+32),get32(q+36),get32(q+40),get32(q+44)};
+  if(active)error=2;
+  else if(!p1715_trigger_valid(&c,u->capacity))error=4;
+  else {u->trigger=c;memcpy(p,q+24,24);memset(p+24,0,24);put32(p+28,UINT32_MAX);put32(p+32,UINT32_MAX);count=48;}
+ }
+ if(!error && command==6){p1715_analyzer_trigger_info(a,p);count=48;}
+ if(!error && command<=3){
+  uint32_t fields[]={a->state,u->generation,a->records,a->state==P1715_LA_DONE?(uint32_t)p1715_analyzer_header_size(a)+a->records*16:0,
    a->fpga_dropped,a->local_dropped,a->filtered,a->retries,a->full,a->stopping};
   for(unsigned i=0;i<10;i++)put32(p+4*i,fields[i]);
   count=sizeof(fields);
@@ -52,7 +61,8 @@ void p1715_usb_receive(p1715_analyzer_usb *u,uint8_t byte){
  if(u->received<=4 && memcmp(u->request,"P17Q",u->received)){
   u->received=byte=='P'?1:0;u->request[0]=byte;return;
  }
- if(u->received==sizeof(u->request)){u->received=0;dispatch(u);}
+ if(u->received==24 && u->request[5]==5 && get32(u->request+20)==24)return;
+ if(u->received==24 || u->received==48){u->received=0;dispatch(u);}
 }
 const uint8_t *p1715_usb_output(p1715_analyzer_usb *u,size_t *size){*size=u->pending-u->sent;return u->response+u->sent;}
 void p1715_usb_sent(p1715_analyzer_usb *u,size_t n){
