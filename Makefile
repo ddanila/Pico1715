@@ -158,3 +158,7 @@ test-carrier-footprints:
 test-carrier-pcb:
 	python3 tools/check_carrier_pcb.py
 	python3 tests/carrier_pcb_test.py
+
+.PHONY: test-efs58
+test-efs58:
+	python3 tests/efs58_test.py

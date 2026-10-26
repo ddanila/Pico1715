@@ -1,0 +1,49 @@
+{
+  "review_date": "2026-10-26",
+  "sources": [
+    {
+      "file": "local/efs58/pc_serv.pdf",
+      "url": "https://www.sax.de/~zander/pc1715/doku/pc_serv.pdf",
+      "sha256": "8320672db3115e5ceaece9194eff4430b1e8fb57239890b5229c8761f1a63206",
+      "pdf_pages": [
+        36,
+        41
+      ]
+    },
+    {
+      "file": "local/efs58/tgl-29331-3-feb-1988.pdf",
+      "url": "https://bauarchivddr.bbr-server.de/bauarchivddr/archiv/tglarchiv/tgl20001bis30000/tgl29001bis29500/tgl-29331-3-feb-1988.pdf",
+      "sha256": "7f70b247d1ba1cd8e6a3cff1a174f52571ec515d58ecbb6dcb0b8cf42dc32a51",
+      "pdf_pages": [
+        2,
+        3,
+        4,
+        8,
+        11,
+        17,
+        18,
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    {
+      "file": "local/efs58/tgl-29331-4-dez-1977.pdf",
+      "url": "https://bauarchivddr.bbr-server.de/bauarchivddr/archiv/tglarchiv/tgl20001bis30000/tgl29001bis29500/tgl-29331-4-dez-1977.pdf",
+      "sha256": "71f673cd0e9766c35d2dd45b94dee3df2d7a5d64eba9adc04fb63e76c7878eaf",
+      "pdf_pages": [
+        13
+      ]
+    },
+    {
+      "file": "local/efs58/gun.pdf",
+      "url": "https://www.robotrontechnik.de/downloads/GUN/GUN.pdf",
+      "sha256": "91476015812c7eaadce0cf99e141eee05817487f3d58db8791d7513c92a522c1",
+      "pdf_pages": [
+        1,
+        2
+      ]
+    }
+  ]
+}

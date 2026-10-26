@@ -19,7 +19,7 @@ mounts, not HX8K or PC1715 mounting coordinates.
 | J2 | PIM724 with two 1x20 sockets | Original 2.54 mm pitch, 17.78 mm row spacing, 40-pin footprint; pin 1 opposite pin 40. 21x53 mm nominal module envelope. Choose socket height/part and confirm USB, buttons and underside clearance. |
 | J3 | Hirose DM3AT-SF-PEJM5 | Installed KiCad footprint and manufacturer catalog pin functions; eight SD signals, two unused detection terminals and four ground shield lands. Current engineering drawing and copper-exclusion geometry must be reviewed before routing. |
 | EXT1–3 | Candidate 2x20 male 1.27 mm headers, cable attachment | Three Olimex CABLE-40-40-10CM female/female cables are the reference proposal. Generic through-hole header geometry is assigned; exact male part, exposed pin length, shell clearance and cable continuity remain to qualify. No stacking sockets assumed. |
-| X2 | EFS58, identified by the owner | The electrical mapping is A1–A29/B1–B29. Exact mating connector variant and solder-tail drawing remain to select before assigning the footprint. |
+| X2 | 202-58 angled female; Form 7 reference | Original service manual and TGL drawings now recovered. [Investigation and reference geometry](efs58/investigation.md). Installation orientation, body clearance and sample fit remain before assigning the active footprint. |
 | J1 | 1x2, 2.54 mm male header | Carrier pin 1 = CDONE, pin 2 = GND. Wire to HX8K PGM1 pin 5 and ground; carrier numbering is separate from PGM1 numbering. Programmer connection remains on the FPGA board. |
 | J4 | JST B2B-XH-A, 2.50 mm top-entry header | XHP-2 housing and suitable SXH contacts; pin 1 = regulated +5 V, pin 2 = GND. Harness polarity and crimp must be verified; this is not a reverse-polarity protection circuit. |
 | J5 | 1x15, 2.54 mm male probe header | Exact net sequence is in the schematic/BOM; pin 1 is GND. Reserve probe access, secure cables to separate strain relief. |
@@ -111,17 +111,14 @@ assumption that the temporary rectangular hold is the final manufacturer pattern
 The original PC1715 scan, PDF page 5 (assembly 1.93.300101.5/09), shows X2 A1/B1
 orientation but supplies no mating connector dimensions. Contact naming and
 orientation evidence cannot establish pitch, tail spacing, keying or board fit.
-The owner identified X2 as **EFS58** on 2026-10-26. This resolves the connector
-family; it does not yet identify the exact mating part and its solder-tail form.
-The existing A/B contact map remains unchanged. X2's footprint remains unassigned
-until the matching variant's dimensioned drawing is available.
-
-Search leads for the next mechanical audit are the EFS manufacturer catalog and
-TGL 29331/03. The [Robotrontechnik connector overview](https://www.robotrontechnik.de/html/komponenten/stecker.htm)
-and its [variant discussion](https://www.robotrontechnik.de/html/forum/thwb/showtopic.php?threadid=10898)
-are secondary discovery references, not dimensioned footprint authority. Do not
-substitute a generic 2.54 mm header or infer solder-tail row spacing from mating
-contact spacing. A primary drawing is still needed to close those dimensions.
+The owner identified X2 as **EFS58** on 2026-10-26. The subsequent
+[primary-source investigation](efs58/investigation.md) identifies the card-side
+202-58 angled female and recovers the dimensioned PCB pattern. The Form 7
+reference has 2.5 mm pitch, 5 mm tail rows and 85 mm mounting centres. A full-size
+drilling template and an original KiCad reference footprint are available there.
+X2 remains unassigned in this review PCB pending installation orientation and
+clearance integration, rather than because the connector drawing is missing.
+The existing A/B electrical map remains unchanged.
 
 Sources for connector selection:
 

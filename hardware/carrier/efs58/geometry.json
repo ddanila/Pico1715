@@ -1,0 +1,327 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "connector": "202-58",
+  "mounting_form": 7,
+  "status": "reference geometry; not assigned to carrier",
+  "fabrication_ready": false,
+  "view": "PCB component side; connector toward negative Y; A1 at origin",
+  "numbering_status": "derived from termination view and row A facing PCB; sample continuity pending",
+  "pitch": 2.5,
+  "tail_row_spacing": 5,
+  "contact_span": 70,
+  "mounting_centres": 85,
+  "mounting_hole_diameter": 2.7,
+  "board_edge_y": -6.5,
+  "edge_datum": "Fig.34 e7: edge to first tail row, not edge to mounting line",
+  "pads": [
+    {
+      "number": "A1",
+      "x": 0.0,
+      "y": 0
+    },
+    {
+      "number": "A2",
+      "x": 2.5,
+      "y": 0
+    },
+    {
+      "number": "A3",
+      "x": 5.0,
+      "y": 0
+    },
+    {
+      "number": "A4",
+      "x": 7.5,
+      "y": 0
+    },
+    {
+      "number": "A5",
+      "x": 10.0,
+      "y": 0
+    },
+    {
+      "number": "A6",
+      "x": 12.5,
+      "y": 0
+    },
+    {
+      "number": "A7",
+      "x": 15.0,
+      "y": 0
+    },
+    {
+      "number": "A8",
+      "x": 17.5,
+      "y": 0
+    },
+    {
+      "number": "A9",
+      "x": 20.0,
+      "y": 0
+    },
+    {
+      "number": "A10",
+      "x": 22.5,
+      "y": 0
+    },
+    {
+      "number": "A11",
+      "x": 25.0,
+      "y": 0
+    },
+    {
+      "number": "A12",
+      "x": 27.5,
+      "y": 0
+    },
+    {
+      "number": "A13",
+      "x": 30.0,
+      "y": 0
+    },
+    {
+      "number": "A14",
+      "x": 32.5,
+      "y": 0
+    },
+    {
+      "number": "A15",
+      "x": 35.0,
+      "y": 0
+    },
+    {
+      "number": "A16",
+      "x": 37.5,
+      "y": 0
+    },
+    {
+      "number": "A17",
+      "x": 40.0,
+      "y": 0
+    },
+    {
+      "number": "A18",
+      "x": 42.5,
+      "y": 0
+    },
+    {
+      "number": "A19",
+      "x": 45.0,
+      "y": 0
+    },
+    {
+      "number": "A20",
+      "x": 47.5,
+      "y": 0
+    },
+    {
+      "number": "A21",
+      "x": 50.0,
+      "y": 0
+    },
+    {
+      "number": "A22",
+      "x": 52.5,
+      "y": 0
+    },
+    {
+      "number": "A23",
+      "x": 55.0,
+      "y": 0
+    },
+    {
+      "number": "A24",
+      "x": 57.5,
+      "y": 0
+    },
+    {
+      "number": "A25",
+      "x": 60.0,
+      "y": 0
+    },
+    {
+      "number": "A26",
+      "x": 62.5,
+      "y": 0
+    },
+    {
+      "number": "A27",
+      "x": 65.0,
+      "y": 0
+    },
+    {
+      "number": "A28",
+      "x": 67.5,
+      "y": 0
+    },
+    {
+      "number": "A29",
+      "x": 70.0,
+      "y": 0
+    },
+    {
+      "number": "B1",
+      "x": 0.0,
+      "y": 5
+    },
+    {
+      "number": "B2",
+      "x": 2.5,
+      "y": 5
+    },
+    {
+      "number": "B3",
+      "x": 5.0,
+      "y": 5
+    },
+    {
+      "number": "B4",
+      "x": 7.5,
+      "y": 5
+    },
+    {
+      "number": "B5",
+      "x": 10.0,
+      "y": 5
+    },
+    {
+      "number": "B6",
+      "x": 12.5,
+      "y": 5
+    },
+    {
+      "number": "B7",
+      "x": 15.0,
+      "y": 5
+    },
+    {
+      "number": "B8",
+      "x": 17.5,
+      "y": 5
+    },
+    {
+      "number": "B9",
+      "x": 20.0,
+      "y": 5
+    },
+    {
+      "number": "B10",
+      "x": 22.5,
+      "y": 5
+    },
+    {
+      "number": "B11",
+      "x": 25.0,
+      "y": 5
+    },
+    {
+      "number": "B12",
+      "x": 27.5,
+      "y": 5
+    },
+    {
+      "number": "B13",
+      "x": 30.0,
+      "y": 5
+    },
+    {
+      "number": "B14",
+      "x": 32.5,
+      "y": 5
+    },
+    {
+      "number": "B15",
+      "x": 35.0,
+      "y": 5
+    },
+    {
+      "number": "B16",
+      "x": 37.5,
+      "y": 5
+    },
+    {
+      "number": "B17",
+      "x": 40.0,
+      "y": 5
+    },
+    {
+      "number": "B18",
+      "x": 42.5,
+      "y": 5
+    },
+    {
+      "number": "B19",
+      "x": 45.0,
+      "y": 5
+    },
+    {
+      "number": "B20",
+      "x": 47.5,
+      "y": 5
+    },
+    {
+      "number": "B21",
+      "x": 50.0,
+      "y": 5
+    },
+    {
+      "number": "B22",
+      "x": 52.5,
+      "y": 5
+    },
+    {
+      "number": "B23",
+      "x": 55.0,
+      "y": 5
+    },
+    {
+      "number": "B24",
+      "x": 57.5,
+      "y": 5
+    },
+    {
+      "number": "B25",
+      "x": 60.0,
+      "y": 5
+    },
+    {
+      "number": "B26",
+      "x": 62.5,
+      "y": 5
+    },
+    {
+      "number": "B27",
+      "x": 65.0,
+      "y": 5
+    },
+    {
+      "number": "B28",
+      "x": 67.5,
+      "y": 5
+    },
+    {
+      "number": "B29",
+      "x": 70.0,
+      "y": 5
+    }
+  ],
+  "mounting_holes": [
+    [
+      -7.5,
+      -5
+    ],
+    [
+      77.5,
+      -5
+    ]
+  ],
+  "chosen_finished_contact_hole": 1.0,
+  "chosen_copper_pad_diameter": 1.8,
+  "missing": [
+    "verified body/courtyard envelope",
+    "host installation/clearance transform",
+    "physical fit and continuity"
+  ],
+  "source": "TGL 29331/03 February 1988 pp3,11,17,18,24-26"
+}
