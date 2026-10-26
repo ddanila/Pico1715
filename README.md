@@ -121,6 +121,8 @@ contention, watchdog release and recovery during SD writeback.
 boot, BDOS and persistence checks, preserving both passing and overloaded profiles.
 [Receive read-ahead](docs/read-ahead.md) moves byte preparation into idle mailbox
 time while retaining the same two-byte capacity.
+[Transmit staging](docs/transmit-staging.md) acknowledges bounded byte capture
+before processing, preserving serializer deadlines and CRC validation.
 
 ```sh
 make test

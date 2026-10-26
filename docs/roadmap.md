@@ -104,6 +104,8 @@ costs through stock boot/SAVE/BDOS/reboot workloads, with ROM-free CPU regressio
 for reset and overload. [Receive read-ahead](read-ahead.md) now prepares bytes
 during idle mailbox time without enlarging receive capacity; bounded first-loss
 traces distinguish throughput deficits from lock/interrupt stalls.
+[Transmit staging](transmit-staging.md) overlaps byte processing with CPU work,
+while gate-close, CRC, reset and power-fail checks retain data-integrity gates.
 Replaying measured hardware costs remains future work;
 a watchdog pass alone does not qualify byte-service timing.
 

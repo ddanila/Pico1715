@@ -111,14 +111,14 @@ stack or reset controller counters to make a report pass.
 
 `tests/cpu_cost_smoke.py` generates an original 2 KiB ROM. Its Z80 program reads
 ID/data fields, writes a CRC-protected sector, then reads more fields while the
-worker journals the write. The host verifies exact persisted bytes. Seven cases
-cover zero costs, combined costs, read-ahead costs, reset during reading, reset during writeback,
+worker journals the write. The host verifies exact persisted bytes. Nine cases
+cover zero costs, combined costs, read-ahead and transmit-staging costs, reset during reading, writing and writeback,
 a 100-microsecond read overload and slow startup/polling. All cost sites and
 actual lock contention must be observed in the combined case; its CPU WAIT count
 must exceed the zero-cost case. Overload cases must report watchdog faults.
 
 CI runs this test against the compiled CPU/firmware/RTL bridge, with no historical
-ROMs or disk images. The [current public report](../reports/read-ahead-public.json) records
+ROMs or disk images. The [current public report](../reports/tx-staging-public.json) records
 its source hashes and case counters. Reproduce the build and qualification with:
 
 ```sh

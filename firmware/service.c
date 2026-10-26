@@ -26,7 +26,8 @@ static uint8_t *image;
 volatile p1715_diagnostics p1715_status;
 volatile uint32_t p1715_shutdown_command;
 static uint32_t block_budget_us,reserve_margin_us;
-static bool write_capable;
+static bool write_capable,tx_pending;
+static uint8_t tx_staged;
 static bool writes_allowed(void){
  return !p1715_status.storage_error && p1715_status.shutdown==P1715_RUNNING &&
    (p1715_status.write_policy==P1715_WRITE_EXPERIMENTAL ||
@@ -34,6 +35,7 @@ static bool writes_allowed(void){
      p1715_status.dirty_blocks+2<=p1715_status.dirty_limit));
 }
 static void isolate(void){
+ tx_pending=false;
  card.writable=0;card.write_active=0;card.stream_active=0;
  gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
  gpio_put(INDEX_PENDING,0);gpio_put(MARK_PENDING,0);
@@ -130,13 +132,13 @@ static bool ack_seen,reti_seen,responded,reset_seen,prefetch_allowed;
 static uint64_t start;
 static bool request_live(void){return gpio_get(HOST_RESET) && gpio_get(LINK_REQ);}
 static void abandon_response(void){
- prefetch_allowed=false;
+ tx_pending=false;prefetch_allowed=false;
  gpio_set_dir_masked(255,0);gpio_put(LINK_ACK,0);responded=false;
 }
 static int service_init(pico1715_controller *c,bool writable,bool protect,uint32_t worst,uint32_t margin){
  controller=c;
  memset((void *)&p1715_status,0,sizeof(p1715_status));
- generation=0;store.failed=0;p1715_shutdown_command=0;
+ generation=0;store.failed=0;p1715_shutdown_command=0;tx_pending=false;
  block_budget_us=worst;reserve_margin_us=margin;write_capable=writable;
  p1715_status.write_policy=protect?P1715_WRITE_PROTECTED:writable?P1715_WRITE_EXPERIMENTAL:P1715_READ_ONLY;
  for(unsigned pin=0;pin<=21;pin++){gpio_init(pin);gpio_set_dir(pin,GPIO_IN);gpio_pull_down(pin);}
@@ -170,6 +172,7 @@ void p1715_service_step(void){
   critical_section_exit(&image_lock);
   if(shut){isolate();return;}
   if(!gpio_get(HOST_RESET)){
+   tx_pending=false;
    gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
    if(!reset_seen){pico1715_reset(&card);start=time_us_64();reset_seen=true;}
    ack_seen=reti_seen=responded=false;prefetch_allowed=true;outputs();return;
@@ -199,13 +202,15 @@ void p1715_service_step(void){
   uint16_t port=reg<8?reg:0x20+(reg&3);
   if(pico1715_wait(&card,port,write))return;
   uint64_t begun=time_us_64();uint8_t data=255;
-  if(write){
+  if(write && port==0 && card.write_active){
+   if(!request_live()){abandon_response();return;}
+   tx_staged=(uint8_t)pins;tx_pending=true;
+  }else if(write){
    critical_section_enter_blocking(&image_lock);
    if(!request_live()){critical_section_exit(&image_lock);abandon_response();return;}
    card.writable=writes_allowed(); /* Recheck after any intervening worker failure. */
    if(port==4 && card.write_active && (pins&1))P1715_WORK(P1715_COST_COMMIT);
    else if(port==4 && ((uint8_t)pins&0x3b)==1 && card.control!=(uint8_t)pins)P1715_WORK(P1715_COST_FIELD);
-   else if(port==0 && card.write_active)P1715_WORK(P1715_COST_WRITE);
    if(!request_live()){critical_section_exit(&image_lock);abandon_response();return;}
    uint64_t before=card.writes;pico1715_write(&card,port,(uint8_t)pins);
    if(card.writes!=before){
@@ -226,4 +231,16 @@ void p1715_service_step(void){
   __dmb();gpio_put(LINK_ACK,1);responded=true;p1715_status.requests++;
   uint32_t duration=(uint32_t)(time_us_64()-begun);
   if(duration>p1715_status.max_service_us)p1715_status.max_service_us=duration;
+  /* Acknowledgement admits one byte to a bounded local slot. Finish its
+     processing before accepting another request (including gate close). */
+  if(tx_pending){
+   P1715_WORK(P1715_COST_WRITE);
+   tx_pending=false;
+   if(!gpio_get(HOST_RESET)){abandon_response();return;}
+   if(p1715_shutdown_command || p1715_status.storage_error)return;
+   /* Keep the serializer clock honest: deadlines elapsed during processing
+      count as underruns before the new byte reaches the output latch. */
+   pico1715_tick(&card,(time_us_64()-start)*PICO1715_CLOCK_HZ/1000000);
+   pico1715_write(&card,0,tx_staged);
+  }
 }

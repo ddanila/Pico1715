@@ -48,6 +48,7 @@ results = {}
 with tempfile.TemporaryDirectory(prefix='p1715-cpu-cost-') as name:
     root = Path(name); (root/'rom').write_bytes(rom); (root/'disk').write_bytes(bytes(819200))
     profiles = [('zero', (0,0,0,0,0,0), 0), ('combined', (1,4,1,1,4,8), 0), ('read-ahead', (1,4,8,1,4,8), 0),
+                ('tx-staging', (1,4,8,8,4,8), 0), ('reset-write', (1,4,8,8,4,8), 2),
                 ('reset', (1,4,1,1,4,8), 1), ('reset-writeback', (1,4,1,1,4,8), 3), ('overload', (0,0,100,0,0,0), 0), ('startup-slow', (100,0,0,0,0,0), 0)]
     for name, costs, reset in profiles:
         folder = root/name; folder.mkdir()

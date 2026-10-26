@@ -61,6 +61,9 @@ report identify the pre-change implementation, not the current firmware.
 
 ## Measured simulation results
 
+These results precede [transmit staging](transmit-staging.md), which addresses
+the write-side limit while preserving the receive pipeline.
+
 The [post-change BDOS profiles](../reports/read-ahead-limits.json) retain the same
 background vector `1,4,R,1,4,8`, 5 ms SD writes, stock software and two-byte
 capacity. Every accepted case requires exact persisted contents and zero lost
