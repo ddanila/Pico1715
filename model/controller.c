@@ -29,7 +29,7 @@ void pico1715_reset(void *p) {
   c->write_pos = c->field_head = c->field_sector = 0;
   c->writes = c->rejected_writes = 0;
   c->rx_count = c->rx_head = c->stream_active = c->mark_latched = 0;
-  c->rx_last = 0x4e;
+  c->rx_last = 0x4e; c->prepared = 0;
   c->next_byte = c->read_request = c->tx_ready = c->last_tx = c->irq_due = 0;
   c->write_request = 0;
   c->read_pending = c->write_pending = c->tx_full = c->tx_data = 0;
@@ -75,12 +75,17 @@ static void field(pico1715_controller *c) {
   c->fields++;
   if (c->timing.enabled) {
     c->stream_active = 1; c->mark_latched = 0;
-    c->rx_head = c->rx_count = 0;
+    c->rx_head = c->rx_count = c->prepared = 0;
     c->next_byte = (c->cycle + c->timing.mark_delay) * PICO1715_BIT_RATE +
                    (uint64_t)PICO1715_CLOCK_HZ * 8;
   } else if (c->mark_enabled && !(c->irq_mask & 2)) c->mark_pending = 1;
   if (c->data_field) c->sector = c->sector % c->sectors + 1;
   c->data_field ^= 1;
+}
+void pico1715_prepare_read(pico1715_controller *c) {
+  if (!c->timing.enabled || !c->stream_active || c->prepared || !c->rx_count) return;
+  c->prepared_data = c->rx[c->rx_head]; c->prepared_at = c->rx_at[c->rx_head];
+  c->rx_head = (c->rx_head + 1) % 16; c->rx_count--; c->prepared = 1;
 }
 int pico1715_read(void *p, uint16_t address, uint8_t *data) {
   pico1715_controller *c = p;
@@ -88,10 +93,10 @@ int pico1715_read(void *p, uint16_t address, uint8_t *data) {
   case 4: *data = c->control; return 1;
   case 2:
     if (c->timing.enabled && c->stream_active) {
-      if (c->rx_count) {
-        uint64_t age = c->cycle - c->rx_at[c->rx_head];
-        *data = c->rx[c->rx_head]; c->rx_head = (c->rx_head + 1) % 16;
-        c->rx_count--;
+      if (c->prepared || c->rx_count) {
+        pico1715_prepare_read(c);
+        uint64_t age = c->cycle - c->prepared_at;
+        *data = c->prepared_data; c->prepared = 0;
         if (age > c->max_read_age) c->max_read_age = age;
         c->rx_last = *data;
       } else { *data = c->rx_last; c->underflows++; }
@@ -183,7 +188,7 @@ void pico1715_write(void *p, uint16_t address, uint8_t data) {
     uint8_t old = c->control;
     c->control = data;
     if (c->timing.enabled && (data & 0x20)) {
-      c->stream_active = c->mark_latched = c->rx_count = c->read_pending = 0;
+      c->stream_active = c->mark_latched = c->rx_count = c->read_pending = c->prepared = 0;
       c->irq_due = 0; c->mark_pending = 0;
     }
     /* MK low arms mark acquisition; BB/A5 housekeeping doesn't consume fields. */
@@ -213,7 +218,7 @@ void pico1715_tick(void *p, uint64_t cycle) {
         }
       }
       if (c->timing.drop_byte && at + 1 == c->timing.drop_byte) { c->drops++; continue; }
-      if (c->rx_count == depth) {
+      if (c->rx_count + c->prepared >= depth) {
         if (at < c->length) c->overruns++;
       } else {
         if (!c->rx_count) c->latch_cycle = cycle;
@@ -245,7 +250,7 @@ int pico1715_wait(void *p, uint16_t address, int write) {
   }
   if (!write && (address & 255) == 2 && c->stream_active) {
     if (!c->read_pending) { c->read_pending = 1; c->read_request = c->cycle; }
-    return !c->rx_count || c->cycle - c->read_request < c->timing.read_delay;
+    return !(c->rx_count || c->prepared) || c->cycle - c->read_request < c->timing.read_delay;
   }
   return 0;
 }

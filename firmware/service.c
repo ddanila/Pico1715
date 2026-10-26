@@ -126,10 +126,11 @@ static void outputs(void){
  gpio_put(INDEX_PENDING,card.irq_enabled&&card.pending&&!card.service);
  gpio_put(MARK_PENDING,card.mark_enabled&&card.mark_pending&&!card.service);
 }
-static bool ack_seen,reti_seen,responded,reset_seen;
+static bool ack_seen,reti_seen,responded,reset_seen,prefetch_allowed;
 static uint64_t start;
 static bool request_live(void){return gpio_get(HOST_RESET) && gpio_get(LINK_REQ);}
 static void abandon_response(void){
+ prefetch_allowed=false;
  gpio_set_dir_masked(255,0);gpio_put(LINK_ACK,0);responded=false;
 }
 static int service_init(pico1715_controller *c,bool writable,bool protect,uint32_t worst,uint32_t margin){
@@ -152,7 +153,7 @@ static int service_init(pico1715_controller *c,bool writable,bool protect,uint32
  card.timing.enabled=1;card.timing.fifo_depth=P1715_RX_FIFO_DEPTH;
  critical_section_enter_blocking(&image_lock);memset(dirty,0,sizeof(dirty));critical_section_exit(&image_lock);
  if(writable)multicore_launch_core1(worker);
- ack_seen=reti_seen=responded=reset_seen=false;
+ ack_seen=reti_seen=responded=reset_seen=false;prefetch_allowed=true;
  start=time_us_64();gpio_put(BACKEND_READY,1);p1715_status.state=2;
  return 0;
 }
@@ -171,7 +172,7 @@ void p1715_service_step(void){
   if(!gpio_get(HOST_RESET)){
    gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
    if(!reset_seen){pico1715_reset(&card);start=time_us_64();reset_seen=true;}
-   ack_seen=reti_seen=responded=false;outputs();return;
+   ack_seen=reti_seen=responded=false;prefetch_allowed=true;outputs();return;
   }
   if(reset_seen){reset_seen=false;gpio_put(BACKEND_READY,1);}
   uint64_t cycle=(time_us_64()-start)*PICO1715_CLOCK_HZ/1000000;
@@ -184,7 +185,14 @@ void p1715_service_step(void){
   outputs();
   if(!gpio_get(LINK_REQ)){
    // Release shared data BEFORE lowering ACK; FPGA must see an idle bus first.
-   gpio_set_dir_masked(255,0);gpio_put(LINK_ACK,0);responded=false;return;
+   gpio_set_dir_masked(255,0);gpio_put(LINK_ACK,0);responded=false;
+   /* Prepare while the CPU executes between I/O requests. The staged byte
+      still occupies one slot of the same bounded receive capacity. */
+   if(prefetch_allowed && card.stream_active && card.rx_count && !card.prepared){
+    P1715_WORK(P1715_COST_READ);
+    if(gpio_get(HOST_RESET))pico1715_prepare_read(&card);
+   }
+   return;
   }
   if(responded)return;
   uint32_t pins=gpio_get_all();unsigned reg=(pins>>8)&15;bool write=(pins>>LINK_WRITE)&1;
@@ -207,7 +215,7 @@ void p1715_service_step(void){
    }
    critical_section_exit(&image_lock);
   }else{
-   if(port==2)P1715_WORK(P1715_COST_READ);
+   if(port==2 && !card.prepared)P1715_WORK(P1715_COST_READ);
    if(!request_live()){abandon_response();return;}
    pico1715_read(&card,port,&data);
   }

@@ -27,6 +27,8 @@ typedef struct {
   pico1715_timing timing;
   uint8_t rx[16], rx_count, rx_head, rx_last, stream_active, mark_latched;
   uint64_t rx_at[16];
+  uint8_t prepared, prepared_data;
+  uint64_t prepared_at;
   uint64_t next_byte, read_request, tx_ready, write_request, irq_due;
   unsigned read_pending, write_pending, tx_full;
   uint8_t tx_data;
@@ -38,6 +40,8 @@ int pico1715_mount(pico1715_controller *, uint8_t *, size_t,
                    unsigned size_code);
 void pico1715_reset(void *);
 int pico1715_read(void *, uint16_t, uint8_t *);
+/* Stage one queued byte without acknowledging a guest read or enlarging capacity. */
+void pico1715_prepare_read(pico1715_controller *);
 void pico1715_write(void *, uint16_t, uint8_t);
 void pico1715_tick(void *, uint64_t);
 int pico1715_irq(void *);

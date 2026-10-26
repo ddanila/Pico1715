@@ -101,7 +101,10 @@ The measured brackets belong to the scripted workload, not physical Pico
 execution. Bench measurements must supply actual PSRAM/CRC, polling and lock
 costs. The [Z80 integration](cpu-service-costs.md) now replays combined hypothetical
 costs through stock boot/SAVE/BDOS/reboot workloads, with ROM-free CPU regressions
-for reset and overload. Replaying measured hardware costs remains future work;
+for reset and overload. [Receive read-ahead](read-ahead.md) now prepares bytes
+during idle mailbox time without enlarging receive capacity; bounded first-loss
+traces distinguish throughput deficits from lock/interrupt stalls.
+Replaying measured hardware costs remains future work;
 a watchdog pass alone does not qualify byte-service timing.
 
 ## 5. Broader software compatibility

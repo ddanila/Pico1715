@@ -3,8 +3,8 @@
 Pico firmware now uses a **two-byte receive queue**. The standalone controller
 model keeps its one-byte default as a reference. This is an intentional custom
 card design choice, not a correction to a claimed gate-level PIO emulation.
-The queue uses the existing controller ring; no extra FPGA memory or hardware
-is required.
+The queue uses the controller ring and a [prepared receive slot](read-ahead.md)
+that shares the same two-byte capacity; no extra FPGA memory or hardware is required.
 
 ## Why it changed
 

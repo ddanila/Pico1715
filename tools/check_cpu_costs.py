@@ -50,6 +50,7 @@ cases={}
 for name,costs in profiles.items():
     folder=out/name;folder.mkdir()
     env={k:v for k,v in os.environ.items() if not k.startswith('PICO1715_')}
+    env['PICO1715_LOSS_TRACE']=str(folder/'first-loss.csv')
     env.update(environment(costs));env.update(PICO1715_TIMED='0',PICO1715_SD_WRITE_DELAY_US=str(a.sd_write_delay_us))
     proc=subprocess.run([str(out/'build/classic-probe'),str(rom),str(media),str(folder),'PICOTEST\r'],
                         env=env,capture_output=True,text=True,timeout=300)

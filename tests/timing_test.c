@@ -58,5 +58,19 @@ int main(void) {
   out(&c,4,0xb4);pico1715_tick(&c,c.cycle+160);assert(c.tx_late==2);
   pico1715_reset(&c);assert(!c.write_active && !c.tx_full && !c.write_pending);
   assert(disk[0]==0x62 && disk[1023]==0x62);
+  /* Read-ahead reserves existing capacity and counts only accepted CPU reads. */
+  pico1715_reset(&c); c.timing.fifo_depth=2;
+  out(&c,0x20,0xef);out(&c,6,4);arm(&c);
+  pico1715_tick(&c,79);pico1715_prepare_read(&c);
+  assert(c.prepared && !c.rx_count && !c.bytes && !c.max_read_age);
+  pico1715_prepare_read(&c);assert(c.prepared && !c.bytes);
+  pico1715_tick(&c,158);assert(c.prepared && c.rx_count==1);
+  pico1715_tick(&c,236);assert(c.overruns==1 && c.rx_count==1);
+  assert(!pico1715_wait(&c,2,0) && in(&c,2)==0xa1);
+  assert(!c.prepared && c.bytes==1 && c.max_read_age==157);
+  pico1715_prepare_read(&c);assert(c.prepared);
+  out(&c,4,0xa5);assert(!c.prepared && !c.rx_count && !c.stream_active);
+  out(&c,4,0x85);pico1715_tick(&c,315);pico1715_prepare_read(&c);
+  assert(c.prepared);pico1715_reset(&c);assert(!c.prepared && !c.rx_count);
   puts("timed arrivals, waits, overrun, IRQ delay, reset and write-clock tests passed");
 }

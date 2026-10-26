@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
 """Original Z80 program exercises all cost sites, writeback, reset and overload."""
+import csv
 import binascii
 import json
 import os
@@ -46,17 +47,34 @@ assert len(rom) == 2048
 results = {}
 with tempfile.TemporaryDirectory(prefix='p1715-cpu-cost-') as name:
     root = Path(name); (root/'rom').write_bytes(rom); (root/'disk').write_bytes(bytes(819200))
-    profiles = [('zero', (0,0,0,0,0,0), 0), ('combined', (1,4,1,1,4,8), 0),
+    profiles = [('zero', (0,0,0,0,0,0), 0), ('combined', (1,4,1,1,4,8), 0), ('read-ahead', (1,4,8,1,4,8), 0),
                 ('reset', (1,4,1,1,4,8), 1), ('reset-writeback', (1,4,1,1,4,8), 3), ('overload', (0,0,100,0,0,0), 0), ('startup-slow', (100,0,0,0,0,0), 0)]
     for name, costs, reset in profiles:
         folder = root/name; folder.mkdir()
         env = {k:v for k,v in os.environ.items() if not k.startswith('PICO1715_')}
+        env['PICO1715_LOSS_TRACE']=str(folder/'first-loss.csv')
         env.update(environment(costs));env.update(PICO1715_CYCLES='1000000', PICO1715_TIMED='0',
                                                   PICO1715_SD_WRITE_DELAY_US='5000', PICO1715_RESET_PHASE=str(reset))
         result = subprocess.run([str(binary), str(root/'rom'), str(root/'disk'), str(folder)],
                                 capture_output=True, text=True, env=env, timeout=60)
         assert result.returncode == 1, (name,result.stderr)  # no stock-ROM handoff
         report = json.loads(result.stdout); c = evidence(result.stderr)
+        rows = list(csv.DictReader((folder/'first-loss.csv').open()))
+        assert len(rows) <= 320
+        if report['overruns'] or report['tx_underruns']:
+            assert rows and any(int(r['overruns']) or int(r['underruns']) for r in rows)
+            assert all(int(b['us']) >= int(a['us']) for a,b in zip(rows,rows[1:]))
+        else: assert not rows
+        # Capture is observational: run one normal profile again without it.
+        if name == 'combined':
+            plain = root/'untraced';plain.mkdir()
+            plain_env = dict(env);plain_env.pop('PICO1715_LOSS_TRACE')
+            check = subprocess.run([str(binary),str(root/'rom'),str(root/'disk'),str(plain)],
+                                   capture_output=True,text=True,env=plain_env,timeout=60)
+            assert (check.returncode,check.stdout,check.stderr)==(result.returncode,result.stdout,result.stderr)
+            for artifact in ('ram.bin','disk.img','screen.txt'):
+                assert (plain/artifact).read_bytes()==(folder/artifact).read_bytes()
+
         assert c['config'] == list(costs), (name,c)
         if name in ('overload', 'startup-slow'):
             assert c['faults'] and c['calls'][2 if name == 'overload' else 0] and c['yields'], c

@@ -53,7 +53,10 @@ probe runs can set `PICO1715_COST_POLL_US`, `PICO1715_COST_FIELD_US`,
 `PICO1715_COST_SNAPSHOT_US`. The full-suite checker clears inherited experiment
 variables and installs only its explicit configuration.
 
-## Recorded results
+## Recorded results before read-ahead
+
+The following reports precede [receive preparation pipelining](read-ahead.md).
+They remain as the historical baseline; the linked page records subsequent results.
 
 Both the [zero-cost baseline](../reports/cpu-cost-zero.json) and the
 [combined-cost suite](../reports/cpu-cost-combined.json) pass all nine cases with
@@ -108,14 +111,14 @@ stack or reset controller counters to make a report pass.
 
 `tests/cpu_cost_smoke.py` generates an original 2 KiB ROM. Its Z80 program reads
 ID/data fields, writes a CRC-protected sector, then reads more fields while the
-worker journals the write. The host verifies exact persisted bytes. Six cases
-cover zero costs, combined costs, reset during reading, reset during writeback,
+worker journals the write. The host verifies exact persisted bytes. Seven cases
+cover zero costs, combined costs, read-ahead costs, reset during reading, reset during writeback,
 a 100-microsecond read overload and slow startup/polling. All cost sites and
 actual lock contention must be observed in the combined case; its CPU WAIT count
 must exceed the zero-cost case. Overload cases must report watchdog faults.
 
 CI runs this test against the compiled CPU/firmware/RTL bridge, with no historical
-ROMs or disk images. The [public report](../reports/cpu-cost-smoke.json) records
+ROMs or disk images. The [current public report](../reports/read-ahead-public.json) records
 its source hashes and case counters. Reproduce the build and qualification with:
 
 ```sh
@@ -132,7 +135,7 @@ optimization and synthetic field/index scheduling. Real caches, QMI/SPI signals,
 CPU half-cycle WAIT sampling and physical clock-domain behavior remain outside
 this simulation.
 
-The useful optimization target is the per-byte serving path: the stock BIOS can
+The subsequent [read-ahead change](read-ahead.md) targets the per-byte serving path: the stock BIOS can
 lose bytes at injected read/write costs far below the scripted-bus thresholds.
 Measure polling gaps, GPIO service and shared-lock time before deciding which
 code to optimize. Field construction and worker snapshots also contribute to the

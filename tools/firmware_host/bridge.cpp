@@ -39,6 +39,41 @@ static bool worker_busy;
 static uint64_t worker_due,clock_epoch;
 static unsigned sd_write_delay;
 static uint64_t sd_yields,resets_while_busy;
+// Optional bounded diagnostic window: 256 microsecond samples before the first
+// RX overrun/TX underrun, followed by 64 samples. No guest or model mutation.
+struct LossSample {
+    uint64_t us, cycle, overruns, underruns, waits;
+    unsigned pc, address, active, write, inputs, outputs, pos, length, rx;
+    unsigned pending, mark, irq_service, lock, core_due, tx_full, prepared;
+};
+static LossSample loss_ring[256];
+static unsigned loss_count,loss_next,loss_tail;
+static bool loss_triggered;
+static FILE *loss_file;
+static void loss_line(const LossSample &s){
+    std::fprintf(loss_file,"%llu,%llu,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%u,%llu,%llu,%llu,%u\n",
+        (unsigned long long)s.us,(unsigned long long)s.cycle,s.pc,s.address,s.active,s.write,
+        s.inputs,s.outputs,s.pos,s.length,s.rx,s.pending,s.mark,s.irq_service,s.lock,s.core_due,s.tx_full,
+        (unsigned long long)s.overruns,(unsigned long long)s.underruns,(unsigned long long)s.waits,s.prepared);
+}
+static void loss_sample(){
+    if(!loss_file)return;
+    LossSample s={host_time_us,card->cycle,card->overruns,card->tx_late,lock_wait_us,
+        machine->cpu.cpu.pc,address,(unsigned)active,(unsigned)writing,host_inputs,host_outputs,
+        card->pos,card->length,card->rx_count,card->pending,card->mark_pending,card->service,
+        lock_owner,(unsigned)(serving_busy && serving_due>host_time_us?serving_due-host_time_us:0),card->tx_full,card->prepared};
+    if(loss_triggered){
+        loss_line(s);
+        if(!--loss_tail){std::fclose(loss_file);loss_file=nullptr;}
+        return;
+    }
+    loss_ring[loss_next]=s;loss_next=(loss_next+1)%256;if(loss_count<256)loss_count++;
+    if(s.overruns || s.underruns){
+        loss_triggered=true;loss_tail=64;
+        for(unsigned i=0;i<loss_count;i++)loss_line(loss_ring[(loss_next+256-loss_count+i)%256]);
+        std::fflush(loss_file);
+    }
+}
 static void pause_core(unsigned delay){
     assert(current_core<2);
     uint64_t &due=current_core?worker_due:serving_due;
@@ -96,6 +131,7 @@ static void service(bool force=false) {
         if(!serving_busy && !exporting){serving_busy=true;serving_due=host_time_us;}
         if(serving_busy && host_time_us>=serving_due)resume_core(0);
         pins();
+        loss_sample();
     }
     worker_pump();
 }
@@ -129,6 +165,11 @@ extern "C" void firmware_cosim_start(int absent) {
     ready=p1715_service_init(card,writable)==0;
     last_poll=UINT64_MAX;last_worker=clock_epoch=0;worker_busy=false;
     sd_write_delay=0;sd_yields=resets_while_busy=0;
+    if(const char *path=std::getenv("PICO1715_LOSS_TRACE")){
+        loss_file=std::fopen(path,"wx");
+        if(!loss_file){std::perror("loss trace");std::exit(2);}
+        std::fputs("us,cycle,pc,address,active,write,inputs,outputs,pos,length,rx,pending,mark,irq_service,lock,service_due_us,tx_full,overruns,underruns,lock_wait_us,prepared\n",loss_file);
+    }
     serving_busy=reset_observed=exporting=false;serving_due=0;current_core=lock_owner=2;
     cost_yields=lock_wait_us=fault_count=first_fault_us=0;last_fault=false;
     const char *names[]={"POLL","FIELD","READ","WRITE","COMMIT","SNAPSHOT"};
@@ -258,6 +299,7 @@ extern "C" void firmware_cosim_export(void){
         std::fputs("PSRAM differs from persisted SD image\n",stderr);std::abort();
     }
     std::memcpy(output_image,host_storage_image(),P1715_IMAGE_BYTES);
+    if(loss_file){std::fclose(loss_file);loss_file=nullptr;}
     std::fprintf(stderr,"Costs config=[%u,%u,%u,%u,%u,%u] calls=[%llu,%llu,%llu,%llu,%llu,%llu] yields=%llu lock_wait_us=%llu faults=%llu first_fault_us=%llu\n",
         costs[0],costs[1],costs[2],costs[3],costs[4],costs[5],
         (unsigned long long)cost_calls[0],(unsigned long long)cost_calls[1],(unsigned long long)cost_calls[2],

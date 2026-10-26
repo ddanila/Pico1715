@@ -119,6 +119,8 @@ index/mark interrupt overlap; the standalone reference model defaults to one byt
 contention, watchdog release and recovery during SD writeback.
 [Stock Z80 cost experiments](docs/cpu-service-costs.md) combine these delays with
 boot, BDOS and persistence checks, preserving both passing and overloaded profiles.
+[Receive read-ahead](docs/read-ahead.md) moves byte preparation into idle mailbox
+time while retaining the same two-byte capacity.
 
 ```sh
 make test
