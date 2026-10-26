@@ -38,41 +38,33 @@ int firmware_cosim_storage_busy(void);
 #endif
 
 static FILE *logfile;
-/* Headless motherboard fixture, separate from the expansion card. It injects
- * the keyboard's E0/ASCII serial frames through SIO receive registers. */
+/* Completed-byte keyboard source. All port reads/status/register writes belong
+ * to DAC's onboard SIO; this fixture never supplies guest I/O values. */
 typedef struct {
   pico1715_controller controller;
   const char *command;
-  unsigned key_pos, key_half, sio_register;
+  unsigned key_pos, key_half, key_bytes, sio_reads, sio_writes, ctc_writes;
   uint64_t key_due;
 } fixture;
-static int input(void *p, uint16_t a, uint8_t *data) {
-  fixture *f = p;
-  if ((a & 255) == 14) {
-    *data = f->sio_register == 1 ? 0 :
-      4 | ((f->command[f->key_pos] && f->controller.cycle >= f->key_due) ? 1 : 0);
-    f->sio_register = 0; return 1;
-  }
-  if ((a & 255) == 12) {
-    *data = 0;
-    if (f->command[f->key_pos] && f->controller.cycle >= f->key_due) {
-      if (!f->key_half) { *data = 0xe0; f->key_half = 1; }
-      else { *data = f->command[f->key_pos++]; f->key_half = 0;
-             f->key_due = f->controller.cycle + (*data == '\r' ? 10000000 : 100000); }
-    }
-    return 1;
-  }
-  return card_read(p, a, data);
+static void keyboard_step(pc1715 *m,fixture *f){
+  if(!f->command[f->key_pos] || m->cpu.cycles<f->key_due || m->sio[0].count==3)return;
+  uint8_t data=f->key_half?(uint8_t)f->command[f->key_pos]:0xe0;
+  int result=pc1715_sio_receive(m,0,data);
+  if(result==-EAGAIN)return; /* guest has not enabled receive yet */
+  if(result){fprintf(stderr,"keyboard receive failed: %d\n",result);exit(2);}
+  f->key_bytes++;
+  if(!f->key_half){f->key_half=1;f->key_due=m->cpu.cycles+1000;}
+  else {f->key_pos++;f->key_half=0;f->key_due=m->cpu.cycles+(data=='\r'?10000000:100000);}
 }
-static void output(void *p, uint16_t a, uint8_t data) {
-  fixture *f = p;
-  if ((a & 255) == 14) {
-    if (f->sio_register) f->sio_register = 0;
-    else f->sio_register = data & 7;
-  } else card_write(p, a, data);
-}
+static int input(void *p,uint16_t a,uint8_t *data){return card_read(p,a,data);}
+static void output(void *p,uint16_t a,uint8_t data){card_write(p,a,data);}
 static void trace(void *p, const dac_trace_event *e) {
-  (void)p;
+  fixture *f=p;
+  if(!strcmp(e->kind,"IR") && (e->address&255)==12)f->sio_reads++;
+  if(!strcmp(e->kind,"IW")){
+    if((e->address&255)>=12 && (e->address&255)<=15)f->sio_writes++;
+    if((e->address&255)>=8 && (e->address&255)<=11)f->ctc_writes++;
+  }
 #ifdef P1715_ANALYZER
   analyzer_event(e);
 #endif
@@ -108,6 +100,7 @@ int main(int argc, char **argv) {
   uint8_t *disk = malloc(819200);
   if (!m || !disk) return 2;
   pc1715_init(m);
+  if(pc1715_onboard_enable(m))return 2;
   if (!read_file(argv[1], m->rom, 2048) || !read_file(argv[2], disk, 819200)) return 2;
   const char *names[] = {"io.trace", "ram.bin", "disk.img", "screen.txt"};
   FILE *outputs[4] = {0};
@@ -154,7 +147,7 @@ int main(int argc, char **argv) {
   pc1715_card card = {&f, input, output, card_tick,
     card_irq, card_ack, card_reti, card_reset, card_wait};
   pc1715_attach(m, &card);
-  m->trace = (dac_trace_sink){trace, NULL, 0, 0};
+  m->trace = (dac_trace_sink){trace, &f, 0, 0};
 #ifdef P1715_ANALYZER
   analyzer_init(m, argv[3]);
 #endif
@@ -162,6 +155,7 @@ int main(int argc, char **argv) {
   unsigned target = 0;
   unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 100000000);
   for (unsigned i = 0; i < cycle_limit; i++) {
+    keyboard_step(m,&f);
     pc1715_run(m, 1);
 #ifdef P1715_ANALYZER
     analyzer_observe();
@@ -184,7 +178,7 @@ int main(int argc, char **argv) {
       pc1715_reset(m);
       reset_unchanged = !memcmp(reset_image, cache, 819200);
       resets++; reset_at = i + 1;
-      f.key_pos = f.key_half = f.sio_register = 0; f.key_due = 20000000;
+      f.key_pos = f.key_half = 0; f.key_due = 20000000;
       handoff = 0; target = 0;
     }
     if (!handoff && m->cpu.cpu.pc == 0x204) {
@@ -209,12 +203,12 @@ int main(int argc, char **argv) {
     ",\"drops\":%" PRIu64 ",\"tx_overruns\":%" PRIu64
     ",\"tx_underruns\":%" PRIu64 ",\"max_read_age\":%" PRIu64
     ",\"max_tx_interval\":%" PRIu64 ",\"resets\":%u,\"reset_at\":%" PRIu64
-    ",\"reset_image_unchanged\":%u}\n",
+    ",\"reset_image_unchanged\":%u,\"onboard\":%u,\"keyboard_bytes\":%u,\"sio_reads\":%u,\"sio_writes\":%u,\"ctc_writes\":%u,\"sio_errors\":%u}\n",
     m->cpu.cycles, m->cpu.cpu.pc, handoff, target, c.fields, c.bytes,
     c.interrupts, c.steps, c.cylinder, c.sector, c.format, c.control,
     c.writes, c.rejected_writes, c.timing.enabled, m->wait_ticks, c.arrivals,
     c.overruns, c.underflows, c.drops, c.tx_early, c.tx_late, c.max_read_age,
-    c.max_tx_interval, resets, reset_at, reset_unchanged);
+    c.max_tx_interval, resets, reset_at, reset_unchanged, m->onboard, f.key_bytes, f.sio_reads, f.sio_writes, f.ctc_writes, m->sio[0].errors);
 #ifdef PICO1715_COSIM
   fprintf(stderr, "RTL requests=%" PRIu64 " acks=%" PRIu64 " reti=%" PRIu64 "\n",
           cosim_requests(), cosim_acks(), cosim_returns());

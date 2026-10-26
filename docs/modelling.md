@@ -10,7 +10,9 @@ read/write cycles, ticks, reset, IRQ acknowledgement and RETI, but has no access
 to guest memory or instruction addresses. DAC now also supplies a deferred-I/O callback for transaction waits.
 
 `tools/classic_probe.c` composes that motherboard with the card and a minimal
-SIO receive fixture. Keyboard E0/ASCII frames arrive through I/O, and the
+completed-byte keyboard source. Onboard CTC/SIO are enabled; E0/ASCII bytes
+enter the real modeled receive FIFO, and guest code owns status, register setup
+and data reads. See [the keyboard migration](onboard-keyboard.md). The
 runner observes this SCP revision's screen RAM at F800h. It never patches guest
 instructions, injects return values into registers, or bypasses BIOS/BDOS calls.
 It records controller reads/writes/interrupt acknowledgements, exports a separate
@@ -22,7 +24,7 @@ hashes. Nine scenarios cover cold boot/DIR, SAVE, saved-file persistence, a
 persistence, write protection, and absent media. All writes use private copies.
 It verifies hashes and independently parses the created files; a successful
 process exit or an observed ROM jump alone is not the acceptance criterion.
-See [the report](../reports/classic-compatibility.json) and
+See [the onboard-peripheral report](../reports/onboard-classic.json) and
 [controller contract](classic-controller.md).
 
 ## Scheduled timing and its limits

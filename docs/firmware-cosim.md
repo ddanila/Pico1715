@@ -4,6 +4,9 @@ The stock plain-1715 ROM and SCP run through the same firmware service loop that
 is built for the Pico Plus 2, connected to the board-level FPGA RTL. The
 [compatibility report](../reports/firmware-compatibility.json) records nine cases,
 source hashes, independent mailbox-response counts and firmware storage counters.
+That historical run used the legacy keyboard stub. The new
+[onboard SIO run](onboard-keyboard.md#firmware-timing-failure-exposed-by-migration)
+exposes an index/mark collision and fails the zero-overrun requirement.
 The ROM and BIOS are unchanged and are not redistributed.
 
 ## Execution boundary
@@ -78,9 +81,10 @@ The firmware polls on changes of the microsecond timer, quantized to CPU ticks.
 Idle FPGA clocks can be skipped once the normal mailbox has settled; observed
 CPU bus transitions still advance the RTL. This proves functional sequencing,
 not firmware execution-time bounds, full CDC behavior, or physical /WAIT margins.
-The motherboard's keyboard here remains a minimal SIO receive fixture. Separate
-[register-level card–CTC–SIO chain tests](motherboard-interrupts.md) now qualify
-priority and nesting; migrating this keyboard fixture remains open.
+The motherboard now enables modeled CTC/SIO, with completed keyboard bytes
+entering the real SIO FIFO. [Keyboard migration tests](onboard-keyboard.md) record
+functional/timed passes and the firmware timing failure; [chain tests](motherboard-interrupts.md) separately cover
+interrupt priority and nesting. Serial wire timing remains outside this profile.
 
 The [storage/reset qualification](firmware-storage-faults.md) adds delayed stock-OS
 workloads, three stock-ROM reset scenarios and 42 scripted firmware/RTL fault

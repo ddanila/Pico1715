@@ -43,9 +43,10 @@ repeated IM2 interrupts. The shared runtime and plain-board sanitizer suites pas
 [Combined-controller report](../reports/motherboard-interrupts.json) records the
 revision, source hashes and result. The existing nine-case external ROM/SCP
 regression also passed against this pin; see
-[compatibility report](../reports/motherboard-compatibility.json). These historical
-workloads retain their existing polled keyboard fixture, so they demonstrate
-backward compatibility, **not** full OS qualification of the new SIO model.
+[compatibility report](../reports/motherboard-compatibility.json). That historical
+report used the old polled keyboard fixture. The subsequent
+[onboard keyboard migration](onboard-keyboard.md) runs the stock workloads with
+CTC/SIO enabled and input through the actual receive FIFO.
 
 ## Scope and remaining work
 
@@ -62,6 +63,7 @@ CRT/display. See the pinned emulator's `machines/robotron1715/interrupts.md` for
 exact supported registers, exclusions and primary-source references.
 
 The **card–CTC–SIO arbitration milestone is complete at register level**. Full
-motherboard peripheral emulation, migration of the stock keyboard fixture and
-physical daisy-chain propagation/electrical timing remain separate work. Nothing
+motherboard peripheral emulation and physical daisy-chain propagation/electrical
+timing remain separate work. The stock keyboard fixture migration is now covered
+by the linked follow-up tests, with a firmware timing failure still open. Nothing
 here qualifies PCB mechanics, power sequencing or actual interrupt latency.

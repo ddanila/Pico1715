@@ -22,7 +22,7 @@ with tempfile.TemporaryDirectory(prefix='p1715-firmware-') as name:
                             env=env, capture_output=True, text=True, timeout=30)
     assert result.returncode == 1, result.stderr  # deliberately no OS handoff
     report = json.loads(result.stdout)
-    assert report['cycles'] == 10000 and report['writes'] == 0, report
+    assert report['cycles'] == 10000 and report['writes'] == 0 and report['onboard'] == 1, report
     assert 'Firmware state=2 requests=4 sd_reads=1602 sd_writes=0 dirty=0 error=0' in result.stderr, result.stderr
     assert 'RTL requests=4 acks=0 reti=0' in result.stderr, result.stderr
     assert (root / 'output/disk.img').read_bytes() == (root / 'disk').read_bytes()

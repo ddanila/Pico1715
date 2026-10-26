@@ -110,7 +110,9 @@ are listed in [docs/local-evidence.json](docs/local-evidence.json).
 The pinned DAC revision supplies `machines/robotron1715` (runtime kind 3) with
 64 KB RAM, the original ROM overlay and native card callbacks. This repository's
 `model/controller.c` attaches to it without changing the emulator or guest code.
-The runner adds a headless keyboard fixture and reads the text screen from RAM.
+The runner enables onboard CTC/SIO, feeds completed keyboard bytes into the SIO
+receive FIFO and reads the text screen from RAM. See the
+[stock-software qualification](docs/onboard-keyboard.md).
 
 ```sh
 make test

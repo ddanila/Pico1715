@@ -66,6 +66,7 @@ def main():
                          ('third_party/cpu/chips/LICENSE', 'chips-LICENSE')]:
         shutil.copyfile(dac / source, out / name)
     results = {}
+    timing_failures = {}
     environment = {k: v for k, v in os.environ.items() if not k.startswith('PICO1715_')}
     if args.timed:
         environment['PICO1715_TIMED'] = '0'
@@ -83,8 +84,14 @@ def main():
         before = digest(media)
         proc = subprocess.run(cmd, text=True, capture_output=True, timeout=180 if args.cosim else 60, env=environment)
         (folder / 'stderr.txt').write_text(proc.stderr)
+        (folder / 'stdout.txt').write_text(proc.stdout)
         require(proc.returncode == (1 if absent else 0), f'{name}: probe failed: {proc.stderr}')
         report = json.loads(proc.stdout)
+        require(report['onboard'] == 1, 'onboard peripherals disabled')
+        require(report['keyboard_bytes'] == 2 * len(command) and
+                report['sio_reads'] == report['keyboard_bytes'], 'keyboard FIFO delivery/consumption mismatch')
+        require(report['sio_writes'] > 0 and report['ctc_writes'] > 0 and not report['sio_errors'],
+                'onboard setup missing or SIO receive error')
         if args.cosim:
             stats = re.search(r'RTL requests=(\d+) acks=(\d+) reti=(\d+)', proc.stderr)
             require(stats is not None, 'missing RTL evidence')
@@ -113,8 +120,9 @@ def main():
         require((readonly or 'BIOS ERR' not in screen) and 'PICO TEST FAILED' not in screen, f'{name}: guest failure')
         if args.timed:
             require(report['timed'] == 1, f'{name}: timed model not enabled')
-            require(all(report[k] == 0 for k in ('overruns', 'underflows', 'tx_overruns', 'tx_underruns')),
-                    f'{name}: unexpected timing fault')
+            faults = {k: report[k] for k in ('overruns', 'underflows', 'tx_overruns', 'tx_underruns') if report[k]}
+            if faults:
+                timing_failures[name] = faults
         report['input_sha256'] = before
         report['output_sha256'] = digest(folder / 'disk.img')
         report['screen'] = '\n'.join(line.rstrip() for line in screen.splitlines()).rstrip()
@@ -155,6 +163,8 @@ def main():
     report = {'schema': 2, 'profile': 'pc1715-firmware-rtl-cosim' if args.firmware_cosim else 'pc1715-rtl-cosim' if args.cosim else 'pc1715-timed-card' if args.timed else 'pc1715-functional-card', 'dac_commit': revision,
               'rom_sha256': ROM_HASH, 'disk_sha256': DISK_HASH, 'rom_patched': False,
               'bios_patched': False, 'hardware_timing_qualified': False,
+              'accepted': not timing_failures, 'timing_failures': timing_failures,
+              'keyboard_path': 'onboard SIO A FIFO; completed E0/ASCII byte source',
               'source_sha256': {name: digest(ROOT / name) for name in
                   ('model/controller.c', 'model/controller.h', 'tools/classic_probe.c',
                    'tools/classic_workload.py', 'tools/check_classic.py')}, 'cases': results}
@@ -176,6 +186,7 @@ def main():
             '1 us service polling; DAC deferred I/O and synthetic keyboard; '
             'not ARM instruction execution, SPI/QMI electrical emulation, multicore contention or physical timing')
     (out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+    require(not timing_failures, f'timing qualification failed: {timing_failures}; report: {out / "report.json"}')
     print(f'{len(results)} classic compatibility cases passed; report: {out / "report.json"}')
 
 

@@ -79,9 +79,13 @@ including simultaneous requests, vector selection, priority/nesting, ownership
 on RETI, active-card isolation and reset. Tests include a synthetic Z80 IM2 guest
 with the actual Pico1715 controller; CI runs the combined check.
 
-The new register-level CTC/SIO subset is opt-in. Full serial waveforms, special
-receive conditions, X1 expansion and migration of the legacy keyboard fixture
-remain open; this does not qualify the physical chain's electrical timing.
+The boot probe now enables this register-level CTC/SIO subset and uses its
+receive FIFO for keyboard bytes; see [stock-software qualification](onboard-keyboard.md).
+The firmware/RTL run exposes an index/mark collision and one receive overrun;
+clean firmware qualification remains open. Reproduce it without private ROMs
+and sweep interrupt/acquisition phase before changing controller timing.
+Full serial waveforms, special receive conditions and X1 expansion remain open;
+this does not qualify the physical chain's electrical timing.
 
 ## 4. Broader software compatibility
 
