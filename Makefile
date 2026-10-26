@@ -153,3 +153,8 @@ test-carrier-rtl:
 test-carrier-footprints:
 	python3 tools/check_carrier_footprints.py
 	python3 tests/carrier_footprints_test.py
+
+.PHONY: test-carrier-pcb
+test-carrier-pcb:
+	python3 tools/check_carrier_pcb.py
+	python3 tests/carrier_pcb_test.py

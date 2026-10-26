@@ -49,7 +49,7 @@ signals. Added analyzer inputs use spare HX8K pins rather than controller output
 pins. [Controller](../boards/hx8k-carrier-controller.json) and
 [analyzer](../boards/hx8k-carrier-analyzer.json) maps contain physical header
 contacts and FPGA balls; the generator emits their PCFs. Both are checked against
-the pinned manufacturer Rev B1 netlist. J1 taps **PGM1 pin 5 (CDONE)**; other
+the pinned manufacturer Rev B1 netlist. J1 pin 1 taps **PGM1 pin 5 (CDONE)** and J1 pin 2 is ground; J1 is a separate carrier header. Other
 programming contacts are not connected by the carrier. Carrier CDONE pull-down
 is 100 kΩ, avoiding a large divider with the board's existing 2.2 kΩ pull-up.
 
@@ -131,9 +131,11 @@ regeneration and both synthesized port contracts; `test-carrier-schematic` requi
 
 ## Remaining gates
 
-SW1, J2 and J3 now have selected footprints and automatic pad-coverage checks.
-Seven other connector references remain explicitly unresolved; select their exact
-mating parts and verify X2 orientation, module stacking and board dimensions. Complete load/startup/falling-rail
+The [unrouted review board](carrier.kicad_pcb) has 74 electrical footprints, four
+provisional mounting holes and pad-to-net checks. X2 remains unplaced; the FPGA
+cable/header candidates and exact SD exclusions still need qualification. See
+[mechanics](mechanics.md) for selection evidence, the preview and remaining gates.
+Verify mating parts, cable continuity, X2 dimensions and board fit. Complete load/startup/falling-rail
 analysis and power measurements, input/driver timing and priority-chain tests,
 then placement/routing, ERC/DRC, assembly review and a small prototype order.
 The existing board inventory may change module connectors before that freeze.

@@ -94,7 +94,7 @@ def check(tree,manifest,designs=None):
     pins('D1',[1,2],['P_VSYS','V5_MODULE'])
     pins('EXT1',[1,3],['V5_MODULE','V3P3']);pins('J4',[1,2],['V5_MODULE','GND'])
     assert len({net('X2','A29'),net('J2',36),net('EXT1',3),net('J4',1)})==4
-    pins('J1',[5],['CDONE'])
+    pins('J1',[1,2],['CDONE','GND'])
     for h in ('EXT1','EXT2','EXT3'):
         pins(h,[2,4,8],['GND']*3)
         assert nc(h,5) and nc(h,6)

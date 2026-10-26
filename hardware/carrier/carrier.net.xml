@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/home/ddanila/fun/Pico1715/hardware/carrier/carrier.kicad_sch</source>
-    <date>2026-10-26T20:32:02</date>
+    <date>2026-10-26T21:08:30</date>
     <tool>Eeschema 10.0.6-10.0.6~ubuntu26.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -533,8 +533,9 @@
     </comp>
     <comp ref="EXT1">
       <value>OLIMEX_EXT1</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -592,8 +593,9 @@
     </comp>
     <comp ref="EXT2">
       <value>OLIMEX_EXT2</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -651,8 +653,9 @@
     </comp>
     <comp ref="EXT3">
       <value>OLIMEX_EXT3</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -832,9 +835,10 @@
       </units>
     </comp>
     <comp ref="J1">
-      <value>OLIMEX_PGM1_TAP</value>
+      <value>PGM1_PIN5_CDONE_TAP</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -846,7 +850,8 @@
       <units>
         <unit name="A">
           <pins>
-            <pin num="5"/>
+            <pin num="1"/>
+            <pin num="2"/>
           </pins>
         </unit>
       </units>
@@ -946,8 +951,9 @@
     </comp>
     <comp ref="J4">
       <value>REGULATED_5V_INPUT</value>
+      <footprint>Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -967,8 +973,9 @@
     </comp>
     <comp ref="J5">
       <value>BRINGUP_PROBES</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical</footprint>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -2700,13 +2707,14 @@
     <libpart lib="Pico1715" part="J1">
       <fields>
         <field name="Reference">J1</field>
-        <field name="Value">OLIMEX_PGM1_TAP</field>
+        <field name="Value">PGM1_PIN5_CDONE_TAP</field>
         <field name="Footprint"/>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <pins>
-        <pin num="5" name="CDONE" type="passive"/>
+        <pin num="1" name="CDONE_FROM_PGM1_5" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Pico1715" part="J2">
@@ -3609,7 +3617,7 @@
       <node ref="U7" pin="9" pinfunction="3A_9" pintype="input"/>
     </net>
     <net code="3" name="/CDONE" class="Default">
-      <node ref="J1" pin="5" pinfunction="CDONE_5" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="CDONE_FROM_PGM1_5_1" pintype="passive"/>
       <node ref="J5" pin="5" pinfunction="CDONE_5" pintype="passive"/>
       <node ref="R16" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U6" pin="10" pinfunction="3B_10" pintype="input"/>
@@ -3869,6 +3877,7 @@
       <node ref="ISO1" pin="10" pinfunction="GND_10" pintype="power_in"/>
       <node ref="ISO2" pin="10" pinfunction="GND_10" pintype="power_in"/>
       <node ref="ISO3" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="J1" pin="2" pinfunction="GND_2" pintype="passive"/>
       <node ref="J2" pin="13" pinfunction="GND_13" pintype="passive"/>
       <node ref="J2" pin="18" pinfunction="GND_18" pintype="passive"/>
       <node ref="J2" pin="23" pinfunction="GND_23" pintype="passive"/>

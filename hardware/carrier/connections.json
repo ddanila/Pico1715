@@ -2418,7 +2418,7 @@
       ],
       "x": 80.01,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
       "datasheet": ""
     },
     {
@@ -2668,7 +2668,7 @@
       ],
       "x": 190.5,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
       "datasheet": ""
     },
     {
@@ -2918,23 +2918,29 @@
       ],
       "x": 299.72,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
       "datasheet": ""
     },
     {
       "ref": "J1",
-      "value": "OLIMEX_PGM1_TAP",
+      "value": "PGM1_PIN5_CDONE_TAP",
       "pins": [
         [
-          5,
-          "CDONE",
+          1,
+          "CDONE_FROM_PGM1_5",
           "passive",
           "CDONE"
+        ],
+        [
+          2,
+          "GND",
+          "passive",
+          "GND"
         ]
       ],
       "x": 410.21,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
       "datasheet": ""
     },
     {
@@ -3282,7 +3288,7 @@
       ],
       "x": 740.41,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
       "datasheet": ""
     },
     {
@@ -3404,7 +3410,7 @@
       ],
       "x": 960.12,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical",
       "datasheet": ""
     },
     {

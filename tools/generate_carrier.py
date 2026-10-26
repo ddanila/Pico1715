@@ -108,8 +108,8 @@ for header in ('EXT1','EXT2','EXT3'):
     assigned={int(r['header'][1]):r['adapter_net'] for r in cnets.values() if r['header'] and r['header'][0]==header}
     for g in (2,4,8):assigned[g]='GND'
     if header=='EXT1':assigned.update({1:'V5_MODULE',3:'V3P3'})
-    add(header,'OLIMEX_'+header,[(i,assigned.get(i,'NC'),'power_out' if header=='EXT1' and i==3 else 'passive',assigned.get(i)) for i in range(1,41)])
-add('PGM','OLIMEX_PGM1_TAP',[(5,'CDONE','passive','CDONE')])
+    add(header,'OLIMEX_'+header,[(i,assigned.get(i,'NC'),'power_out' if header=='EXT1' and i==3 else 'passive',assigned.get(i)) for i in range(1,41)],footprint='Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical')
+add('PGM','PGM1_PIN5_CDONE_TAP',[(1,'CDONE_FROM_PGM1_5','passive','CDONE'),(2,'GND','passive','GND')],footprint='Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical')
 pico_pins={1:0,2:1,4:2,5:3,6:4,7:5,9:6,10:7,11:8,12:9,14:10,15:11,16:12,17:13,19:14,20:15,21:16,22:17,24:18,25:19,26:20,27:21,29:22,31:26,32:27,34:28}
 pins=[]
 for n in range(1,41):
@@ -117,9 +117,9 @@ for n in range(1,41):
     pins.append((n,net or 'NC','power_out' if n==36 else 'passive',net))
 add('PICO','PIM724_PICO_PLUS2',pins,footprint='Pico1715_Carrier:PIM724_SocketPair',datasheet='https://shop.pimoroni.com/products/pimoroni-pico-plus-2')
 add('SD','DM3AT-SF-PEJM5',[(1,'DAT2','passive','SD_DAT2'),(2,'DAT3_CS','input','P_GP22'),(3,'CMD_MOSI','input','P_GP27'),(4,'VDD','power_in','P3V3'),(5,'CLK','input','P_GP26'),(6,'VSS','power_in','GND'),(7,'DAT0_MISO','tri_state','P_GP28'),(8,'DAT1','passive','SD_DAT1'),(9,'DETECT_9_UNUSED','passive',None),(10,'DETECT_10_UNUSED','passive',None),('SH','SHIELD','passive','GND')],footprint='Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5',datasheet='https://www.hirose.com/product/p/CL0609-0031-0-00')
-add('POWER','REGULATED_5V_INPUT',[(1,'5V','power_out','V5_MODULE'),(2,'GND','power_out','GND')])
+add('POWER','REGULATED_5V_INPUT',[(1,'5V','power_out','V5_MODULE'),(2,'GND','power_out','GND')],footprint='Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical')
 add('D1','SS14',[(1,'K','passive','P_VSYS'),(2,'A','passive','V5_MODULE')],footprint='Diode_SMD:D_SMA',datasheet='https://www.vishay.com/docs/88746/ss12.pdf')
-add('TP','BRINGUP_PROBES',[(i+1,n,'passive',n) for i,n in enumerate(['GND','PG3','PG5','PGP','CDONE','MODE_CTL','PERSONALITY_CTL','LINK_OK','ARMED','DATA_OE_N','H_WAIT_N','H_INT_N','F_FAULT','P3V3','V3P3'])])
+add('TP','BRINGUP_PROBES',[(i+1,n,'passive',n) for i,n in enumerate(['GND','PG3','PG5','PGP','CDONE','MODE_CTL','PERSONALITY_CTL','LINK_OK','ARMED','DATA_OE_N','H_WAIT_N','H_INT_N','F_FAULT','P3V3','V3P3'])],footprint='Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical')
 # Reserve capacitor/charger design stays outside this draft. No bare capacitor socket.
 def resistor(value,a,b):
     ref='R'+str(1+sum(c['ref'].startswith('R') and c['ref'][1:].isdigit() for c in parts))
@@ -164,7 +164,7 @@ for c in parts:
         props+=f'(property {q(name)} {q(val)} (at {c["x"]} {c["y"]+dy} 0) (effects (font (size 1.27 1.27))'+(' hide' if name in ['Footprint','Datasheet'] else '')+')) '
     instances.append(f'(symbol (lib_id "Pico1715:{sym}") (at {c["x"]} {c["y"]} 0) (unit 1) (in_bom yes) (on_board yes) (uuid {uid(ref)}) {props} (instances (project "carrier" (path "/{rootid}" (reference "{ref}") (unit 1)))))')
 text=[]
-for y,t in [(18,'Pico1715 combined carrier / draft A / NOT FOR PCB ORDER'),(28,'PASSIVE: mode switch grounds MODE_CTL and physically bypasses priority. Change mode only with all power off.'),(38,'External regulated 5V powers modules; X2 5V powers host-side drivers only. Never parallel 3V3 regulators.'),(48,'USB status/eject plus PIM724 onboard GP45 hold-to-eject / GP25 SAFE LED. Module/switch/host footprints pending.')]:
+for y,t in [(18,'Pico1715 combined carrier / draft A / NOT FOR PCB ORDER'),(28,'PASSIVE: mode switch grounds MODE_CTL and physically bypasses priority. Change mode only with all power off.'),(38,'External regulated 5V powers modules; X2 5V powers host-side drivers only. Never parallel 3V3 regulators.'),(48,'USB status/eject plus PIM724 onboard GP45 hold-to-eject / GP25 SAFE LED. Candidate layout; X2 footprint and physical mating pending.')]:
     text.append(f'(text {q(t)} (at 20 {y*0.7+4} 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid {uid(t)}))')
 s=f'(kicad_sch (version 20250114) (generator "pico1715") (uuid {rootid}) (paper "A0") (lib_symbols '+''.join(libs)+') '+''.join(instances+wires+labels+ncs+text)+')\n'
 OUT.mkdir(exist_ok=True)
@@ -176,5 +176,5 @@ flibs=sorted({c['footprint'].split(':')[0] for c in parts if c['footprint']})
 p=OUT/'fp-lib-table';p.write_text(p.read_text().replace('${KICAD10_FOOTPRINT_DIR}/Pico1715_Carrier.pretty','${KIPRJMOD}/Pico1715_Carrier.pretty'))
 (OUT/'connections.json').write_text(json.dumps({'schema':1,'revision':'carrier-A','physical_orientation_verified':False,'parts':parts},indent=2)+'\n')
 (OUT/'bom.tsv').write_text('Reference\tValue\tFootprint\tDatasheet\n'+''.join('\t'.join((str(c[k]) or '-') for k in ['ref','value','footprint','datasheet'])+'\n' for c in parts))
-(OUT/'carrier.kicad_pro').write_text('{}\n')
+if not (OUT/'carrier.kicad_pro').exists():(OUT/'carrier.kicad_pro').write_text('{}\n')
 print(f'Generated {len(parts)} combined carrier parts')

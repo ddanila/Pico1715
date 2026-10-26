@@ -133,7 +133,9 @@ button/SAFE LED. Desk checks cover both synthesized personalities and negative
 connectivity mutations. Complete connector/footprint selection and placement
 studies with the [mechanical audit](../hardware/carrier/mechanics.md): the
 vendor-numbered switch footprint and Pico/SD pad contracts are now checked.
-Seven connector references and physical mating remain unresolved. Identify the FPGA boards already owned before freezing module
+The first unrouted PCB places 74 electrical footprints and checks all 557 pads
+against exported schematic nets. X2 remains unplaced; FPGA cables/header mating,
+SD drawing exclusions and enclosure fit remain open. Identify the FPGA boards already owned before freezing module
 connectors or final routing: the Olimex HX8K remains the reference option, not a
 requirement to buy that exact board.
 

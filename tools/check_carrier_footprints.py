@@ -23,7 +23,7 @@ def check(parts,inventory,plan):
         physical={p['number'] for p in inventory[fp]['pads']}
         schematic={str(p[0]) for p in c['pins']}
         assert schematic==physical,(c['ref'],schematic-physical,physical-schematic)
-    assert set(unresolved)=={'X2','EXT1','EXT2','EXT3','J1','J4','J5'},unresolved
+    assert set(unresolved)=={'X2'},unresolved
     c={p['ref']:p for p in parts}
     sw=inventory[c['SW1']['footprint']]['pads'];by={p['number']:(p['x'],p['y']) for p in sw}
     assert by=={'1':(-2.5,1.2),'2':(0,1.2),'3':(2.5,1.2),'5':(-2.5,-1.2),'6':(0,-1.2),'7':(2.5,-1.2)}

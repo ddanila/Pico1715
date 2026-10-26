@@ -5,5 +5,5 @@
   "pico_isolation_channels": 22,
   "shared_pin_profiles_verified": true,
   "synthesized_ports_checked": true,
-  "netlist_sha256": "551090695567b154f69e158550645c8b740304a2b7af351c776783bfad64f2cb"
+  "netlist_sha256": "1b072c03842cebb34a688774334ff58221280ee24182fe266847425e5e73adb1"
 }

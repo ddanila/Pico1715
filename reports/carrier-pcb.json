@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "fabrication_ready": false,
+  "electrical_footprints": 74,
+  "electrical_pads_checked": 557,
+  "unplaced_schematic_refs": [
+    "X2"
+  ],
+  "mechanical_mounting_holes": 4,
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "drc_unconnected_items": 336,
+  "drc_ignored_checks": [
+    {
+      "description": "Footprint has no courtyard defined",
+      "key": "missing_courtyard"
+    },
+    {
+      "description": "Track endpoint not centered on via",
+      "key": "track_not_centered_on_via"
+    },
+    {
+      "description": "Tuning profile track geometries",
+      "key": "tuning_profile_track_geometries"
+    },
+    {
+      "description": "Footprint doesn't match symbol's footprint filters",
+      "key": "footprint_filters_mismatch"
+    },
+    {
+      "description": "Footprint component type doesn't match footprint pads",
+      "key": "footprint_type_mismatch"
+    }
+  ],
+  "drc_note": "Default KiCad 10 settings, placement only. Schematic parity is covered by the separate pad/net checker; X2 deliberately absent. No production DRC pass.",
+  "pcb_mutations_rejected": 6,
+  "connectivity_mutations_rejected": 14,
+  "footprint_mutations_rejected": 5,
+  "deterministic_pcb_regeneration": true,
+  "source_sha256": {
+    "tools/generate_carrier_pcb.py": "2d247de882e18f77eba8ebc223388650324349ebc289a729918dfee9f4b29d39",
+    "tools/check_carrier_pcb.py": "f188e612b323e59d28f80e7b3e361e22134a16d581d910210b49627c76b8a56e",
+    "tests/carrier_pcb_test.py": "951b2e44c483f1bf7f1fac7dac3d20e34691d5275d285927909065585f40b28e",
+    "hardware/carrier/carrier.kicad_pcb": "c4ba995ba780719d485150697610bdb08f5cee6a9093b219523269515a37e3c3",
+    "hardware/carrier/carrier.kicad_sch": "2d410ba33fdee766f9102f6bf6fbbf8f8979aea7162b4330696bb1fe18262c4a",
+    "hardware/carrier/carrier.net.xml": "1b072c03842cebb34a688774334ff58221280ee24182fe266847425e5e73adb1",
+    "hardware/carrier/pcb-placement.json": "3260b777485c32c0949920d5325a76a720174ff55219a9d40ffaf8c4bc99b1e6",
+    "hardware/carrier/footprint-inventory.json": "aee644f0afc80ae35a5a50ef41b7f273410cf883c271100ef081ad72cd5574d9"
+  },
+  "open_gates": [
+    "X2 dimensioned mating connector and enclosure fit",
+    "Exact FPGA header part and cable continuity/mating/strain relief",
+    "Pico socket height and underside/USB clearances",
+    "Current Hirose engineering drawing and layer-specific exclusions",
+    "Power and bus bench validation",
+    "Routing, decoupling placement, fabricator rules and production ERC/DRC"
+  ]
+}
