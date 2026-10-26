@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "profile": "standalone-passive-raw-analyzer",
+  "physical_timing_qualified": false,
+  "board_pins_assigned": false,
+  "usb_transport_implemented": false,
+  "cpu_cosimulated": false,
+  "depth": 256,
+  "record_bits": 72,
+  "sample_clock_hz_fixture": 50000000,
+  "directed_checks": 198,
+  "random_captures": 160,
+  "random_records": 1624,
+  "seed": 1715,
+  "ice40_cells": {
+    "SB_CARRY": 81,
+    "SB_DFF": 81,
+    "SB_DFFE": 73,
+    "SB_DFFER": 169,
+    "SB_DFFR": 2,
+    "SB_LUT4": 283,
+    "SB_RAM40_4K": 5
+  },
+  "tools": {
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()",
+    "verilator": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1)",
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)"
+  },
+  "source_sha256": {
+    "hardware/rtl/analyzer_top.v": "a2ed82caeaff757ff414921f8efad097b4a6697a4919b53c5cf55b46023fceea",
+    "tests/analyzer_tb.v": "a017909308b6a72ebff01fa711d841dc661f56998a949bb511669015ae710aff",
+    "tests/analyzer_random.py": "41add742a588b6ece861473a6b718acce7a84d2d233a63469c5ea3fffb134315",
+    "tests/test_analyzer.py": "e6be52a578a14bee71181736b1e99f497afbc6c287c1dd2b9886c11f1d92fb7b",
+    "tools/analyzer_trace.py": "08ef0a9973e6c65253660226c64932e6e18ad6f4b3790c25415d791f87da7ef5",
+    "tools/check_analyzer.py": "5893e4751af302aa3f2de681069b02944b61ebd5dec4d38205c7d2468aaa51c8",
+    "Makefile": "c64512c4783d3d071da7a70062a61cba7f66259fd79f17eb18f455f7d643df0b"
+  }
+}

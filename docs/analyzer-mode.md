@@ -1,10 +1,11 @@
-# Analyzer mode and remote reset — planned
+# Analyzer mode and remote reset
 
 ## Purpose and explicit modes
 
 Add a USB-connected bus analyzer to Pico1715 so the fitted card can capture boot,
-I/O and interrupt activity without individual probe wires. This is an agreed
-feature plan; capture RTL, USB protocol and host tooling are not implemented yet.
+I/O and interrupt activity without individual probe wires. The [standalone capture prototype](analyzer-prototype.md) now implements raw
+triggered buffering and host file export. This document remains the full feature
+plan: board integration, USB transport and remote reset are not implemented yet.
 
 - **Controller:** existing floppy replacement behavior.
 - **Analyzer:** passive capture only; no floppy responses, data drive, /WAIT,

@@ -69,7 +69,9 @@ also permits operation without a capacitor. It then covers full interrupt-chain
 emulation, broader software compatibility and PCB preparation. These are planned
 items, not completed features.
 
-An explicit [USB bus-analyzer mode](docs/analyzer-mode.md) is also planned,
+The [bus-analyzer prototype](docs/analyzer-prototype.md) now provides passive RTL
+capture, triggers and CSV/VCD export with simulated verification. The full
+[USB bus-analyzer mode](docs/analyzer-mode.md) remains planned,
 including full-address capture and an optional remote reset-button connection.
 X1/X2's reset contact alone does not reset the CPU on the documented motherboard.
 

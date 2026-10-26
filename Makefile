@@ -76,3 +76,18 @@ test-firmware-service: build/firmware-service-test
 build/firmware-service-test: tests/firmware_service_test.c firmware/service.c firmware/service.h firmware/platform.h firmware/store.c firmware/store.h model/controller.c model/controller.h tools/firmware_host/host_hal.c tools/firmware_host/host_hal.h
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(WARN) -DP1715_HOST_SIM -Itools/firmware_host tests/firmware_service_test.c firmware/service.c firmware/store.c model/controller.c tools/firmware_host/host_hal.c -o $@
+
+.PHONY: test-analyzer lint-analyzer synth-analyzer
+test-analyzer: build/analyzer-test
+	vvp build/analyzer-test
+	python3 tests/analyzer_random.py
+	python3 tools/analyzer_trace.py pack build/analyzer-samples.txt build/analyzer.p1715 --clock-hz 50000000 --pre 3 --post 2 --trigger-index 3 --mask 0xff --value 0x55
+	python3 tools/analyzer_trace.py export build/analyzer.p1715 --csv build/analyzer.csv --vcd build/analyzer.vcd
+build/analyzer-test: hardware/rtl/analyzer_top.v tests/analyzer_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s analyzer_tb -o $@ $^
+lint-analyzer:
+	verilator --lint-only -Wall --top-module analyzer_top hardware/rtl/analyzer_top.v
+synth-analyzer:
+	@mkdir -p build
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/analyzer_top.v; synth_ice40 -top analyzer_top; check -assert; stat' > build/analyzer-synthesis.log
