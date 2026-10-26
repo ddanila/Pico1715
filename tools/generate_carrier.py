@@ -93,8 +93,8 @@ for k,(a,o,na,no) in enumerate([(1,2,'DATA_EN_N','DATA_OE_N'),(3,4,'WAIT_EN_N','
 add('U9','SN74LVC07ADR',p,footprint=so14,datasheet='https://www.ti.com/lit/ds/symlink/sn74lvc07a.pdf')
 for ref,val,rail,net in [('U10','TLV803EA30DBZR','V3P3','PG3'),('U11','TLV803EA46DBZR','V5_HOST','PG5'),('U12','TLV803EA30DBZR','P3V3','PGP')]:
     add(ref,val,[(1,'GND','power_in','GND'),(2,'RESET_N','open_collector',net),(3,'VDD','power_in',rail)],footprint='Package_TO_SOT_SMD:SOT-23',datasheet='https://www.ti.com/lit/ds/symlink/tlv803e.pdf')
-# Physical selector: logical harness pin numbering, footprint intentionally unresolved.
-add('SW1','DPDT_MODE_LOGICAL',[(1,'PASSIVE_GND','passive','GND'),(2,'COMMON_MODE','passive','MODE_CTL'),(3,'CONTROLLER_3V3','passive','V3P3'),(4,'PASSIVE_IEI','passive','H_PRIORITY'),(5,'COMMON_IEO','passive','H_PRIORITY_OUT'),(6,'CONTROLLER_IEO','passive','DRIVEN_IEO')])
+# Physical selector: manufacturer terminals 1/2/3 and 5/6/7; commons 2 and 6.
+add('SW1','JS202011JCQN',[(1,'PASSIVE_GND','passive','GND'),(2,'COMMON_MODE','passive','MODE_CTL'),(3,'CONTROLLER_3V3','passive','V3P3'),(5,'PASSIVE_IEI','passive','H_PRIORITY'),(6,'COMMON_IEO','passive','H_PRIORITY_OUT'),(7,'CONTROLLER_IEO','passive','DRIVEN_IEO')],footprint='Pico1715_Carrier:JS202011JCQN_VendorPins',datasheet='https://www.littelfuse.com/products/switches/slide-switches/js')
 # Independently powered Pico: bidirectional Ioff bus switches, no direction guessing.
 for group in range(3):
     pins=[(1,'NC','no_connect',None),(19,'OE_N','input','LINK_OE_N'),(20,'VCC','power_in','V3P3'),(10,'GND','power_in','GND')]
@@ -115,8 +115,8 @@ pins=[]
 for n in range(1,41):
     net='P_GP'+str(pico_pins[n]) if n in pico_pins else {3:'GND',8:'GND',13:'GND',18:'GND',23:'GND',28:'GND',33:'GND',38:'GND',36:'P3V3',39:'P_VSYS'}.get(n)
     pins.append((n,net or 'NC','power_out' if n==36 else 'passive',net))
-add('PICO','PIM724_PICO_PLUS2',pins,datasheet='https://shop.pimoroni.com/products/pimoroni-pico-plus-2')
-add('SD','MICROSD_SPI',[(1,'DAT2','passive','SD_DAT2'),(2,'DAT3_CS','input','P_GP22'),(3,'CMD_MOSI','input','P_GP27'),(4,'VDD','power_in','P3V3'),(5,'CLK','input','P_GP26'),(6,'VSS','power_in','GND'),(7,'DAT0_MISO','tri_state','P_GP28'),(8,'DAT1','passive','SD_DAT1'),('SH','SHIELD','passive','GND')])
+add('PICO','PIM724_PICO_PLUS2',pins,footprint='Pico1715_Carrier:PIM724_SocketPair',datasheet='https://shop.pimoroni.com/products/pimoroni-pico-plus-2')
+add('SD','DM3AT-SF-PEJM5',[(1,'DAT2','passive','SD_DAT2'),(2,'DAT3_CS','input','P_GP22'),(3,'CMD_MOSI','input','P_GP27'),(4,'VDD','power_in','P3V3'),(5,'CLK','input','P_GP26'),(6,'VSS','power_in','GND'),(7,'DAT0_MISO','tri_state','P_GP28'),(8,'DAT1','passive','SD_DAT1'),(9,'DETECT_9_UNUSED','passive',None),(10,'DETECT_10_UNUSED','passive',None),('SH','SHIELD','passive','GND')],footprint='Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5',datasheet='https://www.hirose.com/product/p/CL0609-0031-0-00')
 add('POWER','REGULATED_5V_INPUT',[(1,'5V','power_out','V5_MODULE'),(2,'GND','power_out','GND')])
 add('D1','SS14',[(1,'K','passive','P_VSYS'),(2,'A','passive','V5_MODULE')],footprint='Diode_SMD:D_SMA',datasheet='https://www.vishay.com/docs/88746/ss12.pdf')
 add('TP','BRINGUP_PROBES',[(i+1,n,'passive',n) for i,n in enumerate(['GND','PG3','PG5','PGP','CDONE','MODE_CTL','PERSONALITY_CTL','LINK_OK','ARMED','DATA_OE_N','H_WAIT_N','H_INT_N','F_FAULT','P3V3','V3P3'])])
@@ -173,6 +173,7 @@ OUT.mkdir(exist_ok=True)
 (OUT/'sym-lib-table').write_text('(sym_lib_table (lib (name "Pico1715") (type "KiCad") (uri "${KIPRJMOD}/Pico1715.kicad_sym") (options "") (descr "Original pin-explicit adapter symbols")))\n')
 flibs=sorted({c['footprint'].split(':')[0] for c in parts if c['footprint']})
 (OUT/'fp-lib-table').write_text('(fp_lib_table '+''.join('(lib (name "'+n+'") (type "KiCad") (uri "${KICAD10_FOOTPRINT_DIR}/'+n+'.pretty") (options "") (descr ""))' for n in flibs)+')\n')
+p=OUT/'fp-lib-table';p.write_text(p.read_text().replace('${KICAD10_FOOTPRINT_DIR}/Pico1715_Carrier.pretty','${KIPRJMOD}/Pico1715_Carrier.pretty'))
 (OUT/'connections.json').write_text(json.dumps({'schema':1,'revision':'carrier-A','physical_orientation_verified':False,'parts':parts},indent=2)+'\n')
 (OUT/'bom.tsv').write_text('Reference\tValue\tFootprint\tDatasheet\n'+''.join('\t'.join((str(c[k]) or '-') for k in ['ref','value','footprint','datasheet'])+'\n' for c in parts))
 (OUT/'carrier.kicad_pro').write_text('{}\n')

@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/home/ddanila/fun/Pico1715/hardware/carrier/carrier.kicad_sch</source>
-    <date>2026-10-26T18:25:36</date>
+    <date>2026-10-26T20:32:02</date>
     <tool>Eeschema 10.0.6-10.0.6~ubuntu26.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -853,9 +853,10 @@
     </comp>
     <comp ref="J2">
       <value>PIM724_PICO_PLUS2</value>
+      <footprint>Pico1715_Carrier:PIM724_SocketPair</footprint>
       <datasheet>https://shop.pimoroni.com/products/pimoroni-pico-plus-2</datasheet>
       <fields>
-        <field name="Footprint"/>
+        <field name="Footprint">Pico1715_Carrier:PIM724_SocketPair</field>
         <field name="Datasheet">https://shop.pimoroni.com/products/pimoroni-pico-plus-2</field>
         <field name="Description"/>
       </fields>
@@ -912,10 +913,12 @@
       </units>
     </comp>
     <comp ref="J3">
-      <value>MICROSD_SPI</value>
+      <value>DM3AT-SF-PEJM5</value>
+      <footprint>Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5</footprint>
+      <datasheet>https://www.hirose.com/product/p/CL0609-0031-0-00</datasheet>
       <fields>
-        <field name="Footprint"/>
-        <field name="Datasheet"/>
+        <field name="Footprint">Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5</field>
+        <field name="Datasheet">https://www.hirose.com/product/p/CL0609-0031-0-00</field>
         <field name="Description"/>
       </fields>
       <libsource lib="Pico1715" part="J3" description=""/>
@@ -934,6 +937,8 @@
             <pin num="6"/>
             <pin num="7"/>
             <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
             <pin num="SH"/>
           </pins>
         </unit>
@@ -1728,10 +1733,12 @@
       </units>
     </comp>
     <comp ref="SW1">
-      <value>DPDT_MODE_LOGICAL</value>
+      <value>JS202011JCQN</value>
+      <footprint>Pico1715_Carrier:JS202011JCQN_VendorPins</footprint>
+      <datasheet>https://www.littelfuse.com/products/switches/slide-switches/js</datasheet>
       <fields>
-        <field name="Footprint"/>
-        <field name="Datasheet"/>
+        <field name="Footprint">Pico1715_Carrier:JS202011JCQN_VendorPins</field>
+        <field name="Datasheet">https://www.littelfuse.com/products/switches/slide-switches/js</field>
         <field name="Description"/>
       </fields>
       <libsource lib="Pico1715" part="SW1" description=""/>
@@ -1745,9 +1752,9 @@
             <pin num="1"/>
             <pin num="2"/>
             <pin num="3"/>
-            <pin num="4"/>
             <pin num="5"/>
             <pin num="6"/>
+            <pin num="7"/>
           </pins>
         </unit>
       </units>
@@ -2756,7 +2763,7 @@
     <libpart lib="Pico1715" part="J3">
       <fields>
         <field name="Reference">J3</field>
-        <field name="Value">MICROSD_SPI</field>
+        <field name="Value">DM3AT-SF-PEJM5</field>
         <field name="Footprint"/>
         <field name="Datasheet"/>
         <field name="Description"/>
@@ -2770,6 +2777,8 @@
         <pin num="6" name="VSS" type="power_in"/>
         <pin num="7" name="DAT0_MISO" type="tri_state"/>
         <pin num="8" name="DAT1" type="passive"/>
+        <pin num="9" name="DETECT_9_UNUSED" type="passive"/>
+        <pin num="10" name="DETECT_10_UNUSED" type="passive"/>
         <pin num="SH" name="SHIELD" type="passive"/>
       </pins>
     </libpart>
@@ -3282,7 +3291,7 @@
     <libpart lib="Pico1715" part="SW1">
       <fields>
         <field name="Reference">SW1</field>
-        <field name="Value">DPDT_MODE_LOGICAL</field>
+        <field name="Value">JS202011JCQN</field>
         <field name="Footprint"/>
         <field name="Datasheet"/>
         <field name="Description"/>
@@ -3291,9 +3300,9 @@
         <pin num="1" name="PASSIVE_GND" type="passive"/>
         <pin num="2" name="COMMON_MODE" type="passive"/>
         <pin num="3" name="CONTROLLER_3V3" type="passive"/>
-        <pin num="4" name="PASSIVE_IEI" type="passive"/>
-        <pin num="5" name="COMMON_IEO" type="passive"/>
-        <pin num="6" name="CONTROLLER_IEO" type="passive"/>
+        <pin num="5" name="PASSIVE_IEI" type="passive"/>
+        <pin num="6" name="COMMON_IEO" type="passive"/>
+        <pin num="7" name="CONTROLLER_IEO" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Pico1715" part="U10">
@@ -3616,7 +3625,7 @@
       <node ref="U9" pin="2" pinfunction="1Y_2" pintype="open_collector"/>
     </net>
     <net code="6" name="/DRIVEN_IEO" class="Default">
-      <node ref="SW1" pin="6" pinfunction="CONTROLLER_IEO_6" pintype="passive"/>
+      <node ref="SW1" pin="7" pinfunction="CONTROLLER_IEO_7" pintype="passive"/>
       <node ref="U5" pin="4" pinfunction="Y_4" pintype="tri_state"/>
     </net>
     <net code="7" name="/F_A0" class="Default">
@@ -4063,11 +4072,11 @@
     <net code="89" name="/H_PRIORITY" class="Default">
       <node ref="R18" pin="2" pinfunction="2_2" pintype="passive"/>
       <node ref="RX5" pin="6" pinfunction="A4_6" pintype="input"/>
-      <node ref="SW1" pin="4" pinfunction="PASSIVE_IEI_4" pintype="passive"/>
+      <node ref="SW1" pin="5" pinfunction="PASSIVE_IEI_5" pintype="passive"/>
       <node ref="X2" pin="B10" pinfunction="IEO_B10" pintype="passive"/>
     </net>
     <net code="90" name="/H_PRIORITY_OUT" class="Default">
-      <node ref="SW1" pin="5" pinfunction="COMMON_IEO_5" pintype="passive"/>
+      <node ref="SW1" pin="6" pinfunction="COMMON_IEO_6" pintype="passive"/>
       <node ref="X2" pin="A10" pinfunction="IEI_A10" pintype="passive"/>
     </net>
     <net code="91" name="/H_RD_N" class="Default">
@@ -4595,70 +4604,76 @@
     <net code="211" name="unconnected-(J2-NC-Pad40)" class="Default">
       <node ref="J2" pin="40" pinfunction="NC_40" pintype="passive+no_connect"/>
     </net>
-    <net code="212" name="unconnected-(RX5-Y5-Pad13)" class="Default">
+    <net code="212" name="unconnected-(J3-DETECT_9_UNUSED-Pad9)" class="Default">
+      <node ref="J3" pin="9" pinfunction="DETECT_9_UNUSED_9" pintype="passive+no_connect"/>
+    </net>
+    <net code="213" name="unconnected-(J3-DETECT_10_UNUSED-Pad10)" class="Default">
+      <node ref="J3" pin="10" pinfunction="DETECT_10_UNUSED_10" pintype="passive+no_connect"/>
+    </net>
+    <net code="214" name="unconnected-(RX5-Y5-Pad13)" class="Default">
       <node ref="RX5" pin="13" pinfunction="Y5_13" pintype="tri_state+no_connect"/>
     </net>
-    <net code="213" name="unconnected-(RX5-Y6-Pad12)" class="Default">
+    <net code="215" name="unconnected-(RX5-Y6-Pad12)" class="Default">
       <node ref="RX5" pin="12" pinfunction="Y6_12" pintype="tri_state+no_connect"/>
     </net>
-    <net code="214" name="unconnected-(RX5-Y7-Pad11)" class="Default">
+    <net code="216" name="unconnected-(RX5-Y7-Pad11)" class="Default">
       <node ref="RX5" pin="11" pinfunction="Y7_11" pintype="tri_state+no_connect"/>
     </net>
-    <net code="215" name="unconnected-(U9-5Y-Pad10)" class="Default">
+    <net code="217" name="unconnected-(U9-5Y-Pad10)" class="Default">
       <node ref="U9" pin="10" pinfunction="5Y_10" pintype="open_collector+no_connect"/>
     </net>
-    <net code="216" name="unconnected-(U9-6Y-Pad12)" class="Default">
+    <net code="218" name="unconnected-(U9-6Y-Pad12)" class="Default">
       <node ref="U9" pin="12" pinfunction="6Y_12" pintype="open_collector+no_connect"/>
     </net>
-    <net code="217" name="unconnected-(U13-2Y-Pad6)" class="Default">
+    <net code="219" name="unconnected-(U13-2Y-Pad6)" class="Default">
       <node ref="U13" pin="6" pinfunction="2Y_6" pintype="output+no_connect"/>
     </net>
-    <net code="218" name="unconnected-(U13-3Y-Pad8)" class="Default">
+    <net code="220" name="unconnected-(U13-3Y-Pad8)" class="Default">
       <node ref="U13" pin="8" pinfunction="3Y_8" pintype="output+no_connect"/>
     </net>
-    <net code="219" name="unconnected-(U13-4Y-Pad11)" class="Default">
+    <net code="221" name="unconnected-(U13-4Y-Pad11)" class="Default">
       <node ref="U13" pin="11" pinfunction="4Y_11" pintype="output+no_connect"/>
     </net>
-    <net code="220" name="unconnected-(X2-/CTCCS1-PadB22)" class="Default">
+    <net code="222" name="unconnected-(X2-/CTCCS1-PadB22)" class="Default">
       <node ref="X2" pin="B22" pinfunction="/CTCCS1_B22" pintype="passive+no_connect"/>
     </net>
-    <net code="221" name="unconnected-(X2-/IODI-PadA22)" class="Default">
+    <net code="223" name="unconnected-(X2-/IODI-PadA22)" class="Default">
       <node ref="X2" pin="A22" pinfunction="/IODI_A22" pintype="passive+no_connect"/>
     </net>
-    <net code="222" name="unconnected-(X2-/KRF0-PadB25)" class="Default">
+    <net code="224" name="unconnected-(X2-/KRF0-PadB25)" class="Default">
       <node ref="X2" pin="B25" pinfunction="/KRF0_B25" pintype="passive+no_connect"/>
     </net>
-    <net code="223" name="unconnected-(X2-/LT107CS-PadB21)" class="Default">
+    <net code="225" name="unconnected-(X2-/LT107CS-PadB21)" class="Default">
       <node ref="X2" pin="B21" pinfunction="/LT107CS_B21" pintype="passive+no_connect"/>
     </net>
-    <net code="224" name="unconnected-(X2-/MEMDI-PadB9)" class="Default">
+    <net code="226" name="unconnected-(X2-/MEMDI-PadB9)" class="Default">
       <node ref="X2" pin="B9" pinfunction="/MEMDI_B9" pintype="passive+no_connect"/>
     </net>
-    <net code="225" name="unconnected-(X2-/NMI-PadA23)" class="Default">
+    <net code="227" name="unconnected-(X2-/NMI-PadA23)" class="Default">
       <node ref="X2" pin="A23" pinfunction="/NMI_A23" pintype="passive+no_connect"/>
     </net>
-    <net code="226" name="unconnected-(X2-/PIOCS0-PadA3)" class="Default">
+    <net code="228" name="unconnected-(X2-/PIOCS0-PadA3)" class="Default">
       <node ref="X2" pin="A3" pinfunction="/PIOCS0_A3" pintype="passive+no_connect"/>
     </net>
-    <net code="227" name="unconnected-(X2-/PIOCS1-PadB3)" class="Default">
+    <net code="229" name="unconnected-(X2-/PIOCS1-PadB3)" class="Default">
       <node ref="X2" pin="B3" pinfunction="/PIOCS1_B3" pintype="passive+no_connect"/>
     </net>
-    <net code="228" name="unconnected-(X2-/SIOCS1-PadB26)" class="Default">
+    <net code="230" name="unconnected-(X2-/SIOCS1-PadB26)" class="Default">
       <node ref="X2" pin="B26" pinfunction="/SIOCS1_B26" pintype="passive+no_connect"/>
     </net>
-    <net code="229" name="unconnected-(X2-5N-PadA15)" class="Default">
+    <net code="231" name="unconnected-(X2-5N-PadA15)" class="Default">
       <node ref="X2" pin="A15" pinfunction="5N_A15" pintype="passive+no_connect"/>
     </net>
-    <net code="230" name="unconnected-(X2-12N-PadB15)" class="Default">
+    <net code="232" name="unconnected-(X2-12N-PadB15)" class="Default">
       <node ref="X2" pin="B15" pinfunction="12N_B15" pintype="passive+no_connect"/>
     </net>
-    <net code="231" name="unconnected-(X2-12P-PadA28)" class="Default">
+    <net code="233" name="unconnected-(X2-12P-PadA28)" class="Default">
       <node ref="X2" pin="A28" pinfunction="12P_A28" pintype="passive+no_connect"/>
     </net>
-    <net code="232" name="unconnected-(X2-12P-PadB28)" class="Default">
+    <net code="234" name="unconnected-(X2-12P-PadB28)" class="Default">
       <node ref="X2" pin="B28" pinfunction="12P_B28" pintype="passive+no_connect"/>
     </net>
-    <net code="233" name="unconnected-(X2-NC-PadB27)" class="Default">
+    <net code="235" name="unconnected-(X2-NC-PadB27)" class="Default">
       <node ref="X2" pin="B27" pinfunction="NC_B27" pintype="passive+no_connect"/>
     </net>
   </nets>

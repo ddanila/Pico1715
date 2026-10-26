@@ -131,7 +131,9 @@ a checked KiCad schematic/netlist, draft BOM, compatible controller/analyzer FPG
 pin profiles, passive-mode interlock, module power isolation, SD and the PIM724
 button/SAFE LED. Desk checks cover both synthesized personalities and negative
 connectivity mutations. Complete connector/footprint selection and placement
-studies next; the logical DPDT selector still needs a verified physical pinout. Identify the FPGA boards already owned before freezing module
+studies with the [mechanical audit](../hardware/carrier/mechanics.md): the
+vendor-numbered switch footprint and Pico/SD pad contracts are now checked.
+Seven connector references and physical mating remain unresolved. Identify the FPGA boards already owned before freezing module
 connectors or final routing: the Olimex HX8K remains the reference option, not a
 requirement to buy that exact board.
 

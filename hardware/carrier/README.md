@@ -19,12 +19,14 @@ neither old analyzer bitstream nor old analyzer harness fits this carrier.
 
 **Change the selector and firmware only with host, module supply and USB power
 off.** This design does not support live mode switching or hot insertion.
-SW1 is a *logical six-terminal DPDT wiring contract*, not a chosen switch pinout:
-PASSIVE connects 1–2 and 4–5; CONTROLLER connects 2–3 and 5–6. Passive grounds the
-mode qualifier and connects X2 B10 directly to A10. It physically disconnects
-the IEO driver from the host. A missing switch still disarms host drivers, but
-does **not** provide priority continuity. Select/verify the switch and footprint
-before assembly; never assume an arbitrary DPDT part uses this numbering.
+SW1 now selects C&K **JS202011JCQN**, with an original vendor-numbered
+footprint. Its commons are terminals **2 and 6**: PASSIVE connects 1–2 and 5–6;
+CONTROLLER connects 2–3 and 6–7. Passive grounds the mode qualifier and connects
+X2 B10 directly to A10, physically disconnecting the IEO driver. A missing switch
+still disarms drivers but does not provide priority continuity. The installed
+KiCad footprint uses different second-pole numbering and must not be substituted.
+Confirm actuator direction/labels and continuity on a sample before assembly.
+See the [footprint audit and allocation study](mechanics.md).
 
 The passive interlock is external logic and remains effective even with the
 controller FPGA image loaded. A separate FPGA personality output is LOW for the
@@ -53,9 +55,11 @@ is 100 kΩ, avoiding a large divider with the board's existing 2.2 kΩ pull-up.
 
 J2 uses actual Pico physical header positions, not GPIO identifiers. J3 defines
 standard microSD contact numbers for SPI1: GP26 clock, GP27 MOSI, GP28 MISO,
-GP22 CS. It is a socket contract, **not** the arbitrary header order of a breakout.
-DAT1/DAT2/CS have pull-ups; the card shares Pico 3.3 V and ground. Module/socket
-footprints are deliberately blank until mechanics and exact parts are selected.
+GP22 CS. The selected socket is Hirose DM3AT-SF-PEJM5, **not** an arbitrary breakout
+header. Its extra card-detect footprint pads 9/10 are explicitly NC; all four
+shield lands share SH/GND. The current engineering drawing remains a release gate.
+DAT1/DAT2/CS have pull-ups; the card shares Pico 3.3 V and ground. The PIM724 socket-pair footprint uses the standard 40-pin header geometry and a
+conservative module envelope. Exact socket height and mating checks remain open.
 
 J4 takes regulated 5 V from an external current-limited bench supply. It feeds
 HX8K EXT1 pin 1 and Pico VSYS through D1; **do not simultaneously feed the HX8K
@@ -127,8 +131,9 @@ regeneration and both synthesized port contracts; `test-carrier-schematic` requi
 
 ## Remaining gates
 
-Choose exact SW1, microSD socket and module connector parts; verify footprints,
-X2 mating orientation and board dimensions. Complete load/startup/falling-rail
+SW1, J2 and J3 now have selected footprints and automatic pad-coverage checks.
+Seven other connector references remain explicitly unresolved; select their exact
+mating parts and verify X2 orientation, module stacking and board dimensions. Complete load/startup/falling-rail
 analysis and power measurements, input/driver timing and priority-chain tests,
 then placement/routing, ERC/DRC, assembly review and a small prototype order.
 The existing board inventory may change module connectors before that freeze.

@@ -9,8 +9,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y iverilog verilator yosys
       - run: make test test-store test-firmware-service test-frontend test-irq test-pico-top test-bench-fixture lint-bench-fixture lint-frontend synth-frontend
-      - run: make test-carrier test-carrier-rtl
-      - run: python3 tools/generate_carrier.py && git diff --exit-code -- hardware/carrier hardware/boards/hx8k-carrier-*
+      - run: make test-carrier test-carrier-rtl test-carrier-footprints
+      - run: python3 tools/generate_carrier_mechanics.py && python3 tools/generate_carrier.py && git diff --exit-code -- hardware/carrier hardware/boards/hx8k-carrier-*
       - run: make test-analyzer-hx8k lint-analyzer-hx8k
       - run: python3 tools/check_analyzer_transport.py --out build/analyzer-transport-check
       - run: python3 tools/check_analyzer.py --out build/analyzer-report.json

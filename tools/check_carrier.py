@@ -49,7 +49,7 @@ def check(tree,manifest,designs=None):
     pins('U4',[1,19,20,10],['GND','DATA_OE_N','V5_HOST','GND'])
     for i in range(8):pins('U4',[2+i,18-i],[f'F_DO{i}',f'H_D{i}'])
     pins('U5',[1,2,3,4,5],['IEO_OE_N','F_IEO','GND','DRIVEN_IEO','V5_HOST'])
-    pins('SW1',range(1,7),['GND','MODE_CTL','V3P3','H_PRIORITY','H_PRIORITY_OUT','DRIVEN_IEO'])
+    pins('SW1',[1,2,3,5,6,7],['GND','MODE_CTL','V3P3','H_PRIORITY','H_PRIORITY_OUT','DRIVEN_IEO'])
     pins('U9',[1,2,3,4,5,6,9,8],['DATA_EN_N','DATA_OE_N','WAIT_EN_N','H_WAIT_N','INT_EN_N','H_INT_N','IEO_EN_N','IEO_OE_N'])
     for ref,rail,pg in [('U10','V3P3','PG3'),('U11','V5_HOST','PG5'),('U12','P3V3','PGP')]:
         pins(ref,[1,2,3],['GND',pg,rail])
@@ -90,6 +90,7 @@ def check(tree,manifest,designs=None):
     for p,gp in physical.items():assert net('J2',p)==f'P_GP{gp}'
     pins('J2',[36,39],['P3V3','P_VSYS']);assert nc('J2',40) and nc('J2',37)
     pins('J3',[2,3,4,5,6,7],['P_GP22','P_GP27','P3V3','P_GP26','GND','P_GP28'])
+    assert nc('J3',9) and nc('J3',10) and net('J3','SH')=='GND'
     pins('D1',[1,2],['P_VSYS','V5_MODULE'])
     pins('EXT1',[1,3],['V5_MODULE','V3P3']);pins('J4',[1,2],['V5_MODULE','GND'])
     assert len({net('X2','A29'),net('J2',36),net('EXT1',3),net('J4',1)})==4

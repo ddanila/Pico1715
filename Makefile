@@ -148,3 +148,8 @@ test-carrier-rtl:
 	yosys -Q -T -p 'read_verilog -sv hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/carrier_controller.v; synth_ice40 -top carrier_controller -json build/carrier-controller.json; check -assert' > build/carrier-controller-synthesis.log
 	yosys -Q -T -p 'read_verilog -sv $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v hardware/rtl/carrier_analyzer.v; synth_ice40 -top carrier_analyzer -json build/carrier-analyzer.json; check -assert' > build/carrier-analyzer-synthesis.log
 	python3 tools/check_carrier.py --netlist hardware/carrier/carrier.net.xml --controller-design build/carrier-controller.json --analyzer-design build/carrier-analyzer.json
+
+.PHONY: test-carrier-footprints
+test-carrier-footprints:
+	python3 tools/check_carrier_footprints.py
+	python3 tests/carrier_footprints_test.py

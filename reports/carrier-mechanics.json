@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "fabrication_ready": false,
+  "assigned_parts": 68,
+  "unresolved_parts": [
+    "X2",
+    "EXT1",
+    "EXT2",
+    "EXT3",
+    "J1",
+    "J4",
+    "J5"
+  ],
+  "erc_violations": 0,
+  "connectivity_mutations_rejected": 14,
+  "footprint_mutations_rejected": 5,
+  "allocation_zone_overlaps": 0,
+  "switch_pdf_sha256": "ddb26ebfb6b0f88321f77bbc8f3ca328b3369e1de92cb3bb4d766251cfa4bae4",
+  "switch_pdf_reviewed_page": 9,
+  "switch_pdf_url": "https://static.datasheets.com/doc/3674279-c-k-js202011scqn-ds.pdf",
+  "hx8k_pcb_sha256": "dfc0c637a0371687064a6db33eed483b6625ef095583d55ec64f0ef6061d348c",
+  "microSD_current_drawing_verified": false,
+  "source_sha256": {
+    "tools/generate_carrier_mechanics.py": "706637b3c768e7964c7fef69ea2aa9392f248db6f244339177c3e7a0ec777c63",
+    "tools/check_carrier_footprints.py": "7b118ba5c23a0f7a746150d954973d7863004874d936f82b0467a97d481b99fc",
+    "tests/carrier_footprints_test.py": "eeea1f194da75ad6e9502c2018362f098cc4ddd819ffaaeaa2ab13613f62357d",
+    "hardware/carrier/placement-study.json": "043c2173c0539830841cb33dfb1baaff3ff988540587a60c1c6b2e8c90835c79",
+    "hardware/carrier/footprint-inventory.json": "70277a202cba01c4d0c31cb6c63a5dd53344866ea395a5dce08a3855473b1772",
+    "hardware/carrier/connections.json": "48252429ebd053026aeb3f639b17751c0b6de822ddc3e675ae05e9f3e9d14468"
+  }
+}

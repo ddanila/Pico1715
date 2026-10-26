@@ -12,7 +12,7 @@ mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 tree=ET.parse(sys.argv[1]).getroot()
 manifest=json.loads((ROOT/'hardware/carrier/connections.json').read_text())
 mod.check(tree,manifest)
-mutations=[('SW1','1','V3P3'),('SW1','4','DRIVEN_IEO'),('U7','13','V3P3'),
+mutations=[('SW1','1','V3P3'),('SW1','5','DRIVEN_IEO'),('U7','13','V3P3'),
  ('U4','19','GND'),('U9','3','GND'),('ISO1','19','GND'),('ISO3','17','L_GP17'),
  ('J2','36','V3P3'),('EXT2','15','F_DO0'),('X2','A20','H_CLK'),('RX1','2','H_D0'),
  ('U12','3','V3P3'),('D1','2','P_VSYS'),('R5','1','V3P3')]

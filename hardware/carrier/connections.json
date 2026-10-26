@@ -1737,7 +1737,7 @@
     },
     {
       "ref": "SW1",
-      "value": "DPDT_MODE_LOGICAL",
+      "value": "JS202011JCQN",
       "pins": [
         [
           1,
@@ -1758,19 +1758,19 @@
           "V3P3"
         ],
         [
-          4,
+          5,
           "PASSIVE_IEI",
           "passive",
           "H_PRIORITY"
         ],
         [
-          5,
+          6,
           "COMMON_IEO",
           "passive",
           "H_PRIORITY_OUT"
         ],
         [
-          6,
+          7,
           "CONTROLLER_IEO",
           "passive",
           "DRIVEN_IEO"
@@ -1778,8 +1778,8 @@
       ],
       "x": 740.41,
       "y": 190.5,
-      "footprint": "",
-      "datasheet": ""
+      "footprint": "Pico1715_Carrier:JS202011JCQN_VendorPins",
+      "datasheet": "https://www.littelfuse.com/products/switches/slide-switches/js"
     },
     {
       "ref": "ISO1",
@@ -3184,12 +3184,12 @@
       ],
       "x": 519.43,
       "y": 279.4,
-      "footprint": "",
+      "footprint": "Pico1715_Carrier:PIM724_SocketPair",
       "datasheet": "https://shop.pimoroni.com/products/pimoroni-pico-plus-2"
     },
     {
       "ref": "J3",
-      "value": "MICROSD_SPI",
+      "value": "DM3AT-SF-PEJM5",
       "pins": [
         [
           1,
@@ -3240,6 +3240,18 @@
           "SD_DAT1"
         ],
         [
+          9,
+          "DETECT_9_UNUSED",
+          "passive",
+          null
+        ],
+        [
+          10,
+          "DETECT_10_UNUSED",
+          "passive",
+          null
+        ],
+        [
           "SH",
           "SHIELD",
           "passive",
@@ -3248,8 +3260,8 @@
       ],
       "x": 629.92,
       "y": 279.4,
-      "footprint": "",
-      "datasheet": ""
+      "footprint": "Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5",
+      "datasheet": "https://www.hirose.com/product/p/CL0609-0031-0-00"
     },
     {
       "ref": "J4",

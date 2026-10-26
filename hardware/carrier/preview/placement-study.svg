@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1120" viewBox="0 0 180 224">
+<rect width="180" height="224" fill="#f6f7fa"/>
+<g font-family="DejaVu Sans">
+<text x="12" y="12" font-size="6" fill="#14253d">Pico1715 placement study</text>
+<text x="12" y="20" font-size="3.6">Allocation only — not a PCB outline or fabrication file</text>
+<rect x="17" y="31" width="65" height="67" rx="1" fill="#cce5fa" stroke="#596675" stroke-width="0.3"/>
+<text x="19" y="37" font-size="3">HX8K Rev B1</text>
+<text x="19" y="42" font-size="3">65 × 67 mm</text>
+<rect x="90" y="31" width="27" height="64" rx="1" fill="#cce5fa" stroke="#596675" stroke-width="0.3"/>
+<text x="92" y="37" font-size="3">PIM724</text>
+<text x="92" y="42" font-size="3">27 × 64 mm</text>
+<rect x="124" y="31" width="20" height="30" rx="1" fill="#ccedde" stroke="#596675" stroke-width="0.3"/>
+<text x="126" y="37" font-size="3">microSD</text>
+<text x="126" y="42" font-size="3">20 × 30 mm</text>
+<rect x="124" y="68" width="20" height="14" rx="1" fill="#ccedde" stroke="#596675" stroke-width="0.3"/>
+<text x="126" y="74" font-size="3">MODE</text>
+<text x="126" y="79" font-size="3">20 × 14 mm</text>
+<rect x="17" y="108" width="68" height="50" rx="1" fill="#e2dcfa" stroke="#596675" stroke-width="0.3"/>
+<text x="19" y="114" font-size="3">receivers / host drivers</text>
+<text x="19" y="119" font-size="3">68 × 50 mm</text>
+<rect x="92" y="108" width="52" height="50" rx="1" fill="#e2dcfa" stroke="#596675" stroke-width="0.3"/>
+<text x="94" y="114" font-size="3">isolation / supervisors</text>
+<text x="94" y="119" font-size="3">52 × 50 mm</text>
+<rect x="17" y="167" width="127" height="15" rx="1" fill="#f7d4c6" stroke="#596675" stroke-width="0.3"/>
+<text x="19" y="173" font-size="3">X2 mechanical reserve</text>
+<text x="19" y="178" font-size="3">127 × 15 mm</text>
+<text x="12" y="194" font-size="3.4">Keep USB, buttons, mode selector and card travel accessible.</text>
+<text x="12" y="202" font-size="3.4">HX8K headers: 1.27 mm pitch; mating connector not yet frozen.</text>
+<text x="12" y="210" font-size="3.4">X2 orientation, stacking height and enclosure clearance remain open.</text>
+</g></svg>

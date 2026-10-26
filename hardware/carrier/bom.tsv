@@ -15,7 +15,7 @@ U9	SN74LVC07ADR	Package_SO:SOIC-14_3.9x8.7mm_P1.27mm	https://www.ti.com/lit/ds/s
 U10	TLV803EA30DBZR	Package_TO_SOT_SMD:SOT-23	https://www.ti.com/lit/ds/symlink/tlv803e.pdf
 U11	TLV803EA46DBZR	Package_TO_SOT_SMD:SOT-23	https://www.ti.com/lit/ds/symlink/tlv803e.pdf
 U12	TLV803EA30DBZR	Package_TO_SOT_SMD:SOT-23	https://www.ti.com/lit/ds/symlink/tlv803e.pdf
-SW1	DPDT_MODE_LOGICAL	-	-
+SW1	JS202011JCQN	Pico1715_Carrier:JS202011JCQN_VendorPins	https://www.littelfuse.com/products/switches/slide-switches/js
 ISO1	SN74CB3Q3245PWR	Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm	https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf
 ISO2	SN74CB3Q3245PWR	Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm	https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf
 ISO3	SN74CB3Q3245PWR	Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm	https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf
@@ -23,8 +23,8 @@ EXT1	OLIMEX_EXT1	-	-
 EXT2	OLIMEX_EXT2	-	-
 EXT3	OLIMEX_EXT3	-	-
 J1	OLIMEX_PGM1_TAP	-	-
-J2	PIM724_PICO_PLUS2	-	https://shop.pimoroni.com/products/pimoroni-pico-plus-2
-J3	MICROSD_SPI	-	-
+J2	PIM724_PICO_PLUS2	Pico1715_Carrier:PIM724_SocketPair	https://shop.pimoroni.com/products/pimoroni-pico-plus-2
+J3	DM3AT-SF-PEJM5	Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5	https://www.hirose.com/product/p/CL0609-0031-0-00
 J4	REGULATED_5V_INPUT	-	-
 D1	SS14	Diode_SMD:D_SMA	https://www.vishay.com/docs/88746/ss12.pdf
 J5	BRINGUP_PROBES	-	-

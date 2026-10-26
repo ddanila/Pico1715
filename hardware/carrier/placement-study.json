@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "fabrication_ready": false,
+  "units": "mm",
+  "study_area": [
+    137,
+    161
+  ],
+  "zones": [
+    {
+      "name": "HX8K Rev B1",
+      "x": 5,
+      "y": 5,
+      "w": 65,
+      "h": 67,
+      "kind": "module",
+      "note": "source-board envelope; mating height pending"
+    },
+    {
+      "name": "PIM724 + access",
+      "x": 78,
+      "y": 5,
+      "w": 27,
+      "h": 64,
+      "kind": "module",
+      "note": "21 x 53 module plus connector/access allowance"
+    },
+    {
+      "name": "microSD + eject",
+      "x": 112,
+      "y": 5,
+      "w": 20,
+      "h": 30,
+      "kind": "access",
+      "note": "card stroke and finger space; no routing beneath restricted areas"
+    },
+    {
+      "name": "MODE switch",
+      "x": 112,
+      "y": 42,
+      "w": 20,
+      "h": 14,
+      "kind": "access",
+      "note": "power-off operation; confirm actuator labels on sample"
+    },
+    {
+      "name": "receivers / host drivers",
+      "x": 5,
+      "y": 82,
+      "w": 68,
+      "h": 50,
+      "kind": "logic",
+      "note": "host-facing zone; X2 datum not yet known"
+    },
+    {
+      "name": "isolation / supervisors",
+      "x": 80,
+      "y": 82,
+      "w": 52,
+      "h": 50,
+      "kind": "logic",
+      "note": "keep separate 3V3 domains"
+    },
+    {
+      "name": "X2 mechanical reserve",
+      "x": 5,
+      "y": 141,
+      "w": 127,
+      "h": 15,
+      "kind": "unresolved",
+      "note": "NO connector or board-edge geometry assumed"
+    }
+  ],
+  "warning": "Allocation study only: no PCB edge, routes, connector mating or enclosure fit approval.",
+  "hx8k_source_envelope": [
+    65,
+    67
+  ],
+  "hx8k_headers": {
+    "EXT1": {
+      "center_from_source_top_left": [
+        15.175,
+        12.405
+      ]
+    },
+    "EXT2": {
+      "center_from_source_top_left": [
+        46.925,
+        12.405
+      ]
+    },
+    "EXT3": {
+      "center_from_source_top_left": [
+        15.175,
+        3.515
+      ]
+    }
+  },
+  "hx8k_header_contact_pitch": 1.27,
+  "hx8k_smd_tail_row_spacing": 4.064,
+  "header_warning": "4.064 is copper-tail spacing, not mating-contact row spacing; do not use it for a female connector footprint."
+}
