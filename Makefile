@@ -95,11 +95,24 @@ synth-analyzer:
 .PHONY: test-cycle-analyzer lint-cycle-analyzer synth-cycle-analyzer
 test-cycle-analyzer: build/cycle-analyzer-test
 	vvp build/cycle-analyzer-test
-build/cycle-analyzer-test: hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v tests/cycle_analyzer_tb.v
+build/cycle-analyzer-test: hardware/rtl/cycle_encoder.v hardware/rtl/analyzer_record_fifo.v hardware/rtl/cycle_capture_top.v tests/cycle_analyzer_tb.v
 	@mkdir -p build
 	iverilog -g2012 -Wall -s cycle_analyzer_tb -o $@ $^
 lint-cycle-analyzer:
-	verilator --lint-only -Wall --top-module cycle_capture_top hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v
+	verilator --lint-only -Wall --top-module cycle_capture_top hardware/rtl/cycle_encoder.v hardware/rtl/analyzer_record_fifo.v hardware/rtl/cycle_capture_top.v
 synth-cycle-analyzer:
 	@mkdir -p build
-	yosys -Q -T -p 'read_verilog -sv hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v; synth_ice40 -top cycle_capture_top; check -assert; stat' > build/cycle-analyzer-synthesis.log
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/cycle_encoder.v hardware/rtl/analyzer_record_fifo.v hardware/rtl/cycle_capture_top.v; synth_ice40 -top cycle_capture_top; check -assert; stat' > build/cycle-analyzer-synthesis.log
+
+ANALYZER_TRANSPORT_RTL = hardware/rtl/cycle_encoder.v hardware/rtl/analyzer_record_fifo.v hardware/rtl/cycle_capture_top.v hardware/rtl/analyzer_link.v hardware/rtl/analyzer_transport_top.v
+.PHONY: test-analyzer-transport-top lint-analyzer-transport synth-analyzer-transport
+test-analyzer-transport-top: build/analyzer-transport-top-test
+	vvp build/analyzer-transport-top-test
+build/analyzer-transport-top-test: $(ANALYZER_TRANSPORT_RTL) tests/analyzer_transport_top_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s analyzer_transport_top_tb -o $@ $^
+lint-analyzer-transport:
+	verilator --lint-only -Wall --top-module analyzer_transport_top $(ANALYZER_TRANSPORT_RTL)
+synth-analyzer-transport:
+	@mkdir -p build
+	yosys -Q -T -p 'read_verilog -sv $(ANALYZER_TRANSPORT_RTL); synth_ice40 -top analyzer_transport_top; check -assert; stat' > build/analyzer-transport-synthesis.log

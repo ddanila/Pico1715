@@ -15,3 +15,11 @@ target_link_libraries(pico1715 pico_stdlib pico_multicore hardware_spi hardware_
 pico_enable_stdio_usb(pico1715 0)
 pico_enable_stdio_uart(pico1715 0)
 pico_add_extra_outputs(pico1715)
+
+add_executable(pico1715_analyzer analyzer_main.c analyzer.c psram.c)
+set_target_properties(pico1715_analyzer PROPERTIES LINKER_LANGUAGE C)
+target_compile_options(pico1715_analyzer PRIVATE -Wall -Wextra -Werror)
+target_link_libraries(pico1715_analyzer pico_stdlib hardware_sync hardware_gpio)
+pico_enable_stdio_usb(pico1715_analyzer 0)
+pico_enable_stdio_uart(pico1715_analyzer 0)
+pico_add_extra_outputs(pico1715_analyzer)

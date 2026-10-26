@@ -136,7 +136,7 @@ def main():
     qualify('synthetic', out/'smoke.rom', out/'smoke.disk', 1000, False)
     if a.rom:
         qualify('stock-boot', a.rom, a.disk, 20000000, True)
-    sources = ['hardware/rtl/cycle_encoder.v', 'hardware/rtl/cycle_capture_top.v',
+    sources = ['hardware/rtl/analyzer_record_fifo.v', 'hardware/rtl/cycle_encoder.v', 'hardware/rtl/cycle_capture_top.v',
                'tests/cycle_analyzer_tb.v', 'tests/test_cycle_trace.py', 'tools/cycle_trace.py',
                'tools/analyzer/bridge.cpp', 'tools/analyzer/bridge.h', 'tools/classic_probe.c',
                'model/controller.c', 'model/controller.h', 'tools/build_analyzer_cosim.py',

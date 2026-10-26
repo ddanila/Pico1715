@@ -3,7 +3,7 @@
 The analyzer now has a second standalone RTL personality for long diagnostic
 traces: `cycle_capture_top.v` combines `cycle_encoder.v` with a FIFO holding 255 records.
 The [raw analyzer](analyzer-prototype.md) remains available for sampled waveforms.
-Neither personality is yet connected to the board pins, Pico USB or PSRAM.
+The compact personality now has a tested [FPGA–Pico link and PSRAM receiver](analyzer-transport.md). Board pin integration and Pico USB remain open.
 
 ## What a cycle record means
 
@@ -149,7 +149,9 @@ and an unmodified stock ROM/SCP boot through the OS prompt. The boot runs
 The full trace has one flagged boundary interval; the filtered trace has none.
 Neither has saturation or changed-address flags. The I/O trace is about 3.3 MiB,
 small enough in capacity for the proposed 8 MiB PSRAM alongside the disk image.
-This does not yet allocate that RAM or prove transport throughput. The full trace
+The later [transport increment](analyzer-transport.md) allocates that RAM and
+replays this workload through the production FIFO/link and shared receiver;
+physical throughput remains unqualified. The full trace
 still needs much more storage; compact encoding is not unlimited capture.
 
 Default synthesis uses eight iCE40 RAM blocks and 461 LUT4s with the recorded
@@ -172,8 +174,8 @@ python3 tools/check_cycle_analyzer.py --dac ../dac-emulation \
   --rom /path/r1715bt.bin --disk /path/r1715.cpm --out local/cycle-stock-check
 ```
 
-Output directories must be new. The next step is FPGA–Pico transport and PSRAM
-buffering, tested against the measured event workload with bounded consumer stalls,
-then USB control/download. Board receiver/pin revisions and bench timing remain
+Output directories must be new. [FPGA–Pico transport and PSRAM buffering](analyzer-transport.md)
+now pass workload replay with bounded consumer stalls. The next step is USB
+control/download. Board receiver/pin revisions and bench timing remain
 separate gates. Compact pre/post-trigger capture is also still future work; the
 existing raw personality provides that feature today.

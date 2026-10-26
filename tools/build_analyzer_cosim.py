@@ -24,6 +24,7 @@ subprocess.run(['verilator', '--cc', '--exe', '--build', '-j', '2', '-O3', '-Wal
                 '--top-module', 'cycle_capture_top', '--Mdir', str(out/'rtl'),
                 '-CFLAGS', f'-O2 -I{ROOT} -I{dac}',
                 str(ROOT/'hardware/rtl/cycle_encoder.v'),
+                str(ROOT/'hardware/rtl/analyzer_record_fifo.v'),
                 str(ROOT/'hardware/rtl/cycle_capture_top.v'),
                 str(ROOT/'tools/analyzer/bridge.cpp'), *objects,
                 '-o', str(out/'classic-probe')], check=True)

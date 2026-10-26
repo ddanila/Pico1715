@@ -20,7 +20,7 @@ module cycle_analyzer_tb;
  task step;
   begin @(posedge clk);#1;
    if({host_oe,wait_pull_low,int_pull_low,busrq_pull_low,nmi_pull_low,memdi_pull_low,reset_pull_low}!==0 || ieo!==iei) $fatal(1,"passivity");
-   if(dut.pop && dut.push && dut.rd_ptr==dut.wr_ptr) $fatal(1,"RAM collision");
+   if(dut.fifo.pop && dut.fifo.push && dut.fifo.rd_ptr==dut.fifo.wr_ptr) $fatal(1,"RAM collision");
    @(negedge clk);
   end
  endtask

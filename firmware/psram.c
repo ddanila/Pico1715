@@ -30,10 +30,13 @@ static void __no_inline_not_in_flash_func(configure)(void){
  hw_set_bits(&xip_ctrl_hw->ctrl,XIP_CTRL_WRITABLE_M1_BITS);
  restore_interrupts(saved);
 }
-uint8_t *p1715_psram(void){
+uint8_t *p1715_psram_region(uint32_t offset,uint32_t size){
+ if(!size || offset>8u*1024u*1024u || size>8u*1024u*1024u-offset || (offset&3) || (size&3))return NULL;
  gpio_set_function(47,GPIO_FUNC_XIP_CS1);sleep_us(200);configure();
- volatile uint32_t *ram=(volatile uint32_t *)0x15000000u; /* Uncached memory window 1. */
- for(unsigned i=0;i<819200/4;i++)ram[i]=i^0xa55ac33cu;
- for(unsigned i=0;i<819200/4;i++)if(ram[i]!=(i^0xa55ac33cu))return NULL;
+ volatile uint32_t *ram=(volatile uint32_t *)(0x15000000u+offset); /* Uncached memory window 1. */
+ for(unsigned i=0;i<size/4;i++)ram[i]=i^0xa55ac33cu;
+ for(unsigned i=0;i<size/4;i++)if(ram[i]!=(i^0xa55ac33cu))return NULL;
  return (uint8_t *)ram;
 }
+
+uint8_t *p1715_psram(void){return p1715_psram_region(0,819200);}

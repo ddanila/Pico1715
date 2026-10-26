@@ -24,6 +24,12 @@ SD blocks are simulated; this does not execute RP2350 instructions or qualify
 physical timing. See [firmware co-simulation](docs/firmware-cosim.md) and
 [delayed storage, reset and recovery qualification](docs/firmware-storage-faults.md).
 
+The standalone [analyzer transport](docs/analyzer-transport.md) now joins passive
+FPGA cycle capture to a CRC-protected Pico link and a bounded 7 MiB PSRAM buffer.
+Shared-firmware/RTL tests cover stalls, corruption, retry and buffer exhaustion;
+stock-boot replay retains all 215,848 selected records. USB control/download and
+analyzer board integration remain open.
+
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the
 **1715W/M**: the existing DAC emulator and available S550/TOS/M reference boot
