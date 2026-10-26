@@ -3,6 +3,9 @@
 #define P1715_SERVICE_H
 #include <stdbool.h>
 #include "../model/controller.h"
+/* Bounded receive elasticity for index/mark interrupt overlap. The standalone
+   controller reference still defaults to a single-byte latch. */
+enum {P1715_RX_FIFO_DEPTH=2};
 enum {P1715_RUNNING, P1715_DRAINING, P1715_SAFE, P1715_UNSAFE};
 enum {P1715_BACKUP_ABSENT, P1715_BACKUP_CHARGING, P1715_BACKUP_READY,
       P1715_BACKUP_EXHAUSTED, P1715_BACKUP_FAILED};

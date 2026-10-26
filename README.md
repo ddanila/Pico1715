@@ -112,7 +112,9 @@ The pinned DAC revision supplies `machines/robotron1715` (runtime kind 3) with
 `model/controller.c` attaches to it without changing the emulator or guest code.
 The runner enables onboard CTC/SIO, feeds completed keyboard bytes into the SIO
 receive FIFO and reads the text screen from RAM. See the
-[stock-software qualification](docs/onboard-keyboard.md).
+[stock-software qualification](docs/onboard-keyboard.md). Production firmware
+uses a bounded [two-byte receive queue](docs/receive-elasticity.md) to handle
+index/mark interrupt overlap; the standalone reference model defaults to one byte.
 
 ```sh
 make test

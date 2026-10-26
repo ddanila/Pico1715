@@ -8,8 +8,9 @@ status/register selection, FIFO contents and guest data reads. The existing
 card callbacks now serve only the external controller.
 
 The functional and scheduled-byte stock ROM/SCP suites pass without modifying
-the guest or the pinned emulator. The firmware/RTL suite exposes a receive
-overrun described below and is **not cleanly qualified** with this input path.
+the guest or the pinned emulator. The original one-byte firmware/RTL run exposed a receive overrun described
+below. The subsequent [two-byte firmware design](receive-elasticity.md) passes
+all nine cases with zero RX/TX faults.
 These tests exercise the existing register subset, not every SIO mode.
 
 ## Input timing and scope
@@ -65,7 +66,8 @@ Reports:
 - [ROM-free keyboard regression](../reports/onboard-keyboard.json).
 - [Functional stock workloads](../reports/onboard-classic.json).
 - [Scheduled-byte stock workloads](../reports/onboard-timed.json).
-- [Shared firmware and RTL diagnostics — not accepted](../reports/onboard-firmware.json).
+- [Historical one-byte firmware diagnostics — not accepted](../reports/onboard-firmware.json).
+- [Two-byte firmware follow-up — accepted](../reports/buffered-firmware.json).
 
 The stock software consumes keyboard input by polling. These tests qualify its
 SIO usage and onboard register programming, not every interrupt mode. Separate
@@ -73,9 +75,9 @@ SIO usage and onboard register programming, not every interrupt mode. Separate
 nesting. Full serial timing, special receive conditions, modem-line behavior,
 CRT emulation, X1 expansion and physical validation remain open.
 
-## Firmware timing failure exposed by migration
+## Historical firmware timing failure exposed by migration
 
-The changed keyboard delivery phase exposes a collision between index and mark
+The changed keyboard delivery phase exposed a collision between index and mark
 interrupts in the firmware/RTL BDOS workload. The local diagnostic trace shows:
 
 ```text
@@ -88,8 +90,8 @@ interrupts in the firmware/RTL BDOS workload. The local diagnostic trace shows:
 Temporary instrumentation located the overrun at CPU clock 27,038,109, PC E98Bh:
 the second byte of a ten-byte ID field arrived with the first still unread.
 The guest retries and prints `PICO READ WRITE OK`, but recovery does not satisfy
-the zero-overrun acceptance criterion. No input delay, FIFO depth or controller
-behavior has been changed to avoid the collision.
+the zero-overrun acceptance criterion. That run retained the original single-byte queue; the follow-up deliberately
+adds bounded receive buffering in production firmware.
 
 All nine firmware cases completed their screen, keyboard and disk-content checks.
 The BDOS case has one overrun; the other eight have zero timing faults.
@@ -99,8 +101,7 @@ a timing fault, writes `accepted: false` with per-case `timing_failures`, and
 **exits nonzero**. Other compatibility failures still stop immediately. Historical
 firmware passes used the old keyboard stub and do not supersede this result.
 
-Next desk milestone: make the index/mark collision a ROM-free firmware regression,
-then sweep acquisition/index phase and determine whether the synthetic field/index
-model or interrupt service needs correction. The current model schedules index
-and field acquisition independently; this trace does not establish that physical
-hardware will lose a byte. Serial waveforms and bench timing remain separate work.
+The [ROM-free phase sweep and two-byte firmware queue](receive-elasticity.md)
+now reproduce and address this collision. The one-byte failure remains recorded
+above. The model still schedules index and field acquisition independently;
+rotating-track emulation, serial waveforms and bench timing remain separate work.

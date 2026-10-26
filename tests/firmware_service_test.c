@@ -19,6 +19,7 @@ int main(void){
  host_storage_init(original,false);
  assert(!p1715_service_init(&card,false));
  assert(!host_worker && !card.writable && host_sd_reads==1602);
+ assert(card.timing.fifo_depth==P1715_RX_FIFO_DEPTH && P1715_RX_FIFO_DEPTH==2);
  assert(!memcmp(card.image,original,sizeof(original)));
  // Write a vector once; a held request must never repeat the side effect.
  const uint32_t reset=1u<<15,req=1u<<13,write=1u<<12;
@@ -32,6 +33,7 @@ int main(void){
  // Host reset during an answered read releases both ACK and the data bus.
  step(0);assert(!(host_outputs&((1u<<21)|(1u<<14))) && !(host_directions&255));
  step(reset);assert(host_outputs&(1u<<21));
+ assert(card.timing.fifo_depth==P1715_RX_FIFO_DEPTH && !card.rx_count);
  step(reset|req|(4u<<8));assert(p1715_status.requests==3);
  step(reset);
  // Toggle notifications are consumed once, even when held across many polls.

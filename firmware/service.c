@@ -145,7 +145,8 @@ static int service_init(pico1715_controller *c,bool writable,bool protect,uint32
  for(unsigned i=0;i<P1715_IMAGE_BLOCKS;i++)if(p1715_store_read(&store,i,image+i*512)){
   p1715_status.state=0xe3;return -1;}
  pico1715_mount(&card,image,P1715_IMAGE_BYTES,80,2,5,3);card.writable=writable&&!protect;
- card.timing.enabled=1;critical_section_enter_blocking(&image_lock);memset(dirty,0,sizeof(dirty));critical_section_exit(&image_lock);
+ card.timing.enabled=1;card.timing.fifo_depth=P1715_RX_FIFO_DEPTH;
+ critical_section_enter_blocking(&image_lock);memset(dirty,0,sizeof(dirty));critical_section_exit(&image_lock);
  if(writable)multicore_launch_core1(worker);
  ack_seen=reti_seen=responded=reset_seen=false;
  start=time_us_64();gpio_put(BACKEND_READY,1);p1715_status.state=2;

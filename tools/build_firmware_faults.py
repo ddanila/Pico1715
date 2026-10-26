@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Build deterministic SD/reset fault tests around production firmware and RTL."""
+"""Build deterministic storage or interrupt tests around production firmware and RTL."""
 import argparse
 from pathlib import Path
 import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--out', type=Path, required=True)
+p.add_argument('--suite', choices=('faults', 'interrupts'), default='faults')
 a = p.parse_args()
 out = a.out.resolve()
 out.mkdir(parents=True, exist_ok=True)
@@ -22,5 +23,5 @@ subprocess.run(['verilator', '--cc', '--exe', '--build', '-j', '2', '-O3', '-Wal
                 '-CFLAGS', f'-O2 -I{ROOT}',
                 *[str(ROOT / f'hardware/rtl/{s}.v') for s in
                   ('firmware_cosim_top', 'pico1715_top', 'bus_frontend', 'irq_frontend')],
-                str(ROOT / 'tests/firmware_faults.cpp'), *objects,
-                '-o', str(out / 'firmware-faults')], check=True)
+                str(ROOT / f'tests/firmware_{a.suite}.cpp'), *objects,
+                '-o', str(out / f'firmware-{a.suite}')], check=True)

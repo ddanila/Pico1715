@@ -198,7 +198,7 @@ int main(int argc, char **argv) {
     ",\"index_interrupts\":%" PRIu64 ",\"steps\":%" PRIu64
     ",\"cylinder\":%u,\"sector\":%u,\"format\":%u,\"control\":%u,"
     "\"writes\":%" PRIu64 ",\"rejected_writes\":%" PRIu64
-    ",\"timed\":%u,\"wait_ticks\":%" PRIu64 ",\"arrivals\":%" PRIu64
+    ",\"rx_capacity\":%u,\"timed\":%u,\"wait_ticks\":%" PRIu64 ",\"arrivals\":%" PRIu64
     ",\"overruns\":%" PRIu64 ",\"underflows\":%" PRIu64
     ",\"drops\":%" PRIu64 ",\"tx_overruns\":%" PRIu64
     ",\"tx_underruns\":%" PRIu64 ",\"max_read_age\":%" PRIu64
@@ -206,7 +206,7 @@ int main(int argc, char **argv) {
     ",\"reset_image_unchanged\":%u,\"onboard\":%u,\"keyboard_bytes\":%u,\"sio_reads\":%u,\"sio_writes\":%u,\"ctc_writes\":%u,\"sio_errors\":%u}\n",
     m->cpu.cycles, m->cpu.cpu.pc, handoff, target, c.fields, c.bytes,
     c.interrupts, c.steps, c.cylinder, c.sector, c.format, c.control,
-    c.writes, c.rejected_writes, c.timing.enabled, m->wait_ticks, c.arrivals,
+    c.writes, c.rejected_writes, c.timing.fifo_depth?c.timing.fifo_depth:1, c.timing.enabled, m->wait_ticks, c.arrivals,
     c.overruns, c.underflows, c.drops, c.tx_early, c.tx_late, c.max_read_age,
     c.max_tx_interval, resets, reset_at, reset_unchanged, m->onboard, f.key_bytes, f.sio_reads, f.sio_writes, f.ctc_writes, m->sio[0].errors);
 #ifdef PICO1715_COSIM

@@ -81,9 +81,10 @@ with the actual Pico1715 controller; CI runs the combined check.
 
 The boot probe now enables this register-level CTC/SIO subset and uses its
 receive FIFO for keyboard bytes; see [stock-software qualification](onboard-keyboard.md).
-The firmware/RTL run exposes an index/mark collision and one receive overrun;
-clean firmware qualification remains open. Reproduce it without private ROMs
-and sweep interrupt/acquisition phase before changing controller timing.
+The index/mark collision is reproduced by a ROM-free phase sweep. A bounded
+[two-byte firmware receive queue](receive-elasticity.md) passes all nine stock
+firmware cases and 132 normal interrupt cases; overload controls still lose and
+report bytes. Rotating-track modelling and physical timing remain unqualified.
 Full serial waveforms, special receive conditions and X1 expansion remain open;
 this does not qualify the physical chain's electrical timing.
 

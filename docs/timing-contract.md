@@ -43,7 +43,9 @@ Functional demand-driven mode remains available for comparison.
   arrive independently of CPU input, using a rational clock accumulator rather
   than rounding every byte to 79 ticks. This is still synthetic field acquisition,
   not a rotating-track/flux simulation.
-- The default receive capacity is one byte. Empty reads wait; a full latch loses
+- The standalone reference receive capacity defaults to one byte. Production
+  firmware now selects a [two-byte queue](receive-elasticity.md) to absorb bounded
+  index/mark interrupt overlap; the historical experiments below used one byte. Empty reads wait; a full latch loses
   arriving field bytes and counts overruns. Gap-byte loss is not counted as a
   field error. Experiments can enlarge the receive queue to 16 bytes.
 - The transmitter has one output register and an independent byte clock while

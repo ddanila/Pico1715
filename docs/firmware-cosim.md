@@ -6,7 +6,9 @@ is built for the Pico Plus 2, connected to the board-level FPGA RTL. The
 source hashes, independent mailbox-response counts and firmware storage counters.
 That historical run used the legacy keyboard stub. The new
 [onboard SIO run](onboard-keyboard.md#firmware-timing-failure-exposed-by-migration)
-exposes an index/mark collision and fails the zero-overrun requirement.
+exposed an index/mark collision with a one-byte queue. The
+[two-byte firmware follow-up](receive-elasticity.md) passes all nine stock cases
+and adds ROM-free phase and overload regressions.
 The ROM and BIOS are unchanged and are not redistributed.
 
 ## Execution boundary
@@ -83,7 +85,7 @@ CPU bus transitions still advance the RTL. This proves functional sequencing,
 not firmware execution-time bounds, full CDC behavior, or physical /WAIT margins.
 The motherboard now enables modeled CTC/SIO, with completed keyboard bytes
 entering the real SIO FIFO. [Keyboard migration tests](onboard-keyboard.md) record
-functional/timed passes and the firmware timing failure; [chain tests](motherboard-interrupts.md) separately cover
+functional/timed passes and the firmware failure/fix history; [chain tests](motherboard-interrupts.md) separately cover
 interrupt priority and nesting. Serial wire timing remains outside this profile.
 
 The [storage/reset qualification](firmware-storage-faults.md) adds delayed stock-OS

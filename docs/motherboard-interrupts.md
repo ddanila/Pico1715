@@ -65,5 +65,5 @@ exact supported registers, exclusions and primary-source references.
 The **card–CTC–SIO arbitration milestone is complete at register level**. Full
 motherboard peripheral emulation and physical daisy-chain propagation/electrical
 timing remain separate work. The stock keyboard fixture migration is now covered
-by the linked follow-up tests, with a firmware timing failure still open. Nothing
+by the linked follow-up tests and bounded firmware receive buffering. Nothing
 here qualifies PCB mechanics, power sequencing or actual interrupt latency.
