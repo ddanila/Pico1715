@@ -120,7 +120,7 @@ actual lock contention must be observed in the combined case; its CPU WAIT count
 must exceed the zero-cost case. Overload cases must report watchdog faults.
 
 CI runs this test against the compiled CPU/firmware/RTL bridge, with no historical
-ROMs or disk images. The [current public report](../reports/combined-stress-public.json) records
+ROMs or disk images. The [current public report](../reports/irq-isolation-public.json) records
 its source hashes and case counters. Reproduce the build and qualification with:
 
 ```sh

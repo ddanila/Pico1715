@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "profile": "integrated-irq-fault-isolation",
+  "hardware_executed": false,
+  "source_sha256": {
+    "tests/pico_top_tb.v": "be22c0f46c0275c91102b75da45f7edb9be6f7489ab37eb64775d0eb44099fc2",
+    "tests/irq_tb.v": "a44e838cfb66db21fcd404d00d4d0aa0695c293386b25ede250618da7f6bf02b",
+    "tests/frontend_tb.v": "8c3f2356b9d4a9fc7272fbabd02c4ce1f636085a9bd154262fc797be458c7f7d",
+    "tests/bench_fixture_tb.v": "153fcdfa1f2d4ea893061fd2990cc1932b1e6b734852d13bb66bb9f7c31d3cea",
+    "hardware/rtl/pico1715_top.v": "a11dfaac7b67c71755a528fcd389b4aec61ae460262837bfb9ad56c0c6c6d163",
+    "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "hardware/rtl/bench_fixture.v": "f29716e7d31475ba6ec158c73cccebb035f7d6589ee81636742d69ea2b2a1e89",
+    "Makefile": "e7d020f0fbf80fccb1cae8eaf32b23dbffa94517064b20c3b57a43610291a8af"
+  },
+  "checks": 302,
+  "fault_scenarios": 8,
+  "prior_rtl_result": "new regression fails at fault releases bus and interrupt",
+  "prior_commit": "c46bec9",
+  "command": "make test-pico-top test-irq test-frontend test-bench-fixture lint-bench-fixture",
+  "output": "iverilog -g2012 -Wall -s pico_top_tb -o build/pico-top-test hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v tests/pico_top_tb.v\nvvp build/pico-top-test\nPico link top PASS: 302 checks\ntests/pico_top_tb.v:101: $finish called at 349202000 (1ps)\nvvp build/irq-test\nIRQ PASS: 15 checks\ntests/irq_tb.v:40: $finish called at 1541000 (1ps)\nvvp build/frontend-test\nVCD info: dumpfile build/frontend.vcd opened for output.\nfrontend PASS: 7208 checks, 556 completed transactions\ntests/frontend_tb.v:152: $finish called at 396341000 (1ps)\niverilog -g2012 -Wall -s bench_fixture_tb -o build/bench-fixture-test hardware/rtl/bench_fixture.v hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v tests/bench_fixture_tb.v\nvvp build/bench-fixture-test\nbench fixture PASS: 515 transactions, IRQ/RETI, UART, four fault paths\ntests/bench_fixture_tb.v:67: $finish called at 1665780000 (1ps)\nverilator --lint-only -Wall --top-module bench_fixture hardware/rtl/bench_fixture.v hardware/rtl/pico1715_top.v hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v\n- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1)\n- Verilator: Built from 0.083 MB sources in 5 modules, into 0.076 MB in 5 C++ files needing 0.000 MB\n- Verilator: Walltime 0.014 s (elab=0.002, cvt=0.007, bld=0.000); cpu 0.014 s on 1 threads; alloced 8.832 MB\n",
+  "limitations": "RTL simulation; not electrical qualification or a guarantee of guest recovery without reset"
+}

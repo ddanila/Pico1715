@@ -66,6 +66,16 @@ and accepting a new transaction could mistake a late reply for the new reply.
 The fault quarantines the mailbox until **both ends are reset**. A backend write
 already accepted before abort is not rolled back.
 
+At the integrated controller top, a mailbox fault also disables IRQ arbitration:
+`/INT`, data drive and `/WAIT` release, pending/in-service IRQ ownership and
+partial RETI decoding are cleared, and IEO follows IEI while power and backend
+readiness remain valid. ACK/RETI notification toggles freeze until reset. This
+bypass prevents the failed card from blocking downstream devices; it does not
+repair an interrupted host instruction or guarantee continued OS operation.
+Reset, backend-not-ready and power loss retain their existing inactive-chain
+behavior (IEO low). See [fault isolation](../docs/interrupt-fault-isolation.md)
+for the boundary tests and recovery contract.
+
 Reset or loss of `power_good` asynchronously gates host drive and WAIT off;
 release is synchronized. `power_good` must come from real reset/power supervision,
 not a software promise. Backend ACK must be low after the shared reset.

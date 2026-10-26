@@ -18,7 +18,11 @@ module pico1715_top(
  wire reset_n=host_reset_n && backend_ready;
  wire alive=reset_n && power_good;
  wire [7:0] request_data,normal_data,vector_data;
- wire normal_oe,irq_oe,ack_pulse,reti_pulse,in_service;
+ wire normal_oe,irq_oe,ack_pulse,reti_pulse,in_service,irq_ieo;
+ // A latched mailbox fault removes this card from interrupt arbitration.
+ // Clear ownership/partial RETI and bypass the chain until host/backend reset.
+ wire irq_reset_n=reset_n && !fault;
+ assign ieo=(alive && fault)?iei:irq_ieo;
  reg [1:0] index_sync,mark_sync;
  reg [7:0] index_vector,mark_vector;
  reg direction_next,mask_next,mirrored;
@@ -33,10 +37,10 @@ module pico1715_top(
  .request_reg(pico_reg),.request_data(request_data),.response_ack(pico_ack),
  .response_data(pico_data),.wait_pull_low(wait_pull_low),.host_data_enable(normal_oe),
  .host_rdata(normal_data),.fault(fault));
- irq_frontend irq(.clk(clk50),.reset_n(reset_n),.power_good(power_good),.iei(iei),
+ irq_frontend irq(.clk(clk50),.reset_n(irq_reset_n),.power_good(power_good),.iei(iei),
  .pending(index_pending||mark_pending),.vector(index_pending?index_vector:mark_vector),
  .m1_n(m1_n),.iorq_n(iorq_n),.mreq_n(mreq_n),.rd_n(rd_n),.host_data(host_din),
- .int_pull_low(int_pull_low),.ieo(ieo),.data_enable(irq_oe),.vector_data(vector_data),
+ .int_pull_low(int_pull_low),.ieo(irq_ieo),.data_enable(irq_oe),.vector_data(vector_data),
  .ack_pulse(ack_pulse),.reti_pulse(reti_pulse),.in_service(in_service));
  wire unused_service=in_service;
  always @(posedge clk50 or negedge alive) begin
@@ -45,8 +49,8 @@ module pico1715_top(
    ack_toggle<=0;reti_toggle<=0;ack_index<=0;direction_next<=0;mask_next<=0;mirrored<=0;
   end else begin
    index_sync<={index_sync[0],pico_index};mark_sync<={mark_sync[0],pico_mark};
-   if(ack_pulse)begin ack_toggle<=!ack_toggle;ack_index<=index_pending;end
-   if(reti_pulse)reti_toggle<=!reti_toggle;
+   if(!fault && ack_pulse)begin ack_toggle<=!ack_toggle;ack_index<=index_pending;end
+   if(!fault && reti_pulse)reti_toggle<=!reti_toggle;
    if(!pico_request)mirrored<=0;
    else if(!wait_pull_low && !mirrored && !fault) begin
     mirrored<=1;

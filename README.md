@@ -125,6 +125,8 @@ time while retaining the same two-byte capacity.
 before processing, preserving serializer deadlines and CRC validation.
 [Combined stress](docs/combined-stress.md) adds deterministic processing bursts,
 variable SD write latency and index-interrupt offsets, with overload and remount checks.
+[Interrupt fault isolation](docs/interrupt-fault-isolation.md) releases failed
+controller IRQ ownership and bypasses the chain until reset.
 
 ```sh
 make test

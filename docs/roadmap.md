@@ -109,6 +109,9 @@ while gate-close, CRC, reset and power-fail checks retain data-integrity gates.
 [Combined stress](combined-stress.md) exercises processing bursts with variable
 SD latency and initial index offsets, preserving overload failures and checking
 sector contents after a logical-image remount.
+[Fault isolation](interrupt-fault-isolation.md) now removes a faulted card from
+interrupt arbitration, bypasses its chain position while powered/ready, and
+checks reset recovery at interrupt boundaries.
 Replaying measured hardware costs remains future work;
 a watchdog pass alone does not qualify byte-service timing.
 

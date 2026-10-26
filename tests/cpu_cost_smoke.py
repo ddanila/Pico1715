@@ -103,7 +103,7 @@ with tempfile.TemporaryDirectory(prefix='p1715-cpu-cost-') as name:
 
         assert c['config'] == list(costs), (name,c)
         if name in ('burst-overload','burst-irq-overload'):
-            if name=='burst-irq-overload': assert stress_stats['fault_iacks'] and c['faults'], (stress_stats,c)
+            if name=='burst-irq-overload': assert not stress_stats['fault_iacks'] and c['faults'], (stress_stats,c)
             assert report['tx_underruns'] or c['faults'], (report,c)
             saved=(folder/'disk.img').read_bytes()
             assert saved in (bytes(819200),bytes([0x63])*1024+bytes(819200-1024))

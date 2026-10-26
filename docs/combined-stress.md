@@ -49,6 +49,10 @@ first-loss CSV window remains available for rejected runs.
 
 ## Fault-time interrupt boundary
 
+The following records the finding before the subsequent
+[RTL fault-isolation correction](interrupt-fault-isolation.md). Original reports
+remain preserved; the linked qualification describes current behavior.
+
 The first stock overload run aborted in the simulation's `cosim_ack()` callback.
 GDB identified an assumption that every interrupt acknowledgement had driven
 data. The current RTL can leave an interrupt pending while a mailbox fault gates
