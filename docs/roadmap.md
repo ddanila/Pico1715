@@ -4,6 +4,18 @@ This is planned work, not implemented functionality or hardware qualification.
 The next desk milestone is shutdown handling and its simulation, together with
 defining the signals needed by an optional backup-power circuit.
 
+## Explicit analyzer mode and remote reset
+
+Add the [analyzer mode](analyzer-mode.md) as a first-class board feature: passive
+FPGA capture, local buffering, USB download and host-side bus decoding. Plan its
+additional receivers and full address/clock/refresh inputs before PCB freeze.
+Keep controller-plus-trace as a later extension with a measured bandwidth budget.
+
+Remote CPU reset needs an optional reset-button connection: X1/X2 A20 exposes
+`/RESET2`, separate from the CPU reset branch. Include arm-then-reset and bounded,
+default-released reset control; do not drive A20 as a substitute for CPU reset.
+The linked plan specifies desk acceptance and physical validation gates.
+
 ## 1. Shutdown firmware and simulation
 
 - Define an explicit flush/safe-eject command and a safe-to-power-off indication.

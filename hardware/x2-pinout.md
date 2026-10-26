@@ -117,6 +117,14 @@ supplies and +12 V are not connected to the card.
 | B28 | 12P (+12V) | NC |
 | B29 | 5P (+5V) | V5_HOST |
 
+## Reset is not a CPU-reset input
+
+A20 is named `/RESET` in the connector table, but connects to `/RESET2` on the
+ZRE drawing (sheet reference 20). CPU A27 pin 26 uses the separate `/RESET1`
+branch (reference 12); A32 provides separate output stages. Do not infer that
+pulling A20 low resets the CPU. The planned [remote-reset accessory](../docs/analyzer-mode.md#remote-cpu-reset-separate-optional-connection)
+uses the motherboard reset-button circuit instead. The present card receives A20.
+
 ## Sources
 
 - [printed page 44, X1/X2 contact table](https://xepb.org/robotron/docs/pc_serv.pdf)

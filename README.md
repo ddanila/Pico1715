@@ -69,6 +69,10 @@ also permits operation without a capacitor. It then covers full interrupt-chain
 emulation, broader software compatibility and PCB preparation. These are planned
 items, not completed features.
 
+An explicit [USB bus-analyzer mode](docs/analyzer-mode.md) is also planned,
+including full-address capture and an optional remote reset-button connection.
+X1/X2's reset contact alone does not reset the CPU on the documented motherboard.
+
 Physical milestones remain:
 
 1. Assemble the selected bench modules and verify PSRAM, SD and FPGA programming.
