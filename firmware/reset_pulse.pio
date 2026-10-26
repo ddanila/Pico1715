@@ -1,0 +1,11 @@
+; SPDX-License-Identifier: MIT
+; At 1 MHz: autonomous ~100 ms pulse, then block with output low.
+.program reset_pulse
+.wrap_target
+    pull block
+    mov x, osr
+    set pins, 1
+pulse:
+    jmp x-- pulse
+    set pins, 0
+.wrap

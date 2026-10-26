@@ -1,0 +1,30 @@
+{
+  "scope": "Desk-only reset command sequencing and PIO pulse logic; accessory electronics and motherboard behavior unqualified.",
+  "sources": {
+    "firmware/analyzer_main.c": "90332af8631c2f36175e5347c3e338e2983186a50ff05bc976d0efd8475602c6",
+    "firmware/analyzer_usb.c": "4e030370117717213ae921346750ee1ef5daa8201ff4453ead1875ea4f0ec7e8",
+    "firmware/analyzer_usb.h": "cefe68b673a040f1116417404d41ac5def019a9ca15a12a77204f5622d710e6c",
+    "firmware/reset_pulse.pio": "ce8d63f5f16db79158f8252eb416ed95ae0c7fb98818e025e3b3c706e6ba9f5e",
+    "firmware/CMakeLists.txt": "c30d5852a12105df23bdd184188ddef91267eda97a2f3ad8681128f0abeb1c77",
+    "tools/analyzer_usb.py": "d944e0cebdc6f733fccb53fb1c519b86980ffe9722fb5e0df6a0a2f886fd7cfb",
+    "tests/analyzer_usb_fixture.c": "5847a194b1e70c8a81cfd3f042ad4ee15acd12c5738d89af2d826c86eea5a0e8",
+    "tests/test_analyzer_usb.py": "def27ff339cd749dade93011f1fea190e0cd7f44bfb43fc75ef54f1c1afd585c",
+    "tests/test_reset_pio.py": "d47d3c097b5d8250d5106eb7d066614e08e7c7d5895541a7e9c25042a9c80b69"
+  },
+  "checks": {
+    "native": "make test (UBSan USB seam plus PIO subset interpreter)",
+    "pio_clock_hz": 1000000,
+    "pio_pulse_cycles": 100000,
+    "capture_settle_us": 1000,
+    "capture_ready_timeout_us": 100000,
+    "firmware_disabled_build": "passed",
+    "firmware_enabled_build": "passed"
+  },
+  "enabled_elf_sha256": "b302486054a351a9ec72f5c53c21ce67a85652c8c544d13866b92706b741c1ce",
+  "limitations": [
+    "GP22 requires a qualified isolated reset-button accessory; never directly connect to motherboard.",
+    "PIO releases independently of CPU servicing only while its clock runs; external pulse guard remains required.",
+    "Command timestamps are separate from captured bus edges; no physical CPU reset validation."
+  ],
+  "disabled_elf_sha256": "97efacf4c465e98a54a272ececa37fa2279aa6a1e46e7a44148a4fd49234118c"
+}

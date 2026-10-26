@@ -102,3 +102,7 @@ USB-powered analyzer cannot backfeed an unpowered motherboard.
    limits. Execute host-side export/protocol tests with synthetic recordings.
 5. On hardware, measure receiver loading, timing, sustainable capture bandwidth,
    safe power sequencing and actual reset behavior before enabling host reset.
+
+The [reset software and accessory contract](analyzer-reset.md) now implements the
+host commands and autonomous PIO pulse. Physical isolation, the independent
+accessory pulse guard and motherboard qualification remain pending.

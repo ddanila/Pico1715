@@ -135,3 +135,9 @@ the boot through the FPGA. TinyUSB enumeration, cable unplugging, QMI timings an
 sustained acquisition with USB traffic remain bench tests. The later [passive adapter](../hardware/analyzer-interface/README.md) supplies
 analyzer pin binding, receiver integration and routed timing; physical
 qualification and PCB layout remain open.
+
+## Optional remote reset
+
+Commands 7–9 add reset status, reset and arm-then-reset. The standard build leaves
+the accessory unavailable. See [the reset protocol, host workflow and accessory
+contract](analyzer-reset.md) for exact fields, replay protection and bench gates.

@@ -32,8 +32,9 @@ I/O boot trace matching the full capture. The [FPGA–Pico transport and PSRAM
 receiver](analyzer-transport.md) now pass workload replay and fault tests.
 [USB control/download](analyzer-usb.md) also passes shared-handler/host tests.
 The passive adapter and analyzer FPGA fit now complete the reference bench
-integration on paper. Assembly, electrical/USB qualification and remote reset
-remain open.
+integration on paper. The [remote-reset software increment](analyzer-reset.md) now provides token-checked
+reset and arm-reset commands, a bounded PIO pulse and simulation tests. Assembly,
+electrical/USB qualification and the isolated reset accessory remain open.
 
 ## 1. Shutdown firmware and simulation
 

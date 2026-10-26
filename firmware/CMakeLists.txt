@@ -29,3 +29,10 @@ target_compile_definitions(pico1715_analyzer PRIVATE
 pico_enable_stdio_usb(pico1715_analyzer 1)
 pico_enable_stdio_uart(pico1715_analyzer 0)
 pico_add_extra_outputs(pico1715_analyzer)
+
+option(P1715_RESET_ACCESSORY "EXPERIMENTAL GP22 reset accessory; requires qualified isolated interface" OFF)
+target_compile_definitions(pico1715_analyzer PRIVATE P1715_RESET_ACCESSORY=$<BOOL:${P1715_RESET_ACCESSORY}>)
+if(P1715_RESET_ACCESSORY)
+ pico_generate_pio_header(pico1715_analyzer ${CMAKE_CURRENT_LIST_DIR}/reset_pulse.pio)
+ target_link_libraries(pico1715_analyzer hardware_pio hardware_clocks)
+endif()

@@ -17,8 +17,11 @@ FIELDS = ('state', 'generation', 'records', 'bytes', 'fpga_dropped',
           'local_dropped', 'filtered', 'retries', 'full', 'stopping')
 TRIGGER_FIELDS = ('enabled', 'kinds', 'address', 'data', 'pre', 'post', 'triggered',
                   'trigger_index', 'trigger_sequence', 'omitted', 'post_collected', 'stop_reason')
+RESET_FIELDS = ('enabled', 'reset_state', 'reset_id', 'capture_generation', 'requested_us32',
+                'asserted_us32', 'released_observed_us32', 'reason')
 ERRORS = {1: 'invalid command', 2: 'capture state does not permit command',
-          3: 'capture ID changed', 4: 'invalid read range', 5: 'capture unavailable'}
+          3: 'capture ID changed', 4: 'invalid read range', 5: 'capture unavailable',
+          6: 'reset accessory unavailable', 7: 'reset token changed'}
 
 
 class Client:
@@ -49,8 +52,14 @@ class Client:
             raise ValueError('USB response CRC mismatch')
         if error:
             raise RuntimeError(ERRORS.get(error, f'device error {error}'))
-        if command in (3, 4, 5, 6) and gen != generation:
+        if command in (3, 4, 5, 6, 8) and gen != generation:
             raise ValueError('capture ID changed')
+        if command in (7, 8, 9):
+            if size != 32:
+                raise ValueError('invalid reset status size')
+            result = dict(zip(RESET_FIELDS, struct.unpack('<8I', payload)))
+            result['generation'] = gen
+            return result
         if command == 4:
             if size != length:
                 raise ValueError('short capture chunk')
@@ -77,6 +86,30 @@ class Client:
         if generation is None:
             generation = self.status()['generation']
         return self.command(6, generation)
+
+    def reset_status(self):
+        return self.command(7)
+
+    def reset(self, arm=False, timeout=2):
+        status = self.reset_status()
+        if not status['enabled']:
+            raise RuntimeError('reset accessory unavailable')
+        status = self.command(9 if arm else 8, status['generation'], status['reset_id'])
+        token = status['reset_id']
+        deadline = time.monotonic() + timeout
+        while status['reset_state'] in (1, 2):
+            if time.monotonic() >= deadline:
+                raise TimeoutError('reset completion unknown; query reset-status before another reset')
+            time.sleep(0.01)
+            status = self.reset_status()
+            if status['reset_id'] != token:
+                raise RuntimeError('reset token changed while waiting')
+        if status['reset_state'] != 3:
+            raise RuntimeError(f"reset cancelled/failed, reason {status['reason']}")
+        return status
+
+    def arm_reset(self):
+        return self.reset(arm=True)
 
     def arm(self):
         return self.command(2, self.status()['generation'])
@@ -131,20 +164,25 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', required=True, help='CDC serial port, e.g. /dev/ttyACM0')
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ('status', 'stop'):
+    for name in ('status', 'stop', 'reset-status'):
         sub.add_parser(name)
-    arm = sub.add_parser('arm')
-    arm.add_argument('--trigger', choices=('io-read', 'io-write', 'io', 'iack', 'reset'))
-    arm.add_argument('--address', type=lambda s: int(s, 0))
-    arm.add_argument('--address-mask', type=lambda s: int(s, 0))
-    arm.add_argument('--data', type=lambda s: int(s, 0))
-    arm.add_argument('--data-mask', type=lambda s: int(s, 0))
-    arm.add_argument('--pre', type=int, default=0, help='preceding retained records')
-    arm.add_argument('--post', type=int, default=0, help='following retained records')
+    reset = sub.add_parser('reset')
+    reset.add_argument('--reset-log', type=Path, help='save command metadata to a new JSONL file')
+    for name in ('arm', 'arm-reset'):
+        arm = sub.add_parser(name)
+        if name == 'arm-reset':
+            arm.add_argument('--reset-log', type=Path, help='save command metadata to a new JSONL file')
+        arm.add_argument('--trigger', choices=('io-read', 'io-write', 'io', 'iack', 'reset'))
+        arm.add_argument('--address', type=lambda s: int(s, 0))
+        arm.add_argument('--address-mask', type=lambda s: int(s, 0))
+        arm.add_argument('--data', type=lambda s: int(s, 0))
+        arm.add_argument('--data-mask', type=lambda s: int(s, 0))
+        arm.add_argument('--pre', type=int, default=0, help='preceding retained records')
+        arm.add_argument('--post', type=int, default=0, help='following retained records')
     sub.add_parser('download').add_argument('output', type=Path)
     args = parser.parse_args()
     config = None
-    if args.command == 'arm':
+    if args.command in ('arm', 'arm-reset'):
         if args.address_mask is None:
             args.address_mask = 65535 if args.address is not None else 0
         if args.data_mask is None:
@@ -166,7 +204,14 @@ def main():
     except ImportError:
         parser.error('USB access requires pyserial: python3 -m pip install pyserial')
     try:
-        with serial.Serial(args.port, 115200, timeout=3, write_timeout=3) as port:
+        from contextlib import ExitStack
+        with ExitStack() as stack:
+            log_path = getattr(args, 'reset_log', None)
+            log = stack.enter_context(log_path.open('x')) if log_path else None
+            if log:
+                log.write(json.dumps({'command': args.command, 'port': args.port}) + '\n')
+                log.flush()
+            port = stack.enter_context(serial.Serial(args.port, 115200, timeout=3, write_timeout=3))
             # DTR drop resets protocol framing, never the capture or CPU.
             port.dtr = False
             time.sleep(0.1)
@@ -176,7 +221,10 @@ def main():
             client = Client(port)
             if config is not None:
                 client.configure_trigger(**config)
-            result = client.download(args.output) if args.command == 'download' else getattr(client, args.command)()
+            result = client.download(args.output) if args.command == 'download' else getattr(client, args.command.replace('-', '_'))()
+            if log:
+                log.write(json.dumps({'result': result}) + '\n')
+                log.flush()
             result['trigger'] = client.trigger_status(result['generation'])
             print(json.dumps(result, indent=2))
     except (OSError, RuntimeError, ValueError, TimeoutError) as error:

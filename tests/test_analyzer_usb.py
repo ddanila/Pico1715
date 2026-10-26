@@ -66,6 +66,90 @@ class AnalyzerUSBTests(unittest.TestCase):
     def complete(self):
         self.assertEqual(self.lib.fixture_complete(self.blob, len(self.blob)), 0)
 
+    def test_reset_disabled_and_replay(self):
+        self.assertFalse(self.client.reset_status()['enabled'])
+        with self.assertRaisesRegex(RuntimeError, 'accessory unavailable'):
+            self.client.command(8)
+        self.lib.fixture_reset_enable()
+        result = self.client.command(8, 0, 0)
+        self.assertEqual(result['reset_id'], 1)
+        self.assertEqual(result['reset_state'], 2)
+        with self.assertRaisesRegex(RuntimeError, 'token changed'):
+            self.client.command(8, 0, 0)
+        self.assertEqual(self.lib.fixture_reset_calls(), 1)
+        # No polling or USB servicing required to release the command output.
+        self.lib.fixture_advance(100001)
+        self.assertFalse(self.lib.fixture_reset_active())
+        self.lib.fixture_poll()
+        self.assertEqual(self.client.reset_status()['reset_state'], 3)
+
+    def test_arm_reset_waits_for_run_and_settle(self):
+        self.lib.fixture_reset_enable()
+        result = self.client.command(9, 0, 0)
+        self.assertEqual(result['generation'], 1)
+        self.assertEqual(result['reset_state'], 1)
+        self.lib.fixture_poll()
+        self.assertEqual(self.lib.fixture_reset_calls(), 0)
+        self.lib.fixture_advance(100)
+        self.lib.fixture_step()
+        self.lib.fixture_advance(999)
+        self.lib.fixture_poll()
+        self.assertEqual(self.lib.fixture_reset_calls(), 0)
+        self.lib.fixture_advance(1)
+        self.lib.fixture_poll()
+        self.assertEqual(self.lib.fixture_reset_calls(), 1)
+        self.assertEqual(self.client.reset_status()['reset_state'], 2)
+        with self.assertRaises(RuntimeError):
+            self.client.arm()
+        with self.assertRaises(RuntimeError):
+            self.client.configure_trigger()
+        self.lib.fixture_disconnect()
+        self.assertFalse(self.lib.fixture_reset_active())
+        result = self.client.reset_status()
+        self.assertEqual((result['reset_state'], result['reason']), (4, 1))
+        # Reconnection and status queries do not issue a second pulse.
+        self.assertEqual(self.lib.fixture_reset_calls(), 1)
+
+    def test_arm_reset_cancel_timeout_stop_and_error(self):
+        self.lib.fixture_reset_enable()
+        self.client.command(9, 0, 0)
+        self.lib.fixture_advance(100001)
+        self.lib.fixture_poll()
+        self.assertEqual(self.client.reset_status()['reason'], 2)
+        self.assertEqual(self.lib.fixture_reset_calls(), 0)
+        self.client.command(3, 1)
+        self.complete()
+        self.client.command(9, 1, 1)
+        self.client.command(3, 2)
+        self.assertEqual(self.client.reset_status()['reason'], 4)
+        self.complete()
+        self.client.command(9, 2, 2)
+        self.lib.fixture_error()
+        self.lib.fixture_poll()
+        self.assertEqual(self.client.reset_status()['reason'], 2)
+        self.assertEqual(self.lib.fixture_reset_calls(), 0)
+
+    def test_host_waits_for_reset_completion(self):
+        from unittest.mock import patch
+        self.lib.fixture_reset_enable()
+        def advance(_):
+            self.lib.fixture_advance(10000)
+            self.lib.fixture_step()
+        with patch.object(usb.time, 'sleep', advance):
+            result = self.client.arm_reset()
+        self.assertEqual((result['reset_state'], result['generation']), (3, 1))
+        self.assertGreater(result['released_observed_us32'], result['asserted_us32'])
+
+    def test_reset_backend_failure_consumes_token(self):
+        self.lib.fixture_reset_enable()
+        self.lib.fixture_reset_fail()
+        with self.assertRaises(RuntimeError):
+            self.client.command(8, 0, 0)
+        result = self.client.reset_status()
+        self.assertEqual((result['reset_id'], result['reset_state'], result['reason']), (1, 4, 3))
+        with self.assertRaisesRegex(RuntimeError, 'token changed'):
+            self.client.command(8, 0, 0)
+
     def test_lifecycle_and_exact_download(self):
         self.assertEqual(self.client.status()['state'], 0)
         self.assertEqual(self.client.arm()['generation'], 1)
