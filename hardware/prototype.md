@@ -6,6 +6,10 @@ Status: **buildable, untested on hardware; not RTM**. The architecture is
 interrupt acknowledgement/vector delivery and RETI recognition. The Pico owns
 controller state and disk contents. No host RAM expansion is implemented yet.
 
+The [passive analyzer adapter](analyzer-interface/README.md) is a separate bench
+variant with input-only receivers and its own 57-pin allocation. Use its wiring
+guide and `build_fpga.py --analyzer`; the controller harness below is incompatible.
+
 ## Parts selected
 
 Listings checked 2026-10-25; prices are vendor quotations, excluding delivery

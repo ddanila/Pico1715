@@ -1,0 +1,634 @@
+{
+  "schema": 1,
+  "board": "Olimex iCE40HX8K-EVB Rev B1",
+  "repository": "https://github.com/OLIMEX/iCE40HX8K-EVB",
+  "commit": "dba688dedb3ae08d05e81a0f56a847f155622d21",
+  "netlist_sha256": "fee2c5cb588c2378f7b09c41ec457541c05a058c175dfa67a4d3bf2b37f39fa7",
+  "signals": [
+    {
+      "signal": "clk100",
+      "board_net": "/SYSCLK",
+      "package_pin": "J3",
+      "header": null,
+      "adapter_net": null,
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[0]",
+      "board_net": "/PIO0_00",
+      "package_pin": "C14",
+      "header": [
+        "EXT1",
+        "7"
+      ],
+      "adapter_net": "F_A0",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[1]",
+      "board_net": "/PIO0_01",
+      "package_pin": "B15",
+      "header": [
+        "EXT1",
+        "9"
+      ],
+      "adapter_net": "F_A1",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[2]",
+      "board_net": "/PIO0_02",
+      "package_pin": "D13",
+      "header": [
+        "EXT1",
+        "11"
+      ],
+      "adapter_net": "F_A2",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[3]",
+      "board_net": "/PIO0_03",
+      "package_pin": "B14",
+      "header": [
+        "EXT1",
+        "13"
+      ],
+      "adapter_net": "F_A3",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[4]",
+      "board_net": "/PIO0_04",
+      "package_pin": "C12",
+      "header": [
+        "EXT1",
+        "15"
+      ],
+      "adapter_net": "F_A4",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[5]",
+      "board_net": "/PIO0_05",
+      "package_pin": "E11",
+      "header": [
+        "EXT1",
+        "17"
+      ],
+      "adapter_net": "F_A5",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[6]",
+      "board_net": "/PIO0_06",
+      "package_pin": "C13",
+      "header": [
+        "EXT1",
+        "19"
+      ],
+      "adapter_net": "F_A6",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[7]",
+      "board_net": "/PIO0_07",
+      "package_pin": "A16",
+      "header": [
+        "EXT1",
+        "21"
+      ],
+      "adapter_net": "F_A7",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[8]",
+      "board_net": "/PIO0_16",
+      "package_pin": "C10",
+      "header": [
+        "EXT1",
+        "39"
+      ],
+      "adapter_net": "F_A8",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[9]",
+      "board_net": "/PIO0_17",
+      "package_pin": "A10",
+      "header": [
+        "EXT1",
+        "40"
+      ],
+      "adapter_net": "F_A9",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[10]",
+      "board_net": "/PIO0_18",
+      "package_pin": "A11",
+      "header": [
+        "EXT1",
+        "38"
+      ],
+      "adapter_net": "F_A10",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[11]",
+      "board_net": "/PIO0_19",
+      "package_pin": "D10",
+      "header": [
+        "EXT1",
+        "36"
+      ],
+      "adapter_net": "F_A11",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[12]",
+      "board_net": "/PIO0_20",
+      "package_pin": "C9",
+      "header": [
+        "EXT1",
+        "34"
+      ],
+      "adapter_net": "F_A12",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[13]",
+      "board_net": "/PIO0_21",
+      "package_pin": "E9",
+      "header": [
+        "EXT1",
+        "32"
+      ],
+      "adapter_net": "F_A13",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[14]",
+      "board_net": "/PIO0_22",
+      "package_pin": "D9",
+      "header": [
+        "EXT1",
+        "30"
+      ],
+      "adapter_net": "F_A14",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[15]",
+      "board_net": "/PIO0_23",
+      "package_pin": "A9",
+      "header": [
+        "EXT1",
+        "28"
+      ],
+      "adapter_net": "F_A15",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[16]",
+      "board_net": "/PIO0_08",
+      "package_pin": "A15",
+      "header": [
+        "EXT1",
+        "23"
+      ],
+      "adapter_net": "F_D0",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[17]",
+      "board_net": "/PIO0_09",
+      "package_pin": "B13",
+      "header": [
+        "EXT1",
+        "25"
+      ],
+      "adapter_net": "F_D1",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[18]",
+      "board_net": "/PIO0_10",
+      "package_pin": "E10",
+      "header": [
+        "EXT1",
+        "27"
+      ],
+      "adapter_net": "F_D2",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[19]",
+      "board_net": "/PIO0_11",
+      "package_pin": "C11",
+      "header": [
+        "EXT1",
+        "29"
+      ],
+      "adapter_net": "F_D3",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[20]",
+      "board_net": "/PIO0_12",
+      "package_pin": "D11",
+      "header": [
+        "EXT1",
+        "31"
+      ],
+      "adapter_net": "F_D4",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[21]",
+      "board_net": "/PIO0_13",
+      "package_pin": "B12",
+      "header": [
+        "EXT1",
+        "33"
+      ],
+      "adapter_net": "F_D5",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[22]",
+      "board_net": "/PIO0_14",
+      "package_pin": "B10",
+      "header": [
+        "EXT1",
+        "35"
+      ],
+      "adapter_net": "F_D6",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[23]",
+      "board_net": "/PIO0_15",
+      "package_pin": "B11",
+      "header": [
+        "EXT1",
+        "37"
+      ],
+      "adapter_net": "F_D7",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[24]",
+      "board_net": "/PIO0_26",
+      "package_pin": "F7",
+      "header": [
+        "EXT1",
+        "22"
+      ],
+      "adapter_net": "F_MREQ_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[25]",
+      "board_net": "/PIO0_24",
+      "package_pin": "F9",
+      "header": [
+        "EXT1",
+        "26"
+      ],
+      "adapter_net": "F_IORQ_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[26]",
+      "board_net": "/PIO0_27",
+      "package_pin": "B9",
+      "header": [
+        "EXT1",
+        "20"
+      ],
+      "adapter_net": "F_RD_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[27]",
+      "board_net": "/PIO0_28",
+      "package_pin": "D8",
+      "header": [
+        "EXT1",
+        "18"
+      ],
+      "adapter_net": "F_WR_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[28]",
+      "board_net": "/PIO0_25",
+      "package_pin": "C8",
+      "header": [
+        "EXT1",
+        "24"
+      ],
+      "adapter_net": "F_M1_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[29]",
+      "board_net": "/PIO0_32",
+      "package_pin": "B7",
+      "header": [
+        "EXT1",
+        "10"
+      ],
+      "adapter_net": "F_RFSH_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[30]",
+      "board_net": "/PIO0_33",
+      "package_pin": "B6",
+      "header": [
+        "EXT2",
+        "7"
+      ],
+      "adapter_net": "F_CLK",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[31]",
+      "board_net": "/PIO0_30",
+      "package_pin": "A7",
+      "header": [
+        "EXT1",
+        "14"
+      ],
+      "adapter_net": "F_RESET_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[32]",
+      "board_net": "/PIO0_34",
+      "package_pin": "C6",
+      "header": [
+        "EXT2",
+        "9"
+      ],
+      "adapter_net": "F_WAIT_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[33]",
+      "board_net": "/PIO0_35",
+      "package_pin": "D7",
+      "header": [
+        "EXT2",
+        "11"
+      ],
+      "adapter_net": "F_INT_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[34]",
+      "board_net": "/PIO1_21",
+      "package_pin": "K16",
+      "header": [
+        "EXT3",
+        "21"
+      ],
+      "adapter_net": "F_BUSRQ_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[35]",
+      "board_net": "/PIO0_36",
+      "package_pin": "A6",
+      "header": [
+        "EXT2",
+        "13"
+      ],
+      "adapter_net": "F_BAO_N",
+      "pico_gpio": null
+    },
+    {
+      "signal": "bus_sample[36]",
+      "board_net": "/PIO0_29",
+      "package_pin": "B8",
+      "header": [
+        "EXT1",
+        "16"
+      ],
+      "adapter_net": "F_PRIORITY",
+      "pico_gpio": null
+    },
+    {
+      "signal": "card_power_good",
+      "board_net": "/PIO0_31",
+      "package_pin": "C7",
+      "header": [
+        "EXT1",
+        "12"
+      ],
+      "adapter_net": "CARD_PG",
+      "pico_gpio": null
+    },
+    {
+      "signal": "pico_data[0]",
+      "board_net": "/PIO1_04",
+      "package_pin": "P16",
+      "header": [
+        "EXT2",
+        "28"
+      ],
+      "adapter_net": "P_DATA0",
+      "pico_gpio": 0
+    },
+    {
+      "signal": "pico_data[1]",
+      "board_net": "/PIO1_05",
+      "package_pin": "M13",
+      "header": [
+        "EXT2",
+        "26"
+      ],
+      "adapter_net": "P_DATA1",
+      "pico_gpio": 1
+    },
+    {
+      "signal": "pico_data[2]",
+      "board_net": "/PIO1_06",
+      "package_pin": "M14",
+      "header": [
+        "EXT2",
+        "24"
+      ],
+      "adapter_net": "P_DATA2",
+      "pico_gpio": 2
+    },
+    {
+      "signal": "pico_data[3]",
+      "board_net": "/PIO1_07",
+      "package_pin": "L12",
+      "header": [
+        "EXT2",
+        "22"
+      ],
+      "adapter_net": "P_DATA3",
+      "pico_gpio": 3
+    },
+    {
+      "signal": "pico_data[4]",
+      "board_net": "/PIO1_08",
+      "package_pin": "N16",
+      "header": [
+        "EXT2",
+        "20"
+      ],
+      "adapter_net": "P_DATA4",
+      "pico_gpio": 4
+    },
+    {
+      "signal": "pico_data[5]",
+      "board_net": "/PIO1_09",
+      "package_pin": "L13",
+      "header": [
+        "EXT2",
+        "18"
+      ],
+      "adapter_net": "P_DATA5",
+      "pico_gpio": 5
+    },
+    {
+      "signal": "pico_data[6]",
+      "board_net": "/PIO1_10",
+      "package_pin": "L14",
+      "header": [
+        "EXT2",
+        "16"
+      ],
+      "adapter_net": "P_DATA6",
+      "pico_gpio": 6
+    },
+    {
+      "signal": "pico_data[7]",
+      "board_net": "/PIO1_11",
+      "package_pin": "K12",
+      "header": [
+        "EXT2",
+        "14"
+      ],
+      "adapter_net": "P_DATA7",
+      "pico_gpio": 7
+    },
+    {
+      "signal": "pico_index[0]",
+      "board_net": "/PIO1_12",
+      "package_pin": "M16",
+      "header": [
+        "EXT2",
+        "12"
+      ],
+      "adapter_net": "P_INDEX0",
+      "pico_gpio": 8
+    },
+    {
+      "signal": "pico_index[1]",
+      "board_net": "/PIO1_13",
+      "package_pin": "J10",
+      "header": [
+        "EXT2",
+        "10"
+      ],
+      "adapter_net": "P_INDEX1",
+      "pico_gpio": 9
+    },
+    {
+      "signal": "pico_index[2]",
+      "board_net": "/PIO1_14",
+      "package_pin": "M15",
+      "header": [
+        "EXT3",
+        "7"
+      ],
+      "adapter_net": "P_INDEX2",
+      "pico_gpio": 10
+    },
+    {
+      "signal": "pico_index[3]",
+      "board_net": "/PIO1_15",
+      "package_pin": "J11",
+      "header": [
+        "EXT3",
+        "9"
+      ],
+      "adapter_net": "P_INDEX3",
+      "pico_gpio": 11
+    },
+    {
+      "signal": "pico_index[4]",
+      "board_net": "/PIO1_16",
+      "package_pin": "L16",
+      "header": [
+        "EXT3",
+        "11"
+      ],
+      "adapter_net": "P_INDEX4",
+      "pico_gpio": 12
+    },
+    {
+      "signal": "pico_request",
+      "board_net": "/PIO1_17",
+      "package_pin": "K13",
+      "header": [
+        "EXT3",
+        "13"
+      ],
+      "adapter_net": "PICO_REQUEST",
+      "pico_gpio": 13
+    },
+    {
+      "signal": "pico_ack",
+      "board_net": "/PIO1_18",
+      "package_pin": "K14",
+      "header": [
+        "EXT3",
+        "15"
+      ],
+      "adapter_net": "PICO_ACK",
+      "pico_gpio": 14
+    },
+    {
+      "signal": "link_sync_n",
+      "board_net": "/PIO1_19",
+      "package_pin": "J15",
+      "header": [
+        "EXT3",
+        "17"
+      ],
+      "adapter_net": "LINK_SYNC_N",
+      "pico_gpio": 16
+    },
+    {
+      "signal": "capture_clear",
+      "board_net": "/PIO1_20",
+      "package_pin": "K15",
+      "header": [
+        "EXT3",
+        "19"
+      ],
+      "adapter_net": "CAPTURE_CLEAR",
+      "pico_gpio": 17
+    },
+    {
+      "signal": "capture_enable",
+      "board_net": "/PIO1_24",
+      "package_pin": "J13",
+      "header": [
+        "EXT3",
+        "27"
+      ],
+      "adapter_net": "CAPTURE_ENABLE",
+      "pico_gpio": 21
+    }
+  ],
+  "personality": "passive analyzer; different harness from controller"
+}

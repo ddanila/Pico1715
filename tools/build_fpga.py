@@ -8,14 +8,16 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
-p.add_argument('--fixture', action='store_true', help='standalone diagnostic; disconnect host/adapter')
+mode=p.add_mutually_exclusive_group()
+mode.add_argument('--analyzer', action='store_true', help='passive analyzer adapter only')
+mode.add_argument('--fixture', action='store_true', help='standalone diagnostic; disconnect host/adapter')
 p.add_argument('--yosys', default='yosys')
 p.add_argument('--nextpnr', default='nextpnr-ice40')
 p.add_argument('--icepack', default='icepack')
 p.add_argument('--out', type=Path, default=None)
 a = p.parse_args()
 if a.out is None:
-    a.out = ROOT / ('build/fixture' if a.fixture else 'build/hx8k')
+    a.out = ROOT / ('build/analyzer-hx8k' if a.analyzer else 'build/fixture' if a.fixture else 'build/hx8k')
 a.out.mkdir(parents=True, exist_ok=True)
 out = a.out.resolve()
 sources = ['hardware/rtl/bus_frontend.v', 'hardware/rtl/irq_frontend.v',
@@ -24,6 +26,10 @@ top = 'bench_fixture' if a.fixture else 'pico1715_top'
 pcf = 'hardware/boards/hx8k-fixture.pcf' if a.fixture else 'hardware/boards/hx8k.pcf'
 if a.fixture:
     sources.append('hardware/rtl/bench_fixture.v')
+if a.analyzer:
+    top='analyzer_hx8k'
+    pcf='hardware/boards/hx8k-analyzer.pcf'
+    sources=['hardware/rtl/'+n+'.v' for n in ('cycle_encoder','analyzer_record_fifo','cycle_capture_top','analyzer_link','analyzer_transport_top','analyzer_hx8k')]
 commands = [
     [a.yosys, '-Q', '-T', '-p', 'read_verilog -sv ' + ' '.join(sources) +
      '; synth_ice40 -top ' + top + ' -json "' + str(out / 'design.json') +
@@ -33,6 +39,8 @@ commands = [
      '--freq', '100', '--report', str(out / 'timing.json')],
     [a.icepack, str(out / 'design.asc'), str(out / 'design.bin')],
 ]
+if a.analyzer:
+    commands[1] += ['--sdc','hardware/boards/analyzer-clocks.sdc']
 if a.fixture:
     commands[1] += ['--sdc', 'hardware/boards/fixture-clocks.sdc']
 for name, command in zip(('synth', 'route', 'pack'), commands):
@@ -40,7 +48,9 @@ for name, command in zip(('synth', 'route', 'pack'), commands):
         subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
 timing = json.loads((out / 'timing.json').read_text())
 assert timing['fmax'] and all(v['achieved'] >= v['constraint'] for v in timing['fmax'].values())
-files = sources + [pcf, 'hardware/boards/hx8k-pins.json']
+files = sources + [pcf, 'hardware/boards/hx8k-analyzer-pins.json' if a.analyzer else 'hardware/boards/hx8k-pins.json']
+if a.analyzer:
+    files.append('hardware/boards/analyzer-clocks.sdc')
 if a.fixture:
     files.append('hardware/boards/fixture-clocks.sdc')
 report = dict(schema=1, target='Olimex iCE40HX8K-EVB Rev B1',

@@ -1,0 +1,43 @@
+{
+  "qualification": "desk connectivity only; no analog or physical qualification",
+  "checks": [
+    "58 X2 contacts including 16 address bits",
+    "37 input-only receiver channels",
+    "fixed physical priority bypass",
+    "power/default pin contract",
+    "57 PCF/header/Pico bindings",
+    "synthesized board top exposes no host-output ports"
+  ],
+  "netlist_sha256": "de8a4bee3fe629b4df72dc04989b55c6aa7a5bb14b232f4c54c427d4c7036d4d",
+  "sources": {
+    "tools/check_analyzer_interface.py": "097a042f3ad5c04f71b632b674e2d878ec33470c186fef6cb22fe09c7e1d5172",
+    "tools/generate_analyzer_interface.py": "f02a5e2ae64e7272c6ccb542eacbebcb4338c690a87fda405b976201c57a2939",
+    "hardware/boards/hx8k-analyzer-pins.json": "ffafec66b9c71fe1c4df3c339e088b559c42f325d5652e8c2b4fec07921274c8",
+    "hardware/boards/hx8k-analyzer.pcf": "4cd8a3d183828cc80b48a5f50e884676dcf6c99fffcdab17bbbaeb089794df9a",
+    "hardware/analyzer-interface/connections.json": "e948094d93664eb8fd1567092bfd9cfe59283ba80ef091c00b9d49efba96f8aa",
+    "hardware/analyzer-interface/analyzer-interface.kicad_sch": "37440347b9b9ca273f92787b49a9c21e8750880a0335df035c7e0e9fcef28723",
+    "tools/verify_hx8k_pins.py": "a26a245979028a93b9fc140dddd25fe32b9e388336d8f787069452371f767c5f",
+    "tests/analyzer_hx8k_tb.v": "6a5819f3a79002b18bdba6592468e939c9ab65b8bca44ac0b25099ea906a1595",
+    "hardware/rtl/analyzer_hx8k.v": "d793de7f97f1580bcd7ac90448f023ebd89f5c86e6574ad8f27805d0c7e9d441",
+    "hardware/boards/analyzer-clocks.sdc": "813a31ce2468e06129c6f21df5eff7a867b50e09648a2ef847eb4615ade89aad",
+    "hardware/boards/hx8k-analyzer-wiring.md": "901780f336664557761a513a3a598698866ef6df4037b6be41c01e00f28d702b",
+    "hardware/analyzer-interface/bom.tsv": "0f0bd90c5bf9748fd6ae1e9091b0654e29dd2fdc31f375cb8db0c4c7386ab52a",
+    "Makefile": "e7d020f0fbf80fccb1cae8eaf32b23dbffa94517064b20c3b57a43610291a8af"
+  },
+  "erc": {
+    "errors": 0,
+    "warnings": 0,
+    "tool": "10.0.6",
+    "report_sha256": "0f026e840e322cfb889f9b1a7263ec65b112c0578cb8d9d0ac04d7ee5bc88eba"
+  },
+  "board_pin_validation": {
+    "result": "57 pins and used-header ground contacts match official netlist",
+    "manufacturer_commit": "dba688dedb3ae08d05e81a0f56a847f155622d21",
+    "netlist_sha256": "fee2c5cb588c2378f7b09c41ec457541c05a058c175dfa67a4d3bf2b37f39fa7"
+  },
+  "rtl_tests": {
+    "command": "make test-analyzer-hx8k lint-analyzer-hx8k",
+    "result": "PASS: divided clock, sampled full address/data, WAIT, host reset continuity, separate card-power reset; lint passed"
+  },
+  "fit_report": "reports/analyzer-hx8k-fit.json"
+}

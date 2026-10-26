@@ -116,3 +116,12 @@ lint-analyzer-transport:
 synth-analyzer-transport:
 	@mkdir -p build
 	yosys -Q -T -p 'read_verilog -sv $(ANALYZER_TRANSPORT_RTL); synth_ice40 -top analyzer_transport_top; check -assert; stat' > build/analyzer-transport-synthesis.log
+
+.PHONY: test-analyzer-hx8k lint-analyzer-hx8k
+test-analyzer-hx8k: build/analyzer-hx8k-test
+	vvp build/analyzer-hx8k-test
+build/analyzer-hx8k-test: $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v tests/analyzer_hx8k_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s analyzer_hx8k_tb -o $@ $^
+lint-analyzer-hx8k:
+	verilator --lint-only -Wall --top-module analyzer_hx8k $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v

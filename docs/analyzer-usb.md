@@ -129,5 +129,6 @@ including byte-identical download of the 3,453,600-byte, 215,848-record boot cap
 and successful builds of both firmware targets. This test loads a previously
 verified capture into simulated PSRAM; it does not emulate USB packets or rerun
 the boot through the FPGA. TinyUSB enumeration, cable unplugging, QMI timings and
-sustained acquisition with USB traffic remain bench tests. Analyzer FPGA pin
-binding, receiver integration and routed timing are also still open.
+sustained acquisition with USB traffic remain bench tests. The later [passive adapter](../hardware/analyzer-interface/README.md) supplies
+analyzer pin binding, receiver integration and routed timing; physical
+qualification and PCB layout remain open.

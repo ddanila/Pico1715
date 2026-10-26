@@ -3,7 +3,7 @@
 The analyzer now has a second standalone RTL personality for long diagnostic
 traces: `cycle_capture_top.v` combines `cycle_encoder.v` with a FIFO holding 255 records.
 The [raw analyzer](analyzer-prototype.md) remains available for sampled waveforms.
-The compact personality now has a tested [FPGA–Pico link and PSRAM receiver](analyzer-transport.md). [USB control/download](analyzer-usb.md) is also implemented; board integration and physical qualification remain open.
+The compact personality now has a tested [FPGA–Pico link and PSRAM receiver](analyzer-transport.md). [USB control/download](analyzer-usb.md) is also implemented; the [passive adapter](../hardware/analyzer-interface/README.md) now has a routed FPGA target; physical qualification remains open.
 
 ## What a cycle record means
 

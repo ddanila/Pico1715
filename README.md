@@ -29,7 +29,9 @@ FPGA cycle capture to a CRC-protected Pico link and a bounded 7 MiB PSRAM buffer
 Shared-firmware/RTL tests cover stalls, corruption, retry and buffer exhaustion;
 stock-boot replay retains all 215,848 selected records. [USB control/download](docs/analyzer-usb.md)
 now provides explicit arm/stop and validated capture files through a Python host
-utility. Analyzer board integration and physical USB/timing qualification remain open.
+utility. A separate [passive analyzer adapter](hardware/analyzer-interface/README.md)
+now has a checked schematic, full input harness and routed HX8K bitstream.
+Physical assembly, USB/timing qualification and PCB layout remain open.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the

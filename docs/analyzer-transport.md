@@ -3,8 +3,8 @@
 The standalone compact analyzer now connects the production encoder/FIFO to a
 CRC-protected parallel link and a shared C receiver. The `pico1715_analyzer`
 RP2350 firmware target stores captures in PSRAM. This is a tested desk prototype:
-no analyzer FPGA pad map, routed timing result or physical qualification is
-supplied by this increment. The later [USB increment](analyzer-usb.md) adds
+the later [passive adapter](../hardware/analyzer-interface/README.md) now supplies
+the FPGA pad map and routed timing. Physical qualification remains open. The later [USB increment](analyzer-usb.md) adds
 control/download to this transport.
 
 ## Link and capture lifecycle
@@ -26,7 +26,9 @@ The logical Pico GPIO assignments are:
 | 17 | output | capture clear, active high |
 | 21 | output | capture enable |
 
-These are interface assignments, not approved board wiring. Each byte uses four
+These interface assignments are now mapped in the separate
+[passive adapter harness](../hardware/boards/hx8k-analyzer-wiring.md); bench
+qualification is pending. Each byte uses four
 phases: FPGA request high, Pico ACK high, FPGA request low, Pico ACK low. Data and
 index remain stable until acknowledged. FPGA inputs ACK/synchronization/enable
 are synchronized; capture reset asserts asynchronously and releases synchronously.

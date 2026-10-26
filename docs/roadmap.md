@@ -2,8 +2,10 @@
 
 The sections below distinguish completed desk increments from remaining plans;
 none substitutes for hardware qualification. USB control/download is now implemented and tested at the protocol seam.
-The remaining analyzer integration work is FPGA pin binding, receiver design
-and routed timing, followed by physical qualification. Shutdown handling and optional backup-power signals remain
+The [passive analyzer adapter](../hardware/analyzer-interface/README.md) now has
+a checked receiver schematic, pin binding and routed timing. Bench assembly and
+physical qualification are next; combined controller/analyzer hardware and PCB
+layout remain future work. Shutdown handling and optional backup-power signals remain
 a separate planned workstream.
 
 ## Explicit analyzer mode and remote reset
@@ -24,7 +26,9 @@ capture and stock-boot verification](cycle-analyzer.md), including a 3.3 MiB fil
 I/O boot trace matching the full capture. The [FPGA–Pico transport and PSRAM
 receiver](analyzer-transport.md) now pass workload replay and fault tests.
 [USB control/download](analyzer-usb.md) also passes shared-handler/host tests.
-Board integration, physical USB qualification and remote reset remain open.
+The passive adapter and analyzer FPGA fit now complete the reference bench
+integration on paper. Assembly, electrical/USB qualification and remote reset
+remain open.
 
 ## 1. Shutdown firmware and simulation
 

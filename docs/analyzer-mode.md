@@ -9,7 +9,9 @@ adds cycle intervals, filtering and stock-boot verification against the emulator
 The [transport increment](analyzer-transport.md) adds FPGA–Pico framing and a
 bounded PSRAM receiver with shared-firmware/RTL fault tests. This document remains the full feature
 plan: [USB commands/download](analyzer-usb.md) now pass host/shared-handler tests;
-board integration, physical USB qualification and remote reset remain open.
+the [passive bench adapter](../hardware/analyzer-interface/README.md) now provides
+a checked receive-only schematic and routed FPGA target. Physical qualification,
+combined-mode hardware and remote reset remain open.
 
 - **Controller:** existing floppy replacement behavior.
 - **Analyzer:** passive capture only; no floppy responses, data drive, /WAIT,
@@ -44,9 +46,10 @@ interrupt acknowledgement and refresh need their own decoding.
 
 Expand the receiver/pin budget to A0–A15, D0–D7, /MREQ, /IORQ, /RD, /WR,
 /M1, /RFSH, clock, /RESET, /WAIT and /INT; assess /BUSRQ, /BAO and priority-chain
-observation too. The current adapter only receives A0–A7 and leaves upper address,
-clock and refresh contacts unconnected. Full address capture therefore needs a
-schematic, connector-netlist and FPGA pin-allocation revision, not just firmware.
+observation too. The controller adapter only receives A0–A7. The separate passive analyzer
+adapter now receives the full address bus and additional controls, with its own
+schematic, connector netlist and FPGA allocation. The current compact USB format
+still does not export raw clock/IRQ waveforms.
 X1/X2 clock and priority contacts have slot-specific meanings; use the documented
 mapping rather than treating the slots as interchangeable.
 
