@@ -190,6 +190,11 @@ intentionally disabled on the serving core; inspect diagnostics over SWD.
 
 ## Remaining gates before a PCB order
 
+The [desk-work plan](../docs/roadmap.md) records the optional backup-power circuit,
+shutdown firmware and simulation work that can proceed before hardware arrives.
+Its circuit and energy budget must be validated alongside the physical gates
+below; backup power is optional and is not implemented or qualified yet.
+
 1. Program/read back FPGA and Pico separately; verify clock, reset defaults,
    PSRAM patterns, SD CRC/error paths and repeated cold starts with X2 disconnected.
 2. Exercise the mailbox under maximum sector-copy, IRQ and SD-write load;

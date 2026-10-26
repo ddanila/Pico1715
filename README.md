@@ -63,6 +63,14 @@ not qualified physical X2 signal edges.
 
 ## Next milestones
 
+The [remaining desk-work plan](docs/roadmap.md) starts with shutdown firmware,
+safe-eject simulation and an optional current-limited backup-power circuit that
+also permits operation without a capacitor. It then covers full interrupt-chain
+emulation, broader software compatibility and PCB preparation. These are planned
+items, not completed features.
+
+Physical milestones remain:
+
 1. Assemble the selected bench modules and verify PSRAM, SD and FPGA programming.
 2. Measure worst-case Pico mailbox latency and translated bus timing on a fixture.
 3. Verify X2 orientation, priority-chain wiring and mechanics on the actual 1715;
