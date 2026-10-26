@@ -126,8 +126,12 @@ recovery checks. Keep private ROM and disk contents out of the repository.
 
 ## 6. PCB preparation and physical gates
 
-Prepare schematics, connector definitions, footprint checks and placement studies
-at the desk. Identify the FPGA boards already owned before freezing module
+The [combined carrier draft A](../hardware/carrier/README.md) now includes
+a checked KiCad schematic/netlist, draft BOM, compatible controller/analyzer FPGA
+pin profiles, passive-mode interlock, module power isolation, SD and the PIM724
+button/SAFE LED. Desk checks cover both synthesized personalities and negative
+connectivity mutations. Complete connector/footprint selection and placement
+studies next; the logical DPDT selector still needs a verified physical pinout. Identify the FPGA boards already owned before freezing module
 connectors or final routing: the Olimex HX8K remains the reference option, not a
 requirement to buy that exact board.
 

@@ -26,3 +26,12 @@ if mapping.get('personality','').startswith('passive analyzer'):
  for header in ('EXT1','EXT2','EXT3'):
   for ground in ('2','4','8'):assert (header,ground) in nets['GND']
 print(f'{len(used)} package pins match the pinned Rev B1 netlist; header signals unshared')
+
+if mapping.get('personality','').startswith('combined carrier'):
+ for header in ('EXT1','EXT2','EXT3'):
+  for ground in ('2','4','8'):assert (header,ground) in nets['GND']
+ assert ('EXT1','1') in nets['+5V']
+ assert ('EXT1','3') in nets['+3V3']
+ assert ('PGM1','5') in nets['/iCE40-CDONE']
+ assert ('R2','1') in nets['/iCE40-CDONE'] and ('R2','2') in nets['+3V3']
+ print('Carrier module power, grounds and CDONE tap match Rev B1')

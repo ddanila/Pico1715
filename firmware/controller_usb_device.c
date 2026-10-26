@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: MIT. Storage core only; never called with image_lock held. */
 #include "controller_usb.h"
 #include "tusb.h"
+#if P1715_CARRIER
+#include "carrier_panel.h"
+#include "pico/stdlib.h"
+static p1715_carrier_panel panel;
+#endif
 static p1715_controller_usb usb;
 static bool initialized,connected;
 static void disconnect(void){
@@ -12,9 +17,19 @@ void tud_cdc_line_state_cb(uint8_t itf,bool dtr,bool rts){
 }
 void tud_umount_cb(void){disconnect();}
 void p1715_controller_usb_device(void){
- if(!initialized){p1715_controller_usb_init(&usb);tusb_init();initialized=true;}
+ if(!initialized){
+  p1715_controller_usb_init(&usb);tusb_init();initialized=true;
+#if P1715_CARRIER
+  gpio_init(45);gpio_set_dir(45,GPIO_IN);gpio_pull_up(45);
+  gpio_init(25);gpio_put(25,0);gpio_set_dir(25,GPIO_OUT);
+#endif
+ }
  /* Own TinyUSB on this core; do not initialize the SDK stdio USB worker. */
  tud_task();
+ #if P1715_CARRIER
+ p1715_carrier_panel_step(&panel,time_us_64(),!gpio_get(45),usb.waiting);
+ gpio_put(25,panel.safe);
+#endif
  p1715_controller_usb_poll(&usb);
  if(!tud_cdc_connected()){
   disconnect();return;

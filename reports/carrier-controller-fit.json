@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "target": "Olimex iCE40HX8K-EVB Rev B1",
+  "top": "carrier_controller",
+  "hardware_executed": false,
+  "internal_timing_passed": true,
+  "electrical_timing_qualified": false,
+  "fmax": {
+    "clk100$SB_IO_IN_$glb_clk": {
+      "achieved": 683.5269775390625,
+      "constraint": 100
+    },
+    "core.clk50_$glb_clk": {
+      "achieved": 141.7836456298828,
+      "constraint": 100
+    }
+  },
+  "utilization": {
+    "ICESTORM_LC": {
+      "available": 7680,
+      "used": 176
+    },
+    "ICESTORM_PLL": {
+      "available": 2,
+      "used": 0
+    },
+    "ICESTORM_RAM": {
+      "available": 32,
+      "used": 0
+    },
+    "SB_GB": {
+      "available": 8,
+      "used": 3
+    },
+    "SB_IO": {
+      "available": 206,
+      "used": 60
+    },
+    "SB_WARMBOOT": {
+      "available": 1,
+      "used": 0
+    }
+  },
+  "source_sha256": {
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+    "hardware/rtl/pico1715_top.v": "a11dfaac7b67c71755a528fcd389b4aec61ae460262837bfb9ad56c0c6c6d163",
+    "hardware/rtl/carrier_controller.v": "90ea9ba80569e3f120098548485fd3f2c9e027484cf71fb859a8dba7a3f77aad",
+    "hardware/boards/hx8k-carrier-controller.pcf": "24e638fb999f0aded9e2a5205fe5fefda398f3e36bdc53eeb638b0697ba3601d",
+    "hardware/boards/hx8k-carrier-controller.json": "c3d143736d12798689982a8a18e60abfee3f7ad80440008e60a0757b72d8a8fd"
+  },
+  "bitstream_sha256": "f4e7718eae47976e8efb12ac86a8212d8bf590ac4f51d92168c68b12995326ca",
+  "commands": [
+    [
+      "yosys",
+      "-Q",
+      "-T",
+      "-p",
+      "read_verilog -sv hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/carrier_controller.v; synth_ice40 -top carrier_controller -json \"/home/ddanila/fun/Pico1715/build/hx8k-carrier/design.json\"; check -assert; stat"
+    ],
+    [
+      "local/nextpnr-build/nextpnr-ice40",
+      "--hx8k",
+      "--package",
+      "ct256",
+      "--json",
+      "/home/ddanila/fun/Pico1715/build/hx8k-carrier/design.json",
+      "--pcf",
+      "hardware/boards/hx8k-carrier-controller.pcf",
+      "--asc",
+      "/home/ddanila/fun/Pico1715/build/hx8k-carrier/design.asc",
+      "--freq",
+      "100",
+      "--report",
+      "/home/ddanila/fun/Pico1715/build/hx8k-carrier/timing.json"
+    ],
+    [
+      "local/fpga-tools/usr/bin/icepack",
+      "/home/ddanila/fun/Pico1715/build/hx8k-carrier/design.asc",
+      "/home/ddanila/fun/Pico1715/build/hx8k-carrier/design.bin"
+    ]
+  ],
+  "tool_versions": {
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)",
+    "local/nextpnr-build/nextpnr-ice40": "\"nextpnr-ice40\" -- Next Generation Place and Route (Version 22c5adf)"
+  }
+}

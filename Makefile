@@ -125,3 +125,26 @@ build/analyzer-hx8k-test: $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v
 	iverilog -g2012 -Wall -s analyzer_hx8k_tb -o $@ $^
 lint-analyzer-hx8k:
 	verilator --lint-only -Wall --top-module analyzer_hx8k $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v
+
+.PHONY: test-carrier test-carrier-schematic
+test-carrier:
+	mkdir -p build
+	$(CC) -std=c11 -Wall -Wextra -Werror tests/carrier_panel_test.c firmware/carrier_panel.c -o build/carrier-panel-test
+	./build/carrier-panel-test
+	python3 tools/check_carrier.py --netlist hardware/carrier/carrier.net.xml
+	python3 tests/carrier_connectivity_test.py hardware/carrier/carrier.net.xml
+
+# Fresh KiCad export; portable CI also checks the committed reviewed snapshot.
+test-carrier-schematic:
+	mkdir -p build
+	kicad-cli sch erc hardware/carrier/carrier.kicad_sch --exit-code-violations --output build/carrier-erc.rpt
+	kicad-cli sch export netlist hardware/carrier/carrier.kicad_sch --format kicadxml --output build/carrier.net.xml
+	python3 tools/check_carrier.py --netlist build/carrier.net.xml
+	python3 tests/carrier_connectivity_test.py build/carrier.net.xml
+
+.PHONY: test-carrier-rtl
+test-carrier-rtl:
+	mkdir -p build
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/carrier_controller.v; synth_ice40 -top carrier_controller -json build/carrier-controller.json; check -assert' > build/carrier-controller-synthesis.log
+	yosys -Q -T -p 'read_verilog -sv $(ANALYZER_TRANSPORT_RTL) hardware/rtl/analyzer_hx8k.v hardware/rtl/carrier_analyzer.v; synth_ice40 -top carrier_analyzer -json build/carrier-analyzer.json; check -assert' > build/carrier-analyzer-synthesis.log
+	python3 tools/check_carrier.py --netlist hardware/carrier/carrier.net.xml --controller-design build/carrier-controller.json --analyzer-design build/carrier-analyzer.json

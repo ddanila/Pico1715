@@ -34,7 +34,11 @@ stock-boot replay retains all 215,848 selected records. [USB control/download](d
 now provides explicit arm/stop and validated capture files through a Python host
 utility. A separate [passive analyzer adapter](hardware/analyzer-interface/README.md)
 now has a checked schematic, full input harness and routed HX8K bitstream.
-Physical assembly, USB/timing qualification and PCB layout remain open.
+A [combined carrier schematic](hardware/carrier/README.md) now provides one
+wiring contract for both personalities, a physical passive-mode interlock,
+Pico power isolation, SD and button/SAFE-LED support. Both new FPGA targets route
+with passing internal timing. Physical assembly, USB/timing qualification and
+PCB layout remain open.
 
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the

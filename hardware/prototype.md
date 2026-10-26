@@ -180,9 +180,11 @@ records fail closed. A failed write latches the store until reopen. This does
 not prove SD internal-cache durability or atomic power-loss behavior.
 
 Writeback runs on core 1 and snapshots dirty blocks under a short shared lock.
-The host sees a RAM-backed write acknowledgement before SD persistence. There
-is no user-facing safe-eject/power-off mechanism yet. Do not use experimental
-writeback for irreplaceable data. Reset retains the loaded image and dirty queue.
+The host sees a RAM-backed write acknowledgement before SD persistence. The
+[USB status and safe-eject interface](../docs/controller-usb.md) now exposes the
+shutdown state. The [combined carrier](carrier/README.md) additionally supports
+the PIM724 button and SAFE LED. These do not establish SD power-loss durability;
+experimental writeback remains unqualified for irreplaceable data. Reset retains the loaded image and dirty queue.
 
 The main unresolved performance risks are uncached PSRAM copying, field CRC
 construction on the serving core, lock contention and interrupt notification

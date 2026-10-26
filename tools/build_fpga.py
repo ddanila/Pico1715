@@ -11,13 +11,16 @@ p = argparse.ArgumentParser(description=__doc__)
 mode=p.add_mutually_exclusive_group()
 mode.add_argument('--analyzer', action='store_true', help='passive analyzer adapter only')
 mode.add_argument('--fixture', action='store_true', help='standalone diagnostic; disconnect host/adapter')
+p.add_argument('--carrier', action='store_true', help='combined carrier A wiring, controller or --analyzer')
 p.add_argument('--yosys', default='yosys')
 p.add_argument('--nextpnr', default='nextpnr-ice40')
 p.add_argument('--icepack', default='icepack')
 p.add_argument('--out', type=Path, default=None)
 a = p.parse_args()
+if a.carrier and a.fixture:p.error('--carrier and --fixture are incompatible')
 if a.out is None:
     a.out = ROOT / ('build/analyzer-hx8k' if a.analyzer else 'build/fixture' if a.fixture else 'build/hx8k')
+    if a.carrier:a.out=a.out.parent / (a.out.name+'-carrier')
 a.out.mkdir(parents=True, exist_ok=True)
 out = a.out.resolve()
 sources = ['hardware/rtl/bus_frontend.v', 'hardware/rtl/irq_frontend.v',
@@ -30,6 +33,10 @@ if a.analyzer:
     top='analyzer_hx8k'
     pcf='hardware/boards/hx8k-analyzer.pcf'
     sources=['hardware/rtl/'+n+'.v' for n in ('cycle_encoder','analyzer_record_fifo','cycle_capture_top','analyzer_link','analyzer_transport_top','analyzer_hx8k')]
+if a.carrier:
+    top='carrier_analyzer' if a.analyzer else 'carrier_controller'
+    sources.append('hardware/rtl/'+top+'.v')
+    pcf='hardware/boards/hx8k-carrier-'+('analyzer' if a.analyzer else 'controller')+'.pcf'
 commands = [
     [a.yosys, '-Q', '-T', '-p', 'read_verilog -sv ' + ' '.join(sources) +
      '; synth_ice40 -top ' + top + ' -json "' + str(out / 'design.json') +
@@ -40,7 +47,7 @@ commands = [
     [a.icepack, str(out / 'design.asc'), str(out / 'design.bin')],
 ]
 if a.analyzer:
-    commands[1] += ['--sdc','hardware/boards/analyzer-clocks.sdc']
+    commands[1] += ['--sdc','hardware/boards/carrier-analyzer-clocks.sdc' if a.carrier else 'hardware/boards/analyzer-clocks.sdc']
 if a.fixture:
     commands[1] += ['--sdc', 'hardware/boards/fixture-clocks.sdc']
 for name, command in zip(('synth', 'route', 'pack'), commands):
@@ -49,8 +56,9 @@ for name, command in zip(('synth', 'route', 'pack'), commands):
 timing = json.loads((out / 'timing.json').read_text())
 assert timing['fmax'] and all(v['achieved'] >= v['constraint'] for v in timing['fmax'].values())
 files = sources + [pcf, 'hardware/boards/hx8k-analyzer-pins.json' if a.analyzer else 'hardware/boards/hx8k-pins.json']
+if a.carrier:files[-1]='hardware/boards/hx8k-carrier-'+('analyzer' if a.analyzer else 'controller')+'.json'
 if a.analyzer:
-    files.append('hardware/boards/analyzer-clocks.sdc')
+    files.append('hardware/boards/carrier-analyzer-clocks.sdc' if a.carrier else 'hardware/boards/analyzer-clocks.sdc')
 if a.fixture:
     files.append('hardware/boards/fixture-clocks.sdc')
 report = dict(schema=1, target='Olimex iCE40HX8K-EVB Rev B1',

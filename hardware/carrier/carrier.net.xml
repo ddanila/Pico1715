@@ -1,0 +1,4665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/ddanila/fun/Pico1715/hardware/carrier/carrier.kicad_sch</source>
+    <date>2026-10-26T18:25:36</date>
+    <tool>Eeschema 10.0.6-10.0.6~ubuntu26.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>carrier.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>25d7ab93-0333-5b79-bc75-d2c10a7d3898</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>387d6cb7-e865-5fd5-9dd6-4c14976d156a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C3">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3a1f48e3-9ed2-579b-97f6-9e22b5bccd0d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C4">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C4" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>60b19720-6522-50bb-b79d-ad304762722e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C5">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C5" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b3e5dcf7-b4b6-520c-bc96-5c64e72d1f0d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C6">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C6" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>87598b81-3dd1-5eaf-ad5c-90889f518301</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C7">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C7" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f80e5a99-f00d-5fbc-923d-6ef96b3258c9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C8">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C8" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2a145658-5a02-5f1b-a084-4f69503fa2e7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C9">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C9" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>938615cf-d185-57d8-8ccd-0824d2a1990a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C10">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C10" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e15c2370-8e3f-566c-bc8c-94ef19be9a39</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C11">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C11" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>35126a8d-1402-5f5b-85c5-ed39510a60b2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C12">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C12" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0be4c705-7cdd-52f7-b54b-223815eeb9b4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C13">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C13" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>46458459-5a7d-5ed0-b1eb-795652fe5fe1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C14">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C14" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cdd05cd6-77bc-558f-8e76-3b62e8101398</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C15">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C15" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bcace888-1703-5fb6-9353-67986e6a594c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C16">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C16" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3d6c4cbe-69b6-5967-9363-2f927435e1c0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C17">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C17" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a11b6f6b-f64c-5fd2-82a9-0efa64e794e9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C18">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C18" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>93fbf1ed-5ffb-599c-98d9-3b7e8db903cc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C19">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C19" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6650f3ec-43a2-5148-8a5c-99a9d178e13e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C20">
+      <value>10uF_10V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C20" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6d7a7a2c-e707-5cb0-80dc-44df9cfb3af3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C21">
+      <value>10uF_10V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C21" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d7d2d623-b721-5273-a4aa-0ccfabf3a409</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C22">
+      <value>10uF_10V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="C22" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c94ec7b4-2594-5c24-8691-14bce87c97af</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D1">
+      <value>SS14</value>
+      <footprint>Diode_SMD:D_SMA</footprint>
+      <datasheet>https://www.vishay.com/docs/88746/ss12.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Diode_SMD:D_SMA</field>
+        <field name="Datasheet">https://www.vishay.com/docs/88746/ss12.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="D1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1483d5e0-7115-52d3-82df-00779f40883a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="EXT1">
+      <value>OLIMEX_EXT1</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="EXT1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>df26c1ec-d191-5bde-b64d-a47532655989</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+            <pin num="28"/>
+            <pin num="29"/>
+            <pin num="30"/>
+            <pin num="31"/>
+            <pin num="32"/>
+            <pin num="33"/>
+            <pin num="34"/>
+            <pin num="35"/>
+            <pin num="36"/>
+            <pin num="37"/>
+            <pin num="38"/>
+            <pin num="39"/>
+            <pin num="40"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="EXT2">
+      <value>OLIMEX_EXT2</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="EXT2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>02aa0fd4-f4d1-50dd-9c25-342e185a15a0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+            <pin num="28"/>
+            <pin num="29"/>
+            <pin num="30"/>
+            <pin num="31"/>
+            <pin num="32"/>
+            <pin num="33"/>
+            <pin num="34"/>
+            <pin num="35"/>
+            <pin num="36"/>
+            <pin num="37"/>
+            <pin num="38"/>
+            <pin num="39"/>
+            <pin num="40"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="EXT3">
+      <value>OLIMEX_EXT3</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="EXT3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>74a03a34-0108-55f8-977d-4ef727565429</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+            <pin num="28"/>
+            <pin num="29"/>
+            <pin num="30"/>
+            <pin num="31"/>
+            <pin num="32"/>
+            <pin num="33"/>
+            <pin num="34"/>
+            <pin num="35"/>
+            <pin num="36"/>
+            <pin num="37"/>
+            <pin num="38"/>
+            <pin num="39"/>
+            <pin num="40"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="ISO1">
+      <value>SN74CB3Q3245PWR</value>
+      <footprint>Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="ISO1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8a01d79c-83bd-572f-a2b8-f7983b7382b3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="18"/>
+            <pin num="3"/>
+            <pin num="17"/>
+            <pin num="4"/>
+            <pin num="16"/>
+            <pin num="5"/>
+            <pin num="15"/>
+            <pin num="6"/>
+            <pin num="14"/>
+            <pin num="7"/>
+            <pin num="13"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="9"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="ISO2">
+      <value>SN74CB3Q3245PWR</value>
+      <footprint>Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="ISO2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0f5963aa-8005-5d00-a305-2e9d36e1cc34</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="18"/>
+            <pin num="3"/>
+            <pin num="17"/>
+            <pin num="4"/>
+            <pin num="16"/>
+            <pin num="5"/>
+            <pin num="15"/>
+            <pin num="6"/>
+            <pin num="14"/>
+            <pin num="7"/>
+            <pin num="13"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="9"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="ISO3">
+      <value>SN74CB3Q3245PWR</value>
+      <footprint>Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="ISO3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>70ad5209-d3a1-5d71-8998-001cc48604ef</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="18"/>
+            <pin num="3"/>
+            <pin num="17"/>
+            <pin num="4"/>
+            <pin num="16"/>
+            <pin num="5"/>
+            <pin num="15"/>
+            <pin num="6"/>
+            <pin num="14"/>
+            <pin num="7"/>
+            <pin num="13"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="9"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>OLIMEX_PGM1_TAP</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="J1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8d59b826-aaec-5c19-9730-ab60f3efdf7c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>PIM724_PICO_PLUS2</value>
+      <datasheet>https://shop.pimoroni.com/products/pimoroni-pico-plus-2</datasheet>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet">https://shop.pimoroni.com/products/pimoroni-pico-plus-2</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="J2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fb62b88a-0798-5d00-8a91-0f8e41be565a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+            <pin num="28"/>
+            <pin num="29"/>
+            <pin num="30"/>
+            <pin num="31"/>
+            <pin num="32"/>
+            <pin num="33"/>
+            <pin num="34"/>
+            <pin num="35"/>
+            <pin num="36"/>
+            <pin num="37"/>
+            <pin num="38"/>
+            <pin num="39"/>
+            <pin num="40"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J3">
+      <value>MICROSD_SPI</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="J3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bbb1db87-d399-5374-bf17-d7dc63d40610</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="SH"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J4">
+      <value>REGULATED_5V_INPUT</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="J4" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ed4b8d56-9d13-5a84-801b-9b5e95e87853</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J5">
+      <value>BRINGUP_PROBES</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="J5" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4faedf3d-59fa-5be4-b5f4-ad1e651fc0d9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R1">
+      <value>2k2</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>48814988-0170-54f9-ad58-8aab7e1128e0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R2">
+      <value>22k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>998f500a-7ff4-5fd6-b5c3-208a24c97457</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R3">
+      <value>2k2</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>94ed3523-7767-5a95-8879-7d974acb69f8</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R4">
+      <value>22k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R4" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>65d12630-7aac-5cae-9943-87dd590eb73e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R5">
+      <value>2k2</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R5" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>709f40d3-3414-5769-a09b-a442fec2b8c8</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R6">
+      <value>22k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R6" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7c718f3a-8ec6-5ab2-97fc-261748bc4657</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R7">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R7" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>19b9d67c-dd64-5598-8a2d-63259ca8b190</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R8">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R8" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4dccd9ad-67e0-5dae-b373-a87052485124</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R9">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R9" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>48b657b3-4a19-5fed-8f9f-733cb1c59b21</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R10">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R10" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c2260f53-f354-5f47-95dd-629fe639820a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R11">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R11" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ee8ee017-ae6e-5dfd-9aff-0f386ad5c0c7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R12">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R12" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8cc2c226-b581-5658-8f54-c655b0fac877</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R13">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R13" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8e6e7155-658b-585d-be68-9017b4dae1cf</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R14">
+      <value>1k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R14" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>46c08321-15c0-53cb-b372-3306714713f4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R15">
+      <value>1k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R15" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b6a8557a-bebf-5244-b44c-be7e2acc2918</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R16">
+      <value>100k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R16" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>57343134-8609-5fb3-859b-6e42216f8ae5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R17">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R17" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>78cf933d-5f3c-5dbf-aa88-a203f66b4826</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R18">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R18" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>01bb632a-32d2-5153-8f69-6afcfdd0cc0d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R19">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R19" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8cc57883-05a8-5ff1-833c-1b4b7f34ab1a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R20">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R20" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>95d8684a-73c4-5ad5-aab8-3cb86c5cbf4b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R21">
+      <value>4k7</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R21" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>291592cd-74c0-53e3-8807-e9e5b80db041</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R22">
+      <value>47k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R22" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7e3ea450-68d4-5449-a477-509584aae2e1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R23">
+      <value>47k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R23" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1779f14a-0574-5bb9-8c50-f884a807091c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R24">
+      <value>47k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="R24" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f856c8e-26dd-5c43-b0ff-150886639fe9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="RX1">
+      <value>SN74LVC541ADWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="RX1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>57d9f532-b488-5fd7-897d-5f3fb26d7c82</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="RX2">
+      <value>SN74LVC541ADWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="RX2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5077991b-3ac2-5b51-9e8a-50ea6b414b7e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="RX3">
+      <value>SN74LVC541ADWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="RX3" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>94b853b3-623b-5412-a109-bf9af265880d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="RX4">
+      <value>SN74LVC541ADWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="RX4" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>472ed40c-e535-540b-a5ee-49b9246c5ca3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="RX5">
+      <value>SN74LVC541ADWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="RX5" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e51c8671-3f4d-5962-a3b3-0ba3227ed2d2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="SW1">
+      <value>DPDT_MODE_LOGICAL</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="SW1" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6a5b6dbd-67e7-5c89-b2e5-e34792bc1a56</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U4">
+      <value>SN74AHCT541DWR</value>
+      <footprint>Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74ahct541.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74ahct541.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U4" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>09cdd313-0e4d-521d-8c40-5ab471e17607</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="10"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="18"/>
+            <pin num="17"/>
+            <pin num="16"/>
+            <pin num="15"/>
+            <pin num="14"/>
+            <pin num="13"/>
+            <pin num="12"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U5">
+      <value>SN74AHCT1G125DBVR</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74ahct1g125.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74ahct1g125.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U5" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0934cdc5-8107-5b91-bbb0-63eb00f4d709</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U6">
+      <value>SN74LVC08ADR</value>
+      <footprint>Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U6" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6702548b-7e95-537a-afb5-af45627593ac</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="7"/>
+            <pin num="14"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U7">
+      <value>SN74LVC08ADR</value>
+      <footprint>Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U7" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b67e46ce-2bca-5f2a-b60c-77feac090c73</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="7"/>
+            <pin num="14"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U8">
+      <value>SN74LVC00ADR</value>
+      <footprint>Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc00a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc00a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U8" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>608cc9bf-4314-5179-bf7d-6a10c8d0480b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="7"/>
+            <pin num="14"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U9">
+      <value>SN74LVC07ADR</value>
+      <footprint>Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc07a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc07a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U9" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fb692ba8-b45c-5bd6-8e51-fb3d45dc1a9d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="7"/>
+            <pin num="14"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="9"/>
+            <pin num="8"/>
+            <pin num="11"/>
+            <pin num="10"/>
+            <pin num="13"/>
+            <pin num="12"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U10">
+      <value>TLV803EA30DBZR</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tlv803e.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tlv803e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U10" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8842f618-acca-5dcd-ab5e-dfef3b6c446f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U11">
+      <value>TLV803EA46DBZR</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tlv803e.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tlv803e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U11" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a33904ba-ee06-5cbe-97bb-dc202fe5a314</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U12">
+      <value>TLV803EA30DBZR</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tlv803e.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tlv803e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U12" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0bc2bca5-18f5-5805-a73b-fb5cb771613e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U13">
+      <value>SN74LVC00ADR</value>
+      <footprint>Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc00a.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_SO:SOIC-14_3.9x8.7mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc00a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="U13" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1a08a699-9f4d-526c-9421-fb153ccb5d43</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="7"/>
+            <pin num="14"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="8"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="11"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="X2">
+      <value>PC1715_X2</value>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Pico1715" part="X2" description=""/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3a2adf16-8b07-5325-9f8a-10ab8e0bc021</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="A1"/>
+            <pin num="A2"/>
+            <pin num="A3"/>
+            <pin num="A4"/>
+            <pin num="A5"/>
+            <pin num="A6"/>
+            <pin num="A7"/>
+            <pin num="A8"/>
+            <pin num="A9"/>
+            <pin num="A10"/>
+            <pin num="A11"/>
+            <pin num="A12"/>
+            <pin num="A13"/>
+            <pin num="A14"/>
+            <pin num="A15"/>
+            <pin num="A16"/>
+            <pin num="A17"/>
+            <pin num="A18"/>
+            <pin num="A19"/>
+            <pin num="A20"/>
+            <pin num="A21"/>
+            <pin num="A22"/>
+            <pin num="A23"/>
+            <pin num="A24"/>
+            <pin num="A25"/>
+            <pin num="A26"/>
+            <pin num="A27"/>
+            <pin num="A28"/>
+            <pin num="A29"/>
+            <pin num="B1"/>
+            <pin num="B2"/>
+            <pin num="B3"/>
+            <pin num="B4"/>
+            <pin num="B5"/>
+            <pin num="B6"/>
+            <pin num="B7"/>
+            <pin num="B8"/>
+            <pin num="B9"/>
+            <pin num="B10"/>
+            <pin num="B11"/>
+            <pin num="B12"/>
+            <pin num="B13"/>
+            <pin num="B14"/>
+            <pin num="B15"/>
+            <pin num="B16"/>
+            <pin num="B17"/>
+            <pin num="B18"/>
+            <pin num="B19"/>
+            <pin num="B20"/>
+            <pin num="B21"/>
+            <pin num="B22"/>
+            <pin num="B23"/>
+            <pin num="B24"/>
+            <pin num="B25"/>
+            <pin num="B26"/>
+            <pin num="B27"/>
+            <pin num="B28"/>
+            <pin num="B29"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Pico1715" part="C1">
+      <fields>
+        <field name="Reference">C1</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C10">
+      <fields>
+        <field name="Reference">C10</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C11">
+      <fields>
+        <field name="Reference">C11</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C12">
+      <fields>
+        <field name="Reference">C12</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C13">
+      <fields>
+        <field name="Reference">C13</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C14">
+      <fields>
+        <field name="Reference">C14</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C15">
+      <fields>
+        <field name="Reference">C15</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C16">
+      <fields>
+        <field name="Reference">C16</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C17">
+      <fields>
+        <field name="Reference">C17</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C18">
+      <fields>
+        <field name="Reference">C18</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C19">
+      <fields>
+        <field name="Reference">C19</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C2">
+      <fields>
+        <field name="Reference">C2</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C20">
+      <fields>
+        <field name="Reference">C20</field>
+        <field name="Value">10uF_10V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C21">
+      <fields>
+        <field name="Reference">C21</field>
+        <field name="Value">10uF_10V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C22">
+      <fields>
+        <field name="Reference">C22</field>
+        <field name="Value">10uF_10V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C3">
+      <fields>
+        <field name="Reference">C3</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C4">
+      <fields>
+        <field name="Reference">C4</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C5">
+      <fields>
+        <field name="Reference">C5</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C6">
+      <fields>
+        <field name="Reference">C6</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C7">
+      <fields>
+        <field name="Reference">C7</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C8">
+      <fields>
+        <field name="Reference">C8</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="C9">
+      <fields>
+        <field name="Reference">C9</field>
+        <field name="Value">100nF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="D1">
+      <fields>
+        <field name="Reference">D1</field>
+        <field name="Value">SS14</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="EXT1">
+      <fields>
+        <field name="Reference">EXT1</field>
+        <field name="Value">OLIMEX_EXT1</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="V5_MODULE" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="V3P3" type="power_out"/>
+        <pin num="4" name="GND" type="passive"/>
+        <pin num="5" name="NC" type="passive"/>
+        <pin num="6" name="NC" type="passive"/>
+        <pin num="7" name="F_A0" type="passive"/>
+        <pin num="8" name="GND" type="passive"/>
+        <pin num="9" name="F_A1" type="passive"/>
+        <pin num="10" name="F_HOST_OE" type="passive"/>
+        <pin num="11" name="F_A2" type="passive"/>
+        <pin num="12" name="POWER_GOOD" type="passive"/>
+        <pin num="13" name="F_A3" type="passive"/>
+        <pin num="14" name="F_RESET_N" type="passive"/>
+        <pin num="15" name="F_A4" type="passive"/>
+        <pin num="16" name="F_PRIORITY" type="passive"/>
+        <pin num="17" name="F_A5" type="passive"/>
+        <pin num="18" name="F_WR_N" type="passive"/>
+        <pin num="19" name="F_A6" type="passive"/>
+        <pin num="20" name="F_RD_N" type="passive"/>
+        <pin num="21" name="F_A7" type="passive"/>
+        <pin num="22" name="F_MREQ_N" type="passive"/>
+        <pin num="23" name="F_D0" type="passive"/>
+        <pin num="24" name="F_M1_N" type="passive"/>
+        <pin num="25" name="F_D1" type="passive"/>
+        <pin num="26" name="F_IORQ_N" type="passive"/>
+        <pin num="27" name="F_D2" type="passive"/>
+        <pin num="28" name="F_DO7" type="passive"/>
+        <pin num="29" name="F_D3" type="passive"/>
+        <pin num="30" name="F_DO6" type="passive"/>
+        <pin num="31" name="F_D4" type="passive"/>
+        <pin num="32" name="F_DO5" type="passive"/>
+        <pin num="33" name="F_D5" type="passive"/>
+        <pin num="34" name="F_DO4" type="passive"/>
+        <pin num="35" name="F_D6" type="passive"/>
+        <pin num="36" name="F_DO3" type="passive"/>
+        <pin num="37" name="F_D7" type="passive"/>
+        <pin num="38" name="F_DO2" type="passive"/>
+        <pin num="39" name="F_DO0" type="passive"/>
+        <pin num="40" name="F_DO1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="EXT2">
+      <fields>
+        <field name="Reference">EXT2</field>
+        <field name="Value">OLIMEX_EXT2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="NC" type="passive"/>
+        <pin num="4" name="GND" type="passive"/>
+        <pin num="5" name="NC" type="passive"/>
+        <pin num="6" name="NC" type="passive"/>
+        <pin num="7" name="F_WAIT" type="passive"/>
+        <pin num="8" name="GND" type="passive"/>
+        <pin num="9" name="F_INT" type="passive"/>
+        <pin num="10" name="L_GP9" type="passive"/>
+        <pin num="11" name="F_IEO" type="passive"/>
+        <pin num="12" name="L_GP8" type="passive"/>
+        <pin num="13" name="F_FAULT" type="passive"/>
+        <pin num="14" name="L_GP7" type="passive"/>
+        <pin num="15" name="F_A8" type="passive"/>
+        <pin num="16" name="L_GP6" type="passive"/>
+        <pin num="17" name="F_A9" type="passive"/>
+        <pin num="18" name="L_GP5" type="passive"/>
+        <pin num="19" name="F_A10" type="passive"/>
+        <pin num="20" name="L_GP4" type="passive"/>
+        <pin num="21" name="F_A11" type="passive"/>
+        <pin num="22" name="L_GP3" type="passive"/>
+        <pin num="23" name="F_A12" type="passive"/>
+        <pin num="24" name="L_GP2" type="passive"/>
+        <pin num="25" name="F_A13" type="passive"/>
+        <pin num="26" name="L_GP1" type="passive"/>
+        <pin num="27" name="F_A14" type="passive"/>
+        <pin num="28" name="L_GP0" type="passive"/>
+        <pin num="29" name="F_A15" type="passive"/>
+        <pin num="30" name="NC" type="passive"/>
+        <pin num="31" name="F_RFSH_N" type="passive"/>
+        <pin num="32" name="NC" type="passive"/>
+        <pin num="33" name="F_CLK" type="passive"/>
+        <pin num="34" name="NC" type="passive"/>
+        <pin num="35" name="F_WAIT_N" type="passive"/>
+        <pin num="36" name="NC" type="passive"/>
+        <pin num="37" name="F_INT_N" type="passive"/>
+        <pin num="38" name="PERSONALITY_CTL" type="passive"/>
+        <pin num="39" name="F_BUSRQ_N" type="passive"/>
+        <pin num="40" name="F_BAO_N" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="EXT3">
+      <fields>
+        <field name="Reference">EXT3</field>
+        <field name="Value">OLIMEX_EXT3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="NC" type="passive"/>
+        <pin num="4" name="GND" type="passive"/>
+        <pin num="5" name="NC" type="passive"/>
+        <pin num="6" name="NC" type="passive"/>
+        <pin num="7" name="L_GP10" type="passive"/>
+        <pin num="8" name="GND" type="passive"/>
+        <pin num="9" name="L_GP11" type="passive"/>
+        <pin num="10" name="NC" type="passive"/>
+        <pin num="11" name="L_GP12" type="passive"/>
+        <pin num="12" name="NC" type="passive"/>
+        <pin num="13" name="L_GP13" type="passive"/>
+        <pin num="14" name="NC" type="passive"/>
+        <pin num="15" name="L_GP14" type="passive"/>
+        <pin num="16" name="NC" type="passive"/>
+        <pin num="17" name="L_GP16" type="passive"/>
+        <pin num="18" name="NC" type="passive"/>
+        <pin num="19" name="L_GP17" type="passive"/>
+        <pin num="20" name="NC" type="passive"/>
+        <pin num="21" name="L_GP18" type="passive"/>
+        <pin num="22" name="NC" type="passive"/>
+        <pin num="23" name="L_GP19" type="passive"/>
+        <pin num="24" name="NC" type="passive"/>
+        <pin num="25" name="L_GP20" type="passive"/>
+        <pin num="26" name="NC" type="passive"/>
+        <pin num="27" name="L_GP21" type="passive"/>
+        <pin num="28" name="NC" type="passive"/>
+        <pin num="29" name="LINK_OK" type="passive"/>
+        <pin num="30" name="NC" type="passive"/>
+        <pin num="31" name="NC" type="passive"/>
+        <pin num="32" name="NC" type="passive"/>
+        <pin num="33" name="NC" type="passive"/>
+        <pin num="34" name="NC" type="passive"/>
+        <pin num="35" name="NC" type="passive"/>
+        <pin num="36" name="NC" type="passive"/>
+        <pin num="37" name="NC" type="passive"/>
+        <pin num="38" name="NC" type="passive"/>
+        <pin num="39" name="NC" type="passive"/>
+        <pin num="40" name="NC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="ISO1">
+      <fields>
+        <field name="Reference">ISO1</field>
+        <field name="Value">SN74CB3Q3245PWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="no_connect"/>
+        <pin num="2" name="A0" type="bidirectional"/>
+        <pin num="3" name="A1" type="bidirectional"/>
+        <pin num="4" name="A2" type="bidirectional"/>
+        <pin num="5" name="A3" type="bidirectional"/>
+        <pin num="6" name="A4" type="bidirectional"/>
+        <pin num="7" name="A5" type="bidirectional"/>
+        <pin num="8" name="A6" type="bidirectional"/>
+        <pin num="9" name="A7" type="bidirectional"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="B7" type="bidirectional"/>
+        <pin num="12" name="B6" type="bidirectional"/>
+        <pin num="13" name="B5" type="bidirectional"/>
+        <pin num="14" name="B4" type="bidirectional"/>
+        <pin num="15" name="B3" type="bidirectional"/>
+        <pin num="16" name="B2" type="bidirectional"/>
+        <pin num="17" name="B1" type="bidirectional"/>
+        <pin num="18" name="B0" type="bidirectional"/>
+        <pin num="19" name="OE_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="ISO2">
+      <fields>
+        <field name="Reference">ISO2</field>
+        <field name="Value">SN74CB3Q3245PWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="no_connect"/>
+        <pin num="2" name="A0" type="bidirectional"/>
+        <pin num="3" name="A1" type="bidirectional"/>
+        <pin num="4" name="A2" type="bidirectional"/>
+        <pin num="5" name="A3" type="bidirectional"/>
+        <pin num="6" name="A4" type="bidirectional"/>
+        <pin num="7" name="A5" type="bidirectional"/>
+        <pin num="8" name="A6" type="bidirectional"/>
+        <pin num="9" name="A7" type="bidirectional"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="B7" type="bidirectional"/>
+        <pin num="12" name="B6" type="bidirectional"/>
+        <pin num="13" name="B5" type="bidirectional"/>
+        <pin num="14" name="B4" type="bidirectional"/>
+        <pin num="15" name="B3" type="bidirectional"/>
+        <pin num="16" name="B2" type="bidirectional"/>
+        <pin num="17" name="B1" type="bidirectional"/>
+        <pin num="18" name="B0" type="bidirectional"/>
+        <pin num="19" name="OE_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="ISO3">
+      <fields>
+        <field name="Reference">ISO3</field>
+        <field name="Value">SN74CB3Q3245PWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="no_connect"/>
+        <pin num="2" name="A0" type="bidirectional"/>
+        <pin num="3" name="A1" type="bidirectional"/>
+        <pin num="4" name="A2" type="bidirectional"/>
+        <pin num="5" name="A3" type="bidirectional"/>
+        <pin num="6" name="A4" type="bidirectional"/>
+        <pin num="7" name="A5" type="bidirectional"/>
+        <pin num="8" name="A6" type="bidirectional"/>
+        <pin num="9" name="A7" type="bidirectional"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="B7" type="bidirectional"/>
+        <pin num="12" name="B6" type="bidirectional"/>
+        <pin num="13" name="B5" type="bidirectional"/>
+        <pin num="14" name="B4" type="bidirectional"/>
+        <pin num="15" name="B3" type="bidirectional"/>
+        <pin num="16" name="B2" type="bidirectional"/>
+        <pin num="17" name="B1" type="bidirectional"/>
+        <pin num="18" name="B0" type="bidirectional"/>
+        <pin num="19" name="OE_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="J1">
+      <fields>
+        <field name="Reference">J1</field>
+        <field name="Value">OLIMEX_PGM1_TAP</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="5" name="CDONE" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="J2">
+      <fields>
+        <field name="Reference">J2</field>
+        <field name="Value">PIM724_PICO_PLUS2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="P_GP0" type="passive"/>
+        <pin num="2" name="P_GP1" type="passive"/>
+        <pin num="3" name="GND" type="passive"/>
+        <pin num="4" name="P_GP2" type="passive"/>
+        <pin num="5" name="P_GP3" type="passive"/>
+        <pin num="6" name="P_GP4" type="passive"/>
+        <pin num="7" name="P_GP5" type="passive"/>
+        <pin num="8" name="GND" type="passive"/>
+        <pin num="9" name="P_GP6" type="passive"/>
+        <pin num="10" name="P_GP7" type="passive"/>
+        <pin num="11" name="P_GP8" type="passive"/>
+        <pin num="12" name="P_GP9" type="passive"/>
+        <pin num="13" name="GND" type="passive"/>
+        <pin num="14" name="P_GP10" type="passive"/>
+        <pin num="15" name="P_GP11" type="passive"/>
+        <pin num="16" name="P_GP12" type="passive"/>
+        <pin num="17" name="P_GP13" type="passive"/>
+        <pin num="18" name="GND" type="passive"/>
+        <pin num="19" name="P_GP14" type="passive"/>
+        <pin num="20" name="P_GP15" type="passive"/>
+        <pin num="21" name="P_GP16" type="passive"/>
+        <pin num="22" name="P_GP17" type="passive"/>
+        <pin num="23" name="GND" type="passive"/>
+        <pin num="24" name="P_GP18" type="passive"/>
+        <pin num="25" name="P_GP19" type="passive"/>
+        <pin num="26" name="P_GP20" type="passive"/>
+        <pin num="27" name="P_GP21" type="passive"/>
+        <pin num="28" name="GND" type="passive"/>
+        <pin num="29" name="P_GP22" type="passive"/>
+        <pin num="30" name="NC" type="passive"/>
+        <pin num="31" name="P_GP26" type="passive"/>
+        <pin num="32" name="P_GP27" type="passive"/>
+        <pin num="33" name="GND" type="passive"/>
+        <pin num="34" name="P_GP28" type="passive"/>
+        <pin num="35" name="NC" type="passive"/>
+        <pin num="36" name="P3V3" type="power_out"/>
+        <pin num="37" name="NC" type="passive"/>
+        <pin num="38" name="GND" type="passive"/>
+        <pin num="39" name="P_VSYS" type="passive"/>
+        <pin num="40" name="NC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="J3">
+      <fields>
+        <field name="Reference">J3</field>
+        <field name="Value">MICROSD_SPI</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="DAT2" type="passive"/>
+        <pin num="2" name="DAT3_CS" type="input"/>
+        <pin num="3" name="CMD_MOSI" type="input"/>
+        <pin num="4" name="VDD" type="power_in"/>
+        <pin num="5" name="CLK" type="input"/>
+        <pin num="6" name="VSS" type="power_in"/>
+        <pin num="7" name="DAT0_MISO" type="tri_state"/>
+        <pin num="8" name="DAT1" type="passive"/>
+        <pin num="SH" name="SHIELD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="J4">
+      <fields>
+        <field name="Reference">J4</field>
+        <field name="Value">REGULATED_5V_INPUT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="5V" type="power_out"/>
+        <pin num="2" name="GND" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="J5">
+      <fields>
+        <field name="Reference">J5</field>
+        <field name="Value">BRINGUP_PROBES</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="passive"/>
+        <pin num="2" name="PG3" type="passive"/>
+        <pin num="3" name="PG5" type="passive"/>
+        <pin num="4" name="PGP" type="passive"/>
+        <pin num="5" name="CDONE" type="passive"/>
+        <pin num="6" name="MODE_CTL" type="passive"/>
+        <pin num="7" name="PERSONALITY_CTL" type="passive"/>
+        <pin num="8" name="LINK_OK" type="passive"/>
+        <pin num="9" name="ARMED" type="passive"/>
+        <pin num="10" name="DATA_OE_N" type="passive"/>
+        <pin num="11" name="H_WAIT_N" type="passive"/>
+        <pin num="12" name="H_INT_N" type="passive"/>
+        <pin num="13" name="F_FAULT" type="passive"/>
+        <pin num="14" name="P3V3" type="passive"/>
+        <pin num="15" name="V3P3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R1">
+      <fields>
+        <field name="Reference">R1</field>
+        <field name="Value">2k2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R10">
+      <fields>
+        <field name="Reference">R10</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R11">
+      <fields>
+        <field name="Reference">R11</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R12">
+      <fields>
+        <field name="Reference">R12</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R13">
+      <fields>
+        <field name="Reference">R13</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R14">
+      <fields>
+        <field name="Reference">R14</field>
+        <field name="Value">1k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R15">
+      <fields>
+        <field name="Reference">R15</field>
+        <field name="Value">1k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R16">
+      <fields>
+        <field name="Reference">R16</field>
+        <field name="Value">100k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R17">
+      <fields>
+        <field name="Reference">R17</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R18">
+      <fields>
+        <field name="Reference">R18</field>
+        <field name="Value">10k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R19">
+      <fields>
+        <field name="Reference">R19</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R2">
+      <fields>
+        <field name="Reference">R2</field>
+        <field name="Value">22k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R20">
+      <fields>
+        <field name="Reference">R20</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R21">
+      <fields>
+        <field name="Reference">R21</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R22">
+      <fields>
+        <field name="Reference">R22</field>
+        <field name="Value">47k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R23">
+      <fields>
+        <field name="Reference">R23</field>
+        <field name="Value">47k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R24">
+      <fields>
+        <field name="Reference">R24</field>
+        <field name="Value">47k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R3">
+      <fields>
+        <field name="Reference">R3</field>
+        <field name="Value">2k2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R4">
+      <fields>
+        <field name="Reference">R4</field>
+        <field name="Value">22k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R5">
+      <fields>
+        <field name="Reference">R5</field>
+        <field name="Value">2k2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R6">
+      <fields>
+        <field name="Reference">R6</field>
+        <field name="Value">22k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R7">
+      <fields>
+        <field name="Reference">R7</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R8">
+      <fields>
+        <field name="Reference">R8</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="R9">
+      <fields>
+        <field name="Reference">R9</field>
+        <field name="Value">4k7</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="RX1">
+      <fields>
+        <field name="Reference">RX1</field>
+        <field name="Value">SN74LVC541ADWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="RX2">
+      <fields>
+        <field name="Reference">RX2</field>
+        <field name="Value">SN74LVC541ADWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="RX3">
+      <fields>
+        <field name="Reference">RX3</field>
+        <field name="Value">SN74LVC541ADWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="RX4">
+      <fields>
+        <field name="Reference">RX4</field>
+        <field name="Value">SN74LVC541ADWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="RX5">
+      <fields>
+        <field name="Reference">RX5</field>
+        <field name="Value">SN74LVC541ADWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="SW1">
+      <fields>
+        <field name="Reference">SW1</field>
+        <field name="Value">DPDT_MODE_LOGICAL</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="PASSIVE_GND" type="passive"/>
+        <pin num="2" name="COMMON_MODE" type="passive"/>
+        <pin num="3" name="CONTROLLER_3V3" type="passive"/>
+        <pin num="4" name="PASSIVE_IEI" type="passive"/>
+        <pin num="5" name="COMMON_IEO" type="passive"/>
+        <pin num="6" name="CONTROLLER_IEO" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U10">
+      <fields>
+        <field name="Reference">U10</field>
+        <field name="Value">TLV803EA30DBZR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="RESET_N" type="open_collector"/>
+        <pin num="3" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U11">
+      <fields>
+        <field name="Reference">U11</field>
+        <field name="Value">TLV803EA46DBZR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="RESET_N" type="open_collector"/>
+        <pin num="3" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U12">
+      <fields>
+        <field name="Reference">U12</field>
+        <field name="Value">TLV803EA30DBZR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="RESET_N" type="open_collector"/>
+        <pin num="3" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U13">
+      <fields>
+        <field name="Reference">U13</field>
+        <field name="Value">SN74LVC00ADR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1A" type="input"/>
+        <pin num="2" name="1B" type="input"/>
+        <pin num="3" name="1Y" type="output"/>
+        <pin num="4" name="2A" type="input"/>
+        <pin num="5" name="2B" type="input"/>
+        <pin num="6" name="2Y" type="output"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="3Y" type="output"/>
+        <pin num="9" name="3A" type="input"/>
+        <pin num="10" name="3B" type="input"/>
+        <pin num="11" name="4Y" type="output"/>
+        <pin num="12" name="4A" type="input"/>
+        <pin num="13" name="4B" type="input"/>
+        <pin num="14" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U4">
+      <fields>
+        <field name="Reference">U4</field>
+        <field name="Value">SN74AHCT541DWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE1_N" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="A1" type="input"/>
+        <pin num="4" name="A2" type="input"/>
+        <pin num="5" name="A3" type="input"/>
+        <pin num="6" name="A4" type="input"/>
+        <pin num="7" name="A5" type="input"/>
+        <pin num="8" name="A6" type="input"/>
+        <pin num="9" name="A7" type="input"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="Y7" type="tri_state"/>
+        <pin num="12" name="Y6" type="tri_state"/>
+        <pin num="13" name="Y5" type="tri_state"/>
+        <pin num="14" name="Y4" type="tri_state"/>
+        <pin num="15" name="Y3" type="tri_state"/>
+        <pin num="16" name="Y2" type="tri_state"/>
+        <pin num="17" name="Y1" type="tri_state"/>
+        <pin num="18" name="Y0" type="tri_state"/>
+        <pin num="19" name="OE2_N" type="input"/>
+        <pin num="20" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U5">
+      <fields>
+        <field name="Reference">U5</field>
+        <field name="Value">SN74AHCT1G125DBVR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OE_N" type="input"/>
+        <pin num="2" name="A" type="input"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="Y" type="tri_state"/>
+        <pin num="5" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U6">
+      <fields>
+        <field name="Reference">U6</field>
+        <field name="Value">SN74LVC08ADR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1A" type="input"/>
+        <pin num="2" name="1B" type="input"/>
+        <pin num="3" name="1Y" type="output"/>
+        <pin num="4" name="2A" type="input"/>
+        <pin num="5" name="2B" type="input"/>
+        <pin num="6" name="2Y" type="output"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="3Y" type="output"/>
+        <pin num="9" name="3A" type="input"/>
+        <pin num="10" name="3B" type="input"/>
+        <pin num="11" name="4Y" type="output"/>
+        <pin num="12" name="4A" type="input"/>
+        <pin num="13" name="4B" type="input"/>
+        <pin num="14" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U7">
+      <fields>
+        <field name="Reference">U7</field>
+        <field name="Value">SN74LVC08ADR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1A" type="input"/>
+        <pin num="2" name="1B" type="input"/>
+        <pin num="3" name="1Y" type="output"/>
+        <pin num="4" name="2A" type="input"/>
+        <pin num="5" name="2B" type="input"/>
+        <pin num="6" name="2Y" type="output"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="3Y" type="output"/>
+        <pin num="9" name="3A" type="input"/>
+        <pin num="10" name="3B" type="input"/>
+        <pin num="11" name="4Y" type="output"/>
+        <pin num="12" name="4A" type="input"/>
+        <pin num="13" name="4B" type="input"/>
+        <pin num="14" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U8">
+      <fields>
+        <field name="Reference">U8</field>
+        <field name="Value">SN74LVC00ADR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1A" type="input"/>
+        <pin num="2" name="1B" type="input"/>
+        <pin num="3" name="1Y" type="output"/>
+        <pin num="4" name="2A" type="input"/>
+        <pin num="5" name="2B" type="input"/>
+        <pin num="6" name="2Y" type="output"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="3Y" type="output"/>
+        <pin num="9" name="3A" type="input"/>
+        <pin num="10" name="3B" type="input"/>
+        <pin num="11" name="4Y" type="output"/>
+        <pin num="12" name="4A" type="input"/>
+        <pin num="13" name="4B" type="input"/>
+        <pin num="14" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="U9">
+      <fields>
+        <field name="Reference">U9</field>
+        <field name="Value">SN74LVC07ADR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1A" type="input"/>
+        <pin num="2" name="1Y" type="open_collector"/>
+        <pin num="3" name="2A" type="input"/>
+        <pin num="4" name="2Y" type="open_collector"/>
+        <pin num="5" name="3A" type="input"/>
+        <pin num="6" name="3Y" type="open_collector"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="4Y" type="open_collector"/>
+        <pin num="9" name="4A" type="input"/>
+        <pin num="10" name="5Y" type="open_collector"/>
+        <pin num="11" name="5A" type="input"/>
+        <pin num="12" name="6Y" type="open_collector"/>
+        <pin num="13" name="6A" type="input"/>
+        <pin num="14" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Pico1715" part="X2">
+      <fields>
+        <field name="Reference">X2</field>
+        <field name="Value">PC1715_X2</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="A1" name="0V" type="passive"/>
+        <pin num="A2" name="0V" type="passive"/>
+        <pin num="A3" name="/PIOCS0" type="passive"/>
+        <pin num="A4" name="DB7" type="passive"/>
+        <pin num="A5" name="DB5" type="passive"/>
+        <pin num="A6" name="DB3" type="passive"/>
+        <pin num="A7" name="DB1" type="passive"/>
+        <pin num="A8" name="/WR" type="passive"/>
+        <pin num="A9" name="/MREQ" type="passive"/>
+        <pin num="A10" name="IEI" type="passive"/>
+        <pin num="A11" name="AB14" type="passive"/>
+        <pin num="A12" name="AB12" type="passive"/>
+        <pin num="A13" name="AB10" type="passive"/>
+        <pin num="A14" name="AB8" type="passive"/>
+        <pin num="A15" name="5N" type="passive"/>
+        <pin num="A16" name="AB6" type="passive"/>
+        <pin num="A17" name="AB4" type="passive"/>
+        <pin num="A18" name="AB2" type="passive"/>
+        <pin num="A19" name="AB0" type="passive"/>
+        <pin num="A20" name="/RESET" type="passive"/>
+        <pin num="A21" name="TAKT-X2" type="passive"/>
+        <pin num="A22" name="/IODI" type="passive"/>
+        <pin num="A23" name="/NMI" type="passive"/>
+        <pin num="A24" name="/WAIT" type="passive"/>
+        <pin num="A25" name="/RFSH" type="passive"/>
+        <pin num="A26" name="/M1" type="passive"/>
+        <pin num="A27" name="/BAO" type="passive"/>
+        <pin num="A28" name="12P" type="passive"/>
+        <pin num="A29" name="5P" type="power_out"/>
+        <pin num="B1" name="0V" type="passive"/>
+        <pin num="B2" name="0V" type="passive"/>
+        <pin num="B3" name="/PIOCS1" type="passive"/>
+        <pin num="B4" name="DB6" type="passive"/>
+        <pin num="B5" name="DB4" type="passive"/>
+        <pin num="B6" name="DB2" type="passive"/>
+        <pin num="B7" name="DB0" type="passive"/>
+        <pin num="B8" name="/RD" type="passive"/>
+        <pin num="B9" name="/MEMDI" type="passive"/>
+        <pin num="B10" name="IEO" type="passive"/>
+        <pin num="B11" name="AB15" type="passive"/>
+        <pin num="B12" name="AB13" type="passive"/>
+        <pin num="B13" name="AB11" type="passive"/>
+        <pin num="B14" name="AB9" type="passive"/>
+        <pin num="B15" name="12N" type="passive"/>
+        <pin num="B16" name="AB7" type="passive"/>
+        <pin num="B17" name="AB5" type="passive"/>
+        <pin num="B18" name="AB3" type="passive"/>
+        <pin num="B19" name="AB1" type="passive"/>
+        <pin num="B20" name="/BUSRQ" type="passive"/>
+        <pin num="B21" name="/LT107CS" type="passive"/>
+        <pin num="B22" name="/CTCCS1" type="passive"/>
+        <pin num="B23" name="/INT" type="passive"/>
+        <pin num="B24" name="/IORQ" type="passive"/>
+        <pin num="B25" name="/KRF0" type="passive"/>
+        <pin num="B26" name="/SIOCS1" type="passive"/>
+        <pin num="B27" name="NC" type="passive"/>
+        <pin num="B28" name="12P" type="passive"/>
+        <pin num="B29" name="5P" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Pico1715">
+      <uri>${KIPRJMOD}/Pico1715.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/ARMED" class="Default">
+      <node ref="J5" pin="9" pinfunction="ARMED_9" pintype="passive"/>
+      <node ref="U7" pin="11" pinfunction="4Y_11" pintype="output"/>
+      <node ref="U8" pin="1" pinfunction="1A_1" pintype="input"/>
+      <node ref="U8" pin="12" pinfunction="4A_12" pintype="input"/>
+      <node ref="U8" pin="13" pinfunction="4B_13" pintype="input"/>
+      <node ref="U8" pin="4" pinfunction="2A_4" pintype="input"/>
+      <node ref="U8" pin="9" pinfunction="3A_9" pintype="input"/>
+    </net>
+    <net code="2" name="/BACKEND_OK" class="Default">
+      <node ref="U7" pin="6" pinfunction="2Y_6" pintype="output"/>
+      <node ref="U7" pin="9" pinfunction="3A_9" pintype="input"/>
+    </net>
+    <net code="3" name="/CDONE" class="Default">
+      <node ref="J1" pin="5" pinfunction="CDONE_5" pintype="passive"/>
+      <node ref="J5" pin="5" pinfunction="CDONE_5" pintype="passive"/>
+      <node ref="R16" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U6" pin="10" pinfunction="3B_10" pintype="input"/>
+    </net>
+    <net code="4" name="/DATA_EN_N" class="Default">
+      <node ref="U8" pin="3" pinfunction="1Y_3" pintype="output"/>
+      <node ref="U9" pin="1" pinfunction="1A_1" pintype="input"/>
+    </net>
+    <net code="5" name="/DATA_OE_N" class="Default">
+      <node ref="J5" pin="10" pinfunction="DATA_OE_N_10" pintype="passive"/>
+      <node ref="R14" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U4" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="U9" pin="2" pinfunction="1Y_2" pintype="open_collector"/>
+    </net>
+    <net code="6" name="/DRIVEN_IEO" class="Default">
+      <node ref="SW1" pin="6" pinfunction="CONTROLLER_IEO_6" pintype="passive"/>
+      <node ref="U5" pin="4" pinfunction="Y_4" pintype="tri_state"/>
+    </net>
+    <net code="7" name="/F_A0" class="Default">
+      <node ref="EXT1" pin="7" pinfunction="F_A0_7" pintype="passive"/>
+      <node ref="RX1" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+    </net>
+    <net code="8" name="/F_A1" class="Default">
+      <node ref="EXT1" pin="9" pinfunction="F_A1_9" pintype="passive"/>
+      <node ref="RX1" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+    </net>
+    <net code="9" name="/F_A2" class="Default">
+      <node ref="EXT1" pin="11" pinfunction="F_A2_11" pintype="passive"/>
+      <node ref="RX1" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+    </net>
+    <net code="10" name="/F_A3" class="Default">
+      <node ref="EXT1" pin="13" pinfunction="F_A3_13" pintype="passive"/>
+      <node ref="RX1" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+    </net>
+    <net code="11" name="/F_A4" class="Default">
+      <node ref="EXT1" pin="15" pinfunction="F_A4_15" pintype="passive"/>
+      <node ref="RX1" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+    </net>
+    <net code="12" name="/F_A5" class="Default">
+      <node ref="EXT1" pin="17" pinfunction="F_A5_17" pintype="passive"/>
+      <node ref="RX1" pin="13" pinfunction="Y5_13" pintype="tri_state"/>
+    </net>
+    <net code="13" name="/F_A6" class="Default">
+      <node ref="EXT1" pin="19" pinfunction="F_A6_19" pintype="passive"/>
+      <node ref="RX1" pin="12" pinfunction="Y6_12" pintype="tri_state"/>
+    </net>
+    <net code="14" name="/F_A7" class="Default">
+      <node ref="EXT1" pin="21" pinfunction="F_A7_21" pintype="passive"/>
+      <node ref="RX1" pin="11" pinfunction="Y7_11" pintype="tri_state"/>
+    </net>
+    <net code="15" name="/F_A8" class="Default">
+      <node ref="EXT2" pin="15" pinfunction="F_A8_15" pintype="passive"/>
+      <node ref="RX2" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+    </net>
+    <net code="16" name="/F_A9" class="Default">
+      <node ref="EXT2" pin="17" pinfunction="F_A9_17" pintype="passive"/>
+      <node ref="RX2" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+    </net>
+    <net code="17" name="/F_A10" class="Default">
+      <node ref="EXT2" pin="19" pinfunction="F_A10_19" pintype="passive"/>
+      <node ref="RX2" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+    </net>
+    <net code="18" name="/F_A11" class="Default">
+      <node ref="EXT2" pin="21" pinfunction="F_A11_21" pintype="passive"/>
+      <node ref="RX2" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+    </net>
+    <net code="19" name="/F_A12" class="Default">
+      <node ref="EXT2" pin="23" pinfunction="F_A12_23" pintype="passive"/>
+      <node ref="RX2" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+    </net>
+    <net code="20" name="/F_A13" class="Default">
+      <node ref="EXT2" pin="25" pinfunction="F_A13_25" pintype="passive"/>
+      <node ref="RX2" pin="13" pinfunction="Y5_13" pintype="tri_state"/>
+    </net>
+    <net code="21" name="/F_A14" class="Default">
+      <node ref="EXT2" pin="27" pinfunction="F_A14_27" pintype="passive"/>
+      <node ref="RX2" pin="12" pinfunction="Y6_12" pintype="tri_state"/>
+    </net>
+    <net code="22" name="/F_A15" class="Default">
+      <node ref="EXT2" pin="29" pinfunction="F_A15_29" pintype="passive"/>
+      <node ref="RX2" pin="11" pinfunction="Y7_11" pintype="tri_state"/>
+    </net>
+    <net code="23" name="/F_BAO_N" class="Default">
+      <node ref="EXT2" pin="40" pinfunction="F_BAO_N_40" pintype="passive"/>
+      <node ref="RX5" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+    </net>
+    <net code="24" name="/F_BUSRQ_N" class="Default">
+      <node ref="EXT2" pin="39" pinfunction="F_BUSRQ_N_39" pintype="passive"/>
+      <node ref="RX5" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+    </net>
+    <net code="25" name="/F_CLK" class="Default">
+      <node ref="EXT2" pin="33" pinfunction="F_CLK_33" pintype="passive"/>
+      <node ref="RX4" pin="12" pinfunction="Y6_12" pintype="tri_state"/>
+    </net>
+    <net code="26" name="/F_D0" class="Default">
+      <node ref="EXT1" pin="23" pinfunction="F_D0_23" pintype="passive"/>
+      <node ref="RX3" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+    </net>
+    <net code="27" name="/F_D1" class="Default">
+      <node ref="EXT1" pin="25" pinfunction="F_D1_25" pintype="passive"/>
+      <node ref="RX3" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+    </net>
+    <net code="28" name="/F_D2" class="Default">
+      <node ref="EXT1" pin="27" pinfunction="F_D2_27" pintype="passive"/>
+      <node ref="RX3" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+    </net>
+    <net code="29" name="/F_D3" class="Default">
+      <node ref="EXT1" pin="29" pinfunction="F_D3_29" pintype="passive"/>
+      <node ref="RX3" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+    </net>
+    <net code="30" name="/F_D4" class="Default">
+      <node ref="EXT1" pin="31" pinfunction="F_D4_31" pintype="passive"/>
+      <node ref="RX3" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+    </net>
+    <net code="31" name="/F_D5" class="Default">
+      <node ref="EXT1" pin="33" pinfunction="F_D5_33" pintype="passive"/>
+      <node ref="RX3" pin="13" pinfunction="Y5_13" pintype="tri_state"/>
+    </net>
+    <net code="32" name="/F_D6" class="Default">
+      <node ref="EXT1" pin="35" pinfunction="F_D6_35" pintype="passive"/>
+      <node ref="RX3" pin="12" pinfunction="Y6_12" pintype="tri_state"/>
+    </net>
+    <net code="33" name="/F_D7" class="Default">
+      <node ref="EXT1" pin="37" pinfunction="F_D7_37" pintype="passive"/>
+      <node ref="RX3" pin="11" pinfunction="Y7_11" pintype="tri_state"/>
+    </net>
+    <net code="34" name="/F_DO0" class="Default">
+      <node ref="EXT1" pin="39" pinfunction="F_DO0_39" pintype="passive"/>
+      <node ref="U4" pin="2" pinfunction="A0_2" pintype="input"/>
+    </net>
+    <net code="35" name="/F_DO1" class="Default">
+      <node ref="EXT1" pin="40" pinfunction="F_DO1_40" pintype="passive"/>
+      <node ref="U4" pin="3" pinfunction="A1_3" pintype="input"/>
+    </net>
+    <net code="36" name="/F_DO2" class="Default">
+      <node ref="EXT1" pin="38" pinfunction="F_DO2_38" pintype="passive"/>
+      <node ref="U4" pin="4" pinfunction="A2_4" pintype="input"/>
+    </net>
+    <net code="37" name="/F_DO3" class="Default">
+      <node ref="EXT1" pin="36" pinfunction="F_DO3_36" pintype="passive"/>
+      <node ref="U4" pin="5" pinfunction="A3_5" pintype="input"/>
+    </net>
+    <net code="38" name="/F_DO4" class="Default">
+      <node ref="EXT1" pin="34" pinfunction="F_DO4_34" pintype="passive"/>
+      <node ref="U4" pin="6" pinfunction="A4_6" pintype="input"/>
+    </net>
+    <net code="39" name="/F_DO5" class="Default">
+      <node ref="EXT1" pin="32" pinfunction="F_DO5_32" pintype="passive"/>
+      <node ref="U4" pin="7" pinfunction="A5_7" pintype="input"/>
+    </net>
+    <net code="40" name="/F_DO6" class="Default">
+      <node ref="EXT1" pin="30" pinfunction="F_DO6_30" pintype="passive"/>
+      <node ref="U4" pin="8" pinfunction="A6_8" pintype="input"/>
+    </net>
+    <net code="41" name="/F_DO7" class="Default">
+      <node ref="EXT1" pin="28" pinfunction="F_DO7_28" pintype="passive"/>
+      <node ref="U4" pin="9" pinfunction="A7_9" pintype="input"/>
+    </net>
+    <net code="42" name="/F_FAULT" class="Default">
+      <node ref="EXT2" pin="13" pinfunction="F_FAULT_13" pintype="passive"/>
+      <node ref="J5" pin="13" pinfunction="F_FAULT_13" pintype="passive"/>
+    </net>
+    <net code="43" name="/F_HOST_OE" class="Default">
+      <node ref="EXT1" pin="10" pinfunction="F_HOST_OE_10" pintype="passive"/>
+      <node ref="R10" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U8" pin="2" pinfunction="1B_2" pintype="input"/>
+    </net>
+    <net code="44" name="/F_IEO" class="Default">
+      <node ref="EXT2" pin="11" pinfunction="F_IEO_11" pintype="passive"/>
+      <node ref="R13" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U5" pin="2" pinfunction="A_2" pintype="input"/>
+    </net>
+    <net code="45" name="/F_INT" class="Default">
+      <node ref="EXT2" pin="9" pinfunction="F_INT_9" pintype="passive"/>
+      <node ref="R12" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U8" pin="10" pinfunction="3B_10" pintype="input"/>
+    </net>
+    <net code="46" name="/F_INT_N" class="Default">
+      <node ref="EXT2" pin="37" pinfunction="F_INT_N_37" pintype="passive"/>
+      <node ref="RX5" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+    </net>
+    <net code="47" name="/F_IORQ_N" class="Default">
+      <node ref="EXT1" pin="26" pinfunction="F_IORQ_N_26" pintype="passive"/>
+      <node ref="RX4" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+    </net>
+    <net code="48" name="/F_M1_N" class="Default">
+      <node ref="EXT1" pin="24" pinfunction="F_M1_N_24" pintype="passive"/>
+      <node ref="RX4" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+    </net>
+    <net code="49" name="/F_MREQ_N" class="Default">
+      <node ref="EXT1" pin="22" pinfunction="F_MREQ_N_22" pintype="passive"/>
+      <node ref="RX4" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+    </net>
+    <net code="50" name="/F_PRIORITY" class="Default">
+      <node ref="EXT1" pin="16" pinfunction="F_PRIORITY_16" pintype="passive"/>
+      <node ref="RX5" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+    </net>
+    <net code="51" name="/F_RD_N" class="Default">
+      <node ref="EXT1" pin="20" pinfunction="F_RD_N_20" pintype="passive"/>
+      <node ref="RX4" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+    </net>
+    <net code="52" name="/F_RESET_N" class="Default">
+      <node ref="EXT1" pin="14" pinfunction="F_RESET_N_14" pintype="passive"/>
+      <node ref="ISO2" pin="9" pinfunction="A7_9" pintype="bidirectional"/>
+      <node ref="RX4" pin="11" pinfunction="Y7_11" pintype="tri_state"/>
+      <node ref="U7" pin="10" pinfunction="3B_10" pintype="input"/>
+    </net>
+    <net code="53" name="/F_RFSH_N" class="Default">
+      <node ref="EXT2" pin="31" pinfunction="F_RFSH_N_31" pintype="passive"/>
+      <node ref="RX4" pin="13" pinfunction="Y5_13" pintype="tri_state"/>
+    </net>
+    <net code="54" name="/F_WAIT" class="Default">
+      <node ref="EXT2" pin="7" pinfunction="F_WAIT_7" pintype="passive"/>
+      <node ref="R11" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U8" pin="5" pinfunction="2B_5" pintype="input"/>
+    </net>
+    <net code="55" name="/F_WAIT_N" class="Default">
+      <node ref="EXT2" pin="35" pinfunction="F_WAIT_N_35" pintype="passive"/>
+      <node ref="RX5" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+    </net>
+    <net code="56" name="/F_WR_N" class="Default">
+      <node ref="EXT1" pin="18" pinfunction="F_WR_N_18" pintype="passive"/>
+      <node ref="RX4" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+    </net>
+    <net code="57" name="/GND" class="Default">
+      <node ref="C1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C10" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C11" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C12" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C13" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C14" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C15" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C16" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C17" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C18" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C19" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C20" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C21" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C22" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C7" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C8" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C9" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="EXT1" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="EXT1" pin="4" pinfunction="GND_4" pintype="passive"/>
+      <node ref="EXT1" pin="8" pinfunction="GND_8" pintype="passive"/>
+      <node ref="EXT2" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="EXT2" pin="4" pinfunction="GND_4" pintype="passive"/>
+      <node ref="EXT2" pin="8" pinfunction="GND_8" pintype="passive"/>
+      <node ref="EXT3" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="EXT3" pin="4" pinfunction="GND_4" pintype="passive"/>
+      <node ref="EXT3" pin="8" pinfunction="GND_8" pintype="passive"/>
+      <node ref="ISO1" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="ISO2" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="ISO3" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="J2" pin="13" pinfunction="GND_13" pintype="passive"/>
+      <node ref="J2" pin="18" pinfunction="GND_18" pintype="passive"/>
+      <node ref="J2" pin="23" pinfunction="GND_23" pintype="passive"/>
+      <node ref="J2" pin="28" pinfunction="GND_28" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="GND_3" pintype="passive"/>
+      <node ref="J2" pin="33" pinfunction="GND_33" pintype="passive"/>
+      <node ref="J2" pin="38" pinfunction="GND_38" pintype="passive"/>
+      <node ref="J2" pin="8" pinfunction="GND_8" pintype="passive"/>
+      <node ref="J3" pin="6" pinfunction="VSS_6" pintype="power_in"/>
+      <node ref="J3" pin="SH" pinfunction="SHIELD_SH" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="GND_2" pintype="power_out"/>
+      <node ref="J5" pin="1" pinfunction="GND_1" pintype="passive"/>
+      <node ref="R10" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R11" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R12" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R13" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R16" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R19" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R20" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R7" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R8" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R9" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="RX1" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="RX1" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="RX1" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="RX2" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="RX2" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="RX2" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="RX3" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="RX3" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="RX3" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="RX4" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="RX4" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="RX4" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="RX5" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="RX5" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="RX5" pin="19" pinfunction="OE2_N_19" pintype="input"/>
+      <node ref="RX5" pin="7" pinfunction="A5_7" pintype="input"/>
+      <node ref="RX5" pin="8" pinfunction="A6_8" pintype="input"/>
+      <node ref="RX5" pin="9" pinfunction="A7_9" pintype="input"/>
+      <node ref="SW1" pin="1" pinfunction="PASSIVE_GND_1" pintype="passive"/>
+      <node ref="U10" pin="1" pinfunction="GND_1" pintype="power_in"/>
+      <node ref="U11" pin="1" pinfunction="GND_1" pintype="power_in"/>
+      <node ref="U12" pin="1" pinfunction="GND_1" pintype="power_in"/>
+      <node ref="U13" pin="10" pinfunction="3B_10" pintype="input"/>
+      <node ref="U13" pin="12" pinfunction="4A_12" pintype="input"/>
+      <node ref="U13" pin="13" pinfunction="4B_13" pintype="input"/>
+      <node ref="U13" pin="4" pinfunction="2A_4" pintype="input"/>
+      <node ref="U13" pin="5" pinfunction="2B_5" pintype="input"/>
+      <node ref="U13" pin="7" pinfunction="GND_7" pintype="power_in"/>
+      <node ref="U13" pin="9" pinfunction="3A_9" pintype="input"/>
+      <node ref="U4" pin="1" pinfunction="OE1_N_1" pintype="input"/>
+      <node ref="U4" pin="10" pinfunction="GND_10" pintype="power_in"/>
+      <node ref="U5" pin="3" pinfunction="GND_3" pintype="power_in"/>
+      <node ref="U6" pin="7" pinfunction="GND_7" pintype="power_in"/>
+      <node ref="U7" pin="7" pinfunction="GND_7" pintype="power_in"/>
+      <node ref="U8" pin="7" pinfunction="GND_7" pintype="power_in"/>
+      <node ref="U9" pin="7" pinfunction="GND_7" pintype="power_in"/>
+      <node ref="X2" pin="A1" pinfunction="0V_A1" pintype="passive"/>
+      <node ref="X2" pin="A2" pinfunction="0V_A2" pintype="passive"/>
+      <node ref="X2" pin="B1" pinfunction="0V_B1" pintype="passive"/>
+      <node ref="X2" pin="B2" pinfunction="0V_B2" pintype="passive"/>
+    </net>
+    <net code="58" name="/H_A0" class="Default">
+      <node ref="RX1" pin="2" pinfunction="A0_2" pintype="input"/>
+      <node ref="X2" pin="A19" pinfunction="AB0_A19" pintype="passive"/>
+    </net>
+    <net code="59" name="/H_A1" class="Default">
+      <node ref="RX1" pin="3" pinfunction="A1_3" pintype="input"/>
+      <node ref="X2" pin="B19" pinfunction="AB1_B19" pintype="passive"/>
+    </net>
+    <net code="60" name="/H_A2" class="Default">
+      <node ref="RX1" pin="4" pinfunction="A2_4" pintype="input"/>
+      <node ref="X2" pin="A18" pinfunction="AB2_A18" pintype="passive"/>
+    </net>
+    <net code="61" name="/H_A3" class="Default">
+      <node ref="RX1" pin="5" pinfunction="A3_5" pintype="input"/>
+      <node ref="X2" pin="B18" pinfunction="AB3_B18" pintype="passive"/>
+    </net>
+    <net code="62" name="/H_A4" class="Default">
+      <node ref="RX1" pin="6" pinfunction="A4_6" pintype="input"/>
+      <node ref="X2" pin="A17" pinfunction="AB4_A17" pintype="passive"/>
+    </net>
+    <net code="63" name="/H_A5" class="Default">
+      <node ref="RX1" pin="7" pinfunction="A5_7" pintype="input"/>
+      <node ref="X2" pin="B17" pinfunction="AB5_B17" pintype="passive"/>
+    </net>
+    <net code="64" name="/H_A6" class="Default">
+      <node ref="RX1" pin="8" pinfunction="A6_8" pintype="input"/>
+      <node ref="X2" pin="A16" pinfunction="AB6_A16" pintype="passive"/>
+    </net>
+    <net code="65" name="/H_A7" class="Default">
+      <node ref="RX1" pin="9" pinfunction="A7_9" pintype="input"/>
+      <node ref="X2" pin="B16" pinfunction="AB7_B16" pintype="passive"/>
+    </net>
+    <net code="66" name="/H_A8" class="Default">
+      <node ref="RX2" pin="2" pinfunction="A0_2" pintype="input"/>
+      <node ref="X2" pin="A14" pinfunction="AB8_A14" pintype="passive"/>
+    </net>
+    <net code="67" name="/H_A9" class="Default">
+      <node ref="RX2" pin="3" pinfunction="A1_3" pintype="input"/>
+      <node ref="X2" pin="B14" pinfunction="AB9_B14" pintype="passive"/>
+    </net>
+    <net code="68" name="/H_A10" class="Default">
+      <node ref="RX2" pin="4" pinfunction="A2_4" pintype="input"/>
+      <node ref="X2" pin="A13" pinfunction="AB10_A13" pintype="passive"/>
+    </net>
+    <net code="69" name="/H_A11" class="Default">
+      <node ref="RX2" pin="5" pinfunction="A3_5" pintype="input"/>
+      <node ref="X2" pin="B13" pinfunction="AB11_B13" pintype="passive"/>
+    </net>
+    <net code="70" name="/H_A12" class="Default">
+      <node ref="RX2" pin="6" pinfunction="A4_6" pintype="input"/>
+      <node ref="X2" pin="A12" pinfunction="AB12_A12" pintype="passive"/>
+    </net>
+    <net code="71" name="/H_A13" class="Default">
+      <node ref="RX2" pin="7" pinfunction="A5_7" pintype="input"/>
+      <node ref="X2" pin="B12" pinfunction="AB13_B12" pintype="passive"/>
+    </net>
+    <net code="72" name="/H_A14" class="Default">
+      <node ref="RX2" pin="8" pinfunction="A6_8" pintype="input"/>
+      <node ref="X2" pin="A11" pinfunction="AB14_A11" pintype="passive"/>
+    </net>
+    <net code="73" name="/H_A15" class="Default">
+      <node ref="RX2" pin="9" pinfunction="A7_9" pintype="input"/>
+      <node ref="X2" pin="B11" pinfunction="AB15_B11" pintype="passive"/>
+    </net>
+    <net code="74" name="/H_BAO_N" class="Default">
+      <node ref="RX5" pin="5" pinfunction="A3_5" pintype="input"/>
+      <node ref="X2" pin="A27" pinfunction="/BAO_A27" pintype="passive"/>
+    </net>
+    <net code="75" name="/H_BUSRQ_N" class="Default">
+      <node ref="RX5" pin="4" pinfunction="A2_4" pintype="input"/>
+      <node ref="X2" pin="B20" pinfunction="/BUSRQ_B20" pintype="passive"/>
+    </net>
+    <net code="76" name="/H_CLK" class="Default">
+      <node ref="RX4" pin="8" pinfunction="A6_8" pintype="input"/>
+      <node ref="X2" pin="A21" pinfunction="TAKT-X2_A21" pintype="passive"/>
+    </net>
+    <net code="77" name="/H_D0" class="Default">
+      <node ref="RX3" pin="2" pinfunction="A0_2" pintype="input"/>
+      <node ref="U4" pin="18" pinfunction="Y0_18" pintype="tri_state"/>
+      <node ref="X2" pin="B7" pinfunction="DB0_B7" pintype="passive"/>
+    </net>
+    <net code="78" name="/H_D1" class="Default">
+      <node ref="RX3" pin="3" pinfunction="A1_3" pintype="input"/>
+      <node ref="U4" pin="17" pinfunction="Y1_17" pintype="tri_state"/>
+      <node ref="X2" pin="A7" pinfunction="DB1_A7" pintype="passive"/>
+    </net>
+    <net code="79" name="/H_D2" class="Default">
+      <node ref="RX3" pin="4" pinfunction="A2_4" pintype="input"/>
+      <node ref="U4" pin="16" pinfunction="Y2_16" pintype="tri_state"/>
+      <node ref="X2" pin="B6" pinfunction="DB2_B6" pintype="passive"/>
+    </net>
+    <net code="80" name="/H_D3" class="Default">
+      <node ref="RX3" pin="5" pinfunction="A3_5" pintype="input"/>
+      <node ref="U4" pin="15" pinfunction="Y3_15" pintype="tri_state"/>
+      <node ref="X2" pin="A6" pinfunction="DB3_A6" pintype="passive"/>
+    </net>
+    <net code="81" name="/H_D4" class="Default">
+      <node ref="RX3" pin="6" pinfunction="A4_6" pintype="input"/>
+      <node ref="U4" pin="14" pinfunction="Y4_14" pintype="tri_state"/>
+      <node ref="X2" pin="B5" pinfunction="DB4_B5" pintype="passive"/>
+    </net>
+    <net code="82" name="/H_D5" class="Default">
+      <node ref="RX3" pin="7" pinfunction="A5_7" pintype="input"/>
+      <node ref="U4" pin="13" pinfunction="Y5_13" pintype="tri_state"/>
+      <node ref="X2" pin="A5" pinfunction="DB5_A5" pintype="passive"/>
+    </net>
+    <net code="83" name="/H_D6" class="Default">
+      <node ref="RX3" pin="8" pinfunction="A6_8" pintype="input"/>
+      <node ref="U4" pin="12" pinfunction="Y6_12" pintype="tri_state"/>
+      <node ref="X2" pin="B4" pinfunction="DB6_B4" pintype="passive"/>
+    </net>
+    <net code="84" name="/H_D7" class="Default">
+      <node ref="RX3" pin="9" pinfunction="A7_9" pintype="input"/>
+      <node ref="U4" pin="11" pinfunction="Y7_11" pintype="tri_state"/>
+      <node ref="X2" pin="A4" pinfunction="DB7_A4" pintype="passive"/>
+    </net>
+    <net code="85" name="/H_INT_N" class="Default">
+      <node ref="J5" pin="12" pinfunction="H_INT_N_12" pintype="passive"/>
+      <node ref="RX5" pin="3" pinfunction="A1_3" pintype="input"/>
+      <node ref="U9" pin="6" pinfunction="3Y_6" pintype="open_collector"/>
+      <node ref="X2" pin="B23" pinfunction="/INT_B23" pintype="passive"/>
+    </net>
+    <net code="86" name="/H_IORQ_N" class="Default">
+      <node ref="RX4" pin="3" pinfunction="A1_3" pintype="input"/>
+      <node ref="X2" pin="B24" pinfunction="/IORQ_B24" pintype="passive"/>
+    </net>
+    <net code="87" name="/H_M1_N" class="Default">
+      <node ref="RX4" pin="6" pinfunction="A4_6" pintype="input"/>
+      <node ref="X2" pin="A26" pinfunction="/M1_A26" pintype="passive"/>
+    </net>
+    <net code="88" name="/H_MREQ_N" class="Default">
+      <node ref="RX4" pin="2" pinfunction="A0_2" pintype="input"/>
+      <node ref="X2" pin="A9" pinfunction="/MREQ_A9" pintype="passive"/>
+    </net>
+    <net code="89" name="/H_PRIORITY" class="Default">
+      <node ref="R18" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="RX5" pin="6" pinfunction="A4_6" pintype="input"/>
+      <node ref="SW1" pin="4" pinfunction="PASSIVE_IEI_4" pintype="passive"/>
+      <node ref="X2" pin="B10" pinfunction="IEO_B10" pintype="passive"/>
+    </net>
+    <net code="90" name="/H_PRIORITY_OUT" class="Default">
+      <node ref="SW1" pin="5" pinfunction="COMMON_IEO_5" pintype="passive"/>
+      <node ref="X2" pin="A10" pinfunction="IEI_A10" pintype="passive"/>
+    </net>
+    <net code="91" name="/H_RD_N" class="Default">
+      <node ref="RX4" pin="4" pinfunction="A2_4" pintype="input"/>
+      <node ref="X2" pin="B8" pinfunction="/RD_B8" pintype="passive"/>
+    </net>
+    <net code="92" name="/H_RESET_N" class="Default">
+      <node ref="RX4" pin="9" pinfunction="A7_9" pintype="input"/>
+      <node ref="X2" pin="A20" pinfunction="/RESET_A20" pintype="passive"/>
+    </net>
+    <net code="93" name="/H_RFSH_N" class="Default">
+      <node ref="RX4" pin="7" pinfunction="A5_7" pintype="input"/>
+      <node ref="X2" pin="A25" pinfunction="/RFSH_A25" pintype="passive"/>
+    </net>
+    <net code="94" name="/H_WAIT_N" class="Default">
+      <node ref="J5" pin="11" pinfunction="H_WAIT_N_11" pintype="passive"/>
+      <node ref="RX5" pin="2" pinfunction="A0_2" pintype="input"/>
+      <node ref="U9" pin="4" pinfunction="2Y_4" pintype="open_collector"/>
+      <node ref="X2" pin="A24" pinfunction="/WAIT_A24" pintype="passive"/>
+    </net>
+    <net code="95" name="/H_WR_N" class="Default">
+      <node ref="RX4" pin="5" pinfunction="A3_5" pintype="input"/>
+      <node ref="X2" pin="A8" pinfunction="/WR_A8" pintype="passive"/>
+    </net>
+    <net code="96" name="/IEO_EN_N" class="Default">
+      <node ref="U8" pin="11" pinfunction="4Y_11" pintype="output"/>
+      <node ref="U9" pin="9" pinfunction="4A_9" pintype="input"/>
+    </net>
+    <net code="97" name="/IEO_OE_N" class="Default">
+      <node ref="R15" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U5" pin="1" pinfunction="OE_N_1" pintype="input"/>
+      <node ref="U9" pin="8" pinfunction="4Y_8" pintype="open_collector"/>
+    </net>
+    <net code="98" name="/INT_EN_N" class="Default">
+      <node ref="U8" pin="8" pinfunction="3Y_8" pintype="output"/>
+      <node ref="U9" pin="5" pinfunction="3A_5" pintype="input"/>
+    </net>
+    <net code="99" name="/LINK_OE_N" class="Default">
+      <node ref="ISO1" pin="19" pinfunction="OE_N_19" pintype="input"/>
+      <node ref="ISO2" pin="19" pinfunction="OE_N_19" pintype="input"/>
+      <node ref="ISO3" pin="19" pinfunction="OE_N_19" pintype="input"/>
+      <node ref="R17" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U13" pin="3" pinfunction="1Y_3" pintype="output"/>
+    </net>
+    <net code="100" name="/LINK_OK" class="Default">
+      <node ref="EXT3" pin="29" pinfunction="LINK_OK_29" pintype="passive"/>
+      <node ref="J5" pin="8" pinfunction="LINK_OK_8" pintype="passive"/>
+      <node ref="U13" pin="1" pinfunction="1A_1" pintype="input"/>
+      <node ref="U13" pin="2" pinfunction="1B_2" pintype="input"/>
+      <node ref="U6" pin="13" pinfunction="4B_13" pintype="input"/>
+      <node ref="U6" pin="8" pinfunction="3Y_8" pintype="output"/>
+    </net>
+    <net code="101" name="/L_GP0" class="Default">
+      <node ref="EXT2" pin="28" pinfunction="L_GP0_28" pintype="passive"/>
+      <node ref="ISO1" pin="2" pinfunction="A0_2" pintype="bidirectional"/>
+    </net>
+    <net code="102" name="/L_GP1" class="Default">
+      <node ref="EXT2" pin="26" pinfunction="L_GP1_26" pintype="passive"/>
+      <node ref="ISO1" pin="3" pinfunction="A1_3" pintype="bidirectional"/>
+    </net>
+    <net code="103" name="/L_GP2" class="Default">
+      <node ref="EXT2" pin="24" pinfunction="L_GP2_24" pintype="passive"/>
+      <node ref="ISO1" pin="4" pinfunction="A2_4" pintype="bidirectional"/>
+    </net>
+    <net code="104" name="/L_GP3" class="Default">
+      <node ref="EXT2" pin="22" pinfunction="L_GP3_22" pintype="passive"/>
+      <node ref="ISO1" pin="5" pinfunction="A3_5" pintype="bidirectional"/>
+    </net>
+    <net code="105" name="/L_GP4" class="Default">
+      <node ref="EXT2" pin="20" pinfunction="L_GP4_20" pintype="passive"/>
+      <node ref="ISO1" pin="6" pinfunction="A4_6" pintype="bidirectional"/>
+    </net>
+    <net code="106" name="/L_GP5" class="Default">
+      <node ref="EXT2" pin="18" pinfunction="L_GP5_18" pintype="passive"/>
+      <node ref="ISO1" pin="7" pinfunction="A5_7" pintype="bidirectional"/>
+    </net>
+    <net code="107" name="/L_GP6" class="Default">
+      <node ref="EXT2" pin="16" pinfunction="L_GP6_16" pintype="passive"/>
+      <node ref="ISO1" pin="8" pinfunction="A6_8" pintype="bidirectional"/>
+    </net>
+    <net code="108" name="/L_GP7" class="Default">
+      <node ref="EXT2" pin="14" pinfunction="L_GP7_14" pintype="passive"/>
+      <node ref="ISO1" pin="9" pinfunction="A7_9" pintype="bidirectional"/>
+    </net>
+    <net code="109" name="/L_GP8" class="Default">
+      <node ref="EXT2" pin="12" pinfunction="L_GP8_12" pintype="passive"/>
+      <node ref="ISO2" pin="2" pinfunction="A0_2" pintype="bidirectional"/>
+    </net>
+    <net code="110" name="/L_GP9" class="Default">
+      <node ref="EXT2" pin="10" pinfunction="L_GP9_10" pintype="passive"/>
+      <node ref="ISO2" pin="3" pinfunction="A1_3" pintype="bidirectional"/>
+    </net>
+    <net code="111" name="/L_GP10" class="Default">
+      <node ref="EXT3" pin="7" pinfunction="L_GP10_7" pintype="passive"/>
+      <node ref="ISO2" pin="4" pinfunction="A2_4" pintype="bidirectional"/>
+    </net>
+    <net code="112" name="/L_GP11" class="Default">
+      <node ref="EXT3" pin="9" pinfunction="L_GP11_9" pintype="passive"/>
+      <node ref="ISO2" pin="5" pinfunction="A3_5" pintype="bidirectional"/>
+    </net>
+    <net code="113" name="/L_GP12" class="Default">
+      <node ref="EXT3" pin="11" pinfunction="L_GP12_11" pintype="passive"/>
+      <node ref="ISO2" pin="6" pinfunction="A4_6" pintype="bidirectional"/>
+    </net>
+    <net code="114" name="/L_GP13" class="Default">
+      <node ref="EXT3" pin="13" pinfunction="L_GP13_13" pintype="passive"/>
+      <node ref="ISO2" pin="7" pinfunction="A5_7" pintype="bidirectional"/>
+    </net>
+    <net code="115" name="/L_GP14" class="Default">
+      <node ref="EXT3" pin="15" pinfunction="L_GP14_15" pintype="passive"/>
+      <node ref="ISO2" pin="8" pinfunction="A6_8" pintype="bidirectional"/>
+      <node ref="R19" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="116" name="/L_GP16" class="Default">
+      <node ref="EXT3" pin="17" pinfunction="L_GP16_17" pintype="passive"/>
+      <node ref="ISO3" pin="2" pinfunction="A0_2" pintype="bidirectional"/>
+      <node ref="R20" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="117" name="/L_GP17" class="Default">
+      <node ref="EXT3" pin="19" pinfunction="L_GP17_19" pintype="passive"/>
+      <node ref="ISO3" pin="3" pinfunction="A1_3" pintype="bidirectional"/>
+      <node ref="R21" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="118" name="/L_GP18" class="Default">
+      <node ref="EXT3" pin="21" pinfunction="L_GP18_21" pintype="passive"/>
+      <node ref="ISO3" pin="4" pinfunction="A2_4" pintype="bidirectional"/>
+    </net>
+    <net code="119" name="/L_GP19" class="Default">
+      <node ref="EXT3" pin="23" pinfunction="L_GP19_23" pintype="passive"/>
+      <node ref="ISO3" pin="5" pinfunction="A3_5" pintype="bidirectional"/>
+    </net>
+    <net code="120" name="/L_GP20" class="Default">
+      <node ref="EXT3" pin="25" pinfunction="L_GP20_25" pintype="passive"/>
+      <node ref="ISO3" pin="6" pinfunction="A4_6" pintype="bidirectional"/>
+    </net>
+    <net code="121" name="/L_GP21" class="Default">
+      <node ref="EXT3" pin="27" pinfunction="L_GP21_27" pintype="passive"/>
+      <node ref="ISO3" pin="7" pinfunction="A5_7" pintype="bidirectional"/>
+      <node ref="R9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U7" pin="5" pinfunction="2B_5" pintype="input"/>
+    </net>
+    <net code="122" name="/MODE_CTL" class="Default">
+      <node ref="J5" pin="6" pinfunction="MODE_CTL_6" pintype="passive"/>
+      <node ref="R7" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="SW1" pin="2" pinfunction="COMMON_MODE_2" pintype="passive"/>
+      <node ref="U7" pin="13" pinfunction="4B_13" pintype="input"/>
+    </net>
+    <net code="123" name="/P3V3" class="Default">
+      <node ref="C15" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C19" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C21" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J2" pin="36" pinfunction="P3V3_36" pintype="power_out"/>
+      <node ref="J3" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+      <node ref="J5" pin="14" pinfunction="P3V3_14" pintype="passive"/>
+      <node ref="R22" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R23" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R24" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R5" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U12" pin="3" pinfunction="VDD_3" pintype="power_in"/>
+    </net>
+    <net code="124" name="/PERSONALITY_CTL" class="Default">
+      <node ref="EXT2" pin="38" pinfunction="PERSONALITY_CTL_38" pintype="passive"/>
+      <node ref="J5" pin="7" pinfunction="PERSONALITY_CTL_7" pintype="passive"/>
+      <node ref="R8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U7" pin="2" pinfunction="1B_2" pintype="input"/>
+    </net>
+    <net code="125" name="/PG3" class="Default">
+      <node ref="J5" pin="2" pinfunction="PG3_2" pintype="passive"/>
+      <node ref="R1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U10" pin="2" pinfunction="RESET_N_2" pintype="open_collector"/>
+      <node ref="U6" pin="1" pinfunction="1A_1" pintype="input"/>
+      <node ref="U6" pin="4" pinfunction="2A_4" pintype="input"/>
+    </net>
+    <net code="126" name="/PG5" class="Default">
+      <node ref="J5" pin="3" pinfunction="PG5_3" pintype="passive"/>
+      <node ref="R3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U11" pin="2" pinfunction="RESET_N_2" pintype="open_collector"/>
+      <node ref="U6" pin="2" pinfunction="1B_2" pintype="input"/>
+    </net>
+    <net code="127" name="/PGP" class="Default">
+      <node ref="J5" pin="4" pinfunction="PGP_4" pintype="passive"/>
+      <node ref="R5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U12" pin="2" pinfunction="RESET_N_2" pintype="open_collector"/>
+      <node ref="U6" pin="5" pinfunction="2B_5" pintype="input"/>
+    </net>
+    <net code="128" name="/POWERED" class="Default">
+      <node ref="U6" pin="11" pinfunction="4Y_11" pintype="output"/>
+      <node ref="U7" pin="1" pinfunction="1A_1" pintype="input"/>
+    </net>
+    <net code="129" name="/POWER_GOOD" class="Default">
+      <node ref="EXT1" pin="12" pinfunction="POWER_GOOD_12" pintype="passive"/>
+      <node ref="U6" pin="12" pinfunction="4A_12" pintype="input"/>
+      <node ref="U6" pin="3" pinfunction="1Y_3" pintype="output"/>
+    </net>
+    <net code="130" name="/P_GP0" class="Default">
+      <node ref="ISO1" pin="18" pinfunction="B0_18" pintype="bidirectional"/>
+      <node ref="J2" pin="1" pinfunction="P_GP0_1" pintype="passive"/>
+    </net>
+    <net code="131" name="/P_GP1" class="Default">
+      <node ref="ISO1" pin="17" pinfunction="B1_17" pintype="bidirectional"/>
+      <node ref="J2" pin="2" pinfunction="P_GP1_2" pintype="passive"/>
+    </net>
+    <net code="132" name="/P_GP2" class="Default">
+      <node ref="ISO1" pin="16" pinfunction="B2_16" pintype="bidirectional"/>
+      <node ref="J2" pin="4" pinfunction="P_GP2_4" pintype="passive"/>
+    </net>
+    <net code="133" name="/P_GP3" class="Default">
+      <node ref="ISO1" pin="15" pinfunction="B3_15" pintype="bidirectional"/>
+      <node ref="J2" pin="5" pinfunction="P_GP3_5" pintype="passive"/>
+    </net>
+    <net code="134" name="/P_GP4" class="Default">
+      <node ref="ISO1" pin="14" pinfunction="B4_14" pintype="bidirectional"/>
+      <node ref="J2" pin="6" pinfunction="P_GP4_6" pintype="passive"/>
+    </net>
+    <net code="135" name="/P_GP5" class="Default">
+      <node ref="ISO1" pin="13" pinfunction="B5_13" pintype="bidirectional"/>
+      <node ref="J2" pin="7" pinfunction="P_GP5_7" pintype="passive"/>
+    </net>
+    <net code="136" name="/P_GP6" class="Default">
+      <node ref="ISO1" pin="12" pinfunction="B6_12" pintype="bidirectional"/>
+      <node ref="J2" pin="9" pinfunction="P_GP6_9" pintype="passive"/>
+    </net>
+    <net code="137" name="/P_GP7" class="Default">
+      <node ref="ISO1" pin="11" pinfunction="B7_11" pintype="bidirectional"/>
+      <node ref="J2" pin="10" pinfunction="P_GP7_10" pintype="passive"/>
+    </net>
+    <net code="138" name="/P_GP8" class="Default">
+      <node ref="ISO2" pin="18" pinfunction="B0_18" pintype="bidirectional"/>
+      <node ref="J2" pin="11" pinfunction="P_GP8_11" pintype="passive"/>
+    </net>
+    <net code="139" name="/P_GP9" class="Default">
+      <node ref="ISO2" pin="17" pinfunction="B1_17" pintype="bidirectional"/>
+      <node ref="J2" pin="12" pinfunction="P_GP9_12" pintype="passive"/>
+    </net>
+    <net code="140" name="/P_GP10" class="Default">
+      <node ref="ISO2" pin="16" pinfunction="B2_16" pintype="bidirectional"/>
+      <node ref="J2" pin="14" pinfunction="P_GP10_14" pintype="passive"/>
+    </net>
+    <net code="141" name="/P_GP11" class="Default">
+      <node ref="ISO2" pin="15" pinfunction="B3_15" pintype="bidirectional"/>
+      <node ref="J2" pin="15" pinfunction="P_GP11_15" pintype="passive"/>
+    </net>
+    <net code="142" name="/P_GP12" class="Default">
+      <node ref="ISO2" pin="14" pinfunction="B4_14" pintype="bidirectional"/>
+      <node ref="J2" pin="16" pinfunction="P_GP12_16" pintype="passive"/>
+    </net>
+    <net code="143" name="/P_GP13" class="Default">
+      <node ref="ISO2" pin="13" pinfunction="B5_13" pintype="bidirectional"/>
+      <node ref="J2" pin="17" pinfunction="P_GP13_17" pintype="passive"/>
+    </net>
+    <net code="144" name="/P_GP14" class="Default">
+      <node ref="ISO2" pin="12" pinfunction="B6_12" pintype="bidirectional"/>
+      <node ref="J2" pin="19" pinfunction="P_GP14_19" pintype="passive"/>
+    </net>
+    <net code="145" name="/P_GP15" class="Default">
+      <node ref="ISO2" pin="11" pinfunction="B7_11" pintype="bidirectional"/>
+      <node ref="J2" pin="20" pinfunction="P_GP15_20" pintype="passive"/>
+    </net>
+    <net code="146" name="/P_GP16" class="Default">
+      <node ref="ISO3" pin="18" pinfunction="B0_18" pintype="bidirectional"/>
+      <node ref="J2" pin="21" pinfunction="P_GP16_21" pintype="passive"/>
+    </net>
+    <net code="147" name="/P_GP17" class="Default">
+      <node ref="ISO3" pin="17" pinfunction="B1_17" pintype="bidirectional"/>
+      <node ref="J2" pin="22" pinfunction="P_GP17_22" pintype="passive"/>
+    </net>
+    <net code="148" name="/P_GP18" class="Default">
+      <node ref="ISO3" pin="16" pinfunction="B2_16" pintype="bidirectional"/>
+      <node ref="J2" pin="24" pinfunction="P_GP18_24" pintype="passive"/>
+    </net>
+    <net code="149" name="/P_GP19" class="Default">
+      <node ref="ISO3" pin="15" pinfunction="B3_15" pintype="bidirectional"/>
+      <node ref="J2" pin="25" pinfunction="P_GP19_25" pintype="passive"/>
+    </net>
+    <net code="150" name="/P_GP20" class="Default">
+      <node ref="ISO3" pin="14" pinfunction="B4_14" pintype="bidirectional"/>
+      <node ref="J2" pin="26" pinfunction="P_GP20_26" pintype="passive"/>
+    </net>
+    <net code="151" name="/P_GP21" class="Default">
+      <node ref="ISO3" pin="13" pinfunction="B5_13" pintype="bidirectional"/>
+      <node ref="J2" pin="27" pinfunction="P_GP21_27" pintype="passive"/>
+    </net>
+    <net code="152" name="/P_GP22" class="Default">
+      <node ref="J2" pin="29" pinfunction="P_GP22_29" pintype="passive"/>
+      <node ref="J3" pin="2" pinfunction="DAT3_CS_2" pintype="input"/>
+      <node ref="R22" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="153" name="/P_GP26" class="Default">
+      <node ref="J2" pin="31" pinfunction="P_GP26_31" pintype="passive"/>
+      <node ref="J3" pin="5" pinfunction="CLK_5" pintype="input"/>
+    </net>
+    <net code="154" name="/P_GP27" class="Default">
+      <node ref="J2" pin="32" pinfunction="P_GP27_32" pintype="passive"/>
+      <node ref="J3" pin="3" pinfunction="CMD_MOSI_3" pintype="input"/>
+    </net>
+    <net code="155" name="/P_GP28" class="Default">
+      <node ref="J2" pin="34" pinfunction="P_GP28_34" pintype="passive"/>
+      <node ref="J3" pin="7" pinfunction="DAT0_MISO_7" pintype="tri_state"/>
+    </net>
+    <net code="156" name="/P_VSYS" class="Default">
+      <node ref="D1" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="J2" pin="39" pinfunction="P_VSYS_39" pintype="passive"/>
+    </net>
+    <net code="157" name="/QUALIFIED" class="Default">
+      <node ref="U7" pin="3" pinfunction="1Y_3" pintype="output"/>
+      <node ref="U7" pin="4" pinfunction="2A_4" pintype="input"/>
+    </net>
+    <net code="158" name="/RAILS_OK" class="Default">
+      <node ref="U6" pin="6" pinfunction="2Y_6" pintype="output"/>
+      <node ref="U6" pin="9" pinfunction="3A_9" pintype="input"/>
+    </net>
+    <net code="159" name="/RESET_OK" class="Default">
+      <node ref="U7" pin="12" pinfunction="4A_12" pintype="input"/>
+      <node ref="U7" pin="8" pinfunction="3Y_8" pintype="output"/>
+    </net>
+    <net code="160" name="/SD_DAT1" class="Default">
+      <node ref="J3" pin="8" pinfunction="DAT1_8" pintype="passive"/>
+      <node ref="R23" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="161" name="/SD_DAT2" class="Default">
+      <node ref="J3" pin="1" pinfunction="DAT2_1" pintype="passive"/>
+      <node ref="R24" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="162" name="/V3P3" class="Default">
+      <node ref="C1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C10" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C11" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C12" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C13" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C16" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C17" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C18" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C20" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C5" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="EXT1" pin="3" pinfunction="V3P3_3" pintype="power_out"/>
+      <node ref="ISO1" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="ISO2" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="ISO3" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="J5" pin="15" pinfunction="V3P3_15" pintype="passive"/>
+      <node ref="R1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R17" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R21" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="RX1" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="RX2" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="RX3" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="RX4" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="RX5" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="SW1" pin="3" pinfunction="CONTROLLER_3V3_3" pintype="passive"/>
+      <node ref="U10" pin="3" pinfunction="VDD_3" pintype="power_in"/>
+      <node ref="U13" pin="14" pinfunction="VCC_14" pintype="power_in"/>
+      <node ref="U6" pin="14" pinfunction="VCC_14" pintype="power_in"/>
+      <node ref="U7" pin="14" pinfunction="VCC_14" pintype="power_in"/>
+      <node ref="U8" pin="14" pinfunction="VCC_14" pintype="power_in"/>
+      <node ref="U9" pin="11" pinfunction="5A_11" pintype="input"/>
+      <node ref="U9" pin="13" pinfunction="6A_13" pintype="input"/>
+      <node ref="U9" pin="14" pinfunction="VCC_14" pintype="power_in"/>
+    </net>
+    <net code="163" name="/V5_HOST" class="Default">
+      <node ref="C14" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C7" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R14" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R15" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R18" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U11" pin="3" pinfunction="VDD_3" pintype="power_in"/>
+      <node ref="U4" pin="20" pinfunction="VCC_20" pintype="power_in"/>
+      <node ref="U5" pin="5" pinfunction="VCC_5" pintype="power_in"/>
+      <node ref="X2" pin="A29" pinfunction="5P_A29" pintype="power_out"/>
+      <node ref="X2" pin="B29" pinfunction="5P_B29" pintype="passive"/>
+    </net>
+    <net code="164" name="/V5_MODULE" class="Default">
+      <node ref="C22" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="D1" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="EXT1" pin="1" pinfunction="V5_MODULE_1" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="5V_1" pintype="power_out"/>
+    </net>
+    <net code="165" name="/WAIT_EN_N" class="Default">
+      <node ref="U8" pin="6" pinfunction="2Y_6" pintype="output"/>
+      <node ref="U9" pin="3" pinfunction="2A_3" pintype="input"/>
+    </net>
+    <net code="166" name="unconnected-(EXT1-NC-Pad5)" class="Default">
+      <node ref="EXT1" pin="5" pinfunction="NC_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="167" name="unconnected-(EXT1-NC-Pad6)" class="Default">
+      <node ref="EXT1" pin="6" pinfunction="NC_6" pintype="passive+no_connect"/>
+    </net>
+    <net code="168" name="unconnected-(EXT2-NC-Pad1)" class="Default">
+      <node ref="EXT2" pin="1" pinfunction="NC_1" pintype="passive+no_connect"/>
+    </net>
+    <net code="169" name="unconnected-(EXT2-NC-Pad3)" class="Default">
+      <node ref="EXT2" pin="3" pinfunction="NC_3" pintype="passive+no_connect"/>
+    </net>
+    <net code="170" name="unconnected-(EXT2-NC-Pad5)" class="Default">
+      <node ref="EXT2" pin="5" pinfunction="NC_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="171" name="unconnected-(EXT2-NC-Pad6)" class="Default">
+      <node ref="EXT2" pin="6" pinfunction="NC_6" pintype="passive+no_connect"/>
+    </net>
+    <net code="172" name="unconnected-(EXT2-NC-Pad30)" class="Default">
+      <node ref="EXT2" pin="30" pinfunction="NC_30" pintype="passive+no_connect"/>
+    </net>
+    <net code="173" name="unconnected-(EXT2-NC-Pad32)" class="Default">
+      <node ref="EXT2" pin="32" pinfunction="NC_32" pintype="passive+no_connect"/>
+    </net>
+    <net code="174" name="unconnected-(EXT2-NC-Pad34)" class="Default">
+      <node ref="EXT2" pin="34" pinfunction="NC_34" pintype="passive+no_connect"/>
+    </net>
+    <net code="175" name="unconnected-(EXT2-NC-Pad36)" class="Default">
+      <node ref="EXT2" pin="36" pinfunction="NC_36" pintype="passive+no_connect"/>
+    </net>
+    <net code="176" name="unconnected-(EXT3-NC-Pad1)" class="Default">
+      <node ref="EXT3" pin="1" pinfunction="NC_1" pintype="passive+no_connect"/>
+    </net>
+    <net code="177" name="unconnected-(EXT3-NC-Pad3)" class="Default">
+      <node ref="EXT3" pin="3" pinfunction="NC_3" pintype="passive+no_connect"/>
+    </net>
+    <net code="178" name="unconnected-(EXT3-NC-Pad5)" class="Default">
+      <node ref="EXT3" pin="5" pinfunction="NC_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="179" name="unconnected-(EXT3-NC-Pad6)" class="Default">
+      <node ref="EXT3" pin="6" pinfunction="NC_6" pintype="passive+no_connect"/>
+    </net>
+    <net code="180" name="unconnected-(EXT3-NC-Pad10)" class="Default">
+      <node ref="EXT3" pin="10" pinfunction="NC_10" pintype="passive+no_connect"/>
+    </net>
+    <net code="181" name="unconnected-(EXT3-NC-Pad12)" class="Default">
+      <node ref="EXT3" pin="12" pinfunction="NC_12" pintype="passive+no_connect"/>
+    </net>
+    <net code="182" name="unconnected-(EXT3-NC-Pad14)" class="Default">
+      <node ref="EXT3" pin="14" pinfunction="NC_14" pintype="passive+no_connect"/>
+    </net>
+    <net code="183" name="unconnected-(EXT3-NC-Pad16)" class="Default">
+      <node ref="EXT3" pin="16" pinfunction="NC_16" pintype="passive+no_connect"/>
+    </net>
+    <net code="184" name="unconnected-(EXT3-NC-Pad18)" class="Default">
+      <node ref="EXT3" pin="18" pinfunction="NC_18" pintype="passive+no_connect"/>
+    </net>
+    <net code="185" name="unconnected-(EXT3-NC-Pad20)" class="Default">
+      <node ref="EXT3" pin="20" pinfunction="NC_20" pintype="passive+no_connect"/>
+    </net>
+    <net code="186" name="unconnected-(EXT3-NC-Pad22)" class="Default">
+      <node ref="EXT3" pin="22" pinfunction="NC_22" pintype="passive+no_connect"/>
+    </net>
+    <net code="187" name="unconnected-(EXT3-NC-Pad24)" class="Default">
+      <node ref="EXT3" pin="24" pinfunction="NC_24" pintype="passive+no_connect"/>
+    </net>
+    <net code="188" name="unconnected-(EXT3-NC-Pad26)" class="Default">
+      <node ref="EXT3" pin="26" pinfunction="NC_26" pintype="passive+no_connect"/>
+    </net>
+    <net code="189" name="unconnected-(EXT3-NC-Pad28)" class="Default">
+      <node ref="EXT3" pin="28" pinfunction="NC_28" pintype="passive+no_connect"/>
+    </net>
+    <net code="190" name="unconnected-(EXT3-NC-Pad30)" class="Default">
+      <node ref="EXT3" pin="30" pinfunction="NC_30" pintype="passive+no_connect"/>
+    </net>
+    <net code="191" name="unconnected-(EXT3-NC-Pad31)" class="Default">
+      <node ref="EXT3" pin="31" pinfunction="NC_31" pintype="passive+no_connect"/>
+    </net>
+    <net code="192" name="unconnected-(EXT3-NC-Pad32)" class="Default">
+      <node ref="EXT3" pin="32" pinfunction="NC_32" pintype="passive+no_connect"/>
+    </net>
+    <net code="193" name="unconnected-(EXT3-NC-Pad33)" class="Default">
+      <node ref="EXT3" pin="33" pinfunction="NC_33" pintype="passive+no_connect"/>
+    </net>
+    <net code="194" name="unconnected-(EXT3-NC-Pad34)" class="Default">
+      <node ref="EXT3" pin="34" pinfunction="NC_34" pintype="passive+no_connect"/>
+    </net>
+    <net code="195" name="unconnected-(EXT3-NC-Pad35)" class="Default">
+      <node ref="EXT3" pin="35" pinfunction="NC_35" pintype="passive+no_connect"/>
+    </net>
+    <net code="196" name="unconnected-(EXT3-NC-Pad36)" class="Default">
+      <node ref="EXT3" pin="36" pinfunction="NC_36" pintype="passive+no_connect"/>
+    </net>
+    <net code="197" name="unconnected-(EXT3-NC-Pad37)" class="Default">
+      <node ref="EXT3" pin="37" pinfunction="NC_37" pintype="passive+no_connect"/>
+    </net>
+    <net code="198" name="unconnected-(EXT3-NC-Pad38)" class="Default">
+      <node ref="EXT3" pin="38" pinfunction="NC_38" pintype="passive+no_connect"/>
+    </net>
+    <net code="199" name="unconnected-(EXT3-NC-Pad39)" class="Default">
+      <node ref="EXT3" pin="39" pinfunction="NC_39" pintype="passive+no_connect"/>
+    </net>
+    <net code="200" name="unconnected-(EXT3-NC-Pad40)" class="Default">
+      <node ref="EXT3" pin="40" pinfunction="NC_40" pintype="passive+no_connect"/>
+    </net>
+    <net code="201" name="unconnected-(ISO1-NC-Pad1)" class="Default">
+      <node ref="ISO1" pin="1" pinfunction="NC_1" pintype="no_connect"/>
+    </net>
+    <net code="202" name="unconnected-(ISO2-NC-Pad1)" class="Default">
+      <node ref="ISO2" pin="1" pinfunction="NC_1" pintype="no_connect"/>
+    </net>
+    <net code="203" name="unconnected-(ISO3-A6-Pad8)" class="Default">
+      <node ref="ISO3" pin="8" pinfunction="A6_8" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="204" name="unconnected-(ISO3-A7-Pad9)" class="Default">
+      <node ref="ISO3" pin="9" pinfunction="A7_9" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="205" name="unconnected-(ISO3-B6-Pad12)" class="Default">
+      <node ref="ISO3" pin="12" pinfunction="B6_12" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="206" name="unconnected-(ISO3-B7-Pad11)" class="Default">
+      <node ref="ISO3" pin="11" pinfunction="B7_11" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="207" name="unconnected-(ISO3-NC-Pad1)" class="Default">
+      <node ref="ISO3" pin="1" pinfunction="NC_1" pintype="no_connect"/>
+    </net>
+    <net code="208" name="unconnected-(J2-NC-Pad30)" class="Default">
+      <node ref="J2" pin="30" pinfunction="NC_30" pintype="passive+no_connect"/>
+    </net>
+    <net code="209" name="unconnected-(J2-NC-Pad35)" class="Default">
+      <node ref="J2" pin="35" pinfunction="NC_35" pintype="passive+no_connect"/>
+    </net>
+    <net code="210" name="unconnected-(J2-NC-Pad37)" class="Default">
+      <node ref="J2" pin="37" pinfunction="NC_37" pintype="passive+no_connect"/>
+    </net>
+    <net code="211" name="unconnected-(J2-NC-Pad40)" class="Default">
+      <node ref="J2" pin="40" pinfunction="NC_40" pintype="passive+no_connect"/>
+    </net>
+    <net code="212" name="unconnected-(RX5-Y5-Pad13)" class="Default">
+      <node ref="RX5" pin="13" pinfunction="Y5_13" pintype="tri_state+no_connect"/>
+    </net>
+    <net code="213" name="unconnected-(RX5-Y6-Pad12)" class="Default">
+      <node ref="RX5" pin="12" pinfunction="Y6_12" pintype="tri_state+no_connect"/>
+    </net>
+    <net code="214" name="unconnected-(RX5-Y7-Pad11)" class="Default">
+      <node ref="RX5" pin="11" pinfunction="Y7_11" pintype="tri_state+no_connect"/>
+    </net>
+    <net code="215" name="unconnected-(U9-5Y-Pad10)" class="Default">
+      <node ref="U9" pin="10" pinfunction="5Y_10" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="216" name="unconnected-(U9-6Y-Pad12)" class="Default">
+      <node ref="U9" pin="12" pinfunction="6Y_12" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="217" name="unconnected-(U13-2Y-Pad6)" class="Default">
+      <node ref="U13" pin="6" pinfunction="2Y_6" pintype="output+no_connect"/>
+    </net>
+    <net code="218" name="unconnected-(U13-3Y-Pad8)" class="Default">
+      <node ref="U13" pin="8" pinfunction="3Y_8" pintype="output+no_connect"/>
+    </net>
+    <net code="219" name="unconnected-(U13-4Y-Pad11)" class="Default">
+      <node ref="U13" pin="11" pinfunction="4Y_11" pintype="output+no_connect"/>
+    </net>
+    <net code="220" name="unconnected-(X2-/CTCCS1-PadB22)" class="Default">
+      <node ref="X2" pin="B22" pinfunction="/CTCCS1_B22" pintype="passive+no_connect"/>
+    </net>
+    <net code="221" name="unconnected-(X2-/IODI-PadA22)" class="Default">
+      <node ref="X2" pin="A22" pinfunction="/IODI_A22" pintype="passive+no_connect"/>
+    </net>
+    <net code="222" name="unconnected-(X2-/KRF0-PadB25)" class="Default">
+      <node ref="X2" pin="B25" pinfunction="/KRF0_B25" pintype="passive+no_connect"/>
+    </net>
+    <net code="223" name="unconnected-(X2-/LT107CS-PadB21)" class="Default">
+      <node ref="X2" pin="B21" pinfunction="/LT107CS_B21" pintype="passive+no_connect"/>
+    </net>
+    <net code="224" name="unconnected-(X2-/MEMDI-PadB9)" class="Default">
+      <node ref="X2" pin="B9" pinfunction="/MEMDI_B9" pintype="passive+no_connect"/>
+    </net>
+    <net code="225" name="unconnected-(X2-/NMI-PadA23)" class="Default">
+      <node ref="X2" pin="A23" pinfunction="/NMI_A23" pintype="passive+no_connect"/>
+    </net>
+    <net code="226" name="unconnected-(X2-/PIOCS0-PadA3)" class="Default">
+      <node ref="X2" pin="A3" pinfunction="/PIOCS0_A3" pintype="passive+no_connect"/>
+    </net>
+    <net code="227" name="unconnected-(X2-/PIOCS1-PadB3)" class="Default">
+      <node ref="X2" pin="B3" pinfunction="/PIOCS1_B3" pintype="passive+no_connect"/>
+    </net>
+    <net code="228" name="unconnected-(X2-/SIOCS1-PadB26)" class="Default">
+      <node ref="X2" pin="B26" pinfunction="/SIOCS1_B26" pintype="passive+no_connect"/>
+    </net>
+    <net code="229" name="unconnected-(X2-5N-PadA15)" class="Default">
+      <node ref="X2" pin="A15" pinfunction="5N_A15" pintype="passive+no_connect"/>
+    </net>
+    <net code="230" name="unconnected-(X2-12N-PadB15)" class="Default">
+      <node ref="X2" pin="B15" pinfunction="12N_B15" pintype="passive+no_connect"/>
+    </net>
+    <net code="231" name="unconnected-(X2-12P-PadA28)" class="Default">
+      <node ref="X2" pin="A28" pinfunction="12P_A28" pintype="passive+no_connect"/>
+    </net>
+    <net code="232" name="unconnected-(X2-12P-PadB28)" class="Default">
+      <node ref="X2" pin="B28" pinfunction="12P_B28" pintype="passive+no_connect"/>
+    </net>
+    <net code="233" name="unconnected-(X2-NC-PadB27)" class="Default">
+      <node ref="X2" pin="B27" pinfunction="NC_B27" pintype="passive+no_connect"/>
+    </net>
+  </nets>
+</export>

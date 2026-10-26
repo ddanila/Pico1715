@@ -60,3 +60,15 @@ target_compile_definitions(pico1715 PRIVATE
  P1715_PROTECTED_WRITEBACK=$<BOOL:${P1715_PROTECTED_WRITEBACK}>
  P1715_WORST_BLOCK_US=${P1715_WORST_BLOCK_US}
  P1715_RESERVE_MARGIN_US=${P1715_RESERVE_MARGIN_US})
+
+option(P1715_CARRIER "Combined carrier A; PIM724 button safe-eject and LED safe status" OFF)
+if(P1715_CARRIER AND NOT PICO_BOARD STREQUAL "pimoroni_pico_plus2_rp2350")
+ message(FATAL_ERROR "Carrier panel requires PIM724 GPIO45/25; choose the reference board")
+endif()
+if(P1715_CARRIER AND P1715_RESET_ACCESSORY)
+ message(FATAL_ERROR "Carrier GP22 is SD CS; the optional reset accessory conflicts")
+endif()
+target_compile_definitions(pico1715 PRIVATE P1715_CARRIER=$<BOOL:${P1715_CARRIER}>)
+if(P1715_CARRIER)
+ target_sources(pico1715 PRIVATE carrier_panel.c)
+endif()

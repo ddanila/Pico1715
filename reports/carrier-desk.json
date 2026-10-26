@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "pcb_order_ready": false,
+  "kicad_erc_errors": 0,
+  "kicad_erc_warnings": 0,
+  "gating_combinations": 2048,
+  "rejected_connectivity_mutations": 14,
+  "panel_tests": "hold/release, USB mailbox ownership, draining/SAFE/error status",
+  "unit_tests": {
+    "ran": 63,
+    "skipped": 1
+  },
+  "usb_protocol_tests": 11,
+  "usb_contention_cases": 4,
+  "arm_build": {
+    "carrier_panel": true,
+    "write_policy": "read-only",
+    "picotool": false,
+    "controller_elf_sha256": "9a72a2488f3a7c8e9ee0071e9e0565e7b45c284d5d42d88a38624aed4b4546d3",
+    "analyzer_elf_sha256": "d0b2bb27852c378042964721bf27f45d455c323044623d7b67aa01c3c2d281ec"
+  },
+  "source_sha256": {
+    "firmware/carrier_panel.c": "456afc0807b1f07954547dbdae1264df6c458f99581856260e63f6e0bb19eebb",
+    "firmware/carrier_panel.h": "5cb900ddeb0e782282d28bd8c9387866acc8f13d03f8e0826b7991ee812e8fc5",
+    "firmware/controller_usb_device.c": "3a13cf5f0ae883915d98e1a7919e47959bb9cdb330f37044b9d36d3e98da9b18",
+    "firmware/CMakeLists.txt": "aa5ca19ab3095e63f6a42168a172d82756f5e71624a7a5e92d023c7f7b39e57f",
+    "tests/carrier_panel_test.c": "31889f1e0e1ed50162a43ce594315c7095d9a200a412566708aa742499e57df3",
+    "tests/carrier_connectivity_test.py": "f82686c644a52cb6a4335f4e2c0cc0f50a4aba9bb15f9306d9a78ccc2413e9bf",
+    "tools/generate_carrier.py": "0676337e99ba660bb5b75c8ff5fcda8558053e457da2d80662f7a67f1e27fb6f",
+    "tools/check_carrier.py": "8f23f4e93768584195d891576763d77bd27dae0e8deeca59da488ccafcef2544",
+    "tools/verify_hx8k_pins.py": "fdccf810977a867ab9aa5cd0e0d29170c8374d6378ad1bc46190c7bb7a622c1c",
+    "hardware/carrier/carrier.kicad_sch": "8097fe6723f057c22b8b0c7daafe8c9b8946f9a432fec67a5f229bf8edebdaa8",
+    "hardware/carrier/connections.json": "12ec98059d003b3ddf758d55121366fe9c1833ba9122b18634f819854950142e"
+  },
+  "open_gates": [
+    "exact switch and connector footprints",
+    "X2 mechanical orientation",
+    "analog power transitions and bus timing",
+    "module rail/current budget",
+    "physical firmware and ROM boot tests",
+    "PCB placement/routing and review"
+  ]
+}
