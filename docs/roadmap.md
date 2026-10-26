@@ -1,8 +1,9 @@
 # Remaining desk work and hardware plan
 
 The sections below distinguish completed desk increments from remaining plans;
-none substitutes for hardware qualification. The next analyzer desk milestone is
-USB control/download. Shutdown handling and optional backup-power signals remain
+none substitutes for hardware qualification. USB control/download is now implemented and tested at the protocol seam.
+The remaining analyzer integration work is FPGA pin binding, receiver design
+and routed timing, followed by physical qualification. Shutdown handling and optional backup-power signals remain
 a separate planned workstream.
 
 ## Explicit analyzer mode and remote reset
@@ -21,8 +22,9 @@ Completed desk increment: [standalone capture RTL and file export](analyzer-prot
 with directed/randomized simulations and iCE40 synthesis; plus [compact cycle
 capture and stock-boot verification](cycle-analyzer.md), including a 3.3 MiB filtered
 I/O boot trace matching the full capture. The [FPGA–Pico transport and PSRAM
-receiver](analyzer-transport.md) now pass workload replay and fault tests. USB
-control/download, board integration and remote reset remain open.
+receiver](analyzer-transport.md) now pass workload replay and fault tests.
+[USB control/download](analyzer-usb.md) also passes shared-handler/host tests.
+Board integration, physical USB qualification and remote reset remain open.
 
 ## 1. Shutdown firmware and simulation
 

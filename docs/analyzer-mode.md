@@ -8,7 +8,8 @@ triggered buffering and host file export. A second [compact personality](cycle-a
 adds cycle intervals, filtering and stock-boot verification against the emulator.
 The [transport increment](analyzer-transport.md) adds FPGA–Pico framing and a
 bounded PSRAM receiver with shared-firmware/RTL fault tests. This document remains the full feature
-plan: board integration, USB transport and remote reset are not implemented yet.
+plan: [USB commands/download](analyzer-usb.md) now pass host/shared-handler tests;
+board integration, physical USB qualification and remote reset remain open.
 
 - **Controller:** existing floppy replacement behavior.
 - **Analyzer:** passive capture only; no floppy responses, data drive, /WAIT,

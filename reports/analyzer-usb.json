@@ -1,0 +1,57 @@
+{
+  "qualification": "Native protocol/host tests and RP2350 cross-build; no physical USB or timing qualification",
+  "sources": {
+    "firmware/analyzer.c": "acfad9398de9aa6fe7b57e0e6d6b8c90b44340828fd3105eb0ae5ad764f1c518",
+    "firmware/analyzer.h": "96f30d52ec9fb059539fb409d4e088f67c785b062b3021554720925dcc51a0bf",
+    "firmware/analyzer_usb.c": "512d83c8597100fff2f5ba13ae49b899e0ce3cd3525bc13345f1d49b3c36c3ff",
+    "firmware/analyzer_usb.h": "db1d931042291da39b887d1273760ee982b7823b8a947190ad2b17a2c00e73a1",
+    "firmware/analyzer_main.c": "24f62c3a7d7e69eb06ebf356074b581c30a215dcbe38058e5b9ad6182527c31a",
+    "firmware/CMakeLists.txt": "6b8d546fdeb76501f467181fc60be78726ac4ef4dbd2007f2b10a879033f09a0",
+    "tools/analyzer_usb.py": "3c4bd060175752c2b02ac26d0a48a5823d845e9d05b732c7bccfbc61fc9481f9",
+    "tools/cycle_trace.py": "584d9ffb4ef106bf60711cbe8aaafd6126f76d40b6bc7d0df8b444338e06616d",
+    "tests/analyzer_usb_fixture.c": "ded419506f74ab039c1f8c28e6d9d93a29e159a66fc9962feeb33673420308c5",
+    "tests/test_analyzer_usb.py": "ceb2003166a7dc3083937756a41dd8858d890eda2851c1e5dff3827f1954949d"
+  },
+  "command": "P1715_USB_CAPTURE=local/transport-final/boot-normal/capture.p1715 python3 -m unittest discover -s tests -p test_analyzer_usb.py -v",
+  "tests": {
+    "passed": 8,
+    "skipped": 0,
+    "sanitizer": "undefined; nonrecovering",
+    "cases": [
+      "test_crc_and_invalid_capture_rejected",
+      "test_disconnect_partial_request_and_response",
+      "test_external_capture_download",
+      "test_interrupted_download_not_published_and_can_restart",
+      "test_invalid_commands_and_noise",
+      "test_lifecycle_and_exact_download",
+      "test_ranges_and_capture_id",
+      "test_unfinished_or_failed_not_exported"
+    ]
+  },
+  "capture": {
+    "bytes": 3453600,
+    "records": 215848,
+    "sha256": "9e986e7493da9b3729c1f9da0209bfb3b37782af8a1ab08913a2062531d2701c",
+    "result": "byte-identical after transfer through shared C USB handler and Python client",
+    "fixture": "previously verified capture loaded into simulated PSRAM; no USB packet or FPGA timing simulation"
+  },
+  "build": {
+    "command": "cmake --build build/firmware --target pico1715_analyzer pico1715 -j2",
+    "sdk": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+    "tinyusb": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47",
+    "compiler": "arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119",
+    "artifacts": {
+      "pico1715_analyzer.elf": "c3d2f5d50da03682804879ff8a64caa4b97baf110410f64539e898f86d52576b",
+      "pico1715_analyzer.bin": "3af42272d5e3f9d66ef77b5059f73c8d4e5a1a55b37b98fb527a7d2e011be7d7",
+      "pico1715.elf": "be595d8fb217444c13719380d1a6298728edfedbfc0ff4cf68f1755cc817d268",
+      "pico1715.bin": "eccb881caf29f2b2ab649a7fbbc36b931911899e2aef9a7331bf3d28fa494184"
+    }
+  },
+  "regression": "make test test-store test-firmware-service passed; optional external-capture test skipped in default suite",
+  "limitations": [
+    "USB enumeration/cable disconnect not exercised on hardware",
+    "TinyUSB scheduling and QMI/capture throughput not physically measured",
+    "Capture IDs scoped to one boot; download restarts from offset zero after interruption",
+    "No analyzer board pin map or routed timing qualification"
+  ]
+}

@@ -3,7 +3,7 @@
 The analyzer now has a second standalone RTL personality for long diagnostic
 traces: `cycle_capture_top.v` combines `cycle_encoder.v` with a FIFO holding 255 records.
 The [raw analyzer](analyzer-prototype.md) remains available for sampled waveforms.
-The compact personality now has a tested [FPGA–Pico link and PSRAM receiver](analyzer-transport.md). Board pin integration and Pico USB remain open.
+The compact personality now has a tested [FPGA–Pico link and PSRAM receiver](analyzer-transport.md). [USB control/download](analyzer-usb.md) is also implemented; board integration and physical qualification remain open.
 
 ## What a cycle record means
 
@@ -175,7 +175,7 @@ python3 tools/check_cycle_analyzer.py --dac ../dac-emulation \
 ```
 
 Output directories must be new. [FPGA–Pico transport and PSRAM buffering](analyzer-transport.md)
-now pass workload replay with bounded consumer stalls. The next step is USB
-control/download. Board receiver/pin revisions and bench timing remain
+now pass workload replay with bounded consumer stalls. [USB control/download](analyzer-usb.md)
+also passes shared-handler tests. Board receiver/pin revisions and bench timing remain
 separate gates. Compact pre/post-trigger capture is also still future work; the
 existing raw personality provides that feature today.

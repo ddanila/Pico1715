@@ -3,8 +3,9 @@
 The standalone compact analyzer now connects the production encoder/FIFO to a
 CRC-protected parallel link and a shared C receiver. The `pico1715_analyzer`
 RP2350 firmware target stores captures in PSRAM. This is a tested desk prototype:
-no analyzer FPGA pad map, routed timing result, USB interface or physical
-qualification is supplied by this increment.
+no analyzer FPGA pad map, routed timing result or physical qualification is
+supplied by this increment. The later [USB increment](analyzer-usb.md) adds
+control/download to this transport.
 
 ## Link and capture lifecycle
 
@@ -77,10 +78,10 @@ header. It never wraps or overwrites previous records. Only `P1715_LA_DONE`
 authorizes exporting a successful capture; ERROR or an unfinished capture must
 not be exported as complete, even if header bytes are present.
 
-The standalone target starts capture automatically after PSRAM initialization.
-For now SWD exposes `p1715_analyzer_status` and the boolean
-`p1715_analyzer_request_stop`; set the latter to stop and drain. USB commands,
-download and a host utility are the next desk milestone.
+The standalone target now starts idle after PSRAM initialization; use the
+[USB host utility](analyzer-usb.md) to arm, stop and download. SWD still exposes
+`p1715_analyzer_status` for diagnostics. The original transport report predates
+USB integration; its polling profiles do not measure the current USB loop.
 
 ```sh
 cmake -S firmware -B build/firmware -DPICO_NO_PICOTOOL=1
