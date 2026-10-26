@@ -1,0 +1,20 @@
+{
+  "hardware_executed": false,
+  "dac_commit": "98f8f808c08ce21f6b98a00b95185f1e2226e70d",
+  "source_sha256": {
+    "tests/motherboard_chain.c": "a29a67cd5ce56858b175028aec9500a01a129ac73d6fe39d187100734aeef30c",
+    "model/controller.c": "3002ed85cffc7818d9cd052415bf2e0b01eca117ecb2f8bc785602a759b9ab4f",
+    "dac/machines/robotron1715/pc1715.c": "d5b8669447be0c818145accf0011cc9d3267afee55421e0dd715d71fee49c55d",
+    "dac/common/cpu/z80.c": "d7329a9a116f49441b9ed4f23c0c2fdbb8cb338f74e327cc3344442a355461cf",
+    "dac/common/trace/trace.c": "32067accc779e2f0ad0ebbb68b765f9db7a7c52430f30b3efeac827e0fd160c4",
+    "dac/machines/robotron1715/peripherals.h": "2cec3f4ab4049cbf2ba521de3a3b42242bb27c01790701f1cd4509d695907a0b",
+    "dac/machines/robotron1715/pc1715.h": "f1846d1483e246e20d940600c1387643b2d2a256bdc67197e085ef16b7c914fc",
+    "model/controller.h": "7cf446651377f3eaca6b685bb3b4785b2c06b41ff2cc3823fe9368071916e82e",
+    "tools/check_motherboard_chain.py": "1fb871fc90746ce42e114b5995abaf11048e9ce8fb8bf333cba4c29f1e095670"
+  },
+  "result": [
+    "PASS real controller IM2: index 10, mark 12, CTC 40, SIO 6c; one ISR/RETI each",
+    "PASS active-card quiesce releases CTC/SIO; reset clears chain and controller ownership"
+  ],
+  "limits": "Register-level CTC/SIO subset; completed serial bytes and external levels injected. No electrical or full serial peripheral qualification."
+}

@@ -78,8 +78,9 @@ The firmware polls on changes of the microsecond timer, quantized to CPU ticks.
 Idle FPGA clocks can be skipped once the normal mailbox has settled; observed
 CPU bus transitions still advance the RTL. This proves functional sequencing,
 not firmware execution-time bounds, full CDC behavior, or physical /WAIT margins.
-The motherboard's keyboard is still a minimal SIO receive fixture; full CTC/SIO
-priority-chain integration is a separate remaining task.
+The motherboard's keyboard here remains a minimal SIO receive fixture. Separate
+[register-level card–CTC–SIO chain tests](motherboard-interrupts.md) now qualify
+priority and nesting; migrating this keyboard fixture remains open.
 
 The [storage/reset qualification](firmware-storage-faults.md) adds delayed stock-OS
 workloads, three stock-ROM reset scenarios and 42 scripted firmware/RTL fault

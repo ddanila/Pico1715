@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "reviewed": "2026-10-25",
+  "reviewed": "2026-10-26",
   "dac": {
     "repository": "https://github.com/ddanila/dac-emulation",
-    "commit": "59823402bd3209ca46f6ace0729f60989ed29e39",
+    "commit": "98f8f808c08ce21f6b98a00b95185f1e2226e70d",
     "profile": "robotron1715m-wm-reference",
     "license": "MIT plus dependencies/reference notices in external NOTICE",
     "limitation": "Plain motherboard is headless; Pico1715 supplies functional and scheduled-byte controller profiles. Transaction waits are modelled; physical timing remains unqualified. W/M remains separate.",
     "profiles": {
-      "robotron1715": "kind 3; headless plain CPU/memory/bus and native card seam",
+      "robotron1715": "kind 3; headless plain CPU/memory/bus, card seam and opt-in CTC/SIO interrupt subset",
       "robotron1715m": "kind 2; bootable W/M reference"
     }
   },

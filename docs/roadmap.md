@@ -72,12 +72,16 @@ measurement plan. No capacitor value, component choice or guaranteed hold-up
 time is selected yet. Validate charging, repeated outages and shutdown on the
 bench before claiming protected writeback.
 
-## 3. Full motherboard interrupt-chain emulation
+## 3. Motherboard interrupt-chain emulation
 
-Exercise the card alongside CTC/SIO interrupt sources, including priority,
-interrupt acknowledgement, in-service/nested behavior and RETI propagation.
-Acceptance requires regression cases demonstrating the expected ordering and
-release behavior; card-only IRQ tests do not close this milestone.
+Completed desk increment: [card–CTC–SIO arbitration](motherboard-interrupts.md),
+including simultaneous requests, vector selection, priority/nesting, ownership
+on RETI, active-card isolation and reset. Tests include a synthetic Z80 IM2 guest
+with the actual Pico1715 controller; CI runs the combined check.
+
+The new register-level CTC/SIO subset is opt-in. Full serial waveforms, special
+receive conditions, X1 expansion and migration of the legacy keyboard fixture
+remain open; this does not qualify the physical chain's electrical timing.
 
 ## 4. Broader software compatibility
 

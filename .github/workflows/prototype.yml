@@ -20,8 +20,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ddanila/dac-emulation
-          ref: 59823402bd3209ca46f6ace0729f60989ed29e39
+          ref: 98f8f808c08ce21f6b98a00b95185f1e2226e70d
           path: build/dac
+      - run: make -C build/dac test-pc1715
+      - run: python3 tools/check_motherboard_chain.py --dac build/dac --out build/motherboard-chain
       - run: python3 tools/check_cycle_analyzer.py --dac build/dac --out build/cycle-analyzer-check
       - run: python3 tools/build_cosim.py --firmware --dac build/dac --out build/firmware-cosim
       - run: python3 tests/firmware_cosim_smoke.py build/firmware-cosim/classic-probe

@@ -164,3 +164,6 @@ comparison for downloaded compact captures.
 
 [Safe eject and shutdown](docs/shutdown.md) now drain the journal before reporting
 safe, with optional reserve-gated writeback and deterministic outage tests.
+
+[Motherboard interrupt-chain tests](docs/motherboard-interrupts.md) now exercise
+the real controller with CTC/SIO priority, IM2 vectors, RETI and card isolation.
