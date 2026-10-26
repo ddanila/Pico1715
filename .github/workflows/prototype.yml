@@ -28,5 +28,5 @@ jobs:
       - run: python3 tools/check_onboard_keyboard.py --dac build/dac --out build/onboard-keyboard
       - run: python3 tools/check_motherboard_chain.py --dac build/dac --out build/motherboard-chain
       - run: python3 tools/check_cycle_analyzer.py --dac build/dac --out build/cycle-analyzer-check
-      - run: python3 tools/build_cosim.py --firmware --dac build/dac --out build/firmware-cosim
-      - run: python3 tests/firmware_cosim_smoke.py build/firmware-cosim/classic-probe
+      - run: python3 tools/check_cpu_cost_smoke.py --dac build/dac --out build/cpu-cost-check
+      - run: python3 tests/firmware_cosim_smoke.py build/cpu-cost-check/build/classic-probe

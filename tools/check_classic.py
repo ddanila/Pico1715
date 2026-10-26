@@ -10,6 +10,7 @@ import sys
 import re
 import subprocess
 from classic_workload import install, small_file
+from firmware_costs import parse_costs, environment as cost_environment, evidence as cost_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 ROM_HASH = '51cb80639b5667f2611da71ce7305061566cf3474bda7db6fc82709d08e46d01'
@@ -35,7 +36,11 @@ def main():
                         help='run shared Pico service/storage code against the board-level RTL')
     parser.add_argument('--sd-write-delay-us', type=int, default=0,
                         help='simulated SD block write latency in the firmware worker')
+    parser.add_argument('--firmware-costs-us', type=parse_costs, default=(0,0,0,0,0,0),
+                        help='poll,field,read,write,commit,snapshot costs in microseconds')
     args = parser.parse_args()
+    if any(args.firmware_costs_us) and not args.firmware_cosim:
+        parser.error('firmware costs require --firmware-cosim')
     if not 0 <= args.sd_write_delay_us <= 1000000 or (args.sd_write_delay_us and not args.firmware_cosim):
         parser.error('SD delay requires --firmware-cosim and a value from 0 to 1000000')
     if args.firmware_cosim:
@@ -72,6 +77,7 @@ def main():
         environment['PICO1715_TIMED'] = '0'
     if args.firmware_cosim:
         environment['PICO1715_SD_WRITE_DELAY_US'] = str(args.sd_write_delay_us)
+        environment.update(cost_environment(args.firmware_costs_us))
 
     def run(name, media, command='', readonly=False, absent=False):
         folder = out / name
@@ -82,7 +88,7 @@ def main():
         elif readonly:
             cmd.append('readonly')
         before = digest(media)
-        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=180 if args.cosim else 60, env=environment)
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=300 if args.cosim else 60, env=environment)
         (folder / 'stderr.txt').write_text(proc.stderr)
         (folder / 'stdout.txt').write_text(proc.stdout)
         require(proc.returncode == (1 if absent else 0), f'{name}: probe failed: {proc.stderr}')
@@ -99,6 +105,9 @@ def main():
             require(absent or all(report['rtl'][key] > 0 for key in ('requests', 'acks', 'reti')),
                     'RTL path not exercised')
         if args.firmware_cosim:
+            report['costs'] = cost_evidence(proc.stderr)
+            require(report['costs']['config'] == list(args.firmware_costs_us), 'wrong firmware costs')
+            require(not report['costs']['faults'], 'FPGA watchdog fault')
             stats = re.search(r'Firmware state=(\d+) requests=(\d+) sd_reads=(\d+) sd_writes=(\d+) dirty=(\d+) error=(\d+)', proc.stderr)
             require(stats is not None, 'missing firmware evidence')
             report['firmware'] = dict(zip(('state', 'requests', 'sd_reads', 'sd_writes', 'dirty', 'error'), map(int, stats.groups())))
@@ -175,16 +184,17 @@ def main():
         report['limitations'] = 'C disk/controller backend; transaction-level waits; RTL normal I/O and IRQ/RETI; not physical timing'
     if args.firmware_cosim:
         report['sd_write_delay_us'] = args.sd_write_delay_us
+        report['firmware_costs_us'] = list(args.firmware_costs_us)
         report['source_sha256'].update({name: digest(ROOT / name) for name in
-            ('firmware/main.c', 'firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
+            ('tools/firmware_costs.py', 'firmware/main.c', 'firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
              'firmware/store.c', 'firmware/store.h', 'firmware/CMakeLists.txt',
              'tools/firmware_host/bridge.cpp', 'tools/firmware_host/host_hal.c',
              'tools/firmware_host/host_hal.h', 'hardware/rtl/pico1715_top.v',
              'hardware/rtl/firmware_cosim_top.v')})
         report['limitations'] = ('Host-compiled shared firmware service and storage code; simulated GPIO, '
-            'microsecond clock, PSRAM and SD block device; cooperative storage worker; '
-            '1 us service polling; DAC deferred I/O and synthetic keyboard; '
-            'not ARM instruction execution, SPI/QMI electrical emulation, multicore contention or physical timing')
+            'microsecond clock, PSRAM and SD block device; cooperative serving/storage cores; '
+            'injected execution costs and image-lock contention; DAC deferred I/O and synthetic keyboard; '
+            'not ARM instruction execution, real cache/QMI/SPI behavior or physical timing')
     (out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     require(not timing_failures, f'timing qualification failed: {timing_failures}; report: {out / "report.json"}')
     print(f'{len(results)} classic compatibility cases passed; report: {out / "report.json"}')

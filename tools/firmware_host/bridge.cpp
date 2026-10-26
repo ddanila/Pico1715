@@ -12,6 +12,7 @@ extern "C" {
 #include <cstring>
 #include <ucontext.h>
 #include <cerrno>
+#include <cassert>
 static Vfirmware_cosim_top rtl;
 static pc1715 *machine;
 static pico1715_controller *card;
@@ -21,6 +22,15 @@ static uint16_t address;
 static int writing;
 static uint64_t phase,requests,acks,returns,last_poll,last_worker;
 static unsigned settle;
+static ucontext_t serving_context;
+static uint8_t serving_stack[128*1024];
+static bool serving_busy,reset_observed,exporting;
+static uint64_t serving_due;
+static unsigned current_core=2,lock_owner=2;
+static unsigned costs[P1715_COST_COUNT];
+static uint64_t cost_calls[P1715_COST_COUNT],cost_yields,lock_wait_us;
+static uint64_t fault_count,first_fault_us;
+static bool last_fault;
 // Separate deterministic worker stack: SD waits yield while the real CPU/RTL
 // and firmware serving loop continue. No OS threads or lock preemption.
 static ucontext_t worker_context, caller_context;
@@ -29,10 +39,39 @@ static bool worker_busy;
 static uint64_t worker_due,clock_epoch;
 static unsigned sd_write_delay;
 static uint64_t sd_yields,resets_while_busy;
+static void pause_core(unsigned delay){
+    assert(current_core<2);
+    uint64_t &due=current_core?worker_due:serving_due;
+    due=host_time_us+delay;
+    if(swapcontext(current_core?&worker_context:&serving_context,&caller_context))std::abort();
+}
+static void charge(unsigned kind){
+    assert(kind<P1715_COST_COUNT);cost_calls[kind]++;
+    if(costs[kind]){cost_yields++;pause_core(costs[kind]);}
+}
+static void image_lock(critical_section_t *,bool enter){
+    assert(current_core<2);
+    if(enter){
+        assert(lock_owner!=current_core);
+        while(lock_owner!=2){lock_wait_us++;pause_core(1);}
+        lock_owner=current_core;
+    }else{assert(lock_owner==current_core);lock_owner=2;}
+}
+static void resume_core(unsigned core){
+    current_core=core;
+    if(swapcontext(&caller_context,core?&worker_context:&serving_context))std::abort();
+    current_core=2;
+}
+static void serving_entry(){
+    for(;;){
+        p1715_service_step();serving_busy=false;
+        if(!rtl.reset_n && !(host_outputs&(1u<<21)))reset_observed=true;
+        if(swapcontext(&serving_context,&caller_context))std::abort();
+    }
+}
 static void sd_pause(bool writing,uint32_t){
     if(writing && sd_write_delay){
-        sd_yields++;worker_due=host_time_us+sd_write_delay;
-        if(swapcontext(&worker_context,&caller_context))std::abort();
+        sd_yields++;pause_core(sd_write_delay);
     }
 }
 static void worker_entry(){
@@ -47,13 +86,16 @@ static void worker_pump(){
         if(!p1715_status.dirty_blocks || host_time_us-last_worker<100)return;
         last_worker=host_time_us;worker_busy=true;worker_due=host_time_us;
     }
-    if(host_time_us>=worker_due && swapcontext(&caller_context,&worker_context))std::abort();
+    if(host_time_us>=worker_due)resume_core(1);
 }
 static void pins() {rtl.gpio_out=host_outputs;rtl.gpio_dir=host_directions;rtl.eval();host_inputs=rtl.gpio_in;}
 static void service(bool force=false) {
     pins();
     if(ready && (force || host_time_us!=last_poll)) {
-        last_poll=host_time_us;p1715_service_step();pins();
+        last_poll=host_time_us;
+        if(!serving_busy && !exporting){serving_busy=true;serving_due=host_time_us;}
+        if(serving_busy && host_time_us>=serving_due)resume_core(0);
+        pins();
     }
     worker_pump();
 }
@@ -69,7 +111,9 @@ static void clock_edge() {
     bool ack=(rtl.gpio_in>>18)&1,reti=(rtl.gpio_in>>19)&1;
     if(ack!=last_ack){last_ack=ack;acks++;}
     if(reti!=last_reti){last_reti=reti;returns++;}
-    if(rtl.fault || rtl.contention) {std::fprintf(stderr,"Firmware RTL fault=%u contention=%u time=%llu inputs=%08x outputs=%08x dir=%08x\n",rtl.fault,rtl.contention,(unsigned long long)host_time_us,host_inputs,host_outputs,host_directions);std::abort();}
+    if(rtl.fault && !last_fault){if(!fault_count)first_fault_us=host_time_us;fault_count++;}
+    last_fault=rtl.fault;
+    if(rtl.contention) {std::fprintf(stderr,"Firmware RTL fault=%u contention=%u time=%llu inputs=%08x outputs=%08x dir=%08x\n",rtl.fault,rtl.contention,(unsigned long long)host_time_us,host_inputs,host_outputs,host_directions);std::abort();}
 }
 extern "C" void cosim_init(void *m,void *c) {
     machine=(pc1715 *)m;card=(pico1715_controller *)c;
@@ -85,6 +129,25 @@ extern "C" void firmware_cosim_start(int absent) {
     ready=p1715_service_init(card,writable)==0;
     last_poll=UINT64_MAX;last_worker=clock_epoch=0;worker_busy=false;
     sd_write_delay=0;sd_yields=resets_while_busy=0;
+    serving_busy=reset_observed=exporting=false;serving_due=0;current_core=lock_owner=2;
+    cost_yields=lock_wait_us=fault_count=first_fault_us=0;last_fault=false;
+    const char *names[]={"POLL","FIELD","READ","WRITE","COMMIT","SNAPSHOT"};
+    for(unsigned i=0;i<P1715_COST_COUNT;i++){
+        char key[64];std::snprintf(key,sizeof(key),"PICO1715_COST_%s_US",names[i]);
+        costs[i]=0;cost_calls[i]=0;
+        if(const char *value=std::getenv(key)){
+            char *end;errno=0;unsigned long n=std::strtoul(value,&end,10);
+            if(errno || !*value || *end || *value=='-' || n>1000000){
+                std::fprintf(stderr,"invalid %s\n",key);std::exit(2);
+            }
+            costs[i]=(unsigned)n;
+        }
+    }
+    if(getcontext(&serving_context))std::abort();
+    serving_context.uc_stack.ss_sp=serving_stack;
+    serving_context.uc_stack.ss_size=sizeof(serving_stack);
+    serving_context.uc_link=nullptr;
+    makecontext(&serving_context,serving_entry,0);
     if(const char *value=std::getenv("PICO1715_SD_WRITE_DELAY_US")){
         char *end;errno=0;unsigned long n=std::strtoul(value,&end,10);
         if(errno || !*value || *end || *value=='-' || n>1000000){
@@ -99,7 +162,7 @@ extern "C" void firmware_cosim_start(int absent) {
         worker_context.uc_link=nullptr;
         makecontext(&worker_context,worker_entry,0);
     }
-    host_io_hook=sd_pause;
+    host_io_hook=sd_pause;host_cost_hook=charge;host_lock_hook=image_lock;
 }
 extern "C" int firmware_cosim_storage_busy(void){return worker_busy;}
 extern "C" void cosim_reset(void *) {
@@ -108,8 +171,21 @@ extern "C" void cosim_reset(void *) {
     clock_epoch=host_time_us;last_poll=UINT64_MAX;last_worker=host_time_us;
     rtl.transaction=0;rtl.iorq_n=rtl.rd_n=rtl.wr_n=1;
     rtl.obs_m1_n=rtl.obs_mreq_n=rtl.obs_iorq_n=rtl.obs_rd_n=1;
-    rtl.power_good=1;rtl.reset_n=0;last_ack=last_reti=last_response=false;
-    service(true);clock_edge();rtl.reset_n=1;service(true);
+    rtl.power_good=1;rtl.reset_n=0;last_ack=last_reti=false;
+    // A response held before reset is not a new ACK while delayed service
+    // waits to observe reset and release its GPIOs.
+    last_response=(host_outputs&(1u<<14))!=0;
+    reset_observed=false;
+    service(true);clock_edge();
+    // Hold reset while stalled service/worker contexts advance. No stack is
+    // discarded while it owns the image lock; the CPU itself remains reset.
+    uint64_t deadline=host_time_us+10000000;
+    while(ready && !reset_observed){
+        host_time_us++;for(unsigned i=0;i<100;i++)clock_edge();
+        if(host_time_us>=deadline){std::fputs("reset service deadline exceeded\n",stderr);std::abort();}
+    }
+    clock_epoch=host_time_us;
+    rtl.reset_n=1;service(true);
     for(unsigned i=0;i<12;i++)clock_edge();
 }
 extern "C" void cosim_tick(void *,uint64_t cycle) {
@@ -135,7 +211,7 @@ extern "C" int cosim_wait(void *,uint16_t a,int write) {
 static void finish(){active=launched=false;rtl.transaction=0;rtl.iorq_n=rtl.rd_n=rtl.wr_n=1;rtl.eval();settle=8;}
 extern "C" int cosim_read(void *,uint16_t a,uint8_t *v){
     if(!claimed(a,0))return 0;
-    if(!rtl.host_data_enable && ready)std::abort();
+    if(!rtl.host_data_enable && ready && (host_outputs&(1u<<21)) && !rtl.fault)std::abort();
     *v=rtl.host_data_enable?rtl.host_rdata:0xff;finish();return 1;
 }
 extern "C" void cosim_write(void *,uint16_t a,uint8_t){if(claimed(a,1))finish();}
@@ -157,15 +233,37 @@ extern "C" uint64_t cosim_requests(void){return requests;}
 extern "C" uint64_t cosim_acks(void){return acks;}
 extern "C" uint64_t cosim_returns(void){return returns;}
 extern "C" void firmware_cosim_export(void){
-    // Drain the simulated worker, never start a second journal writer while
-    // its stack is suspended inside an SD block transfer.
-    while(host_worker && !p1715_status.storage_error && (worker_busy || p1715_status.dirty_blocks)){
-        host_time_us+=100;worker_pump();
+    // Finish any exposed host transaction before stopping new serving steps.
+    // Suspended steps must finish so the worker cannot inherit a stranded lock.
+    if(active){
+        if(!launched){
+            rtl.host_addr=address;rtl.host_wdata=Z80_GET_DATA(machine->cpu.pins);
+            rtl.transaction=1;rtl.iorq_n=0;rtl.rd_n=writing;rtl.wr_n=!writing;launched=true;
+        }
+        unsigned waited=0;
+        do{host_time_us++;for(unsigned i=0;i<100;i++)clock_edge();
+            if(++waited>1000000)std::abort();
+        }while(rtl.wait_pull_low);
+        finish();
+    }
+    exporting=true;
+    uint64_t deadline=host_time_us+60000000;
+    while(serving_busy || (host_worker && !p1715_status.storage_error &&
+                          (worker_busy || p1715_status.dirty_blocks))){
+        host_time_us++;
+        for(unsigned i=0;i<100;i++)clock_edge();
+        if(host_time_us>=deadline){std::fputs("export drain deadline exceeded\n",stderr);std::abort();}
     }
     if(ready && std::memcmp(card->image,host_storage_image(),P1715_IMAGE_BYTES)) {
         std::fputs("PSRAM differs from persisted SD image\n",stderr);std::abort();
     }
     std::memcpy(output_image,host_storage_image(),P1715_IMAGE_BYTES);
+    std::fprintf(stderr,"Costs config=[%u,%u,%u,%u,%u,%u] calls=[%llu,%llu,%llu,%llu,%llu,%llu] yields=%llu lock_wait_us=%llu faults=%llu first_fault_us=%llu\n",
+        costs[0],costs[1],costs[2],costs[3],costs[4],costs[5],
+        (unsigned long long)cost_calls[0],(unsigned long long)cost_calls[1],(unsigned long long)cost_calls[2],
+        (unsigned long long)cost_calls[3],(unsigned long long)cost_calls[4],(unsigned long long)cost_calls[5],
+        (unsigned long long)cost_yields,(unsigned long long)lock_wait_us,
+        (unsigned long long)fault_count,(unsigned long long)first_fault_us);
     std::fprintf(stderr,"Storage delay_us=%u yields=%llu resets_while_busy=%llu\n",sd_write_delay,
         (unsigned long long)sd_yields,(unsigned long long)resets_while_busy);
     std::fprintf(stderr,"Firmware state=%u requests=%llu sd_reads=%llu sd_writes=%llu dirty=%u error=%u\n",

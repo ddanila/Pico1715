@@ -116,10 +116,12 @@ No private ROM, OS image or hardware is needed. The checker creates an exclusive
 output directory, builds the production firmware/RTL harness, verifies the case
 matrix and source hashes, and retains raw stdout/stderr plus a JSON report.
 
-The [stock software regression](../reports/service-cost-stock.json) separately
+The historical [stock software regression](../reports/service-cost-stock.json) separately
 runs the real Z80 ROM/SCP workload with 5 ms SD-write delays and zero injected
 service costs. It validates compatibility of the request-liveness correction;
 it does not establish the scripted cost boundaries for that CPU workload.
+The subsequent [Z80 cost integration](cpu-service-costs.md) now runs combined
+nonzero costs through the stock software and records stricter limits.
 Existing [storage faults](../reports/service-cost-storage.json) and
 [interrupt phase tests](../reports/service-cost-interrupts.json) remain passing.
 Both read-only and experimental-writeback Pico firmware builds compile.

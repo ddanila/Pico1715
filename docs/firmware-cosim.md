@@ -99,6 +99,7 @@ injection options are not firmware-storage fault controls.
 The separate [ROM-free service-cost harness](service-costs.md) pauses production
 firmware at controlled work sites while the FPGA and the other core continue.
 It models image-lock ownership and measures byte-loss and watchdog boundaries.
-This stock CPU bridge still uses zero-cost service calls; its delayed-SD tests
-check compatibility, not those cost limits. The new request-liveness checks
+The [stock CPU bridge now supports the same cost sites](cpu-service-costs.md),
+including combined costs, delayed SD and actual image-lock contention. Zero
+costs remain the default. Historical delayed-SD reports used zero service costs. The new request-liveness checks
 prevent a delayed operation from publishing an ACK after observed cancellation.

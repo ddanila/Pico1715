@@ -99,8 +99,10 @@ with delayed writeback after that correction.
 
 The measured brackets belong to the scripted workload, not physical Pico
 execution. Bench measurements must supply actual PSRAM/CRC, polling and lock
-costs. Replaying combinations and Z80 workloads with those costs remains future
-work; a watchdog pass alone does not qualify byte-service timing.
+costs. The [Z80 integration](cpu-service-costs.md) now replays combined hypothetical
+costs through stock boot/SAVE/BDOS/reboot workloads, with ROM-free CPU regressions
+for reset and overload. Replaying measured hardware costs remains future work;
+a watchdog pass alone does not qualify byte-service timing.
 
 ## 5. Broader software compatibility
 
