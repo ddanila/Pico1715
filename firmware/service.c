@@ -24,19 +24,102 @@ static uint32_t dirty[P1715_IMAGE_BLOCKS],generation;
 static uint8_t *image;
 /* SWD-visible diagnostics. No printf/USB ISR on the bus-serving core. */
 volatile p1715_diagnostics p1715_status;
-void p1715_storage_step(void){
- if(p1715_status.storage_error)return;
- uint8_t block[512];
-  for(unsigned i=0;i<P1715_IMAGE_BLOCKS;i++){
-   critical_section_enter_blocking(&image_lock);
-   uint32_t version=dirty[i];if(version)memcpy(block,image+i*512,512);
-   critical_section_exit(&image_lock);
-   if(!version)continue;
-   if(p1715_store_write(&store,i,block)){p1715_status.storage_error=1;return;}
-   critical_section_enter_blocking(&image_lock);
-   if(dirty[i]==version){dirty[i]=0;p1715_status.dirty_blocks--;}
-   critical_section_exit(&image_lock);
+volatile uint32_t p1715_shutdown_command;
+static uint32_t block_budget_us,reserve_margin_us;
+static bool write_capable;
+static bool writes_allowed(void){
+ return !p1715_status.storage_error && p1715_status.shutdown==P1715_RUNNING &&
+   (p1715_status.write_policy==P1715_WRITE_EXPERIMENTAL ||
+    (p1715_status.write_policy==P1715_WRITE_PROTECTED && p1715_status.backup==P1715_BACKUP_READY &&
+     p1715_status.dirty_blocks+2<=p1715_status.dirty_limit));
+}
+static void isolate(void){
+ card.writable=0;card.write_active=0;card.stream_active=0;
+ gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
+ gpio_put(INDEX_PENDING,0);gpio_put(MARK_PENDING,0);
+}
+/* Called with image_lock held. Never report SAFE while a journal operation is in flight. */
+static void shutdown_progress(void){
+ if(p1715_status.shutdown!=P1715_DRAINING)return;
+ if(p1715_status.storage_error){
+  p1715_status.shutdown=P1715_UNSAFE;p1715_status.shutdown_reason=P1715_SHUTDOWN_STORAGE;
+ }else if(p1715_status.shutdown_deadline && time_us_64()>=p1715_status.shutdown_deadline){
+  p1715_status.shutdown=P1715_UNSAFE;p1715_status.shutdown_reason=P1715_SHUTDOWN_DEADLINE;
+ }else if(!p1715_status.dirty_blocks && !p1715_status.storage_busy)p1715_status.shutdown=P1715_SAFE;
+}
+static void dirty_limit(void){
+ uint64_t budget=p1715_status.reserve_us;
+ p1715_status.dirty_limit=0;
+ if(p1715_status.backup==P1715_BACKUP_READY && block_budget_us && budget>reserve_margin_us){
+  budget=(budget-reserve_margin_us)/block_budget_us;
+  p1715_status.dirty_limit=budget>P1715_IMAGE_BLOCKS?P1715_IMAGE_BLOCKS:(uint32_t)budget;
+ }
+}
+int p1715_shutdown_request(unsigned command){
+ if(p1715_status.state!=2 || (command!=P1715_EJECT && command!=P1715_POWER_FAIL))return -1;
+ isolate();
+ critical_section_enter_blocking(&image_lock);
+ if(p1715_status.shutdown==P1715_RUNNING)p1715_status.shutdown=P1715_DRAINING;
+ if(command==P1715_POWER_FAIL && p1715_status.shutdown==P1715_DRAINING){
+  uint64_t now=time_us_64(),budget=p1715_status.reserve_us;
+  if(p1715_status.backup!=P1715_BACKUP_READY || !budget){
+   if(p1715_status.dirty_blocks || p1715_status.storage_busy){
+    p1715_status.shutdown=P1715_UNSAFE;p1715_status.shutdown_reason=P1715_SHUTDOWN_RESERVE;
+   }
+  }else {
+   uint64_t deadline=UINT64_MAX-now<budget?UINT64_MAX:now+budget;
+   /* Repeated outages or ready updates cannot extend an existing deadline. */
+   if(!p1715_status.shutdown_deadline || deadline<p1715_status.shutdown_deadline)p1715_status.shutdown_deadline=deadline;
   }
+ }
+ shutdown_progress();critical_section_exit(&image_lock);return 0;
+}
+int p1715_write_policy(unsigned policy,uint32_t worst_block_us,uint32_t margin_us){
+ if(policy>P1715_WRITE_PROTECTED || p1715_status.state!=2 ||
+    (policy!=P1715_READ_ONLY && !write_capable) ||
+    (policy==P1715_WRITE_PROTECTED && !worst_block_us))return -1;
+ critical_section_enter_blocking(&image_lock);
+ if(p1715_status.shutdown!=P1715_RUNNING || p1715_status.dirty_blocks || p1715_status.storage_busy || card.write_active){
+  critical_section_exit(&image_lock);return -1;
+ }
+ p1715_status.write_policy=policy;block_budget_us=worst_block_us;reserve_margin_us=margin_us;dirty_limit();
+ card.writable=policy==P1715_WRITE_EXPERIMENTAL || (policy==P1715_WRITE_PROTECTED && p1715_status.dirty_limit>=2);
+ critical_section_exit(&image_lock);return 0;
+}
+int p1715_backup_update(unsigned state,uint64_t reserve_us){
+ if(state>P1715_BACKUP_FAILED || p1715_status.state!=2)return -1;
+ critical_section_enter_blocking(&image_lock);
+ p1715_status.backup=state;p1715_status.reserve_us=state==P1715_BACKUP_READY?reserve_us:0;dirty_limit();
+ bool lost=p1715_status.write_policy==P1715_WRITE_PROTECTED &&
+  (state!=P1715_BACKUP_READY || p1715_status.dirty_limit<p1715_status.dirty_blocks);
+ bool draining=p1715_status.shutdown==P1715_DRAINING && p1715_status.shutdown_deadline;
+ critical_section_exit(&image_lock);
+ /* Reserve loss while mains remains present still drains under live power. */
+ if(lost && (p1715_status.dirty_blocks || card.write_active))p1715_shutdown_request(P1715_EJECT);
+ if(draining)p1715_shutdown_request(P1715_POWER_FAIL);
+ return 0;
+}
+void p1715_storage_step(void){
+ uint8_t block[512];
+ for(unsigned i=0;i<P1715_IMAGE_BLOCKS;i++){
+  critical_section_enter_blocking(&image_lock);
+  shutdown_progress();
+  if(p1715_status.storage_error || p1715_status.shutdown==P1715_UNSAFE || p1715_status.shutdown==P1715_SAFE){
+   critical_section_exit(&image_lock);return;
+  }
+  uint32_t version=dirty[i];
+  if(version){memcpy(block,image+i*512,512);p1715_status.storage_busy=1;}
+  critical_section_exit(&image_lock);
+  if(!version)continue;
+  int failed=p1715_store_write(&store,i,block);
+  critical_section_enter_blocking(&image_lock);
+  p1715_status.storage_busy=0;
+  if(failed)p1715_status.storage_error=1;
+  else if(dirty[i]==version){dirty[i]=0;p1715_status.dirty_blocks--;}
+  shutdown_progress();
+  critical_section_exit(&image_lock);
+  if(failed)return;
+ }
 }
 static void worker(void){for(;;){p1715_storage_step();sleep_us(100);}}
 static void outputs(void){
@@ -45,27 +128,40 @@ static void outputs(void){
 }
 static bool ack_seen,reti_seen,responded,reset_seen;
 static uint64_t start;
-int p1715_service_init(pico1715_controller *c,bool writable){
+static int service_init(pico1715_controller *c,bool writable,bool protect,uint32_t worst,uint32_t margin){
  controller=c;
  memset((void *)&p1715_status,0,sizeof(p1715_status));
- generation=0;store.failed=0;
+ generation=0;store.failed=0;p1715_shutdown_command=0;
+ block_budget_us=worst;reserve_margin_us=margin;write_capable=writable;
+ p1715_status.write_policy=protect?P1715_WRITE_PROTECTED:writable?P1715_WRITE_EXPERIMENTAL:P1715_READ_ONLY;
  for(unsigned pin=0;pin<=21;pin++){gpio_init(pin);gpio_set_dir(pin,GPIO_IN);gpio_pull_down(pin);}
  for(unsigned pin=LINK_ACK;pin<=INDEX_PENDING;pin++)if(pin!=HOST_RESET)gpio_set_dir(pin,GPIO_OUT);
  gpio_set_dir(MARK_PENDING,GPIO_OUT);gpio_set_dir(BACKEND_READY,GPIO_OUT);
  gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_pull_up(HOST_RESET);
  critical_section_init(&image_lock);p1715_status.state=1;
+ if(protect && !worst){p1715_status.state=0xe4;return -1;}
  image=p1715_psram();if(!image){p1715_status.state=0xe1;return -1;}
  if(p1715_sd_init()||p1715_store_open(&store)){p1715_status.state=0xe2;return -1;}
  for(unsigned i=0;i<P1715_IMAGE_BLOCKS;i++)if(p1715_store_read(&store,i,image+i*512)){
   p1715_status.state=0xe3;return -1;}
- pico1715_mount(&card,image,P1715_IMAGE_BYTES,80,2,5,3);card.writable=writable;
+ pico1715_mount(&card,image,P1715_IMAGE_BYTES,80,2,5,3);card.writable=writable&&!protect;
  card.timing.enabled=1;critical_section_enter_blocking(&image_lock);memset(dirty,0,sizeof(dirty));critical_section_exit(&image_lock);
  if(writable)multicore_launch_core1(worker);
  ack_seen=reti_seen=responded=reset_seen=false;
  start=time_us_64();gpio_put(BACKEND_READY,1);p1715_status.state=2;
  return 0;
 }
+int p1715_service_init(pico1715_controller *c,bool writable){return service_init(c,writable,false,0,0);}
+int p1715_service_init_protected(pico1715_controller *c,uint32_t worst,uint32_t margin){return service_init(c,true,true,worst,margin);}
 void p1715_service_step(void){
+  uint32_t command=p1715_shutdown_command;
+  if(command){p1715_shutdown_command=0;(void)p1715_shutdown_request(command);}
+  critical_section_enter_blocking(&image_lock);
+  shutdown_progress();
+  card.writable=writes_allowed();
+  bool shut=p1715_status.shutdown!=P1715_RUNNING;
+  critical_section_exit(&image_lock);
+  if(shut){isolate();return;}
   if(!gpio_get(HOST_RESET)){
    gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
    if(!reset_seen){pico1715_reset(&card);start=time_us_64();reset_seen=true;}
@@ -91,6 +187,7 @@ void p1715_service_step(void){
   uint64_t begun=time_us_64();uint8_t data=255;
   if(write){
    critical_section_enter_blocking(&image_lock);
+   card.writable=writes_allowed(); /* Recheck after any intervening worker failure. */
    uint64_t before=card.writes;pico1715_write(&card,port,(uint8_t)pins);
    if(card.writes!=before){
     unsigned block=((card.cylinder*card.heads+card.field_head)*card.sectors+card.field_sector-1)*2;

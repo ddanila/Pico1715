@@ -5,8 +5,8 @@ none substitutes for hardware qualification. USB control/download is now impleme
 The [passive analyzer adapter](../hardware/analyzer-interface/README.md) now has
 a checked receiver schematic, pin binding and routed timing. Bench assembly and
 physical qualification are next; combined controller/analyzer hardware and PCB
-layout remain future work. Shutdown handling and optional backup-power signals remain
-a separate planned workstream.
+layout remain future work. The [shutdown firmware contract](shutdown.md) now has desk-tested safe eject and
+reserve gating. Physical backup-power signals and circuitry remain planned.
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
 event/address/data matching, rolling history and bounded post-trigger capture.
@@ -38,23 +38,17 @@ electrical/USB qualification and the isolated reset accessory remain open.
 
 ## 1. Shutdown firmware and simulation
 
-- Define an explicit flush/safe-eject command and a safe-to-power-off indication.
-  Both must be useful with or without backup power.
-- Model backup absent, charging, ready and insufficient-reserve/failure states.
-  Enable protected writeback only with sufficient charged reserve; define how
-  reserve loss stops new writes without silently entering an unsafe mode.
-- On early power failure, stop accepting writes, isolate the host bus, drain
-  dirty data and the journal, and wait for SD completion before reporting safe.
-- Bound the dirty backlog against the measured available flush budget. The
-  present RAM acknowledgement precedes SD persistence; a capacitor alone does
-  not make arbitrary queued writes durable.
-- Extend simulation with outages during each write/journal phase, insufficient
-  reserve, repeated outages before recharge, and backup absent. Check that the
-  safe indication cannot precede completion and document recovery limits.
+Completed desk increment: [safe eject and reserve-aware shutdown](shutdown.md),
+including terminal SAFE/UNSAFE states, worker/journal completion tracking,
+read-only/experimental/protected policies, bounded dirty backlog, non-extendable
+power-failure deadlines and fault tests. Protected boots start with absent reserve
+and cannot silently fall back to experimental writeback.
 
-Desk acceptance: an explicit state/handshake contract, implemented shutdown
-handling, and reproducible fault tests. Physical energy reserve and SD durability
-remain bench qualifications; simulation cannot establish either.
+Remaining integration: assign a qualified early-failure/reserve supervisor,
+eject control and safe indicator; supply measured worst-case flush and reserve
+budgets. Current controls are core-0 APIs and an SWD command mailbox, not a guest
+port or USB user interface. Physical energy reserve and SD durability remain
+bench qualifications; simulation cannot establish either.
 
 ## 2. Optional backup-power schematic
 

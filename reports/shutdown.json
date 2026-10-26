@@ -1,0 +1,488 @@
+{
+  "scope": "Desk-only production service/storage shutdown validation; no hardware qualification.",
+  "source_sha256": {
+    "firmware/service.c": "035585d88123ec26d6f20b1100b4b54c008bde387ff0ed7e1371c508ec8b6dd2",
+    "firmware/service.h": "461fde73ca1bb166f7e477c4ff42d763b6f2fe6db8b8bfaeead43b97e45dedac",
+    "firmware/store.c": "05e14c8e426401e6e3d275a0a526fa6994a13026f60b3eed337d5565df601f35",
+    "firmware/sd_spi.c": "6aff6b3cbc829562a584f6646d50c05ffb697a89d84b48c6513897d3871942b8",
+    "firmware/main.c": "a685a38c724f43e3fcccfc3dc56dff3170bdf36302b89f4e7d87bb78823f4bfc",
+    "firmware/CMakeLists.txt": "a3b8f47cfe0b1d591be9b3cd51a600cd34cb10de986bc0ad3aa847743a0387b7",
+    "tests/shutdown_test.c": "4690d2005583d2805edba7d8f5947e26c13100c79b20f6bf748d9f2f4916f143",
+    "tests/test_shutdown.py": "35b1d66e710692153c1c77a21db8a1091d66977d8a1a4e37f7f3d6df8b28a0bf",
+    "tools/firmware_host/host_hal.c": "6331c452e2621684c2ceeacfceaf1a09f69018ec06cb312b40003848dda3ce71"
+  },
+  "verification": {
+    "portable_tests": "49 tests, one optional external-capture test skipped",
+    "shutdown_test": "UBSan production C fixture; safe eject, partial sector, in-flight journal, isolation, protected reboot, reserve states/budget, deadlines, 16 failed/torn writes and 8 abrupt power cuts",
+    "firmware_service_test": "passed",
+    "store_test": "passed",
+    "firmware_rtl_fault_cases": 42,
+    "firmware_rtl_mailbox_replies": 50560,
+    "firmware_builds": [
+      "default read-only",
+      "protected with synthetic 100 us block and 100 us margin test values"
+    ]
+  },
+  "protected_test_elf_sha256": "1dd9fed603d29fbbce91e3b7896fd224f2ffd2b4f0c7736889a75aaf08f6cba7",
+  "rtl_fault_regression": {
+    "schema": 1,
+    "profile": "firmware-rtl-storage-faults",
+    "hardware_executed": false,
+    "host_cpu": "scripted bus transactions, not a Z80 program",
+    "source_sha256": {
+      "firmware/service.c": "035585d88123ec26d6f20b1100b4b54c008bde387ff0ed7e1371c508ec8b6dd2",
+      "firmware/service.h": "461fde73ca1bb166f7e477c4ff42d763b6f2fe6db8b8bfaeead43b97e45dedac",
+      "firmware/platform.h": "7dac8ad6db16dafd9477e428cd136bb99c59977db4b6beae440d3f0ecadbb54f",
+      "firmware/store.c": "05e14c8e426401e6e3d275a0a526fa6994a13026f60b3eed337d5565df601f35",
+      "firmware/store.h": "c8c8f68653cb1b61e8f09b99f129da88355b2e39797d3fd59e293cb4f6bae928",
+      "firmware/sd_spi.h": "9fef348ba856dbadc5960bdd86445151b08c2eb647cc34d710acb4ac21ac7486",
+      "model/controller.c": "3002ed85cffc7818d9cd052415bf2e0b01eca117ecb2f8bc785602a759b9ab4f",
+      "model/controller.h": "7cf446651377f3eaca6b685bb3b4785b2c06b41ff2cc3823fe9368071916e82e",
+      "tools/firmware_host/host_hal.c": "6331c452e2621684c2ceeacfceaf1a09f69018ec06cb312b40003848dda3ce71",
+      "tools/firmware_host/host_hal.h": "4cdbca72168903198d0cea0fb291bdd5a06ab7c3502eacbba160f78b4e13e0be",
+      "hardware/rtl/firmware_cosim_top.v": "0afeedc4e022b270a18c27e3fb31557b7e1f191d9f2dd9de5af3981ab710f5f8",
+      "hardware/rtl/pico1715_top.v": "9dbd78d9b445e6ad4f9141288387ab6fd64975f0eafb81961573ba08f1a479f7",
+      "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+      "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+      "tests/firmware_faults.cpp": "dae8ade90fbd47a7b88874395013141a780bc972a43b8e784920bc27215b67da",
+      "tools/build_firmware_faults.py": "59c9eb43dcccf292f809384a3ac530fb11b5e10eea71616dfe3bf18c16b72e8c",
+      "tools/check_firmware_faults.py": "adc400b9860a219be6e1d61766c976c79f1b566240b7282b07730bc6321a1465"
+    },
+    "tools": {
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "verilator": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1)"
+    },
+    "mailbox_replies": 50560,
+    "cases": [
+      {
+        "case": "sd-delay-us",
+        "parameter": 0,
+        "requests": 1046,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "sd-delay-us",
+        "parameter": 100,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "sd-delay-us",
+        "parameter": 5000,
+        "requests": 1446,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 400
+      },
+      {
+        "case": "sd-delay-us",
+        "parameter": 50000,
+        "requests": 5046,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 4000
+      },
+      {
+        "case": "reset-held-read",
+        "parameter": 0,
+        "requests": 31,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "reset-partial-sector",
+        "parameter": 100,
+        "requests": 115,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 1,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 2,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 3,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 4,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 5,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 6,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 7,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "host-reset-during-writeback",
+        "parameter": 8,
+        "requests": 1054,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 8
+      },
+      {
+        "case": "newer-write-during-snapshot",
+        "parameter": 1,
+        "requests": 2078,
+        "sd_writes": 12,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 1,
+        "requests": 2080,
+        "sd_writes": 1,
+        "state": 2,
+        "dirty": 2,
+        "error": 1,
+        "probes": 1
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 2,
+        "requests": 2081,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 2,
+        "error": 1,
+        "probes": 2
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 3,
+        "requests": 2082,
+        "sd_writes": 3,
+        "state": 2,
+        "dirty": 2,
+        "error": 1,
+        "probes": 3
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 4,
+        "requests": 2083,
+        "sd_writes": 4,
+        "state": 2,
+        "dirty": 2,
+        "error": 1,
+        "probes": 4
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 5,
+        "requests": 2084,
+        "sd_writes": 5,
+        "state": 2,
+        "dirty": 1,
+        "error": 1,
+        "probes": 5
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 6,
+        "requests": 2085,
+        "sd_writes": 6,
+        "state": 2,
+        "dirty": 1,
+        "error": 1,
+        "probes": 6
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 7,
+        "requests": 2086,
+        "sd_writes": 7,
+        "state": 2,
+        "dirty": 1,
+        "error": 1,
+        "probes": 7
+      },
+      {
+        "case": "sd-write-failure",
+        "parameter": 8,
+        "requests": 2087,
+        "sd_writes": 8,
+        "state": 2,
+        "dirty": 1,
+        "error": 1,
+        "probes": 8
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 1,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 2,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 3,
+        "requests": 1046,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 4,
+        "requests": 1046,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 5,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 6,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 7,
+        "requests": 1046,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "power-loss-before-sd-operation",
+        "parameter": 8,
+        "requests": 1046,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "recovery-io-failure",
+        "parameter": 0,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "recovery-io-failure",
+        "parameter": 1,
+        "requests": 1046,
+        "sd_writes": 1,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "torn-sd-write",
+        "parameter": 1,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "torn-sd-write",
+        "parameter": 2,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "torn-sd-write",
+        "parameter": 3,
+        "requests": 1046,
+        "sd_writes": 2,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "torn-sd-write",
+        "parameter": 4,
+        "requests": 1046,
+        "sd_writes": 0,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "startup-read-delay-us",
+        "parameter": 100,
+        "requests": 0,
+        "sd_writes": 0,
+        "state": 2,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "startup-read-failure",
+        "parameter": 1,
+        "requests": 0,
+        "sd_writes": 0,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "startup-read-failure",
+        "parameter": 2,
+        "requests": 0,
+        "sd_writes": 0,
+        "state": 226,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "startup-read-failure",
+        "parameter": 3,
+        "requests": 0,
+        "sd_writes": 0,
+        "state": 227,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      },
+      {
+        "case": "startup-read-failure",
+        "parameter": 1602,
+        "requests": 0,
+        "sd_writes": 0,
+        "state": 227,
+        "dirty": 0,
+        "error": 0,
+        "probes": 0
+      }
+    ],
+    "limitations": "Deterministic interleaving at SD block operations; not instruction-level multicore contention, analog SD behavior or physical timing. Journal recovery is per 512-byte block, not atomic across a 1024-byte sector or filesystem operation. Unflushed RAM can be lost on power failure."
+  },
+  "limitations": [
+    "No detector, reserve monitor, user eject button or safe LED assigned; core-0 API and SWD mailbox only.",
+    "Budget values require measured worst-case complete journal transaction times and actual reserve energy.",
+    "SD busy/status completion does not prove internal flash durability.",
+    "Journal recovery is per 512-byte block, not per sector or filesystem operation.",
+    "Host interleaving is deterministic, not instruction-level multicore or electrical simulation."
+  ],
+  "default_elf_sha256": "16412319484deb80be1bee003221e15d03d38a427123798fb4ad06d669ab24b5"
+}

@@ -161,3 +161,6 @@ FPGA and firmware builds. ROMs and disk images remain external.
 The [classic 1715 trace decoder](docs/analyzer-decoder.md) provides controller
 timelines, field CRC checks, configurable WAIT/gap diagnostics and reference
 comparison for downloaded compact captures.
+
+[Safe eject and shutdown](docs/shutdown.md) now drain the journal before reporting
+safe, with optional reserve-gated writeback and deterministic outage tests.

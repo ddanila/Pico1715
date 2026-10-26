@@ -36,3 +36,22 @@ if(P1715_RESET_ACCESSORY)
  pico_generate_pio_header(pico1715_analyzer ${CMAKE_CURRENT_LIST_DIR}/reset_pulse.pio)
  target_link_libraries(pico1715_analyzer hardware_pio hardware_clocks)
 endif()
+
+option(P1715_PROTECTED_WRITEBACK "Reserve-gated writeback; requires qualified supervisor and timing budget" OFF)
+set(P1715_WORST_BLOCK_US "0" CACHE STRING "Measured worst time for one full 512-byte journal transaction")
+set(P1715_RESERVE_MARGIN_US "0" CACHE STRING "Measured reserve for detection, isolation and scheduling")
+foreach(budget P1715_WORST_BLOCK_US P1715_RESERVE_MARGIN_US)
+ if(NOT "${${budget}}" MATCHES "^[0-9]+$" OR ${budget} GREATER 4294967295)
+  message(FATAL_ERROR "${budget} must be an unsigned 32-bit microsecond count")
+ endif()
+endforeach()
+if(P1715_PROTECTED_WRITEBACK AND P1715_WRITEBACK)
+ message(FATAL_ERROR "Choose protected or experimental writeback, not both")
+endif()
+if(P1715_PROTECTED_WRITEBACK AND NOT P1715_WORST_BLOCK_US MATCHES "^[1-9][0-9]*$")
+ message(FATAL_ERROR "Protected writeback requires a positive measured P1715_WORST_BLOCK_US")
+endif()
+target_compile_definitions(pico1715 PRIVATE
+ P1715_PROTECTED_WRITEBACK=$<BOOL:${P1715_PROTECTED_WRITEBACK}>
+ P1715_WORST_BLOCK_US=${P1715_WORST_BLOCK_US}
+ P1715_RESERVE_MARGIN_US=${P1715_RESERVE_MARGIN_US})
