@@ -88,14 +88,28 @@ report bytes. Rotating-track modelling and physical timing remain unqualified.
 Full serial waveforms, special receive conditions and X1 expansion remain open;
 this does not qualify the physical chain's electrical timing.
 
-## 4. Broader software compatibility
+## 4. Firmware service-cost qualification
+
+Completed desk increment: [controlled firmware costs](service-costs.md), with
+cooperative serving/storage cores, an owned image lock and continuously running
+FPGA clocks. The ROM-free suite covers 153 cost, overload, watchdog, reset and
+eject cases with concurrent delayed SD writes. It also found and fixed late
+mailbox ACKs after request expiry. The stock-ROM/SCP suite passes all nine cases
+with delayed writeback after that correction.
+
+The measured brackets belong to the scripted workload, not physical Pico
+execution. Bench measurements must supply actual PSRAM/CRC, polling and lock
+costs. Replaying combinations and Z80 workloads with those costs remains future
+work; a watchdog pass alone does not qualify byte-service timing.
+
+## 5. Broader software compatibility
 
 Expand beyond the current stock-ROM/OS regression set with additional documented
 OS/disk variants and sustained mixed read/write workloads. Record exact input
 identities, expected results and reproducible runs, including cold reopen and
 recovery checks. Keep private ROM and disk contents out of the repository.
 
-## 5. PCB preparation and physical gates
+## 6. PCB preparation and physical gates
 
 Prepare schematics, connector definitions, footprint checks and placement studies
 at the desk. Identify the FPGA boards already owned before freezing module

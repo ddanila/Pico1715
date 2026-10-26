@@ -189,7 +189,10 @@ construction on the serving core, lock contention and interrupt notification
 latency. The frontend watchdog is 4096 cycles at 50 MHz (81.92 μs); meeting it
 alone does not prove byte-deadline compatibility. `p1715_status.max_service_us`
 measures the accepted handler, not total request-to-ACK latency or tick work.
-Use fixture traces to measure the complete worst case. USB/UART logging is
+The [service-cost sweep](../docs/service-costs.md) now provides scripted
+byte-loss/watchdog brackets and late-response regressions. Its injected costs
+are not measured hardware limits. Use fixture traces to measure the complete
+worst case. USB/UART logging is
 intentionally disabled on the serving core; inspect diagnostics over SWD.
 
 ## Remaining gates before a PCB order

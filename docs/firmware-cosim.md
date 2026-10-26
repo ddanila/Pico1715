@@ -93,3 +93,12 @@ workloads, three stock-ROM reset scenarios and 42 scripted firmware/RTL fault
 cases. Full instruction-level multicore interleaving, wider OS coverage and
 physical measurements remain separate work. The legacy controller-only timing
 injection options are not firmware-storage fault controls.
+
+## Nonzero service-cost experiments
+
+The separate [ROM-free service-cost harness](service-costs.md) pauses production
+firmware at controlled work sites while the FPGA and the other core continue.
+It models image-lock ownership and measures byte-loss and watchdog boundaries.
+This stock CPU bridge still uses zero-cost service calls; its delayed-SD tests
+check compatibility, not those cost limits. The new request-liveness checks
+prevent a delayed operation from publishing an ACK after observed cancellation.

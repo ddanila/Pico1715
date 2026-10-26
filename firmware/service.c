@@ -108,7 +108,7 @@ void p1715_storage_step(void){
    critical_section_exit(&image_lock);return;
   }
   uint32_t version=dirty[i];
-  if(version){memcpy(block,image+i*512,512);p1715_status.storage_busy=1;}
+  if(version){P1715_WORK(P1715_COST_SNAPSHOT);memcpy(block,image+i*512,512);p1715_status.storage_busy=1;}
   critical_section_exit(&image_lock);
   if(!version)continue;
   int failed=p1715_store_write(&store,i,block);
@@ -128,6 +128,10 @@ static void outputs(void){
 }
 static bool ack_seen,reti_seen,responded,reset_seen;
 static uint64_t start;
+static bool request_live(void){return gpio_get(HOST_RESET) && gpio_get(LINK_REQ);}
+static void abandon_response(void){
+ gpio_set_dir_masked(255,0);gpio_put(LINK_ACK,0);responded=false;
+}
 static int service_init(pico1715_controller *c,bool writable,bool protect,uint32_t worst,uint32_t margin){
  controller=c;
  memset((void *)&p1715_status,0,sizeof(p1715_status));
@@ -155,6 +159,7 @@ static int service_init(pico1715_controller *c,bool writable,bool protect,uint32
 int p1715_service_init(pico1715_controller *c,bool writable){return service_init(c,writable,false,0,0);}
 int p1715_service_init_protected(pico1715_controller *c,uint32_t worst,uint32_t margin){return service_init(c,true,true,worst,margin);}
 void p1715_service_step(void){
+  P1715_WORK(P1715_COST_POLL);
   uint32_t command=p1715_shutdown_command;
   if(command){p1715_shutdown_command=0;(void)p1715_shutdown_request(command);}
   critical_section_enter_blocking(&image_lock);
@@ -188,7 +193,12 @@ void p1715_service_step(void){
   uint64_t begun=time_us_64();uint8_t data=255;
   if(write){
    critical_section_enter_blocking(&image_lock);
+   if(!request_live()){critical_section_exit(&image_lock);abandon_response();return;}
    card.writable=writes_allowed(); /* Recheck after any intervening worker failure. */
+   if(port==4 && card.write_active && (pins&1))P1715_WORK(P1715_COST_COMMIT);
+   else if(port==4 && ((uint8_t)pins&0x3b)==1 && card.control!=(uint8_t)pins)P1715_WORK(P1715_COST_FIELD);
+   else if(port==0 && card.write_active)P1715_WORK(P1715_COST_WRITE);
+   if(!request_live()){critical_section_exit(&image_lock);abandon_response();return;}
    uint64_t before=card.writes;pico1715_write(&card,port,(uint8_t)pins);
    if(card.writes!=before){
     unsigned block=((card.cylinder*card.heads+card.field_head)*card.sectors+card.field_sector-1)*2;
@@ -196,7 +206,15 @@ void p1715_service_step(void){
     for(unsigned i=block;i<block+2;i++){if(!dirty[i])p1715_status.dirty_blocks++;dirty[i]=generation;}
    }
    critical_section_exit(&image_lock);
-  }else{pico1715_read(&card,port,&data);gpio_put_masked(255,data);gpio_set_dir_masked(255,255);}
+  }else{
+   if(port==2)P1715_WORK(P1715_COST_READ);
+   if(!request_live()){abandon_response();return;}
+   pico1715_read(&card,port,&data);
+  }
+  /* Lock waits or controller work may outlive the FPGA watchdog or host reset.
+     A withdrawn request must never receive a new ACK/data-drive pulse. */
+  if(!request_live()){abandon_response();return;}
+  if(!write){gpio_put_masked(255,data);gpio_set_dir_masked(255,255);}
   __dmb();gpio_put(LINK_ACK,1);responded=true;p1715_status.requests++;
   uint32_t duration=(uint32_t)(time_us_64()-begun);
   if(duration>p1715_status.max_service_us)p1715_status.max_service_us=duration;

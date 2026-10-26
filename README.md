@@ -115,6 +115,8 @@ receive FIFO and reads the text screen from RAM. See the
 [stock-software qualification](docs/onboard-keyboard.md). Production firmware
 uses a bounded [two-byte receive queue](docs/receive-elasticity.md) to handle
 index/mark interrupt overlap; the standalone reference model defaults to one byte.
+[Service-cost tests](docs/service-costs.md) now cover processing stalls, shared-lock
+contention, watchdog release and recovery during SD writeback.
 
 ```sh
 make test

@@ -6,6 +6,12 @@
 #define GPIO_IN 0
 #define GPIO_OUT 1
 typedef unsigned critical_section_t;
+enum {P1715_COST_POLL, P1715_COST_FIELD, P1715_COST_READ, P1715_COST_WRITE,
+      P1715_COST_COMMIT, P1715_COST_SNAPSHOT, P1715_COST_COUNT};
+/* Optional deterministic scheduling hooks; null preserves zero-cost fixtures. */
+extern void (*host_cost_hook)(unsigned kind);
+extern void (*host_lock_hook)(critical_section_t *,bool enter);
+static inline void host_cost(unsigned kind){if(host_cost_hook)host_cost_hook(kind);}
 extern uint32_t host_inputs,host_outputs,host_directions;
 extern uint64_t host_time_us;
 extern bool host_worker;
@@ -20,8 +26,8 @@ static inline uint32_t gpio_get_all(void){return (host_inputs&~host_directions)|
 static inline bool gpio_get(unsigned p){return (gpio_get_all()>>p)&1;}
 static inline uint64_t time_us_64(void){return host_time_us;}
 static inline void critical_section_init(critical_section_t *s){*s=0;}
-static inline void critical_section_enter_blocking(critical_section_t *s){(void)s;}
-static inline void critical_section_exit(critical_section_t *s){(void)s;}
+static inline void critical_section_enter_blocking(critical_section_t *s){if(host_lock_hook)host_lock_hook(s,true);}
+static inline void critical_section_exit(critical_section_t *s){if(host_lock_hook)host_lock_hook(s,false);}
 static inline void multicore_launch_core1(void (*f)(void)){(void)f;host_worker=true;}
 static inline void sleep_us(unsigned n){(void)n;}
 static inline void __dmb(void){}

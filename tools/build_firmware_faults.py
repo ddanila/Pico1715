@@ -6,7 +6,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--out', type=Path, required=True)
-p.add_argument('--suite', choices=('faults', 'interrupts'), default='faults')
+p.add_argument('--suite', choices=('faults', 'interrupts', 'timing'), default='faults')
 a = p.parse_args()
 out = a.out.resolve()
 out.mkdir(parents=True, exist_ok=True)

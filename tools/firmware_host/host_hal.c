@@ -8,6 +8,8 @@ uint64_t host_time_us,host_sd_reads,host_sd_writes,host_fail_read,host_fail_writ
 bool host_worker;
 unsigned host_torn_bytes;
 void (*host_io_hook)(bool,uint32_t);
+void (*host_cost_hook)(unsigned);
+void (*host_lock_hook)(critical_section_t *,bool);
 static uint8_t sd[(P1715_IMAGE_LBA+P1715_IMAGE_BLOCKS)*512];
 static uint8_t psram[P1715_IMAGE_BYTES];
 static bool missing;
@@ -22,7 +24,7 @@ void host_storage_init(const uint8_t *image,bool absent){
 void host_storage_power_cycle(void){
  memset(psram,0,sizeof(psram));
  host_sd_reads=host_sd_writes=host_fail_read=host_fail_write=0;host_worker=false;
- host_torn_bytes=0;host_io_hook=NULL;
+ host_torn_bytes=0;host_io_hook=NULL;host_cost_hook=NULL;host_lock_hook=NULL;
  host_inputs=host_outputs=host_directions=0;host_time_us=0;
 }
 uint8_t *p1715_psram(void){return psram;}
