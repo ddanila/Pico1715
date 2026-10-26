@@ -5,6 +5,8 @@
 #include "sd_spi.h"
 #include "../model/controller.h"
 #include <string.h>
+#include <stdatomic.h>
+_Static_assert(ATOMIC_INT_LOCK_FREE==2,"control mailbox requires lock-free unsigned atomics");
 #define LINK_WRITE 12
 #define LINK_REQ 13
 #define LINK_ACK 14
@@ -28,6 +30,39 @@ volatile uint32_t p1715_shutdown_command;
 static uint32_t block_budget_us,reserve_margin_us;
 static bool write_capable,tx_pending;
 static uint8_t tx_staged;
+static void (*background_hook)(void);
+static atomic_uint control_state; /* 0 free, 1 request, 2 response */
+static unsigned control_command,control_iterations;
+static int control_result;
+static p1715_control_status control_status;
+void p1715_background_hook(void (*hook)(void)){background_hook=hook;}
+bool p1715_control_submit(unsigned command){
+ if(atomic_load_explicit(&control_state,memory_order_acquire)!=0)return false;
+ control_command=command;
+ atomic_store_explicit(&control_state,1,memory_order_release);return true;
+}
+bool p1715_control_take(p1715_control_status *status,int *result){
+ if(atomic_load_explicit(&control_state,memory_order_acquire)!=2)return false;
+ *status=control_status;*result=control_result;
+ atomic_store_explicit(&control_state,0,memory_order_release);return true;
+}
+void p1715_control_step(void){
+ if(atomic_load_explicit(&control_state,memory_order_acquire)!=1)return;
+ control_result=control_command==P1715_CONTROL_STATUS?0:
+  control_command==P1715_CONTROL_EJECT?p1715_shutdown_request(P1715_EJECT):-1;
+ critical_section_enter_blocking(&image_lock);
+ /* Charge the existing snapshot cost in simulation; no USB work runs here. */
+ P1715_WORK(P1715_COST_SNAPSHOT);
+ control_status.diagnostics=p1715_status;
+ control_status.writes=p1715_status.state==2?card.writes:0;
+ control_status.rejected_writes=p1715_status.state==2?card.rejected_writes:0;
+ control_status.overruns=p1715_status.state==2?card.overruns:0;
+ control_status.underflows=p1715_status.state==2?card.underflows:0;
+ control_status.tx_overruns=p1715_status.state==2?card.tx_early:0;
+ control_status.tx_underruns=p1715_status.state==2?card.tx_late:0;
+ critical_section_exit(&image_lock);
+ atomic_store_explicit(&control_state,2,memory_order_release);
+}
 static bool writes_allowed(void){
  return !p1715_status.storage_error && p1715_status.shutdown==P1715_RUNNING &&
    (p1715_status.write_policy==P1715_WRITE_EXPERIMENTAL ||
@@ -120,10 +155,11 @@ void p1715_storage_step(void){
   else if(dirty[i]==version){dirty[i]=0;p1715_status.dirty_blocks--;}
   shutdown_progress();
   critical_section_exit(&image_lock);
+  if(background_hook)background_hook();
   if(failed)return;
  }
 }
-static void worker(void){for(;;){p1715_storage_step();sleep_us(100);}}
+static void worker(void){for(;;){if(background_hook)background_hook();if(write_capable)p1715_storage_step();sleep_us(100);}}
 static void outputs(void){
  gpio_put(INDEX_PENDING,card.irq_enabled&&card.pending&&!card.service);
  gpio_put(MARK_PENDING,card.mark_enabled&&card.mark_pending&&!card.service);
@@ -138,6 +174,7 @@ static void abandon_response(void){
 static int service_init(pico1715_controller *c,bool writable,bool protect,uint32_t worst,uint32_t margin){
  controller=c;
  memset((void *)&p1715_status,0,sizeof(p1715_status));
+ atomic_store_explicit(&control_state,0,memory_order_relaxed);control_iterations=0;
  generation=0;store.failed=0;p1715_shutdown_command=0;tx_pending=false;
  block_budget_us=worst;reserve_margin_us=margin;write_capable=writable;
  p1715_status.write_policy=protect?P1715_WRITE_PROTECTED:writable?P1715_WRITE_EXPERIMENTAL:P1715_READ_ONLY;
@@ -154,15 +191,17 @@ static int service_init(pico1715_controller *c,bool writable,bool protect,uint32
  pico1715_mount(&card,image,P1715_IMAGE_BYTES,80,2,5,3);card.writable=writable&&!protect;
  card.timing.enabled=1;card.timing.fifo_depth=P1715_RX_FIFO_DEPTH;
  critical_section_enter_blocking(&image_lock);memset(dirty,0,sizeof(dirty));critical_section_exit(&image_lock);
- if(writable)multicore_launch_core1(worker);
  ack_seen=reti_seen=responded=reset_seen=false;prefetch_allowed=true;
- start=time_us_64();gpio_put(BACKEND_READY,1);p1715_status.state=2;
+ p1715_status.state=2;
+ if(writable || background_hook)multicore_launch_core1(worker);
+ start=time_us_64();gpio_put(BACKEND_READY,1);
  return 0;
 }
 int p1715_service_init(pico1715_controller *c,bool writable){return service_init(c,writable,false,0,0);}
 int p1715_service_init_protected(pico1715_controller *c,uint32_t worst,uint32_t margin){return service_init(c,true,true,worst,margin);}
 void p1715_service_step(void){
   P1715_WORK(P1715_COST_POLL);
+  if(++control_iterations==256){control_iterations=0;p1715_control_step();}
   uint32_t command=p1715_shutdown_command;
   if(command){p1715_shutdown_command=0;(void)p1715_shutdown_request(command);}
   critical_section_enter_blocking(&image_lock);

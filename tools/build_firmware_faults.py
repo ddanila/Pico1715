@@ -11,7 +11,7 @@ a = p.parse_args()
 out = a.out.resolve()
 out.mkdir(parents=True, exist_ok=True)
 objects = []
-for i, source in enumerate(('firmware/service.c', 'firmware/store.c',
+for i, source in enumerate(('firmware/service.c', 'firmware/store.c', 'firmware/controller_usb.c',
                             'model/controller.c', 'tools/firmware_host/host_hal.c')):
     obj = out / f'part{i}.o'
     objects.append(str(obj))

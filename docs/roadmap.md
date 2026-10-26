@@ -46,8 +46,10 @@ and cannot silently fall back to experimental writeback.
 
 Remaining integration: assign a qualified early-failure/reserve supervisor,
 eject control and safe indicator; supply measured worst-case flush and reserve
-budgets. Current controls are core-0 APIs and an SWD command mailbox, not a guest
-port or USB user interface. Physical energy reserve and SD durability remain
+budgets. [Controller USB](controller-usb.md) now supplies status and safe eject
+through a bounded cross-core mailbox and host CLI. Power-fail/reserve inputs
+remain core-0 APIs/SWD controls, without a guest port or USB override.
+Physical energy reserve and SD durability remain
 bench qualifications; simulation cannot establish either.
 
 ## 2. Optional backup-power schematic

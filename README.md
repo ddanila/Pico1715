@@ -73,6 +73,9 @@ Read/write events can repeat on consecutive emulated CPU ticks; they are not
 necessarily distinct bus transactions. Timestamps are emulator scheduling ticks,
 not qualified physical X2 signal edges.
 
+[Controller USB](docs/controller-usb.md) provides status and safe eject without
+a debugger, including initialization/storage diagnostics and a host CLI.
+
 ## Next milestones
 
 The [remaining desk-work plan](docs/roadmap.md) starts with shutdown firmware,

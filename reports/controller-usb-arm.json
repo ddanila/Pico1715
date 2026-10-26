@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "profile": "controller-usb-arm-build",
+  "hardware_executed": false,
+  "source_sha256": {
+    "firmware/CMakeLists.txt": "02da15afae1a28f1615a5a29cc5153316f2faebb0552d2356ff563559066d017",
+    "firmware/main.c": "56c1723dc1313e2479092e5765d7cb21e05138a0ef372e3c59997a987a42c1b8",
+    "firmware/service.c": "60005b5ad9ac9df13db9a1b5b60f56e48a4db40faed923f36ccb19e8a5678871",
+    "firmware/service.h": "f728388499b38187a1175200f8a2994785165d96028965f3bbe16b6dc9a81bd5",
+    "firmware/platform.h": "99a5bf88b30c22c8e53547fad61df7b65f926413a08e3405fba8e1d41722497c",
+    "firmware/controller_usb.c": "08252cf4af210a66122ba1c2e28bfa2f6f94aea8e0d8f3aa1a67bb6babaf4655",
+    "firmware/controller_usb.h": "464041e4f93521304cc885628de56145c5eab176ae29f8a469b836c08ce56e28",
+    "firmware/controller_usb_device.c": "6f430d416b3124ae1075939296f6492f5d01c25042a21c04e0d48b938305c1ac",
+    "firmware/store.c": "05e14c8e426401e6e3d275a0a526fa6994a13026f60b3eed337d5565df601f35",
+    "firmware/store.h": "c8c8f68653cb1b61e8f09b99f129da88355b2e39797d3fd59e293cb4f6bae928",
+    "firmware/sd_spi.c": "6aff6b3cbc829562a584f6646d50c05ffb697a89d84b48c6513897d3871942b8",
+    "firmware/sd_spi.h": "9fef348ba856dbadc5960bdd86445151b08c2eb647cc34d710acb4ac21ac7486",
+    "firmware/sd_crc.h": "0774f892cea39cc18df63d7259ed770c44fbf0bce339bcce7bb4a2a7a5e14fa3",
+    "firmware/psram.c": "fcfb9aa6714346bf561ce417c4d4c19b707953889028ebc21804b9afd7f6e653",
+    "model/controller.c": "49c9dc22c5a8bdbdc6b3c16dc1fef076bc601f522a8bfbce48616f02cb7ead13",
+    "model/controller.h": "31f7ef9fa0a13a69fec9a945b26fde05ec05fce944b96f9d059266a9ca2ac66d",
+    "tools/make_uf2.py": "6ae021fbb9cb1f3035f1d79db8e4b6dcc239c94e3776d54be86cfceba7c3724b"
+  },
+  "board": "pimoroni_pico_plus2_rp2350",
+  "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+  "tinyusb_commit": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47",
+  "compiler": "arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119",
+  "variants": {
+    "read-only": {
+      "artifacts_sha256": {
+        "pico1715.elf": "47a48b32e9e8b2a8ec22c9ed56f998db843d242c49b6c9f45f004e4fd784cb60",
+        "pico1715.bin": "7a3974641362d0680972c9cf9e2d4acd7b61b386319553d8f11aaabaa0e90174",
+        "controller-final.uf2": "4338bb79aa37b54a546af3f5c53bf536bce226926855d12cc66103a7aaa368bf"
+      },
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n  39340\t      0\t  14436\t  53776\t   d210\tlocal/controller-usb-arm/pico1715.elf"
+    },
+    "experimental-writeback": {
+      "artifacts_sha256": {
+        "pico1715.elf": "4eeab73a7d11c11879ce97b8ad698acd66435be134b0e643c9a3f67bf1ca7c1a",
+        "pico1715.bin": "be2f34aed5be81019d7ff2a8a85eedafaafe3d46121cadd3d816e805c03c58f1",
+        "controller-final.uf2": "d1d0c3dc5eb74bd82f926486e5c42daf35aff76fff0a7a5678f491ea0d2210dc"
+      },
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n  39340\t      0\t  14436\t  53776\t   d210\tlocal/controller-usb-arm-writeback/pico1715.elf"
+    },
+    "protected-compile-only": {
+      "artifacts_sha256": {
+        "pico1715.elf": "de434d6e7951abb4677d8ff6866b9c6d79f2b5f67e2240b4c00238e989d3e95e",
+        "pico1715.bin": "6c61b607f1d2d54c51dfdf84d535812c6f6f071cd8a8d1799f6f884444e55f28"
+      },
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n  39348\t      0\t  14436\t  53784\t   d218\tlocal/controller-usb-arm-protected/pico1715.elf",
+      "budgets_us": {
+        "block": 100000,
+        "margin": 1000,
+        "measured": false
+      }
+    }
+  },
+  "limitations": "Build verification only, no device programmed. Protected variant uses placeholder budgets solely to compile the gated branch; these are not qualified reserve values."
+}

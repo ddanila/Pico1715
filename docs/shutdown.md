@@ -9,7 +9,9 @@ safe indicator is fitted/qualified by this change.
 
 ## Commands and observable state
 
-The controller deliberately has no USB command handler on its bus-serving core.
+The controller has no USB command handler or USB IRQ on its bus-serving core.
+[Controller USB](controller-usb.md) now provides status and safe eject from the
+storage core through a bounded cross-core mailbox.
 The core-0 API `p1715_shutdown_request(P1715_EJECT)` performs flush-and-eject:
 
 1. Disable controller writes and cancel any incomplete, uncommitted sector.
@@ -46,9 +48,11 @@ Repeated requests are idempotent. SAFE and UNSAFE are terminal for the current
 mount: host RESET2 does not reopen service, recharge cannot clear a failure, and
 there is no automatic remount or retry after a journal error. A board restart
 reloads/replays storage through the normal validated startup path. No new guest
-I/O port, USB endpoint or arbitrary motherboard pin has been assigned.
+I/O port or arbitrary motherboard pin has been assigned. Controller USB now
+exposes safe eject only; it cannot assert power-fail or claim backup readiness.
 
-The API and mailbox are bring-up controls, not a finished end-user eject button.
+The API and SWD mailbox remain bring-up controls. The controller USB CLI provides
+an end-user status/eject path; a physical eject button remains planned.
 A future supervisor/button implementation must call these APIs on core 0, not
 from the storage worker or an interrupt handler. `p1715_status` is diagnostic
 state; multiword SWD reads while running are not an atomic status packet.

@@ -3,6 +3,7 @@
 #include "Vfirmware_cosim_top.h"
 extern "C" {
 #include "firmware/service.h"
+#include "firmware/controller_usb.h"
 #include "firmware/store.h"
 #include "tools/firmware_host/host_hal.h"
 }
@@ -18,7 +19,11 @@ static ucontext_t caller,cores[2];
 static uint8_t stacks[2][128*1024];
 static uint64_t due[2],calls[P1715_COST_COUNT],lock_waits,sd_waits;
 static unsigned cost[P1715_COST_COUNT],sd_cost,current,owner=2,cases;
-static bool worker_enabled;
+static bool worker_enabled,control_traffic;
+static p1715_controller_usb control_usb;
+static unsigned control_responses,control_worker_us,control_next_command=1;
+static bool control_busy_seen;
+static void control_visit();
 static uint64_t max_latency,fault_at,fault_latency,late_replies,reset_replies;
 static bool previous_ack;
 static void pause(unsigned delay){
@@ -35,7 +40,29 @@ static void lock(critical_section_t *,bool enter){
 }
 static void sd(bool writing,uint32_t){if(writing && sd_cost){sd_waits++;pause(sd_cost);}}
 static void core0(){for(;;){p1715_service_step();pause(1);}}
-static void core1(){for(;;){p1715_storage_step();pause(100);}}
+static void core1(){for(;;){if(control_traffic)control_visit();p1715_storage_step();pause(100);}}
+static uint32_t control_get32(const uint8_t *p){return (uint32_t)p[0]|(uint32_t)p[1]<<8|(uint32_t)p[2]<<16|(uint32_t)p[3]<<24;}
+static void control_visit(){
+ assert(owner!=1); // USB work must never extend the image critical section.
+ if(control_worker_us)pause(control_worker_us);
+ p1715_controller_usb_poll(&control_usb);
+ size_t n;const uint8_t *p=p1715_controller_usb_output(&control_usb,&n);
+ if(n){
+  if(!control_usb.sent){
+   assert(n==132 && !p[6] && control_get32(p+128)==p1715_crc32(p,128));
+   if(control_get32(p+52))control_busy_seen=true;
+   if(control_get32(p+32)==P1715_SAFE)assert(!control_get32(p+20)&&!control_get32(p+52));
+  }
+  size_t sent=n>64?64:n;p1715_controller_usb_sent(&control_usb,sent);
+  if(sent==n)control_responses++;
+ }
+ if(!control_usb.pending && !control_usb.waiting){
+  uint8_t request[16]={'P','1','C','Q',1,(uint8_t)control_next_command};
+  control_next_command=1;
+  uint32_t crc=p1715_crc32(request,12);for(unsigned i=0;i<4;i++)request[12+i]=(uint8_t)(crc>>(8*i));
+  for(uint8_t b:request)p1715_controller_usb_receive(&control_usb,b);
+ }
+}
 static void pins(){
  bool ack=(host_outputs&(1u<<14))!=0;
  if(ack && !previous_ack){if(rtl.fault)late_replies++;if(!rtl.reset_n)reset_replies++;}
@@ -80,7 +107,8 @@ static bool io(unsigned port,bool write,uint8_t &value){
 static bool out(unsigned port,uint8_t value){return io(port,true,value);}
 static bool in(unsigned port,uint8_t &value){return io(port,false,value);}
 static void fresh(){
- host_cost_hook=nullptr;host_lock_hook=nullptr;idle();rtl.reset_n=0;rtl.power_good=1;
+ host_cost_hook=nullptr;host_lock_hook=nullptr;p1715_background_hook(nullptr);control_traffic=false;
+ p1715_controller_usb_init(&control_usb);control_responses=control_worker_us=0;control_next_command=1;control_busy_seen=false;idle();rtl.reset_n=0;rtl.power_good=1;
  host_storage_init(disk,false);pins();assert(!p1715_service_init(&card,true));
  memset(cost,0,sizeof(cost));memset(calls,0,sizeof(calls));sd_cost=0;
  owner=current=2;worker_enabled=false;late_replies=reset_replies=0;previous_ack=false;lock_waits=sd_waits=max_latency=fault_at=fault_latency=0;
@@ -199,7 +227,35 @@ static void shutdown(){
  assert(!memcmp(host_storage_image()+1024,disk+1024,sizeof(disk)-1024));
  record("eject-during-contended-writeback",40,true,true);
 }
+static void control_stress(unsigned snapshot,unsigned usb_delay,bool eject){
+ fresh();seed_writeback();worker_enabled=true;sd_cost=5000;
+ control_traffic=true;control_worker_us=usb_delay;control_next_command=eject?2:1;
+ p1715_background_hook(control_visit);cost[P1715_COST_SNAPSHOT]=snapshot;
+ bool equal=false,complete=true;
+ if(eject){
+  unsigned elapsed=0;while(p1715_status.shutdown!=P1715_SAFE){us(100);assert((elapsed+=100)<200000);}
+  assert(!p1715_status.storage_busy && !p1715_status.dirty_blocks);
+  assert(!rtl.wait_pull_low && !rtl.host_data_enable && !rtl.int_pull_low);
+  equal=!memcmp(card.image,host_storage_image(),sizeof(disk));assert(equal);
+ }else{
+  for(unsigned i=0;i<8 && complete;i++){
+   complete=arm();if(complete)complete=read_field(equal);
+   if(!equal)break;
+  }
+ }
+ unsigned elapsed=0;while(!control_responses){us(100);assert((elapsed+=100)<200000);}
+ if(snapshot<=8 && !eject)assert(control_responses>10 && control_busy_seen);
+ if(eject)assert(control_busy_seen);
+ if(snapshot<=8)assert(complete && equal && !rtl.fault && !card.overruns && !card.tx_late);
+ else assert(rtl.fault || card.overruns || !equal); // Deliberate scheduling overload remains observable.
+ printf("control responses=%u worker_delay=%u eject=%u\n",control_responses,usb_delay,eject);
+ record(eject?"usb-eject":"usb-status-flood",snapshot,complete,equal);
+}
 int main(int argc,char **argv){
+ if(argc==2 && !strcmp(argv[1],"--control")){
+  control_stress(0,0,false);control_stress(8,1000,false);
+  control_stress(128,0,false);control_stress(8,1000,true);return 0;
+ }
  if(argc==2 && !strcmp(argv[1],"--recovery")){watchdog();watchdog_write();watchdog_lock();reset_held();shutdown();return 0;}
  assert(argc==1);
  for(unsigned delay=0;delay<=40;delay++){

@@ -13,7 +13,7 @@ p.add_argument('--out', type=Path, required=True)
 a = p.parse_args()
 out = a.out.resolve()
 out.mkdir(parents=True, exist_ok=False)
-names = ('firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
+names = ('firmware/controller_usb.c', 'firmware/controller_usb.h', 'firmware/service.c', 'firmware/service.h', 'firmware/platform.h',
          'firmware/store.c', 'firmware/store.h', 'firmware/sd_spi.h',
          'model/controller.c', 'model/controller.h',
          'tools/firmware_host/host_hal.c', 'tools/firmware_host/host_hal.h',

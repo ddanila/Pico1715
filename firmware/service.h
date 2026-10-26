@@ -30,4 +30,16 @@ int p1715_service_init(pico1715_controller *,bool writable);
 int p1715_service_init_protected(pico1715_controller *,uint32_t worst_block_us,uint32_t margin_us);
 void p1715_service_step(void);
 void p1715_storage_step(void);
+/* Single producer (core 1), single consumer (core 0), one bounded request.
+   Submit/take never wait. Snapshot contains no live pointers or torn 64-bit words. */
+enum {P1715_CONTROL_STATUS=1,P1715_CONTROL_EJECT=2};
+typedef struct {
+ p1715_diagnostics diagnostics;
+ uint64_t writes,rejected_writes,overruns,underflows,tx_overruns,tx_underruns;
+} p1715_control_status;
+bool p1715_control_submit(unsigned command);
+bool p1715_control_take(p1715_control_status *,int *result);
+void p1715_control_step(void); /* core 0 only, including initialization failure */
+/* Set before service_init. Runs on core 1, outside image_lock, between blocks. */
+void p1715_background_hook(void (*hook)(void));
 #endif
