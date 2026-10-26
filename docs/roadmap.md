@@ -17,7 +17,9 @@ default-released reset control; do not drive A20 as a substitute for CPU reset.
 The linked plan specifies desk acceptance and physical validation gates.
 
 Completed desk increment: [standalone capture RTL and file export](analyzer-prototype.md),
-with directed/randomized simulations and iCE40 synthesis. USB/PSRAM transport,
+with directed/randomized simulations and iCE40 synthesis; plus [compact cycle
+capture and stock-boot verification](cycle-analyzer.md), including a 3.3 MiB filtered
+I/O boot trace matching the full capture. USB/PSRAM transport,
 board integration and remote reset remain open.
 
 ## 1. Shutdown firmware and simulation

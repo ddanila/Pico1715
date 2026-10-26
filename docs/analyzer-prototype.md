@@ -62,7 +62,8 @@ The core samples levels on each acquisition clock edge. This fixture uses 50 MHz
 it is not a qualified sampling rate. A physical wrapper needs receiver timing,
 clock constraints and an explicit asynchronous-bus sampling/CDC review. Samples
 near transitions may be ambiguous. The CSV labels describe sampled bus states,
-not completed transactions or guaranteed valid data. `/M1 + /IORQ` is classified
+not completed transactions or guaranteed valid data. For the separate compact
+interval encoder and boot comparison, see [cycle capture](cycle-analyzer.md). `/M1 + /IORQ` is classified
 as interrupt acknowledgement; refresh is separate from opcode fetch. Unknown
 memory mapping and internal CPU state cannot be reconstructed from every sample.
 
@@ -109,7 +110,7 @@ Default synthesis uses five iCE40 4-Kbit RAM blocks and 283 LUT4s with the recor
 toolchain. The 256 samples span only 5.12 microseconds at 50 MHz. This validates a
 small capture primitive; useful long boot traces need compressed/cycle records
 and/or sustained transport into PSRAM. Synthesis is not placement/routing or a
-50 MHz timing qualification. Next integration work is a transport/register wrapper
-and emulator-driven realistic traces, followed by receiver/pin assignment and
-Pico USB/PSRAM implementation. No production bitstream or hardware reset driver
+50 MHz timing qualification. The [compact cycle personality](cycle-analyzer.md) now adds emulator-driven
+boot verification and filtered interval records. Next integration work is a
+transport/register wrapper, receiver/pin assignment and Pico USB/PSRAM implementation. No production bitstream or hardware reset driver
 is supplied by this milestone.

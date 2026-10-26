@@ -7,6 +7,10 @@
 #include <inttypes.h>
 #include <errno.h>
 
+#ifdef P1715_ANALYZER
+#include "analyzer/bridge.h"
+#endif
+
 #ifdef PICO1715_COSIM
 #include "cosim/bridge.h"
 #ifdef P1715_FIRMWARE_COSIM
@@ -69,6 +73,9 @@ static void output(void *p, uint16_t a, uint8_t data) {
 }
 static void trace(void *p, const dac_trace_event *e) {
   (void)p;
+#ifdef P1715_ANALYZER
+  analyzer_event(e);
+#endif
   if (logfile && (((!strcmp(e->kind, "IW") || !strcmp(e->kind, "IR")) &&
       ((e->address & 255) < 8 || ((e->address & 255) >= 0x20 &&
        (e->address & 255) <= 0x23))) || !strcmp(e->kind, "IA")))
@@ -148,11 +155,17 @@ int main(int argc, char **argv) {
     card_irq, card_ack, card_reti, card_reset, card_wait};
   pc1715_attach(m, &card);
   m->trace = (dac_trace_sink){trace, NULL, 0, 0};
+#ifdef P1715_ANALYZER
+  analyzer_init(m, argv[3]);
+#endif
   uint64_t handoff = 0;
   unsigned target = 0;
   unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 100000000);
   for (unsigned i = 0; i < cycle_limit; i++) {
     pc1715_run(m, 1);
+#ifdef P1715_ANALYZER
+    analyzer_observe();
+#endif
 #ifdef PICO1715_COSIM
     cosim_observe();
 #endif
@@ -181,6 +194,9 @@ int main(int argc, char **argv) {
   }
   #ifdef P1715_FIRMWARE_COSIM
   firmware_cosim_export();
+#endif
+#ifdef P1715_ANALYZER
+  analyzer_finish();
 #endif
   pico1715_controller c = f.controller;
   printf("{\"cycles\":%" PRIu64 ",\"pc\":%u,\"rom_handoff_cycle\":%" PRIu64

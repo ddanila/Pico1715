@@ -1,0 +1,417 @@
+{
+  "schema": 1,
+  "profile": "compact-cycle-analyzer-dac-observer",
+  "dac_commit": "59823402bd3209ca46f6ace0729f60989ed29e39",
+  "physical_timing_qualified": false,
+  "usb_transport_implemented": false,
+  "samples_per_cpu_tick": 4,
+  "sample_hz": 9832000,
+  "directed_checks": 90,
+  "rom_sha256": "51cb80639b5667f2611da71ce7305061566cf3474bda7db6fc82709d08e46d01",
+  "disk_sha256": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+  "source_sha256": {
+    "hardware/rtl/cycle_encoder.v": "9290c8a57d748259003c4df228c04e09ba121db96835a03a1ee4509a31e54d59",
+    "hardware/rtl/cycle_capture_top.v": "a3bf554b7aa046d6055088fd41b15553c7d711973c36023eda5a0fde502df493",
+    "tests/cycle_analyzer_tb.v": "4c5c66c1ba5de8ab13ba823e3a445db4113d4e0b766008a39c616e659f887992",
+    "tests/test_cycle_trace.py": "6874b71e6ce57ea39bc703db119f17c6da196c111b944cc1c17424a1abe2656c",
+    "tools/cycle_trace.py": "584d9ffb4ef106bf60711cbe8aaafd6126f76d40b6bc7d0df8b444338e06616d",
+    "tools/analyzer/bridge.cpp": "3c39040a987e3f8e6f10572611e5b2580abc30ecea44f537e8aaaad08ad68c89",
+    "tools/analyzer/bridge.h": "db3b77bf7ec8be5dc41f185972351f966e0e08eacbf741aaba4c6282d136b902",
+    "tools/classic_probe.c": "d609219678985fbf1829975f0f29a11e4e596f69324c9831d210a3368b64cb8e",
+    "model/controller.c": "3002ed85cffc7818d9cd052415bf2e0b01eca117ecb2f8bc785602a759b9ab4f",
+    "model/controller.h": "7cf446651377f3eaca6b685bb3b4785b2c06b41ff2cc3823fe9368071916e82e",
+    "tools/build_analyzer_cosim.py": "27743f5230fc51f9ead2e67369b0f711e04087822240df2c2fcdc2ff23651e36",
+    "tools/check_cycle_analyzer.py": "3936e6e48da3bc60ed64d68db0f15326f114fee9cea38e160918bc18f0b27ffc",
+    "Makefile": "242b6b7884ac4c30c1d80e534c504494cb37c532fa7faa8fff5f3d65d763ae40"
+  },
+  "tools": {
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()",
+    "verilator": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1)",
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)"
+  },
+  "ice40_cells": {
+    "SB_CARRY": 182,
+    "SB_DFF": 137,
+    "SB_DFFE": 129,
+    "SB_DFFER": 355,
+    "SB_DFFR": 35,
+    "SB_LUT4": 461,
+    "SB_RAM40_4K": 8
+  },
+  "cases": {
+    "synthetic": {
+      "baseline": {
+        "probe": {
+          "cycles": 1000,
+          "pc": 12,
+          "rom_handoff_cycle": 0,
+          "rom_handoff_target": 0,
+          "fields": 0,
+          "bytes": 0,
+          "index_interrupts": 0,
+          "steps": 0,
+          "cylinder": 0,
+          "sector": 1,
+          "format": 0,
+          "control": 90,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 0,
+          "wait_ticks": 0,
+          "arrivals": 0,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 0,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "0d1b4baef30c4d2fe07a01e136a2f9f537edeb5ab2ffabcb69584304dcd4c280",
+          "disk.img": "dce79b8fea025a282b35a56f716c4766ca2949f23c30630060db91814710f4f5",
+          "screen.txt": "143d5182a6894afd05f911bd9f868696dde09ea98ed804c77345901b1162048d",
+          "io.trace": "5479a0b980bce8943b186c58a4e1677edc37562d66a2fa43718583c9d4687d5b"
+        }
+      },
+      "all": {
+        "probe": {
+          "cycles": 1000,
+          "pc": 12,
+          "rom_handoff_cycle": 0,
+          "rom_handoff_target": 0,
+          "fields": 0,
+          "bytes": 0,
+          "index_interrupts": 0,
+          "steps": 0,
+          "cylinder": 0,
+          "sector": 1,
+          "format": 0,
+          "control": 90,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 0,
+          "wait_ticks": 0,
+          "arrivals": 0,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 0,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "0d1b4baef30c4d2fe07a01e136a2f9f537edeb5ab2ffabcb69584304dcd4c280",
+          "disk.img": "dce79b8fea025a282b35a56f716c4766ca2949f23c30630060db91814710f4f5",
+          "screen.txt": "143d5182a6894afd05f911bd9f868696dde09ea98ed804c77345901b1162048d",
+          "io.trace": "5479a0b980bce8943b186c58a4e1677edc37562d66a2fa43718583c9d4687d5b"
+        },
+        "analyzer": {
+          "sample_hz": 9832000,
+          "observed_samples": 4000,
+          "records": 495,
+          "callbacks_matched": 252,
+          "wait_samples": 0,
+          "partial_records": 2,
+          "saturated_records": 0,
+          "unstable_records": 0,
+          "dropped": 0,
+          "filtered": 0,
+          "capture_mask": 1022,
+          "kinds": [
+            0,
+            243,
+            6,
+            1,
+            1,
+            1,
+            0,
+            243,
+            0,
+            0
+          ]
+        },
+        "capture": {
+          "header": {
+            "clock_hz": 9832000,
+            "count": 495,
+            "dropped": 0,
+            "filtered": 0,
+            "capture_mask": 1022
+          },
+          "bytes": 7952,
+          "io_records": 2,
+          "io_records_sha256": "fc81b60a604988cc8cc15fb6ca52f85fe60970a1727c72e06c2d4539ea59b3cb"
+        }
+      },
+      "io-only": {
+        "probe": {
+          "cycles": 1000,
+          "pc": 12,
+          "rom_handoff_cycle": 0,
+          "rom_handoff_target": 0,
+          "fields": 0,
+          "bytes": 0,
+          "index_interrupts": 0,
+          "steps": 0,
+          "cylinder": 0,
+          "sector": 1,
+          "format": 0,
+          "control": 90,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 0,
+          "wait_ticks": 0,
+          "arrivals": 0,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 0,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "0d1b4baef30c4d2fe07a01e136a2f9f537edeb5ab2ffabcb69584304dcd4c280",
+          "disk.img": "dce79b8fea025a282b35a56f716c4766ca2949f23c30630060db91814710f4f5",
+          "screen.txt": "143d5182a6894afd05f911bd9f868696dde09ea98ed804c77345901b1162048d",
+          "io.trace": "5479a0b980bce8943b186c58a4e1677edc37562d66a2fa43718583c9d4687d5b"
+        },
+        "analyzer": {
+          "sample_hz": 9832000,
+          "observed_samples": 4000,
+          "records": 2,
+          "callbacks_matched": 2,
+          "wait_samples": 0,
+          "partial_records": 0,
+          "saturated_records": 0,
+          "unstable_records": 0,
+          "dropped": 0,
+          "filtered": 493,
+          "capture_mask": 368,
+          "kinds": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "capture": {
+          "header": {
+            "clock_hz": 9832000,
+            "count": 2,
+            "dropped": 0,
+            "filtered": 493,
+            "capture_mask": 368
+          },
+          "bytes": 64,
+          "io_records": 2,
+          "io_records_sha256": "fc81b60a604988cc8cc15fb6ca52f85fe60970a1727c72e06c2d4539ea59b3cb"
+        }
+      }
+    },
+    "stock-boot": {
+      "baseline": {
+        "probe": {
+          "cycles": 20000000,
+          "pc": 57282,
+          "rom_handoff_cycle": 10259066,
+          "rom_handoff_target": 55552,
+          "fields": 44,
+          "bytes": 22580,
+          "index_interrupts": 4,
+          "steps": 20,
+          "cylinder": 2,
+          "sector": 5,
+          "format": 132,
+          "control": 191,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 1,
+          "wait_ticks": 495680,
+          "arrivals": 22626,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 63,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "f88319ad256445d94955919258ed3b71b1c9705888aa2c6b8f3628abe289b969",
+          "disk.img": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+          "screen.txt": "f64774e83397701491535397a997c090fda2147287d3466f8ddc2130f1686bcc",
+          "io.trace": "2ca63fb9121b233e242909ac4a3062b5b50e5a26ac1d6fead5eb00c040c647b6"
+        }
+      },
+      "all": {
+        "probe": {
+          "cycles": 20000000,
+          "pc": 57282,
+          "rom_handoff_cycle": 10259066,
+          "rom_handoff_target": 55552,
+          "fields": 44,
+          "bytes": 22580,
+          "index_interrupts": 4,
+          "steps": 20,
+          "cylinder": 2,
+          "sector": 5,
+          "format": 132,
+          "control": 191,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 1,
+          "wait_ticks": 495680,
+          "arrivals": 22626,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 63,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "f88319ad256445d94955919258ed3b71b1c9705888aa2c6b8f3628abe289b969",
+          "disk.img": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+          "screen.txt": "f64774e83397701491535397a997c090fda2147287d3466f8ddc2130f1686bcc",
+          "io.trace": "2ca63fb9121b233e242909ac4a3062b5b50e5a26ac1d6fead5eb00c040c647b6"
+        },
+        "analyzer": {
+          "sample_hz": 9832000,
+          "observed_samples": 80000000,
+          "records": 7252874,
+          "callbacks_matched": 4584701,
+          "wait_samples": 1982720,
+          "partial_records": 1,
+          "saturated_records": 0,
+          "unstable_records": 0,
+          "dropped": 0,
+          "filtered": 0,
+          "capture_mask": 1022,
+          "kinds": [
+            0,
+            2668165,
+            1420405,
+            280283,
+            119113,
+            96727,
+            8,
+            2668173,
+            0,
+            0
+          ]
+        },
+        "capture": {
+          "header": {
+            "clock_hz": 9832000,
+            "count": 7252874,
+            "dropped": 0,
+            "filtered": 0,
+            "capture_mask": 1022
+          },
+          "bytes": 116046016,
+          "io_records": 215848,
+          "io_records_sha256": "d0e5f9753fd45760a596c06114cccab996814046d35a78e4469115546cec095a"
+        }
+      },
+      "io-only": {
+        "probe": {
+          "cycles": 20000000,
+          "pc": 57282,
+          "rom_handoff_cycle": 10259066,
+          "rom_handoff_target": 55552,
+          "fields": 44,
+          "bytes": 22580,
+          "index_interrupts": 4,
+          "steps": 20,
+          "cylinder": 2,
+          "sector": 5,
+          "format": 132,
+          "control": 191,
+          "writes": 0,
+          "rejected_writes": 0,
+          "timed": 1,
+          "wait_ticks": 495680,
+          "arrivals": 22626,
+          "overruns": 0,
+          "underflows": 0,
+          "drops": 0,
+          "tx_overruns": 0,
+          "tx_underruns": 0,
+          "max_read_age": 63,
+          "max_tx_interval": 0,
+          "resets": 0,
+          "reset_at": 0,
+          "reset_image_unchanged": 0
+        },
+        "output_sha256": {
+          "ram.bin": "f88319ad256445d94955919258ed3b71b1c9705888aa2c6b8f3628abe289b969",
+          "disk.img": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+          "screen.txt": "f64774e83397701491535397a997c090fda2147287d3466f8ddc2130f1686bcc",
+          "io.trace": "2ca63fb9121b233e242909ac4a3062b5b50e5a26ac1d6fead5eb00c040c647b6"
+        },
+        "analyzer": {
+          "sample_hz": 9832000,
+          "observed_samples": 80000000,
+          "records": 215848,
+          "callbacks_matched": 215848,
+          "wait_samples": 1982720,
+          "partial_records": 0,
+          "saturated_records": 0,
+          "unstable_records": 0,
+          "dropped": 0,
+          "filtered": 7037026,
+          "capture_mask": 368,
+          "kinds": [
+            0,
+            0,
+            0,
+            0,
+            119113,
+            96727,
+            8,
+            0,
+            0,
+            0
+          ]
+        },
+        "capture": {
+          "header": {
+            "clock_hz": 9832000,
+            "count": 215848,
+            "dropped": 0,
+            "filtered": 7037026,
+            "capture_mask": 368
+          },
+          "bytes": 3453600,
+          "io_records": 215848,
+          "io_records_sha256": "d0e5f9753fd45760a596c06114cccab996814046d35a78e4469115546cec095a"
+        }
+      }
+    }
+  }
+}

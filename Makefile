@@ -91,3 +91,15 @@ lint-analyzer:
 synth-analyzer:
 	@mkdir -p build
 	yosys -Q -T -p 'read_verilog -sv hardware/rtl/analyzer_top.v; synth_ice40 -top analyzer_top; check -assert; stat' > build/analyzer-synthesis.log
+
+.PHONY: test-cycle-analyzer lint-cycle-analyzer synth-cycle-analyzer
+test-cycle-analyzer: build/cycle-analyzer-test
+	vvp build/cycle-analyzer-test
+build/cycle-analyzer-test: hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v tests/cycle_analyzer_tb.v
+	@mkdir -p build
+	iverilog -g2012 -Wall -s cycle_analyzer_tb -o $@ $^
+lint-cycle-analyzer:
+	verilator --lint-only -Wall --top-module cycle_capture_top hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v
+synth-cycle-analyzer:
+	@mkdir -p build
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/cycle_encoder.v hardware/rtl/cycle_capture_top.v; synth_ice40 -top cycle_capture_top; check -assert; stat' > build/cycle-analyzer-synthesis.log

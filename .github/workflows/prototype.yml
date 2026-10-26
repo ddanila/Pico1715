@@ -20,5 +20,6 @@ jobs:
           repository: ddanila/dac-emulation
           ref: 59823402bd3209ca46f6ace0729f60989ed29e39
           path: build/dac
+      - run: python3 tools/check_cycle_analyzer.py --dac build/dac --out build/cycle-analyzer-check
       - run: python3 tools/build_cosim.py --firmware --dac build/dac --out build/firmware-cosim
       - run: python3 tests/firmware_cosim_smoke.py build/firmware-cosim/classic-probe

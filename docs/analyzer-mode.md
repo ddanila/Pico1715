@@ -4,7 +4,8 @@
 
 Add a USB-connected bus analyzer to Pico1715 so the fitted card can capture boot,
 I/O and interrupt activity without individual probe wires. The [standalone capture prototype](analyzer-prototype.md) now implements raw
-triggered buffering and host file export. This document remains the full feature
+triggered buffering and host file export. A second [compact personality](cycle-analyzer.md)
+adds cycle intervals, filtering and stock-boot verification against the emulator. This document remains the full feature
 plan: board integration, USB transport and remote reset are not implemented yet.
 
 - **Controller:** existing floppy replacement behavior.
