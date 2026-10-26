@@ -131,11 +131,13 @@ regeneration and both synthesized port contracts; `test-carrier-schematic` requi
 
 ## Remaining gates
 
-The [unrouted review board](carrier.kicad_pcb) has 74 electrical footprints, four
-provisional mounting holes and pad-to-net checks. X2 remains unplaced; the FPGA
+The [partially routed review board](carrier.kicad_pcb) has 74 electrical footprints,
+four provisional mounting holes and pad-to-net checks. Eighteen IC bypass capacitors
+have short supply/ground connections; 92 track segments, 59 ground vias and a bottom
+ground plane are present. Geometric DRC is clear, with 234 connections still open. X2 remains unplaced; the FPGA
 cable/header candidates and exact SD exclusions still need qualification. See
 [mechanics](mechanics.md) for selection evidence, the preview and remaining gates.
-Verify mating parts, cable continuity, X2 dimensions and board fit. Complete load/startup/falling-rail
+Verify mating parts, cable continuity, X2 installation geometry and board fit. Complete load/startup/falling-rail
 analysis and power measurements, input/driver timing and priority-chain tests,
 then placement/routing, ERC/DRC, assembly review and a small prototype order.
 The existing board inventory may change module connectors before that freeze.

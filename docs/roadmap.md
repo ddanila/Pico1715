@@ -1,12 +1,20 @@
 # Remaining desk work and hardware plan
 
-The sections below distinguish completed desk increments from remaining plans;
-none substitutes for hardware qualification. USB control/download is now implemented and tested at the protocol seam.
-The [passive analyzer adapter](../hardware/analyzer-interface/README.md) now has
-a checked receiver schematic, pin binding and routed timing. Bench assembly and
-physical qualification are next; combined controller/analyzer hardware and PCB
-layout remain future work. The [shutdown firmware contract](shutdown.md) now has desk-tested safe eject and
-reserve gating. Physical backup-power signals and circuitry remain planned.
+Status reviewed 2026-10-26. Completed desk work does not substitute for hardware
+qualification. USB capture/download, controller status/eject, reserve-aware shutdown,
+interrupt-chain modelling and firmware service-cost/fault suites are implemented.
+The combined controller/analyzer carrier has a checked schematic and both FPGA
+personalities; its PCB is partially routed. Physical backup-power circuitry and
+qualification of the reset accessory remain planned.
+
+| Area | Completed on the desk | Next unresolved work |
+| --- | --- | --- |
+| Controller/emulation | Stock ROM/SCP regressions, interrupt arbitration, storage faults, timing-cost and overload tests | Broader OS images; replay measured hardware costs |
+| Analyzer | Capture, triggers, PSRAM transport, USB download, decode/compare | Module/USB/capture bench qualification |
+| Reset | Standalone software and bounded pulse implementation | Isolated accessory circuit and physical reset test; carrier GP22 is SD CS |
+| Shutdown | Safe eject, reserve gating, failure/deadline tests | Optional charger/reserve/supervisor circuit and measured budgets |
+| Carrier | Schematic, pin profiles, 74 footprints, local bypass routing and ground plane | 234 open connections, remaining rail/signal routing, SD drawing review, installation fit |
+| Host connector | Original EFS dimensions and four-contact printed test fixture | Qualify modern socket grip, then full connector/adapter design |
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
 event/address/data matching, rolling history and bounded post-trigger capture.
@@ -15,9 +23,9 @@ MFM field CRC checks and comparison against emulator reference captures.
 
 ## Explicit analyzer mode and remote reset
 
-Add the [analyzer mode](analyzer-mode.md) as a first-class board feature: passive
-FPGA capture, local buffering, USB download and host-side bus decoding. Plan its
-additional receivers and full address/clock/refresh inputs before PCB freeze.
+The [analyzer mode](analyzer-mode.md) now implements passive FPGA capture, local
+buffering, USB download and host-side decoding. The combined carrier includes
+its additional receivers and address/clock/refresh inputs.
 Keep controller-plus-trace as a later extension with a measured bandwidth budget.
 
 Remote CPU reset needs an optional reset-button connection: X1/X2 A20 exposes
@@ -133,9 +141,12 @@ button/SAFE LED. Desk checks cover both synthesized personalities and negative
 connectivity mutations. Complete connector/footprint selection and placement
 studies with the [mechanical audit](../hardware/carrier/mechanics.md): the
 vendor-numbered switch footprint and Pico/SD pad contracts are now checked.
-The first unrouted PCB places 74 electrical footprints and checks all 557 pads
-against exported schematic nets. X2 remains unplaced; FPGA cables/header mating,
-SD drawing exclusions and enclosure fit remain open. Identify the FPGA boards already owned before freezing module
+The PCB places 74 electrical footprints and checks all 557 pads against exported
+schematic nets. Eighteen IC bypass capacitors now have short supply traces and
+ground vias, alongside module power routes and a bottom ground plane. The current
+layout has 92 tracks and 59 vias; geometric DRC is clear with 234 connections still
+open (previously 336). X2 remains unplaced; FPGA cables/header mating, SD drawing
+exclusions and enclosure fit remain open. Identify the FPGA boards already owned before freezing module
 connectors or final routing: the Olimex HX8K remains the reference option, not a
 requirement to buy that exact board.
 

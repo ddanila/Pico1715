@@ -2,16 +2,18 @@
 
 ## Purpose and explicit modes
 
-Add a USB-connected bus analyzer to Pico1715 so the fitted card can capture boot,
-I/O and interrupt activity without individual probe wires. The [standalone capture prototype](analyzer-prototype.md) now implements raw
+The USB-connected bus analyzer is designed to capture boot, I/O and interrupt
+activity through the fitted card, without individual probe wires. The [standalone capture prototype](analyzer-prototype.md) now implements raw
 triggered buffering and host file export. A second [compact personality](cycle-analyzer.md)
 adds cycle intervals, filtering and stock-boot verification against the emulator.
 The [transport increment](analyzer-transport.md) adds FPGA–Pico framing and a
 bounded PSRAM receiver with shared-firmware/RTL fault tests. This document remains the full feature
 plan: [USB commands/download](analyzer-usb.md) now pass host/shared-handler tests;
 the [passive bench adapter](../hardware/analyzer-interface/README.md) now provides
-a checked receive-only schematic and routed FPGA target. Physical qualification,
-combined-mode hardware and remote reset remain open.
+a checked receive-only schematic and routed FPGA target. The combined carrier now has a checked schematic and two FPGA personalities.
+Physical qualification remains open. Remote-reset software is implemented for the
+optional standalone accessory; its isolated hardware remains unqualified and the
+combined carrier disables it because GP22 is used for SD chip select.
 
 - **Controller:** existing floppy replacement behavior.
 - **Analyzer:** passive capture only; no floppy responses, data drive, /WAIT,

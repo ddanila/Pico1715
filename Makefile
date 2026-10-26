@@ -159,6 +159,12 @@ test-carrier-pcb:
 	python3 tools/check_carrier_pcb.py
 	python3 tests/carrier_pcb_test.py
 
+.PHONY: test-carrier-layout-cad
+test-carrier-layout-cad:
+	mkdir -p build/carrier-layout
+	kicad-cli pcb drc hardware/carrier/carrier.kicad_pcb --format json -o build/carrier-layout/drc.json
+	python3 tools/check_carrier_pcb.py --drc build/carrier-layout/drc.json --report reports/carrier-pcb.json
+
 .PHONY: test-efs58
 test-efs58:
 	python3 tests/efs58_test.py

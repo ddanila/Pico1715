@@ -1,16 +1,19 @@
 # Footprint audit and placement allocation
 
-The [unrouted review PCB](carrier.kicad_pcb) now places 74 electrical footprints
+The [partially routed review PCB](carrier.kicad_pcb) now places 74 electrical footprints
 and four provisional mounting holes. [Board preview](preview/pcb-placement.svg)
-and [coordinates](pcb-placement.json) accompany it. X2 is the sole unplaced
+and [coordinates](pcb-placement.json) accompany it; the
+[bottom copper preview](preview/pcb-ground.svg) shows the ground plane and SD exclusion.
+X2 is the sole unplaced
 schematic component. The earlier [allocation drawing](preview/placement-study.svg)
 remains historical context; its zones are not the current board geometry.
 
 The 160 x 210 mm outline is deliberately roomy for reviewing connectivity and
 access. It is not an enclosure-fit result or a cost-optimized production size.
-ICs and passives are staged by function, not yet optimized for routing; in
-particular decoupling capacitors must move beside their associated supply pins.
-No traces or copper fills exist. Four M3 clearance holes are provisional carrier
+Receivers are grouped toward the host reservation, link switches beside the Pico,
+and interlock gates and supervisors in separate functional groups. Eighteen IC
+bypass capacitors now sit beside their supply pins. Local power/ground routes and
+a bottom ground plane are present; most signal and rail distribution remains open. Four M3 clearance holes are provisional carrier
 mounts, not HX8K or PC1715 mounting coordinates.
 
 | Reference | Selection | Evidence and remaining check |
@@ -95,17 +98,20 @@ See https://www.kicad.org/libraries/license/.
 The board checker compares all 557 electrical pads, including repeated shield
 lands, with the freshly exported KiCad schematic nets. It checks schematic UUID
 association, footprint identity, explicit NCs, placement coordinates and retained
-SD exclusion zones. Six mutation controls reject wrong nets, missing pads or
-parts, broken schematic associations, a removed SD hold and a false release flag.
+SD exclusion zones. Twelve mutation controls reject wrong nets, missing pads or parts, broken schematic
+associations, removed routing/vias, excessive bypass distance, a wrong plane net,
+a weakened SD hold and a false release flag.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **336
-unconnected items**. This is an unrouted placement check, not a passing production
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **234
+unconnected items**, down from 336. This is partial routing, not a passing production
 DRC. The settings are default review settings, not a chosen fabricator's rules.
 
 The installed SD footprint already carries five F.Cu exclusion regions. Preserve
-these and the additional conservative temporary routing hold. Exact copper/layer
+these and the additional conservative **both-copper-layer** routing hold. Exact copper/layer
 restrictions and ejection geometry still require Hirose drawing 0000947170; the
-manufacturer download returned HTTP 403 during this review. Do not route on the
+manufacturer file download again returned HTTP 403 during the 2026-10-26 layout
+review. Search indexing identifies the six-page drawing, but no dimensionally
+reviewable local copy was obtained. Do not route on the
 assumption that the temporary rectangular hold is the final manufacturer pattern.
 
 The original PC1715 scan, PDF page 5 (assembly 1.93.300101.5/09), shows X2 A1/B1
@@ -127,4 +133,39 @@ Sources for connector selection:
 
 Regenerating the PCB resets placement to the scripted review layout. Once manual
 routing starts, update the generator deliberately or retain the edited board;
-do not regenerate over manual work. No fabrication exports are supplied.
+do not regenerate over manual work. No carrier fabrication exports are supplied.
+
+
+## Local power/ground routing increment (2026-10-26)
+
+C1–C18 now serve RX1–RX5, U4–U13 and ISO1–ISO3 respectively according to the
+explicit mapping in `pcb-placement.json` (U13 precedes U9 in that mapping).
+Supply traces are 1.75 mm for the SO/TSSOP placements and 2.05 mm for SOT parts;
+each capacitor has a 1.3 mm ground escape to its own 0.6/0.3 mm through via.
+IC ground inputs also escape to the bottom GND plane. These are pad-centre lengths,
+not measured loop inductance. C19 remains staged outside the SD hold.
+
+C20 is beside the FPGA 3V3 entry; C21 is beside Pico 3V3. C22 supports module 5V.
+The module 5V input is routed to EXT1 and through D1 to Pico VSYS. Those module
+rails do not connect to host V5_HOST. The top copper uses 0.8 mm module-power
+traces, 0.5 mm 3V3 bulk links and 0.25/0.3 mm ground/local bypass traces. These are
+review-layout choices, not a qualified ampacity or regulator load budget.
+
+Only GND is poured, on B.Cu with 0.25 mm clearance and direct pad connections.
+It stops at Y=201 before the host reservation and excludes the SD hold on both
+layers. Final solderability/thermal-relief choice, copper weight, return paths
+under signal routes and supply distribution need review as routing progresses.
+No claim of completed power integrity, cable timing or immunity follows from DRC.
+
+The existing 100 nF values are consistent with the local-bypass guidance in
+[TI SN74LVC541A, Rev O, sections 8.3–8.4](https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf).
+No schematic or net assignments changed in this layout increment.
+
+Reproduce the partial layout with `/usr/bin/python3 tools/generate_carrier_pcb.py`.
+Then run `make test-carrier-pcb test-carrier-layout-cad`. The latter checks fresh
+KiCad JSON output and updates `reports/carrier-pcb.json`; geometric violations
+fail the check, while the remaining open connections are explicitly reported.
+Refresh both visual previews with `python3 tools/preview_carrier_pcb.py`.
+The independent footprint and schematic checks remain required. The generator
+owns the routed layout, so regeneration preserves these routes rather than
+resetting the board to the previous unrouted staging arrangement.

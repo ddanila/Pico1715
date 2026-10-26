@@ -82,20 +82,24 @@ a debugger, including initialization/storage diagnostics and a host CLI.
 
 ## Next milestones
 
-The [remaining desk-work plan](docs/roadmap.md) starts with shutdown firmware,
-safe-eject simulation and an optional current-limited backup-power circuit that
-also permits operation without a capacitor. It then covers full interrupt-chain
-emulation, broader software compatibility and PCB preparation. These are planned
-items, not completed features.
+The [roadmap](docs/roadmap.md) separates implemented desk work from hardware
+qualification. Safe eject/reserve-aware shutdown, motherboard interrupt-chain
+modelling, firmware cost/fault tests, and controller USB status/eject are implemented
+and tested within their documented simulation limits.
 
-The [bus-analyzer prototype](docs/analyzer-prototype.md) now provides passive RTL
-capture, triggers and CSV/VCD export with simulated verification. The separate
-[compact cycle analyzer](docs/cycle-analyzer.md) adds filtering and passes stock
-ROM/SCP boot comparisons against the emulator, retaining an I/O boot trace in
-about 3.3 MiB. The full
-[USB bus-analyzer mode](docs/analyzer-mode.md) remains planned,
-including full-address capture and an optional remote reset-button connection.
-X1/X2's reset contact alone does not reset the CPU on the documented motherboard.
+Analyzer capture, filtering, triggers, PSRAM transport, USB download and decoding
+are also implemented. The [combined carrier](hardware/carrier/README.md) has checked
+controller/analyzer FPGA personalities and a physical passive-mode interlock.
+[Remote-reset software](docs/analyzer-reset.md) exists for the optional standalone
+accessory; that accessory remains electrically unqualified and is disabled on the
+combined carrier because GP22 serves SD chip select. X1/X2's reset contact alone
+does not reset the CPU on the documented motherboard.
+
+The [carrier layout](hardware/carrier/mechanics.md) now has local bypass placement,
+92 routed segments, 59 ground vias and a bottom ground plane. Geometric DRC reports
+zero violations, with **234 connections still unrouted**. This is partial layout,
+not a fabrication release. The optional backup-power circuit, broader OS coverage,
+remaining routing and physical tests are still open.
 
 Physical milestones remain:
 
