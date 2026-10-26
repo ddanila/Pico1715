@@ -157,3 +157,7 @@ RTL co-simulation requires Verilator and a C++ compiler. See
 [reports/rtl-compatibility.json](reports/rtl-compatibility.json) for the nine-case
 result and source hashes, and [the prototype guide](hardware/prototype.md) for
 FPGA and firmware builds. ROMs and disk images remain external.
+
+The [classic 1715 trace decoder](docs/analyzer-decoder.md) provides controller
+timelines, field CRC checks, configurable WAIT/gap diagnostics and reference
+comparison for downloaded compact captures.

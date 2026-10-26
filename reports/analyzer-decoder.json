@@ -1,0 +1,148 @@
+{
+  "scope": "Desk-only interpretation of saved emulator and transport captures; no physical hardware qualification.",
+  "sources": {
+    "tools/analyzer_1715.py": "c2d3a4ba6f89005fbfd00207ab4660af90d56ebe64a5aaf0231f6b0bb2eb3469",
+    "tools/cycle_trace.py": "13bbb5217d48469aae981b32732eccdcadf71ab135ff2cae70088f72b6647d9c",
+    "model/controller.c": "3002ed85cffc7818d9cd052415bf2e0b01eca117ecb2f8bc785602a759b9ab4f",
+    "tests/test_analyzer_1715.py": "5ef5ce15f96482893fa9477a52772fa77402ec7e5efe159b015fdcff52331d49"
+  },
+  "boot": {
+    "sha256": "9e986e7493da9b3729c1f9da0209bfb3b37782af8a1ab08913a2062531d2701c",
+    "clock_hz": 9832000,
+    "records": 215848,
+    "dropped": 0,
+    "filtered": 7037026,
+    "trigger_index": null,
+    "kinds": {
+      "io_write": 96727,
+      "interrupt_ack": 8,
+      "io_read": 119113
+    },
+    "fields": {
+      "ID ok": 22,
+      "data ok": 21
+    },
+    "diagnostics": {},
+    "timeline": [
+      {
+        "index": 0,
+        "sequence": 12306,
+        "tick": 172212,
+        "elapsed_us": 0.0,
+        "kind": "io_write",
+        "address": "ff28",
+        "data": "ff",
+        "flags": 0,
+        "wait_samples": 0,
+        "duration": 4,
+        "gap_before": 12306,
+        "trigger": false,
+        "annotations": [
+          "I/O write port=28 (outside modeled controller subset)"
+        ]
+      }
+    ],
+    "limitations": [
+      "Sequence gaps include filtered cycles; loss location is not recoverable.",
+      "Time unwrap assumes less than one 32-bit clock wrap between records.",
+      "Bus bytes do not prove disk persistence or CPU reset.",
+      "Field interpretation covers the modeled classic 1715 MFM subset only."
+    ]
+  },
+  "transport": {
+    "sha256": "9e986e7493da9b3729c1f9da0209bfb3b37782af8a1ab08913a2062531d2701c",
+    "clock_hz": 9832000,
+    "records": 215848,
+    "dropped": 0,
+    "filtered": 7037026,
+    "trigger_index": null,
+    "kinds": {
+      "io_write": 96727,
+      "interrupt_ack": 8,
+      "io_read": 119113
+    },
+    "fields": {
+      "ID ok": 22,
+      "data ok": 21
+    },
+    "diagnostics": {},
+    "timeline": [
+      {
+        "index": 0,
+        "sequence": 12306,
+        "tick": 172212,
+        "elapsed_us": 0.0,
+        "kind": "io_write",
+        "address": "ff28",
+        "data": "ff",
+        "flags": 0,
+        "wait_samples": 0,
+        "duration": 4,
+        "gap_before": 12306,
+        "trigger": false,
+        "annotations": [
+          "I/O write port=28 (outside modeled controller subset)"
+        ]
+      }
+    ],
+    "limitations": [
+      "Sequence gaps include filtered cycles; loss location is not recoverable.",
+      "Time unwrap assumes less than one 32-bit clock wrap between records.",
+      "Bus bytes do not prove disk persistence or CPU reset.",
+      "Field interpretation covers the modeled classic 1715 MFM subset only."
+    ]
+  },
+  "comparison": {
+    "match": true,
+    "compared_events": 215848,
+    "first_divergence": null,
+    "alignment": "start",
+    "tolerance_us": 0,
+    "scope": "I/O low-byte port, data, flags; interrupt acknowledge, reset, invalid cycles. Memory/refresh excluded; trigger alignment excludes pre-trigger history. Equality of observed events does not establish completeness of a lossy capture."
+  },
+  "trigger": {
+    "sha256": "b232f1a5cfbc5497e9bdb0ff12f0f612ed00cffacb7652bc8db80d38cf6488e2",
+    "clock_hz": 9832000,
+    "records": 13,
+    "dropped": 0,
+    "filtered": 1909676,
+    "trigger_index": 8,
+    "kinds": {
+      "io_write": 10,
+      "interrupt_ack": 3
+    },
+    "fields": {},
+    "diagnostics": {},
+    "timeline": [
+      {
+        "index": 8,
+        "sequence": 1533024,
+        "tick": 17697632,
+        "elapsed_us": 184132.6281529699,
+        "kind": "interrupt_ack",
+        "address": "0800",
+        "data": "00",
+        "flags": 0,
+        "wait_samples": 0,
+        "duration": 4,
+        "gap_before": 173170,
+        "trigger": true,
+        "annotations": [
+          "interrupt acknowledge vector=00"
+        ]
+      }
+    ],
+    "limitations": [
+      "Sequence gaps include filtered cycles; loss location is not recoverable.",
+      "Time unwrap assumes less than one 32-bit clock wrap between records.",
+      "Bus bytes do not prove disk persistence or CPU reset.",
+      "Field interpretation covers the modeled classic 1715 MFM subset only."
+    ]
+  },
+  "reproduce": [
+    "make test",
+    "python3 tools/analyzer_1715.py local/cycle-analyzer-final/stock-boot-io-only/cycles.p1715 --context 0 --json",
+    "python3 tools/analyzer_1715.py local/trigger-qualified/boot-normal/capture.p1715 --reference local/cycle-analyzer-final/stock-boot-io-only/cycles.p1715 --timing-tolerance-us 0 --json",
+    "python3 tools/analyzer_1715.py local/trigger-qualified/boot-trigger/capture.p1715 --context 0 --json"
+  ]
+}

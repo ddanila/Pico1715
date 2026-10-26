@@ -10,6 +10,8 @@ a separate planned workstream.
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
 event/address/data matching, rolling history and bounded post-trigger capture.
+The [classic controller decoder](analyzer-decoder.md) now adds annotated timelines,
+MFM field CRC checks and comparison against emulator reference captures.
 
 ## Explicit analyzer mode and remote reset
 
