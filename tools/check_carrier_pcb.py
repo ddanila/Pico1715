@@ -86,7 +86,31 @@ def check(board,parts,xml,plan):
   exits=[t[2] for t in got if t[0]=='/GND' and t[1]==g and math.dist(t[1],t[2])<=1.5]
   assert any(v[0]=='/GND' and v[1] in exits for v in via_actual),(cap,'short ground return missing')
   lengths.append(length)
+ # Verify support circuits from actual copper, independently of route tags
+ # and the manifest. These routes deliberately meet at explicit endpoints.
+ def connected(net,a,z):
+  edges={}
+  for n,start,end,_,_ in got:
+   if n!='/'+net:continue
+   edges.setdefault(start,set()).add(end);edges.setdefault(end,set()).add(start)
+  seen={a};pending=[a]
+  while pending:
+   for point in edges.get(pending.pop(),()):
+    if point not in seen:seen.add(point);pending.append(point)
+  return z in seen
+ for dev,up,down,rail,pg in [('U10','R1','R2','V3P3','PG3'),
+                            ('U11','R3','R4','V5_HOST','PG5'),
+                            ('U12','R5','R6','P3V3','PGP')]:
+  assert connected(rail,pos(dev,3),pos(up,1)),(dev,'pull-up supply disconnected')
+  assert connected(pg,pos(dev,2),pos(up,2)),(dev,'sense disconnected')
+  assert connected(pg,pos(dev,2),pos(down,1)),(dev,'pull-down disconnected')
+ grounded=['R2','R4','R6','R7','R8','R9','R10','R11','R12','R13','R16','R19','R20']
+ for ref in grounded:
+  a=pos(ref,2)
+  assert any(n=='/GND' and math.dist(a,z)<=1.5 and connected('GND',a,z)
+             for n,z,_,_ in via_actual),(ref,'short plane return missing')
  return {'electrical_footprints':len(expected),'pads_checked':count,'unplaced':['X2'],'fabrication_ready':False,
+         'supervisor_networks':3,'resistor_ground_returns':len(grounded),
          'routed_segments':len(segments),'ground_vias':len(via_actual),'local_bypass_capacitors':len(devices),
          'maximum_bypass_supply_length_mm':round(max(lengths),3),'ground_plane':'B.Cu',
          'sd_hold_layers':['F.Cu','B.Cu']}

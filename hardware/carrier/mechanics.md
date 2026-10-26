@@ -98,11 +98,13 @@ See https://www.kicad.org/libraries/license/.
 The board checker compares all 557 electrical pads, including repeated shield
 lands, with the freshly exported KiCad schematic nets. It checks schematic UUID
 association, footprint identity, explicit NCs, placement coordinates and retained
-SD exclusion zones. Twelve mutation controls reject wrong nets, missing pads or parts, broken schematic
+SD exclusion zones. Sixteen mutation controls reject wrong nets, missing pads or parts, broken schematic
 associations, removed routing/vias, excessive bypass distance, a wrong plane net,
-a weakened SD hold and a false release flag.
+a weakened SD hold and a false release flag. Four controls remove copper and its
+manifest entry together, checking that independent connectivity assertions catch
+broken supervisor supply/sense/divider paths and resistor ground returns.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **234
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **212
 unconnected items**, down from 336. This is partial routing, not a passing production
 DRC. The settings are default review settings, not a chosen fabricator's rules.
 
@@ -169,3 +171,19 @@ Refresh both visual previews with `python3 tools/preview_carrier_pcb.py`.
 The independent footprint and schematic checks remain required. The generator
 owns the routed layout, so regeneration preserves these routes rather than
 resetting the board to the previous unrouted staging arrangement.
+
+## Supervisor and resistor return routing (2026-10-26)
+
+U10/U11/U12 now connect to their respective R1/R3/R5 pull-ups and R2/R4/R6
+pull-downs. R2/R4/R6 are rotated so the sense branch reaches the matching pad
+without crossing the supply route. The supervisor supply domains remain V3P3,
+V5_HOST and P3V3 respectively; upstream rail distribution and downstream
+power-good qualification gates are still unrouted.
+
+All thirteen resistor ground pads have 1.5 mm top-layer returns to individual
+0.6/0.3 mm ground vias. This increment adds 37 segments and 13 vias, reducing
+unconnected items from 234 to 212 with zero geometric DRC violations. The portable
+checker traverses actual copper endpoints for each supervisor network and checks
+each resistor's short via return independently of the routing manifest. This
+checks the intended local paths; filled-plane connectivity and clearances remain
+KiCad DRC responsibilities. No schematic values or net assignments changed.

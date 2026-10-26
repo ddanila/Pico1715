@@ -34,8 +34,8 @@ decoupling.update(dict(zip([f'C{i}' for i in range(6,19)],
 # SD C19 remains outside the unresolved connector keepout, not falsely routed.
 fixed.update({'C19':(159,49,180),'C20':(33.27,37,270),'C21':(153,40.03,0),
  'C22':(119,34,0),
- 'R1':(62,60,180),'R2':(62,65,180),'R3':(80,60,180),'R4':(80,65,180),
- 'R5':(160,66,180),'R6':(160,71,180),
+ 'R1':(62,60,180),'R2':(62,65,0),'R3':(80,60,180),'R4':(80,65,0),
+ 'R5':(160,66,180),'R6':(160,71,0),
  'R7':(160,77,0),'R8':(42,68,0),'R9':(116,82,0),
  'R10':(64,114,0),'R11':(84,114,0),'R12':(104,114,0),'R13':(85,131,0),
  'R14':(76,122,180),'R15':(90,122,180),'R16':(77,36,0),
@@ -153,6 +153,22 @@ track('P3V3',[xy(pad('J2',36)),xy(pad('C21',1))],.5,tag='pico-bulk')
 for ref in ['C20','C21','C22']:
  pp=pad(ref,2);x,y=xy(pp);at=[x,y+1.5]
  track('GND',[[x,y],at],.4,tag=ref+'/ground');via('GND',at,ref)
+# Local supervisor pull-up/pull-down networks. Power distribution and the
+# downstream qualification gates remain separate routing work.
+for dev,up,down,rail,pg in [('U10','R1','R2','V3P3','PG3'),
+                           ('U11','R3','R4','V5_HOST','PG5'),
+                           ('U12','R5','R6','P3V3','PGP')]:
+ sx,sy=xy(pad(dev,3));ux,uy=xy(pad(up,1))
+ track(rail,[[sx,sy],[sx,sy+3],[ux,sy+3],[ux,uy]],tag=dev+'/pullup-supply')
+ px,py=xy(pad(dev,2));ax,ay=xy(pad(up,2));dx,dy=xy(pad(down,1))
+ junction=[ax,ay+2]
+ track(pg,[[px,py],[px,sy+4],[ax,sy+4],[ax,ay]],tag=dev+'/sense')
+ track(pg,[[ax,ay],junction,[dx,dy]],tag=dev+'/divider')
+# Every resistor tied to ground receives a short independent plane return.
+for ref in ['R2','R4','R6','R7','R8','R9','R10','R11','R12','R13','R16','R19','R20']:
+ pp=pad(ref,2);assert pp.GetNetname()=='/GND'
+ x,y=xy(pp);at=[x,y+1.5]
+ track('GND',[[x,y],at],.3,tag=ref+'/ground');via('GND',at,ref)
 # Only GND is poured. Host 5V, module 5V and both 3V3 sources remain distinct.
 ground=k.ZONE(b);ground.SetLayer(k.B_Cu);ground.SetNet(nets['GND']);ground.SetZoneName('GND return - review layout')
 ground.SetLocalClearance(k.FromMM(.25));ground.SetPadConnection(k.ZONE_CONNECTION_FULL)
@@ -165,7 +181,7 @@ k.SaveBoard(str(BASE/'carrier.kicad_pcb'),b)
 plan={'schema':2,'fabrication_ready':False,'board_size_mm':[160,210],
  'unplaced_schematic_refs':['X2'],'mounting':'four provisional 3.2 mm M3 holes; no enclosure alignment claim',
  'fpga_attachment':'separate HX8K, three 1.27 mm 2x20 cables; mating candidate, bench continuity required',
- 'placements':placement,'routing':'partial: local decoupling, ground returns and module power; signal routing incomplete',
+ 'placements':placement,'routing':'partial: local decoupling, ground returns, module power and local supervisor networks; signal routing incomplete',
  'decoupling':{cap:dict(device=d,supply_pin=p) for cap,(d,p) in decoupling.items()},
  'routes':routes,'vias':vias,'ground_plane':'B.Cu GND; excludes host reservation and all-layer SD hold',
  'sd_keepout':'all-copper routing hold; exact manufacturer restrictions still pending'}

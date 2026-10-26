@@ -96,8 +96,8 @@ combined carrier because GP22 serves SD chip select. X1/X2's reset contact alone
 does not reset the CPU on the documented motherboard.
 
 The [carrier layout](hardware/carrier/mechanics.md) now has local bypass placement,
-92 routed segments, 59 ground vias and a bottom ground plane. Geometric DRC reports
-zero violations, with **234 connections still unrouted**. This is partial layout,
+129 routed segments, 72 ground vias and a bottom ground plane. Geometric DRC reports
+zero violations, with **212 connections still unrouted**. This is partial layout,
 not a fabrication release. The optional backup-power circuit, broader OS coverage,
 remaining routing and physical tests are still open.
 
