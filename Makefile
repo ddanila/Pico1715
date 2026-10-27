@@ -5,7 +5,7 @@ WARN = -std=c11 -Wall -Wextra -Werror
 
 .PHONY: classic-probe test
 classic-probe: build/classic-probe
-build/classic-probe: tools/classic_probe.c model/controller.c model/controller.h $(DAC)/machines/robotron1715/pc1715.c
+build/classic-probe: tools/classic_probe.c tools/session.h model/controller.c model/controller.h $(DAC)/machines/robotron1715/pc1715.c
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(WARN) -I$(DAC) tools/classic_probe.c model/controller.c $(DAC)/machines/robotron1715/pc1715.c $(DAC)/common/cpu/z80.c $(DAC)/common/trace/trace.c -o $@
 build/controller-test: tests/controller_test.c model/controller.c model/controller.h
@@ -207,3 +207,10 @@ test-backup-power-cad: test-backup-power
 test-sd-geometry:
 	python3 tools/check_sd_geometry.py
 	python3 tests/sd_geometry_test.py
+
+.PHONY: test-browser-session
+test-browser-session: build/browser-session-test
+	./build/browser-session-test
+build/browser-session-test: tests/browser_session_test.c tools/browser/session.c tools/session.h model/controller.c
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(WARN) -I$(DAC) tests/browser_session_test.c tools/browser/session.c model/controller.c $(DAC)/machines/robotron1715/pc1715.c $(DAC)/common/cpu/z80.c $(DAC)/common/trace/trace.c -o $@

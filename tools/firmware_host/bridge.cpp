@@ -10,7 +10,7 @@ extern "C" {
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <ucontext.h>
+#include "context.h"
 #include <cerrno>
 #include <cassert>
 static Vfirmware_cosim_top rtl;
@@ -22,8 +22,8 @@ static uint16_t address;
 static int writing;
 static uint64_t phase,requests,acks,returns,last_poll,last_worker;
 static unsigned settle;
-static ucontext_t serving_context;
-static uint8_t serving_stack[128*1024];
+static p1715_context serving_context;
+alignas(16) static uint8_t serving_stack[128*1024];
 static bool serving_busy,reset_observed,exporting;
 static uint64_t serving_due;
 static unsigned current_core=2,lock_owner=2;
@@ -33,11 +33,12 @@ static uint64_t fault_count,first_fault_us;
 static bool last_fault;
 // Separate deterministic worker stack: SD waits yield while the real CPU/RTL
 // and firmware serving loop continue. No OS threads or lock preemption.
-static ucontext_t worker_context, caller_context;
-static uint8_t worker_stack[128*1024];
+static p1715_context worker_context, caller_context;
+alignas(16) static uint8_t worker_stack[128*1024];
 static bool worker_busy;
 static uint64_t worker_due,clock_epoch;
 static unsigned sd_write_delay;
+static bool synchronous_steps;
 static uint64_t sd_yields,resets_while_busy;
 // Optional bounded diagnostic window: 256 microsecond samples before the first
 // RX overrun/TX underrun, followed by 64 samples. No guest or model mutation.
@@ -78,7 +79,7 @@ static void pause_core(unsigned delay){
     assert(current_core<2);
     uint64_t &due=current_core?worker_due:serving_due;
     due=host_time_us+delay;
-    if(swapcontext(current_core?&worker_context:&serving_context,&caller_context))std::abort();
+    context_swap(current_core?&worker_context:&serving_context,&caller_context);
 }
 static unsigned stress_period=257,stress_width,stress_phase,stress_extra[6];
 static unsigned sd_sequence[16],sd_count,sd_min=1000001,sd_max;
@@ -148,14 +149,20 @@ static void image_lock(critical_section_t *,bool enter){
 }
 static void resume_core(unsigned core){
     current_core=core;
-    if(swapcontext(&caller_context,core?&worker_context:&serving_context))std::abort();
+    if(synchronous_steps){
+        // With no injected delays, neither step can suspend or retain the lock.
+        // Avoid a stack switch, but execute the identical production step.
+        if(core){p1715_storage_step();worker_busy=false;}
+        else {p1715_service_step();serving_busy=false;
+            if(!rtl.reset_n && !(host_outputs&(1u<<21)))reset_observed=true;}
+    }else context_swap(&caller_context,core?&worker_context:&serving_context);
     current_core=2;
 }
 static void serving_entry(){
     for(;;){
         p1715_service_step();serving_busy=false;
         if(!rtl.reset_n && !(host_outputs&(1u<<21)))reset_observed=true;
-        if(swapcontext(&serving_context,&caller_context))std::abort();
+        context_swap(&serving_context,&caller_context);
     }
 }
 static void sd_pause(bool writing,uint32_t){
@@ -168,7 +175,7 @@ static void sd_pause(bool writing,uint32_t){
 static void worker_entry(){
     for(;;){
         p1715_storage_step();worker_busy=false;
-        if(swapcontext(&worker_context,&caller_context))std::abort();
+        context_swap(&worker_context,&caller_context);
     }
 }
 static void worker_pump(){
@@ -245,11 +252,8 @@ extern "C" void firmware_cosim_start(int absent) {
             costs[i]=(unsigned)n;
         }
     }
-    if(getcontext(&serving_context))std::abort();
-    serving_context.uc_stack.ss_sp=serving_stack;
-    serving_context.uc_stack.ss_size=sizeof(serving_stack);
-    serving_context.uc_link=nullptr;
-    makecontext(&serving_context,serving_entry,0);
+    context_current(&caller_context);
+    context_init(&serving_context,serving_stack,sizeof(serving_stack),serving_entry);
     if(const char *value=std::getenv("PICO1715_SD_WRITE_DELAY_US")){
         char *end;errno=0;unsigned long n=std::strtoul(value,&end,10);
         if(errno || !*value || *end || *value=='-' || n>1000000){
@@ -258,12 +262,12 @@ extern "C" void firmware_cosim_start(int absent) {
         sd_write_delay=(unsigned)n;
     }
     if(host_worker){
-        if(getcontext(&worker_context))std::abort();
-        worker_context.uc_stack.ss_sp=worker_stack;
-        worker_context.uc_stack.ss_size=sizeof(worker_stack);
-        worker_context.uc_link=nullptr;
-        makecontext(&worker_context,worker_entry,0);
+        context_init(&worker_context,worker_stack,sizeof(worker_stack),worker_entry);
     }
+    synchronous_steps=sd_write_delay==0;
+    for(unsigned i=0;i<P1715_COST_COUNT;i++)if(costs[i]||stress_extra[i])synchronous_steps=false;
+    for(unsigned i=0;i<sd_count;i++)if(sd_sequence[i])synchronous_steps=false;
+    if(setting("PICO1715_FORCE_CONTEXT",0,1))synchronous_steps=false;
     host_io_hook=sd_pause;host_cost_hook=charge;host_lock_hook=image_lock;
 }
 extern "C" int firmware_cosim_storage_busy(void){return worker_busy;}
@@ -381,4 +385,26 @@ extern "C" void firmware_cosim_export(void){
         p1715_status.state,(unsigned long long)p1715_status.requests,
         (unsigned long long)host_sd_reads,(unsigned long long)host_sd_writes,
         p1715_status.dirty_blocks,p1715_status.storage_error);
+}
+
+// Resumable nonterminal export. Caller stops CPU only at a completed instruction
+// boundary, so no exposed I/O transaction can be acknowledged twice.
+static bool snapshot_active;
+static uint64_t snapshot_start;
+extern "C" int firmware_cosim_snapshot(unsigned budget) {
+    if(active)return -EBUSY;
+    if(!snapshot_active){snapshot_active=true;snapshot_start=host_time_us;exporting=true;}
+    unsigned n=0;
+    while(serving_busy || worker_busy || p1715_status.dirty_blocks){
+        if(p1715_status.storage_error || host_time_us-snapshot_start>=60000000){
+            clock_epoch+=host_time_us-snapshot_start;snapshot_active=exporting=false;return -EIO;
+        }
+        if(n++>=budget)return 0;
+        host_time_us++;for(unsigned i=0;i<100;i++)clock_edge();
+    }
+    int result=ready && !p1715_status.storage_error &&
+        !std::memcmp(card->image,host_storage_image(),P1715_IMAGE_BYTES)?1:-EIO;
+    if(result==1)std::memcpy(output_image,host_storage_image(),P1715_IMAGE_BYTES);
+    clock_epoch+=host_time_us-snapshot_start;snapshot_active=exporting=false;
+    return result;
 }

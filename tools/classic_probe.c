@@ -39,6 +39,8 @@ int firmware_cosim_storage_busy(void);
 #define card_wait pico1715_wait
 #endif
 
+#include "session.h"
+
 static FILE *logfile;
 /* Opt-in bounded diagnostics: no ROM/media patches or I/O substitution. */
 static FILE *diagnostic;
@@ -62,8 +64,6 @@ static void keyboard_step(pc1715 *m,fixture *f){
   if(!f->key_half){f->key_half=1;f->key_due=m->cpu.cycles+1000;}
   else {f->key_pos++;f->key_half=0;f->key_due=m->cpu.cycles+(data=='\r'?f->command_gap:100000);}
 }
-static int input(void *p,uint16_t a,uint8_t *data){return card_read(p,a,data);}
-static void output(void *p,uint16_t a,uint8_t data){card_write(p,a,data);}
 static void trace(void *p, const dac_trace_event *e) {
   fixture *f=p;
   if(diagnostic_active){
@@ -109,8 +109,7 @@ int main(int argc, char **argv) {
   pc1715 *m = calloc(1, sizeof(*m));
   uint8_t *disk = malloc(819200);
   if (!m || !disk) return 2;
-  pc1715_init(m);
-  if(pc1715_onboard_enable(m))return 2;
+  if(p1715_board_init(m))return 2;
   if (!read_file(argv[1], m->rom, 2048) || !read_file(argv[2], disk, 819200)) return 2;
   const char *names[] = {"io.trace", "ram.bin", "disk.img", "screen.txt"};
   FILE *outputs[4] = {0};
@@ -160,15 +159,7 @@ int main(int argc, char **argv) {
   uint64_t reset_at = 0;
   uint8_t *reset_image = reset_phase ? malloc(819200) : NULL;
   if (reset_phase && !reset_image) return 2;
-  #ifdef PICO1715_COSIM
-  cosim_init(m, &f.controller);
-#ifdef P1715_FIRMWARE_COSIM
-  firmware_cosim_start(argc == 6 && !strcmp(argv[5], "absent"));
-#endif
-#endif
-  pc1715_card card = {&f, input, output, card_tick,
-    card_irq, card_ack, card_reti, card_reset, card_wait};
-  pc1715_attach(m, &card);
+  if(p1715_board_attach(m,&f.controller,argc == 6 && !strcmp(argv[5], "absent")))return 2;
   m->trace = (dac_trace_sink){trace, &f, 0, 0};
 #ifdef P1715_ANALYZER
   analyzer_init(m, argv[3]);
@@ -207,7 +198,7 @@ int main(int argc, char **argv) {
       service_last=i;service_visits++;
     }
     previous_pc=m->cpu.cpu.pc;
-    pc1715_run(m, 1);
+    p1715_board_tick(m);
     if(diagnostic_active){
       diagnostic_pc[m->cpu.cpu.pc]++;
       uint64_t fetch=m->cpu.pins & (Z80_M1|Z80_MREQ|Z80_RD);
@@ -221,9 +212,7 @@ int main(int argc, char **argv) {
 #ifdef P1715_ANALYZER
     analyzer_observe();
 #endif
-#ifdef PICO1715_COSIM
-    cosim_observe();
-#endif
+    p1715_board_observe();
     int reset_during_storage = 0;
 #ifdef P1715_FIRMWARE_COSIM
     reset_during_storage = reset_phase == 3 && firmware_cosim_storage_busy();
@@ -306,5 +295,9 @@ int main(int argc, char **argv) {
     if (fclose(outputs[i])) failed = 1;
   }
   free(scheduled.events); free(reset_image); free(m); free(disk);
+#ifdef __EMSCRIPTEN__
+  exit(handoff && !failed ? 0 : 1); /* Fibers do not carry an export return value. */
+#else
   return handoff && !failed ? 0 : 1;
+#endif
 }

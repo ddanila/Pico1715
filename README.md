@@ -211,3 +211,6 @@ Further desk work now includes [W-loader diagnosis](docs/boot-image-diagnosis.md
 [indexed multi-extent and disk-full tests](docs/pattern-media.md) on native and
 shared-firmware/FPGA backends, and an [optional reserve-power schematic](hardware/backup-power/README.md).
 The reserve remains a draft with no GPIO integration or measured hold-up guarantee.
+
+The [browser workstation](docs/browser-workstation.md) builds model and firmware/RTL
+WebAssembly sessions for the classic-1715 DAC museum exhibit.

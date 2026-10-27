@@ -35,3 +35,30 @@ jobs:
       - run: python3 tools/check_cpu_cost_smoke.py --dac build/dac --out build/cpu-cost-check
       - run: python3 tests/firmware_cosim_smoke.py build/cpu-cost-check/build/classic-probe
       - run: python3 tests/keyboard_schedule_smoke.py build/cpu-cost-check/build/classic-probe
+  browser-sessions:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ddanila/dac-emulation
+          ref: 98f8f808c08ce21f6b98a00b95185f1e2226e70d
+          path: build/dac
+      - uses: actions/checkout@v4
+        with:
+          repository: ddanila/cpm-plus-1715
+          ref: eb56ac02134dcf2440ab433b2f47a1462c8e10d0
+          path: build/cpm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: sudo apt-get update && sudo apt-get install -y verilator bison
+      - run: git clone --depth 1 --branch 4.0.23 https://github.com/emscripten-core/emsdk.git local/emsdk
+      - run: local/emsdk/emsdk install 4.0.23 && local/emsdk/emsdk activate 4.0.23
+      - run: make -C build/cpm all test-rom
+      - run: make test-browser-session DAC=build/dac
+      - run: python3 tools/build_browser.py --dac build/dac
+      - run: python3 tools/build_browser.py --dac build/dac --native --out build/browser-native
+      - run: python3 tests/browser_parity.py --backend model --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-model
+      - run: python3 tests/browser_parity.py --backend firmware --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-firmware
+      - run: PICO1715_FORCE_CONTEXT=1 PICO1715_COST_POLL_US=1 PICO1715_TEST_RESET=1 python3 tests/browser_parity.py --backend firmware --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --cycles 200000 --out build/parity-context
