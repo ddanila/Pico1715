@@ -26,3 +26,8 @@ subprocess.run(['verilator','--cc','--exe','--build','-j','2','-O3','-Wall',
  *([str(ROOT/'hardware/rtl/pico1715_top.v')] if a.firmware else []),
  str(ROOT/'hardware/rtl/bus_frontend.v'),str(ROOT/'hardware/rtl/irq_frontend.v'),
  str(ROOT/('tools/firmware_host/bridge.cpp' if a.firmware else 'tools/cosim/bridge.cpp')),*objects,'-o',str(out/'classic-probe')],check=True)
+# Verilator places the externally compiled C objects in linker flags, not in
+# the generated target prerequisites. Force the final link after rebuilding
+# them, even when the RTL and C++ bridge themselves have not changed.
+subprocess.run(['make', '-C', str(out/'rtl'), '-f', f'V{top}.mk', '-W', f'V{top}__ALL.a',
+                str(out/'classic-probe')], check=True)

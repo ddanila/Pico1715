@@ -105,3 +105,26 @@ The [ROM-free phase sweep and two-byte firmware queue](receive-elasticity.md)
 now reproduce and address this collision. The one-byte failure remains recorded
 above. The model still schedules index and field acquisition independently;
 rotating-track emulation, serial waveforms and bench timing remain separate work.
+
+## Longer OS qualification runs
+
+The native and firmware/RTL probes now accept `PICO1715_KEY_START` and
+`PICO1715_COMMAND_GAP` (CPU clocks, each 0–1,000,000,000) for slower guest OS
+boot and command sequences. Defaults remain 20,000,000 and 10,000,000.
+`PICO1715_CYCLES` keeps its 100,000,000 default and accepts up to 2,000,000,000.
+These options pace the completed-byte keyboard source; they do not detect guest
+BIOS calls or change the guest's controller/peripheral semantics. Reset retains
+the existing 20,000,000-clock keyboard restart policy.
+
+The separate `ddanila/cpm-plus-1715` project uses these options for its native
+CP/M Plus port, generated disks and long allocation/error tests. Stock SCP
+regressions retain their original defaults.
+
+`PICO1715_STOP_TEXT` optionally ends a run after literal text appears in the
+1920-byte F800h screen region, followed by `PICO1715_STOP_TAIL` clocks
+(default 20,000,000; range 0–1,000,000,000). Matching is sampled every 16,384
+clocks. The ordinary cycle limit remains a hard upper bound. This is an
+observation-only test completion condition, not a guest acceleration mechanism;
+it changes no registers, RAM or I/O and does not itself establish test success.
+Empty or overlong stop text is rejected. Qualification must still inspect the
+screen, exported disk and fault counters independently.

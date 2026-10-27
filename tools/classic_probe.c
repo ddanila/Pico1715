@@ -48,7 +48,7 @@ typedef struct {
   pico1715_controller controller;
   const char *command;
   unsigned key_pos, key_half, key_bytes, sio_reads, sio_writes, ctc_writes;
-  uint64_t key_due;
+  uint64_t key_due, command_gap;
 } fixture;
 static void keyboard_step(pc1715 *m,fixture *f){
   if(!f->command[f->key_pos] || m->cpu.cycles<f->key_due || m->sio[0].count==3)return;
@@ -58,7 +58,7 @@ static void keyboard_step(pc1715 *m,fixture *f){
   if(result){fprintf(stderr,"keyboard receive failed: %d\n",result);exit(2);}
   f->key_bytes++;
   if(!f->key_half){f->key_half=1;f->key_due=m->cpu.cycles+1000;}
-  else {f->key_pos++;f->key_half=0;f->key_due=m->cpu.cycles+(data=='\r'?10000000:100000);}
+  else {f->key_pos++;f->key_half=0;f->key_due=m->cpu.cycles+(data=='\r'?f->command_gap:100000);}
 }
 static int input(void *p,uint16_t a,uint8_t *data){return card_read(p,a,data);}
 static void output(void *p,uint16_t a,uint8_t data){card_write(p,a,data);}
@@ -120,7 +120,9 @@ int main(int argc, char **argv) {
     if (!outputs[i]) { perror(path); return 2; }
   }
   logfile = outputs[0];
-  fixture f = {.command = argc >= 5 ? argv[4] : "", .key_due = 20000000};
+  fixture f = {.command = argc >= 5 ? argv[4] : "",
+    .key_due = option("PICO1715_KEY_START", 20000000, 1000000000),
+    .command_gap = option("PICO1715_COMMAND_GAP", 10000000, 1000000000)};
   if (pico1715_mount(&f.controller, disk, 819200, 80, 2, 5, 3)) return 2;
   f.controller.writable = argc != 6; /* Only this process-owned copy can be modified. */
   #ifndef P1715_FIRMWARE_COSIM
@@ -168,8 +170,24 @@ int main(int argc, char **argv) {
   uint64_t previous_fetch=0;
   uint64_t handoff = 0;
   unsigned target = 0;
-  unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 100000000);
+  unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 2000000000);
+  const char *stop_text = getenv("PICO1715_STOP_TEXT");
+  size_t stop_length = stop_text ? strlen(stop_text) : 0;
+  if (stop_text && (!stop_length || stop_length > 1920)) return 2;
+  unsigned stop_tail = option("PICO1715_STOP_TAIL", 20000000, 1000000000);
+  uint64_t stop_at = 0;
   for (unsigned i = 0; i < cycle_limit; i++) {
+    /* Optional observation-only completion bound for long generated-OS tests.
+     * It never changes guest registers, memory, peripheral state or I/O. */
+    if (stop_length && !stop_at && !(i & 16383)) {
+      for (size_t off = 0; off + stop_length <= 1920; off++) {
+        if (!memcmp(m->ram + 0xf800 + off, stop_text, stop_length)) {
+          stop_at = (uint64_t)i + stop_tail + 1;
+          break;
+        }
+      }
+    }
+    if (stop_at && i >= stop_at) break;
     keyboard_step(m,&f);
     pc1715_run(m, 1);
     if(diagnostic_active){
