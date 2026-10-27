@@ -1,0 +1,1 @@
+(sym_lib_table (lib (name "Backup") (type "KiCad") (uri "${KIPRJMOD}/Backup.kicad_sym") (options "") (descr "Original backup draft symbols")))

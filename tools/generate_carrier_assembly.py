@@ -22,5 +22,6 @@ for part in parts:
  for pad in part['pads']:
   if pad['pin'] in ['1','A1']:
    px,py=pad['xy_mm'];svg.append(f'<circle cx="{px}" cy="{py}" r=".4" fill="#b52020"/>')
+svg.append('<rect x="163.925" y="20" width="11" height="9.875" fill="#d5e9ff" stroke="#315a80" stroke-width=".2"/><text x="162" y="24" font-size="1.5">SD access</text>')
 svg.append('<rect x="160" y="28" width="18" height="19" fill="none" stroke="#c43b29" stroke-width=".4"/><text x="22" y="211" font-size="3">X2 UNPLACED — host reservation</text><text x="22" y="218" font-size="2">J4: regulated 5V input. J1: CDONE tap, not programmer.</text><text x="22" y="224" font-size="2">Do not install on a host until geometry and bench gates pass.</text></g></svg>')
 (base/'preview/assembly.svg').write_text(''.join(svg)+'\n')

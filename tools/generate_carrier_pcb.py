@@ -98,7 +98,7 @@ for c in parts:
  b.Add(fp);fps[ref]=fp;placement[ref]=[x,y,angle]
 # Deliberately roomy review outline, not a PC1715 enclosure-fit claim.
 rect(20,20,160,210,k.Edge_Cuts)
-for i,(x,y) in enumerate([(24,24),(176,24),(24,226),(176,226)],1):
+for i,(x,y) in enumerate([(24,24),(157,24),(24,226),(176,226)],1):
  fp=k.FootprintLoad('/usr/share/kicad/footprints/MountingHole.pretty','MountingHole_3.2mm_M3')
  fp.SetReference('H'+str(i));fp.SetPosition(vec(x,y));stable(fp,'H'+str(i))
  for j,pad in enumerate(fp.Pads()):stable(pad,f'H{i}/pad/{j}')

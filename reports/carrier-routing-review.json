@@ -59,12 +59,12 @@
       "opposite_ground_uncovered_percent": 36.76
     },
     "F_A0": {
-      "copper_length_mm": 173.562,
+      "copper_length_mm": 173.729,
       "longest_segment_mm": 118.421,
       "vias": 3,
       "segments": 10,
-      "opposite_ground_uncovered_mm": 133.842,
-      "opposite_ground_uncovered_percent": 77.11
+      "opposite_ground_uncovered_mm": 134.009,
+      "opposite_ground_uncovered_percent": 77.14
     },
     "F_A1": {
       "copper_length_mm": 169.419,
@@ -123,12 +123,12 @@
       "opposite_ground_uncovered_percent": 49.92
     },
     "F_A2": {
-      "copper_length_mm": 169.905,
+      "copper_length_mm": 169.862,
       "longest_segment_mm": 106.345,
       "vias": 3,
       "segments": 13,
-      "opposite_ground_uncovered_mm": 88.15,
-      "opposite_ground_uncovered_percent": 51.88
+      "opposite_ground_uncovered_mm": 88.107,
+      "opposite_ground_uncovered_percent": 51.87
     },
     "F_A3": {
       "copper_length_mm": 156.327,
@@ -1076,23 +1076,6 @@
   "parallel_candidates": [
     {
       "nets": [
-        "F_A0",
-        "F_A2"
-      ],
-      "layer": "F.Cu",
-      "overlap_mm": 106.345,
-      "edge_gap_mm": 0.367,
-      "start": [
-        20.7399,
-        33.2043
-      ],
-      "end": [
-        20.7399,
-        151.6258
-      ]
-    },
-    {
-      "nets": [
         "F_BUSRQ_N",
         "F_PRIORITY"
       ],
@@ -1132,13 +1115,13 @@
       ],
       "layer": "F.Cu",
       "overlap_mm": 56.161,
-      "edge_gap_mm": 0.252,
+      "edge_gap_mm": 0.212,
       "start": [
-        21.3565,
+        21.3965,
         148.5066
       ],
       "end": [
-        21.3565,
+        21.3965,
         42.162
       ]
     },
@@ -6461,8 +6444,8 @@
     }
   ],
   "source_sha256": {
-    "hardware/carrier/carrier.kicad_pcb": "0539046e017ff8e44112360fd9df7799e08b132d5751715baf8475de40c73a46",
-    "hardware/carrier/pcb-placement.json": "2610634f483a31bb6409fd0492d59a5fcda94df0d8450e7368d9ce26f2855b22",
+    "hardware/carrier/carrier.kicad_pcb": "f907b36ca87b46f107e0e3360de0a003562c4835769597ecb4752d308c67ccc7",
+    "hardware/carrier/pcb-placement.json": "e3dee1e7f8a06fbecdb019afddfb60fc4f4d831289f27afc358ce092e4f0acf9",
     "tools/review_carrier_routing.py": "6694fb604765d2b08a834c62082a8db85371b9cfaa2f5695cf5ca1f8216f57ac"
   }
 }

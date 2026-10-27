@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "mounting_clearances": [
+    {
+      "ref": "H1",
+      "centre_mm": [
+        24.0,
+        24.0
+      ],
+      "clearance_to_access_mm": 136.725
+    },
+    {
+      "ref": "H3",
+      "centre_mm": [
+        24.0,
+        226.0
+      ],
+      "clearance_to_access_mm": 237.723
+    },
+    {
+      "ref": "H2",
+      "centre_mm": [
+        157.0,
+        24.0
+      ],
+      "clearance_to_access_mm": 3.725
+    },
+    {
+      "ref": "H4",
+      "centre_mm": [
+        176.0,
+        226.0
+      ],
+      "clearance_to_access_mm": 192.928
+    }
+  ],
+  "routing_released": false,
+  "hardware_executed": false,
+  "pad_comparisons": 14,
+  "exclusion_rectangles": 5,
+  "local_datum_mm": [
+    2.775,
+    -7.125
+  ],
+  "local_exclusion_bounds_mm": [
+    [
+      -7.225,
+      -7.275,
+      -6.475,
+      -4.025
+    ],
+    [
+      -7.225,
+      -2.825,
+      -6.475,
+      0.7750000000000004
+    ],
+    [
+      -6.125,
+      -1.4249999999999998,
+      -5.424999999999999,
+      6.175000000000001
+    ],
+    [
+      2.925,
+      6.975,
+      5.475,
+      8.325
+    ],
+    [
+      -5.424999999999999,
+      -2.7249999999999996,
+      3.275,
+      -1.125
+    ]
+  ],
+  "card_ejected_envelope_board_mm": [
+    163.925,
+    24.275,
+    174.925,
+    45.825
+  ],
+  "mouth_board_y_mm": 29.875,
+  "ejected_tip_board_y_mm": 24.275,
+  "board_north_edge_y_mm": 20,
+  "limitations": [
+    "Catalog confirms installed pad/exclusion geometry but is not current engineering-drawing revision approval.",
+    "Lower-right exclusion extends conservatively to lower shield-land edge, 15.45 mm from datum; catalog labels its upper edge 14.1 MAX.",
+    "Card ejection envelope extends north of the existing copper hold (Y=28); reserve mechanical access to the board edge.",
+    "Enclosure/finger access and actual socket fit still need verification."
+  ],
+  "source_sha256": {
+    "tools/check_sd_geometry.py": "779c03972f8372ea4db6ce34888376cabd6d86364744216d81628488ae258f75",
+    "hardware/carrier/carrier.kicad_pcb": "f907b36ca87b46f107e0e3360de0a003562c4835769597ecb4752d308c67ccc7"
+  }
+}

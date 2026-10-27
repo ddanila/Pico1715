@@ -41,8 +41,7 @@
   },
   "remaining": [
     "Retrieve and visually check engineering drawing 0000947170 / EDC-325165-00-00; direct download returned HTTP 403.",
-    "Complete dimension-by-dimension exclusion and mechanical datum comparison, including detection lands; catalog checks above are not full footprint approval.",
-    "Review card insertion/ejection clearance at the rotated carrier placement."
+    "Verify enclosure/finger access and actual socket fit; available-catalog geometry comparison is now complete in sd-geometry.json."
   ],
   "retained_hold": "All-layer J3 rectangle plus five library F.Cu exclusions; 12 open connections retained."
 }

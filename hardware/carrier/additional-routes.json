@@ -612,11 +612,11 @@
     {
       "net": "F_A0",
       "start": [
-        20.7399,
+        20.6399,
         33.2043
       ],
       "end": [
-        20.7399,
+        20.6399,
         151.6258
       ],
       "width": 0.25,
@@ -625,7 +625,7 @@
     {
       "net": "F_A0",
       "start": [
-        20.7399,
+        20.6399,
         151.6258
       ],
       "end": [
@@ -642,7 +642,7 @@
         33.1293
       ],
       "end": [
-        20.7399,
+        20.6399,
         33.2043
       ],
       "width": 0.25,
@@ -3095,7 +3095,7 @@
     {
       "net": "F_A2",
       "start": [
-        21.3565,
+        21.3965,
         42.162
       ],
       "end": [
@@ -3108,11 +3108,11 @@
     {
       "net": "F_A2",
       "start": [
-        21.3565,
+        21.3965,
         148.5066
       ],
       "end": [
-        21.3565,
+        21.3965,
         42.162
       ],
       "width": 0.25,
@@ -3125,7 +3125,7 @@
         148.5667
       ],
       "end": [
-        21.3565,
+        21.3965,
         148.5066
       ],
       "width": 0.25,
@@ -26666,5 +26666,12 @@
         75.3823
       ]
     }
-  ]
+  ],
+  "routing_refinement": {
+    "date": "2026-10-27",
+    "changes": [
+      "Long A0/A2 parallel edge gap increased from 0.3666 to 0.5066 mm."
+    ],
+    "rejected_candidate": "shorter-write-candidate.json: more layer changes and less opposite-plane coverage; clock alternatives also retained only locally."
+  }
 }

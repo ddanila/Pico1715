@@ -192,3 +192,18 @@ test-x2-adapter-cad: test-x2-adapter
 	mkdir -p build/x2-adapter
 	kicad-cli sch erc hardware/x2-adapter/adapter.kicad_sch --exit-code-violations -o build/x2-adapter/erc.rpt
 	kicad-cli pcb drc hardware/x2-adapter/adapter.kicad_pcb --schematic-parity --exit-code-violations --format json -o build/x2-adapter/drc.json
+
+.PHONY: test-pattern-workload test-backup-power test-backup-power-cad test-sd-geometry
+test-pattern-workload:
+	python3 tests/pattern_workload_test.py
+
+test-backup-power:
+	python3 tests/backup_power_test.py
+
+test-backup-power-cad: test-backup-power
+	mkdir -p build/backup-power
+	kicad-cli sch erc hardware/backup-power/backup.kicad_sch --exit-code-violations -o build/backup-power/erc.rpt
+
+test-sd-geometry:
+	python3 tools/check_sd_geometry.py
+	python3 tests/sd_geometry_test.py

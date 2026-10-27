@@ -206,3 +206,8 @@ The latest [desk-work pass](docs/desk-completion.md) adds a provisional routed
 58-contact X2 breakout, assembly/probe documentation, return-path screening with
 23 extra ground stitches, and a 30-case external-media survey/persistence suite.
 The SD drawing hold, actual connector fit and hardware qualification remain open.
+
+Further desk work now includes [W-loader diagnosis](docs/boot-image-diagnosis.md),
+[indexed multi-extent and disk-full tests](docs/pattern-media.md) on native and
+shared-firmware/FPGA backends, and an [optional reserve-power schematic](hardware/backup-power/README.md).
+The reserve remains a draft with no GPIO integration or measured hold-up guarantee.

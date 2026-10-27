@@ -1,0 +1,607 @@
+{
+  "schema": 1,
+  "fabrication_ready": false,
+  "carrier_integrated": false,
+  "parts": [
+    {
+      "ref": "J1",
+      "value": "RAW_5V_INPUT",
+      "pins": [
+        [
+          1,
+          "5V",
+          "power_out",
+          "V5_MODULE"
+        ],
+        [
+          2,
+          "GND",
+          "power_out",
+          "GND"
+        ]
+      ],
+      "x": 63.5,
+      "y": 63.5,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J2",
+      "value": "PICO_VSYS_OUTPUT",
+      "pins": [
+        [
+          1,
+          "VSYS",
+          "passive",
+          "P_VSYS"
+        ],
+        [
+          2,
+          "GND",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 170.18,
+      "y": 63.5,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "J3",
+      "value": "STATUS_INTERFACE_NO_GPIO_ASSIGNED",
+      "pins": [
+        [
+          1,
+          "P3V3_FROM_PICO",
+          "power_out",
+          "P3V3"
+        ],
+        [
+          2,
+          "GND",
+          "passive",
+          "GND"
+        ],
+        [
+          3,
+          "SUPPLY_OK",
+          "passive",
+          "SUPPLY_OK"
+        ],
+        [
+          4,
+          "RESERVE_OK",
+          "passive",
+          "RESERVE_OK"
+        ]
+      ],
+      "x": 276.86,
+      "y": 63.5,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "D1",
+      "value": "SS14_EXISTING_CARRIER",
+      "pins": [
+        [
+          1,
+          "K",
+          "passive",
+          "P_VSYS"
+        ],
+        [
+          2,
+          "A",
+          "passive",
+          "V5_MODULE"
+        ]
+      ],
+      "x": 383.54,
+      "y": 63.5,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "D2",
+      "value": "SS14_CHARGE_BLOCK",
+      "pins": [
+        [
+          1,
+          "K",
+          "passive",
+          "CHARGE_IN"
+        ],
+        [
+          2,
+          "A",
+          "passive",
+          "V5_MODULE"
+        ]
+      ],
+      "x": 490.22,
+      "y": 63.5,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R1",
+      "value": "100R_1W_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CHARGE_IN"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "CAP_TOP"
+        ]
+      ],
+      "x": 63.5,
+      "y": 106.68,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "C1",
+      "value": "TV1030-3R0106-R_10F_3V",
+      "pins": [
+        [
+          1,
+          "+",
+          "passive",
+          "CAP_TOP"
+        ],
+        [
+          2,
+          "-",
+          "passive",
+          "CAP_MID"
+        ]
+      ],
+      "x": 170.18,
+      "y": 106.68,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "C2",
+      "value": "TV1030-3R0106-R_10F_3V",
+      "pins": [
+        [
+          1,
+          "+",
+          "passive",
+          "CAP_MID"
+        ],
+        [
+          2,
+          "-",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 276.86,
+      "y": 106.68,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R2",
+      "value": "10k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CAP_TOP"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "CAP_MID"
+        ]
+      ],
+      "x": 383.54,
+      "y": 106.68,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R3",
+      "value": "10k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CAP_MID"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 490.22,
+      "y": 106.68,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "U1",
+      "value": "TL431AIDBZR_2V495_CLAMP",
+      "pins": [
+        [
+          1,
+          "K",
+          "passive",
+          "CAP_TOP"
+        ],
+        [
+          2,
+          "REF",
+          "input",
+          "CAP_TOP"
+        ],
+        [
+          3,
+          "A",
+          "passive",
+          "CAP_MID"
+        ]
+      ],
+      "x": 63.5,
+      "y": 149.86,
+      "footprint": "Package_TO_SOT_SMD:SOT-23",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tl431.pdf"
+    },
+    {
+      "ref": "U2",
+      "value": "TL431AIDBZR_2V495_CLAMP",
+      "pins": [
+        [
+          1,
+          "K",
+          "passive",
+          "CAP_MID"
+        ],
+        [
+          2,
+          "REF",
+          "input",
+          "CAP_MID"
+        ],
+        [
+          3,
+          "A",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 170.18,
+      "y": 149.86,
+      "footprint": "Package_TO_SOT_SMD:SOT-23",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tl431.pdf"
+    },
+    {
+      "ref": "F1",
+      "value": "0.75A_FUSE_CANDIDATE",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CAP_TOP"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "CAP_FUSED"
+        ]
+      ],
+      "x": 276.86,
+      "y": 149.86,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "D3",
+      "value": "SS14_DISCHARGE",
+      "pins": [
+        [
+          1,
+          "K",
+          "passive",
+          "P_VSYS"
+        ],
+        [
+          2,
+          "A",
+          "passive",
+          "CAP_FUSED"
+        ]
+      ],
+      "x": 383.54,
+      "y": 149.86,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "U3",
+      "value": "TLV3011BIDBVR",
+      "pins": [
+        [
+          1,
+          "OUT",
+          "open_collector",
+          "SUPPLY_OK"
+        ],
+        [
+          2,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          3,
+          "IN_PLUS",
+          "input",
+          "SENSE3"
+        ],
+        [
+          4,
+          "IN_MINUS",
+          "input",
+          "REF3"
+        ],
+        [
+          5,
+          "REF",
+          "output",
+          "REF3"
+        ],
+        [
+          6,
+          "VCC",
+          "power_in",
+          "P3V3"
+        ]
+      ],
+      "x": 490.22,
+      "y": 149.86,
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tlv3011.pdf"
+    },
+    {
+      "ref": "R4",
+      "value": "267k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "V5_MODULE"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "SENSE3"
+        ]
+      ],
+      "x": 63.5,
+      "y": 193.04,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R5",
+      "value": "100k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "SENSE3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 170.18,
+      "y": 193.04,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R6",
+      "value": "10k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "P3V3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "SUPPLY_OK"
+        ]
+      ],
+      "x": 276.86,
+      "y": 193.04,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "C3",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "P3V3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 383.54,
+      "y": 193.04,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "U4",
+      "value": "TLV3011BIDBVR",
+      "pins": [
+        [
+          1,
+          "OUT",
+          "open_collector",
+          "RESERVE_OK"
+        ],
+        [
+          2,
+          "GND",
+          "power_in",
+          "GND"
+        ],
+        [
+          3,
+          "IN_PLUS",
+          "input",
+          "SENSE4"
+        ],
+        [
+          4,
+          "IN_MINUS",
+          "input",
+          "REF4"
+        ],
+        [
+          5,
+          "REF",
+          "output",
+          "REF4"
+        ],
+        [
+          6,
+          "VCC",
+          "power_in",
+          "P3V3"
+        ]
+      ],
+      "x": 490.22,
+      "y": 193.04,
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/tlv3011.pdf"
+    },
+    {
+      "ref": "R7",
+      "value": "280k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "CAP_TOP"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "SENSE4"
+        ]
+      ],
+      "x": 63.5,
+      "y": 236.22,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R8",
+      "value": "100k_1pct",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "SENSE4"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 170.18,
+      "y": 236.22,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "R9",
+      "value": "10k",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "P3V3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "RESERVE_OK"
+        ]
+      ],
+      "x": 276.86,
+      "y": 236.22,
+      "footprint": "",
+      "datasheet": ""
+    },
+    {
+      "ref": "C4",
+      "value": "100nF",
+      "pins": [
+        [
+          1,
+          "1",
+          "passive",
+          "P3V3"
+        ],
+        [
+          2,
+          "2",
+          "passive",
+          "GND"
+        ]
+      ],
+      "x": 383.54,
+      "y": 236.22,
+      "footprint": "",
+      "datasheet": ""
+    }
+  ]
+}

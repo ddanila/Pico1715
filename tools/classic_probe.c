@@ -38,6 +38,10 @@ int firmware_cosim_storage_busy(void);
 #endif
 
 static FILE *logfile;
+/* Opt-in bounded diagnostics: no ROM/media patches or I/O substitution. */
+static FILE *diagnostic;
+static unsigned diagnostic_active, diagnostic_fetches;
+static uint64_t diagnostic_pc[65536], diagnostic_reads[256], diagnostic_writes[256];
 /* Completed-byte keyboard source. All port reads/status/register writes belong
  * to DAC's onboard SIO; this fixture never supplies guest I/O values. */
 typedef struct {
@@ -60,6 +64,10 @@ static int input(void *p,uint16_t a,uint8_t *data){return card_read(p,a,data);}
 static void output(void *p,uint16_t a,uint8_t data){card_write(p,a,data);}
 static void trace(void *p, const dac_trace_event *e) {
   fixture *f=p;
+  if(diagnostic_active){
+    if(!strcmp(e->kind,"IR"))diagnostic_reads[e->address&255]++;
+    if(!strcmp(e->kind,"IW"))diagnostic_writes[e->address&255]++;
+  }
   if(!strcmp(e->kind,"IR") && (e->address&255)==12)f->sio_reads++;
   if(!strcmp(e->kind,"IW")){
     if((e->address&255)>=12 && (e->address&255)<=15)f->sio_writes++;
@@ -151,12 +159,29 @@ int main(int argc, char **argv) {
 #ifdef P1715_ANALYZER
   analyzer_init(m, argv[3]);
 #endif
+  if(option("PICO1715_BOOT_DIAGNOSTICS",0,1)){
+    char path[4096];
+    if(snprintf(path,sizeof(path),"%s/boot-diagnostic.json",argv[3]) >= (int)sizeof(path))return 2;
+    diagnostic=fopen(path,"wx");if(!diagnostic)return 2;
+    fprintf(diagnostic,"{\"fetches\":[");
+  }
+  uint64_t previous_fetch=0;
   uint64_t handoff = 0;
   unsigned target = 0;
   unsigned cycle_limit = option("PICO1715_CYCLES", 100000000, 100000000);
   for (unsigned i = 0; i < cycle_limit; i++) {
     keyboard_step(m,&f);
     pc1715_run(m, 1);
+    if(diagnostic_active){
+      diagnostic_pc[m->cpu.cpu.pc]++;
+      uint64_t fetch=m->cpu.pins & (Z80_M1|Z80_MREQ|Z80_RD);
+      if(fetch==(Z80_M1|Z80_MREQ|Z80_RD) && fetch!=previous_fetch && diagnostic_fetches<512){
+        unsigned a=Z80_GET_ADDR(m->cpu.pins);
+        fprintf(diagnostic,"%s[%" PRIu64 ",%u,%u]",diagnostic_fetches?",":"",m->cpu.cycles,a,m->ram[a]);
+        diagnostic_fetches++;
+      }
+      previous_fetch=fetch;
+    }
 #ifdef P1715_ANALYZER
     analyzer_observe();
 #endif
@@ -184,6 +209,7 @@ int main(int argc, char **argv) {
     if (!handoff && m->cpu.cpu.pc == 0x204) {
       handoff = m->cpu.cycles;
       target = m->ram[0x81e] | (m->ram[0x81f] << 8);
+      if(diagnostic)diagnostic_active=1;
     }
   }
   #ifdef P1715_FIRMWARE_COSIM
@@ -192,6 +218,15 @@ int main(int argc, char **argv) {
 #ifdef P1715_ANALYZER
   analyzer_finish();
 #endif
+  if(diagnostic){
+    fprintf(diagnostic,"],\"pc_ticks\":{");unsigned n=0;
+    for(unsigned a=0;a<65536;a++)if(diagnostic_pc[a])fprintf(diagnostic,"%s\"%u\":%" PRIu64,n++?",":"",a,diagnostic_pc[a]);
+    fprintf(diagnostic,"},\"io_reads\":{");n=0;
+    for(unsigned a=0;a<256;a++)if(diagnostic_reads[a])fprintf(diagnostic,"%s\"%u\":%" PRIu64,n++?",":"",a,diagnostic_reads[a]);
+    fprintf(diagnostic,"},\"io_writes\":{");n=0;
+    for(unsigned a=0;a<256;a++)if(diagnostic_writes[a])fprintf(diagnostic,"%s\"%u\":%" PRIu64,n++?",":"",a,diagnostic_writes[a]);
+    fprintf(diagnostic,"}}\n");if(fclose(diagnostic))return 2;
+  }
   pico1715_controller c = f.controller;
   printf("{\"cycles\":%" PRIu64 ",\"pc\":%u,\"rom_handoff_cycle\":%" PRIu64
     ",\"rom_handoff_target\":%u,\"fields\":%" PRIu64 ",\"bytes\":%" PRIu64

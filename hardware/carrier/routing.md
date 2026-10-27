@@ -117,3 +117,32 @@ measure ringing/setup/hold at the receiver. If the two-layer layout fails those
 checks, revise placement/routing or stack-up; the present geometric report cannot
 substitute for those measurements. See also the [assembly plan](assembly.md) and
 [separate provisional X2 adapter](../x2-adapter/README.md).
+
+## Parallel-spacing refinement and rejected shortening experiment
+
+The long A0/A2 edge run now has 0.5066 mm edge-to-edge spacing, increased from
+0.3666 mm without adding signal vias or relaxing the 0.20 mm clearance rule.
+A0 moved 0.10 mm toward the board edge and A2 moved 0.04 mm inward. Fresh DRC
+still reports zero violations and only the 12 held SD opens. These are geometric
+improvements; no crosstalk voltage or EMC measurement is claimed.
+
+A separate [shorter-write candidate](shorter-write-candidate.json) reduced F_WR_N
+from 259.701 to 220.060 mm, but increased signal vias from four to six and the
+sampled absence of opposite-layer ground from 35.61% to 66.33%. Despite passing
+DRC, it was **not adopted** because the length reduction did not establish better
+electrical behavior. Clock alternatives likewise added transitions or did not
+shorten the route; the canonical clock copper is retained.
+
+The saved candidate can be recreated without changing the canonical board:
+
+```sh
+python3 tools/prepare_write_route_candidate.py --output local/write-review.json
+/usr/bin/python3 tools/generate_carrier_pcb.py --additional local/write-review.json \
+  --output-dir local/write-review
+```
+
+Use the canonical project rules and resolve its footprint library table when
+running DRC on that scratch board. The candidate generator refuses a changed
+supplemental-copper baseline. Further timing/return-path improvement may require
+moving components or revising the stack-up, rather than accepting a shorter
+trace with worse return geometry.

@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "protected_writeback_qualified": false,
+  "budget": {
+    "effective_aged_capacitance_f": 3.15,
+    "aged_series_resistance_ohm": 0.254,
+    "ready_threshold_envelope_v": [
+      4.513573603960396,
+      4.9311205454545455
+    ],
+    "max_startup_charge_a": 0.05303030303030303,
+    "max_charge_resistor_w": 0.2784090909090909,
+    "rows": [
+      {
+        "load_a": 0.1,
+        "minimum_bank_v": 4.3254,
+        "reserve_s": 5.9275,
+        "example_dirty_limit": 108,
+        "can_admit_first_sector": true
+      },
+      {
+        "load_a": 0.3,
+        "minimum_bank_v": 4.3762,
+        "reserve_s": 1.4424,
+        "example_dirty_limit": 18,
+        "can_admit_first_sector": true
+      },
+      {
+        "load_a": 0.5,
+        "minimum_bank_v": 4.427,
+        "reserve_s": 0.5454,
+        "example_dirty_limit": 0,
+        "can_admit_first_sector": false
+      }
+    ]
+  },
+  "charge_cases": [
+    {
+      "ideal_cell_clamps": true,
+      "cell_capacitance_f": [
+        6.3,
+        13.0
+      ],
+      "maximum_cell_v": [
+        2.55,
+        2.55
+      ],
+      "after_7200s_cell_v": [
+        2.55,
+        2.55
+      ],
+      "time_to_nominal_ready_s": 2095.0
+    },
+    {
+      "ideal_cell_clamps": false,
+      "cell_capacitance_f": [
+        6.3,
+        13.0
+      ],
+      "maximum_cell_v": [
+        3.4206495374843144,
+        1.7305412278330328
+      ],
+      "after_7200s_cell_v": [
+        3.386322472325199,
+        1.7305412278330328
+      ],
+      "time_to_nominal_ready_s": 1067.7
+    }
+  ],
+  "limits": [
+    "Constant-current LDO model, not measured SD burst load or SPICE.",
+    "Ideal clamps do not establish TL431 stability, overshoot or thermal behavior.",
+    "Example block times MUST NOT be copied into protected firmware settings.",
+    "READY threshold alone does not prove capacitor presence, capacitance or health; a controlled load test and measured reserve budget are mandatory."
+  ],
+  "source_sha256": {
+    "hardware/backup-power/budget-inputs.json": "adae5029f04ea1773c373f1c5d57a63c1b4905d0de5c281da184b96933d8a0d6",
+    "tools/check_backup_budget.py": "4ff41272ecc31d7f3f4dfcd84de560c54cf14bf8472204a5604b8c91a3259867"
+  }
+}

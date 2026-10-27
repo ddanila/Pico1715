@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "cases": [
+    {
+      "image": "r1715ms.cpm",
+      "input_sha256": "e6b1af3a2db51f1cc623f014ea2d9a0f6c6e7f1a98f220eb6c898791578ce3d7",
+      "handoff": 16384,
+      "loader_ram_sha256": "d93c7e1f20b872c9a6b44752443de1e359a7ae2e7e12fb19a87c6145018d7913",
+      "terminal_loop": 23608,
+      "terminal_loop_ticks": 81072012,
+      "post_handoff_io_reads": {
+        "28": 23,
+        "29": 7,
+        "52": 1
+      },
+      "post_handoff_io_writes": {
+        "0": 44,
+        "24": 630,
+        "25": 316,
+        "26": 1,
+        "32": 11,
+        "36": 318,
+        "40": 3
+      },
+      "classification": "W-style 8272/DMA/banked-memory loader; incompatible with the implemented classic PIO controller"
+    },
+    {
+      "image": "r1715mt.cpm",
+      "input_sha256": "a1c9b862c4cd57dd15b6b1918abc1a3e78d9cd0deb87d9ab41b4d34ebc09ae1c",
+      "handoff": 16384,
+      "loader_ram_sha256": "d93c7e1f20b872c9a6b44752443de1e359a7ae2e7e12fb19a87c6145018d7913",
+      "terminal_loop": 23608,
+      "terminal_loop_ticks": 81072012,
+      "post_handoff_io_reads": {
+        "28": 23,
+        "29": 7,
+        "52": 1
+      },
+      "post_handoff_io_writes": {
+        "0": 44,
+        "24": 630,
+        "25": 316,
+        "26": 1,
+        "32": 11,
+        "36": 318,
+        "40": 3
+      },
+      "classification": "W-style 8272/DMA/banked-memory loader; incompatible with the implemented classic PIO controller"
+    },
+    {
+      "image": "scp3.cpm",
+      "input_sha256": "67672142270d3b243c103104b7a28121a1e13de0d1c5bafff16c6cf95655dc31",
+      "handoff": 16384,
+      "loader_ram_sha256": "d93c7e1f20b872c9a6b44752443de1e359a7ae2e7e12fb19a87c6145018d7913",
+      "terminal_loop": 23608,
+      "terminal_loop_ticks": 81072012,
+      "post_handoff_io_reads": {
+        "28": 23,
+        "29": 7,
+        "52": 1
+      },
+      "post_handoff_io_writes": {
+        "0": 44,
+        "24": 630,
+        "25": 316,
+        "26": 1,
+        "32": 11,
+        "36": 318,
+        "40": 3
+      },
+      "classification": "W-style 8272/DMA/banked-memory loader; incompatible with the implemented classic PIO controller"
+    },
+    {
+      "image": "scp30.cpm",
+      "input_sha256": "79f8643e03a11de1eaef6dc29234cd3f0229a1a9040c66324227f48a9a3090b4",
+      "handoff": 16384,
+      "loader_ram_sha256": "d93c7e1f20b872c9a6b44752443de1e359a7ae2e7e12fb19a87c6145018d7913",
+      "terminal_loop": 23608,
+      "terminal_loop_ticks": 81072012,
+      "post_handoff_io_reads": {
+        "28": 23,
+        "29": 7,
+        "52": 1
+      },
+      "post_handoff_io_writes": {
+        "0": 44,
+        "24": 630,
+        "25": 316,
+        "26": 1,
+        "32": 11,
+        "36": 318,
+        "40": 3
+      },
+      "classification": "W-style 8272/DMA/banked-memory loader; incompatible with the implemented classic PIO controller"
+    }
+  ],
+  "evidence": [
+    "All four reach 4000h with an identical loaded 4000h..67FFh RAM region.",
+    "They access 1Ch/1Dh (8272 on 1715W), DMA port 00h and bank port 24h; these are not the classic PIO floppy interface.",
+    "They terminate at JP 5C38h after the READ SCP3.SYS BIOS error path; extending the cycle bound cannot leave this unconditional self-jump."
+  ],
+  "limits": [
+    "No W-model implementation added; original OS/media remain unchanged.",
+    "The diagnostic fixed F800h screen dump does not emulate the W display/memory mapping."
+  ],
+  "hardware_map_source": "https://github.com/mamedev/mame/blob/master/src/mame/robotron/rt1715.cpp",
+  "source_sha256": {
+    "tools/check_boot_diagnostics.py": "9a18d3a8c7f4c0e1d9dc3a33c8d4af0a0c3310a217d150d82997899ad8cd110b",
+    "tools/classic_probe.c": "b4b9e9835fc790dcce6335c0d38428b8e9b57c5ef98045c6dfa8a326a9aaa257",
+    "tests/extended-media-inputs.json": "e8c34f7ca1f47dec0c7a99a9f78c92493b527eaef6ba0b4f3a594dc8d75caaa6"
+  }
+}

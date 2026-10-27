@@ -1281,7 +1281,7 @@
   "source_sha256": {
     "tools/check_extended_media.py": "89bc1357e5c955b049b01dd8fa831a429a774daac842db18896b2f5e034dfc4f",
     "tools/classic_workload.py": "cf930f08bd23b887809bb3438b55670d0319f1967c6132449d13f3653823f0ea",
-    "tools/classic_probe.c": "611d46944ec8de244fe07faeb0f6955e69e47083e73df9c92e11684a6fd09721",
+    "tools/classic_probe.c": "b4b9e9835fc790dcce6335c0d38428b8e9b57c5ef98045c6dfa8a326a9aaa257",
     "model/controller.c": "49c9dc22c5a8bdbdc6b3c16dc1fef076bc601f522a8bfbce48616f02cb7ead13",
     "tests/extended-media-inputs.json": "e8c34f7ca1f47dec0c7a99a9f78c92493b527eaef6ba0b4f3a594dc8d75caaa6"
   }

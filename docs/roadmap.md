@@ -1,20 +1,20 @@
 # Remaining desk work and hardware plan
 
-Status reviewed 2026-10-26. Completed desk work does not substitute for hardware
+Status reviewed 2026-10-27. Completed desk work does not substitute for hardware
 qualification. USB capture/download, controller status/eject, reserve-aware shutdown,
 interrupt-chain modelling and firmware service-cost/fault suites are implemented.
 The combined controller/analyzer carrier has a checked schematic and both FPGA
-personalities; its PCB is partially routed. Physical backup-power circuitry and
-qualification of the reset accessory remain planned.
+personalities; its PCB is partially routed. An optional backup-power electrical draft is now available; physical qualification
+of it and the reset accessory remain pending.
 
 | Area | Completed on the desk | Next unresolved work |
 | --- | --- | --- |
-| Controller/emulation | Stock ROM/SCP regressions, interrupt arbitration, storage faults, timing-cost and overload tests | Broader OS images; replay measured hardware costs |
+| Controller/emulation | Stock ROM/SCP regressions, interrupt arbitration, storage faults, timing-cost and overload tests | W-style loader incompatibility diagnosed; indexed multi-extent/disk-full tests pass; replay measured hardware costs |
 | Analyzer | Capture, triggers, PSRAM transport, USB download, decode/compare | Module/USB/capture bench qualification |
 | Reset | Standalone software and bounded pulse implementation | Isolated accessory circuit and physical reset test; carrier GP22 is SD CS |
-| Shutdown | Safe eject, reserve gating, failure/deadline tests | Optional charger/reserve/supervisor circuit and measured budgets |
+| Shutdown | Safe eject, reserve gating, failure/deadline tests | Optional circuit drafted; GPIO integration, load-test qualification and measured budgets pending |
 | Carrier | Schematic, pin profiles, 74 footprints; all placed non-SD terminals routed; zero geometric DRC violations | 12 held SD connections; X2 footprint/routing, SD drawing review, return-path/timing qualification, installation fit |
-| Host connector | Original EFS dimensions and four-contact printed test fixture | Qualify modern socket grip, then full connector/adapter design |
+| Host connector | Original EFS dimensions and four-contact printed test fixture | Provisional 58-contact breakout complete; qualify grip, orientation and installation |
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
 event/address/data matching, rolling history and bounded post-trigger capture.
@@ -78,8 +78,9 @@ bench qualifications; simulation cannot establish either.
   If series supercapacitors are selected, include voltage balancing.
 
 Desk acceptance: a reviewed draft circuit, power-domain/interface contract and
-measurement plan. No capacitor value, component choice or guaranteed hold-up
-time is selected yet. Validate charging, repeated outages and shutdown on the
+measurement plan. Candidate parts and calculated envelopes are now documented in
+[the optional reserve draft](../hardware/backup-power/README.md); no guaranteed
+hold-up time or final component qualification is established. Validate charging, repeated outages and shutdown on the
 bench before claiming protected writeback.
 
 ## 3. Motherboard interrupt-chain emulation
@@ -171,3 +172,15 @@ does not close those gates.
   Four images remain unqualified. No additional OS version is claimed supported.
 
 See [desk-work results](desk-completion.md) for reproduction and remaining gates.
+
+## Follow-up findings
+
+The four extra non-booting images share an incompatible W-style loader; see
+[diagnosis](boot-image-diagnosis.md). Seven indexed-record/extent/disk-full cases
+pass in both native and shared-firmware/RTL backends, in addition to the retained
+30-case media suite and nine classic regressions; see [pattern testing](pattern-media.md).
+Available SD catalog geometry is fully compared, while the engineering-drawing
+revision hold remains. A0/A2 spacing is improved; a shorter /WR experiment is
+retained separately because its return-path metrics worsened. The optional
+backup schematic passes ERC and has a calculation/test plan, with integration
+and physical qualification deliberately still open.

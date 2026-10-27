@@ -519,7 +519,7 @@
       "ref": "H2",
       "value": "MountingHole_3.2mm_M3",
       "xy_mm": [
-        176.0,
+        157.0,
         24.0
       ],
       "rotation_deg": 0.0,
@@ -2061,6 +2061,6 @@
     }
   ],
   "source_sha256": {
-    "hardware/carrier/carrier.kicad_pcb": "0539046e017ff8e44112360fd9df7799e08b132d5751715baf8475de40c73a46"
+    "hardware/carrier/carrier.kicad_pcb": "f907b36ca87b46f107e0e3360de0a003562c4835769597ecb4752d308c67ccc7"
   }
 }
