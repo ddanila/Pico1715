@@ -7,9 +7,25 @@
   "fabrication_ready": false,
   "supervisor_networks": 3,
   "resistor_ground_returns": 13,
-  "routed_segments": 227,
+  "routed_segments": 307,
   "ground_vias": 73,
   "power_vias": 10,
+  "signal_vias": 20,
+  "complete_interlock_net_pads": {
+    "PG3": 6,
+    "PG5": 5,
+    "PGP": 5,
+    "RAILS_OK": 2,
+    "POWERED": 2,
+    "QUALIFIED": 2,
+    "BACKEND_OK": 2,
+    "RESET_OK": 2
+  },
+  "partial_interlock_net_pads": {
+    "POWER_GOOD": 2,
+    "LINK_OK": 2,
+    "ARMED": 6
+  },
   "distributed_rail_pads": {
     "V3P3": 37,
     "P3V3": 10,
@@ -24,7 +40,7 @@
     "B.Cu"
   ],
   "drc_violations": 0,
-  "drc_unconnected_items": 177,
+  "drc_unconnected_items": 158,
   "drc_ignored_checks": [
     {
       "description": "Footprint has no courtyard defined",
@@ -50,12 +66,12 @@
   "hardware_executed": false,
   "drc_note": "Partial routing; open nets are reported, not waived or a production pass.",
   "source_sha256": {
-    "tools/generate_carrier_pcb.py": "690a298e3c7833654586dde1f93e57781784bf897715054c13021eed898833c2",
-    "tools/check_carrier_pcb.py": "163df079c42827b2253bad94c003610abb7d45da839044a5551d06877029127c",
-    "tests/carrier_pcb_test.py": "3b2afad16d4a79dd43028c513efb3f80a2d67ecf194f43d2ae01b5d45572a083",
-    "hardware/carrier/carrier.kicad_pcb": "10d31e819867ce3a47d6b9bba4b0e982e72d6d96b60cbf7690eadafa7c76ae8a",
+    "tools/generate_carrier_pcb.py": "cce4ecf6bdb5ccceb65f6de4eb66e883f728d103eaa18a1b57ea180e4b190e84",
+    "tools/check_carrier_pcb.py": "4a3f87835102b8c1e94f533f4333b5f384fecb154df28c88eee382680157eda7",
+    "tests/carrier_pcb_test.py": "ade7742adf5a08cd465e757b681370b549c832c81617de5f682871cd703b56a2",
+    "hardware/carrier/carrier.kicad_pcb": "58e0f376b5ce2faafd9c85f4d16ffb5239195f614856bdf539d6a64ec7d14257",
     "hardware/carrier/carrier.kicad_pro": "12d975c42e0293bc665222bd45ea3ff96a171b29422a6868f9c4f954c86eeb2e",
-    "hardware/carrier/pcb-placement.json": "38215261a6781f8b99f78bf2bec2284d9218b47f62b67a4cd67591519c0a5fa8",
+    "hardware/carrier/pcb-placement.json": "c72d02c701cd475f999660621ee4c783914f71aed655b4a2986962d53cba11e5",
     "hardware/carrier/carrier.kicad_sch": "2d410ba33fdee766f9102f6bf6fbbf8f8979aea7162b4330696bb1fe18262c4a",
     "hardware/carrier/carrier.net.xml": "1b072c03842cebb34a688774334ff58221280ee24182fe266847425e5e73adb1"
   }

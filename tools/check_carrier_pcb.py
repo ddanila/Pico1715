@@ -69,7 +69,9 @@ def check(board,parts,xml,plan):
  assert all(t[3]>=.25 and t[4] in ['F.Cu','B.Cu'] for t in got)
  via_actual=sorted((one(v,'net')[-1],tuple(map(float,one(v,'at')[1:])),float(one(v,'size')[1]),float(one(v,'drill')[1])) for v in children(board,'via'))
  assert via_actual==sorted(('/'+v['net'],tuple(v['at']),v['diameter'],v['drill']) for v in plan['vias'])
- assert all(v[0] in ['/GND','/V5_HOST','/P3V3'] for v in via_actual),'unexpected rail via'
+ power_nets={'/V5_HOST','/P3V3'}
+ signal_nets={'/POWERED','/ARMED','/PG5','/PGP'}
+ assert all(v[0] in {'/GND'}|power_nets|signal_nets for v in via_actual),'unexpected via net'
  # Independent device list prevents a matching generator/manifest error from
  # assigning a cap to the wrong supply or moving it back to the staging row.
  devices=[*(('RX'+str(i),'20') for i in range(1,6)),('U4','20'),('U5','5'),
@@ -140,10 +142,29 @@ def check(board,parts,xml,plan):
  a=pos('C19',2)
  assert any(n=='/GND' and math.dist(a,z)<=1.5 and connected('GND',a,z)
             for n,z,_,_ in via_actual),'SD bypass ground return missing'
+ # Fully routed interlock nets must reach every schematic terminal. POWER_GOOD, LINK_OK
+ # and ARMED currently have only the explicit gate-local paths below.
+ interlock_counts={}
+ for net in ['PG3','PG5','PGP','RAILS_OK','POWERED',
+             'QUALIFIED','BACKEND_OK','RESET_OK']:
+  targets=[(c['ref'],pin[0]) for c in parts for pin in c['pins'] if pin[3]==net]
+  assert len(targets)>=2
+  for ref,pin in targets[1:]:
+   assert connected(net,pos(*targets[0]),pos(ref,pin)),(net,ref,pin,'interlock disconnected')
+  interlock_counts[net]=len(targets)
+ partial_interlock={'POWER_GOOD':[('U6',3),('U6',12)],
+                    'LINK_OK':[('U6',8),('U6',13)],
+                    'ARMED':[('U7',11),('U8',1),('U8',4),('U8',9),('U8',12),('U8',13)]}
+ for net,targets in partial_interlock.items():
+  for target in targets[1:]:
+   assert connected(net,pos(*targets[0]),pos(*target)),(net,target,'gate branch disconnected')
  return {'electrical_footprints':len(expected),'pads_checked':count,'unplaced':['X2'],'fabrication_ready':False,
          'supervisor_networks':3,'resistor_ground_returns':len(grounded),
          'routed_segments':len(segments),'ground_vias':sum(v[0]=='/GND' for v in via_actual),
-         'power_vias':sum(v[0]!='/GND' for v in via_actual),'distributed_rail_pads':rail_counts,
+         'power_vias':sum(v[0] in power_nets for v in via_actual),
+         'signal_vias':sum(v[0] in signal_nets for v in via_actual),
+         'complete_interlock_net_pads':interlock_counts,
+         'partial_interlock_net_pads':{n:len(p) for n,p in partial_interlock.items()},'distributed_rail_pads':rail_counts,
          'local_control_branches':3,'local_bypass_capacitors':len(devices),
          'maximum_bypass_supply_length_mm':round(max(lengths),3),'ground_plane':'B.Cu',
          'sd_hold_layers':['F.Cu','B.Cu']}

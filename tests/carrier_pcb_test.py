@@ -12,7 +12,8 @@ m.check(board,parts,xml,plan)
 cases=('wrong-net','missing-pad','missing-part','wrong-path','lost-keepout','false-release',
        'lost-track','wrong-track-net','lost-via','wrong-ground-plane','lost-back-hold','far-bypass','lost-supervisor-supply','lost-supervisor-sense',
        'lost-supervisor-divider','lost-resistor-return',
-       'lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-bridge-via')
+       'lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-bridge-via',
+       'lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-signal-via')
 for kind in cases:
  d=copy.deepcopy(board);p=copy.deepcopy(plan)
  fp=m.children(d,'footprint')[0]
@@ -31,17 +32,21 @@ for kind in cases:
   c=next(f for f in m.children(d,'footprint') if any(q[1:3]==['Reference','C1'] for q in m.children(f,'property')))
   m.one(c,'at')[1]=str(float(m.one(c,'at')[1])+10)
   p['placements']['C1'][0]+=10
- elif kind=='lost-bridge-via':
-  v=next(v for v in p['vias'] if v['tag']=='host5/logic-crossing/a')
+ elif kind in ['lost-bridge-via','lost-signal-via']:
+  tag='host5/logic-crossing/a' if kind=='lost-bridge-via' else 'interlock/pgp-input-crossing/a'
+  v=next(v for v in p['vias'] if v['tag']==tag)
   actual=next(t for t in m.children(d,'via') if list(map(float,m.one(t,'at')[1:]))==v['at'])
   d.remove(actual);p['vias'].remove(v)
- elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control']:
+ elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch']:
   tag={'lost-supervisor-supply':'U10/pullup-supply',
        'lost-supervisor-sense':'U11/sense',
        'lost-supervisor-divider':'U12/divider',
        'lost-resistor-return':'R19/ground',
        'lost-fpga-rail':'3v3/C8','lost-pico-rail':'p3v3/probe-pad',
-       'lost-host-rail':'host5/U5','lost-control':'control/mode-pulldown'}[kind]
+       'lost-host-rail':'host5/U5','lost-control':'control/mode-pulldown',
+       'lost-pg3':'interlock/pg3-input','lost-pg5':'interlock/pg5-source',
+       'lost-pgp':'interlock/pgp-source','lost-qualified':'interlock/qualified',
+       'lost-armed-branch':'interlock/armed-12'}[kind]
   route=next(t for t in p['routes'] if t['tag']==tag)
   # Remove from both copper and inventory: connectivity must catch this even
   # when generator and manifest agree on the same missing connection.

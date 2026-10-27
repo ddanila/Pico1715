@@ -228,6 +228,46 @@ track('P3V3',[[69,86],[68.02,86],xy(pad('J5',14))],.3,tag='p3v3/probe-pad')
 track('CDONE',[xy(pad('J1',1)),[76.0875,32],xy(pad('R16',1))],.3,tag='control/cdone-pulldown')
 track('MODE_CTL',[xy(pad('R7',1)),[159.0875,80],[169,80],xy(pad('SW1',2))],.3,tag='control/mode-pulldown')
 track('H_PRIORITY',[xy(pad('R18',2)),[157,83],[157,73.8],xy(pad('SW1',5))],.3,tag='control/priority-pullup')
+# Internal qualification-gate paths. Short crossovers keep independent gate
+# outputs separate where the SOIC pin order requires a crossing.
+track('POWER_GOOD',[xy(pad('U6',3)),[44,98.73],[45,98],[46,98],[46,98.73],xy(pad('U6',12))],.25,tag='interlock/power-good')
+track('RAILS_OK',[xy(pad('U6',6)),[44,102.54],[45,101.8],[46,102.54],xy(pad('U6',9))],.25,tag='interlock/rails-ok')
+track('LINK_OK',[xy(pad('U6',8)),[49,103.81],[49,97.46],xy(pad('U6',13))],.25,tag='interlock/link-feedback')
+track('POWERED',[xy(pad('U6',11)),[48,100]],.25,tag='interlock/powered-exit')
+bridge('POWERED',[48,100],[50,100],'interlock/powered-crossing')
+track('POWERED',[[50,100],[53,100],[56.81,96.19],xy(pad('U7',1))],.25,tag='interlock/powered')
+track('QUALIFIED',[xy(pad('U7',3)),[61.2,98.73],[61.2,100],xy(pad('U7',4))],.25,tag='interlock/qualified')
+track('BACKEND_OK',[xy(pad('U7',6)),xy(pad('U7',9))],.25,tag='interlock/backend-ok')
+track('RESET_OK',[xy(pad('U7',8)),[69.5,103.81],[69.5,98.73],xy(pad('U7',12))],.25,tag='interlock/reset-ok')
+track('ARMED',[xy(pad('U7',11)),[68.5,100]],.25,tag='interlock/armed-exit')
+bridge('ARMED',[68.5,100],[70.5,100],'interlock/armed-crossing')
+track('ARMED',[[70.5,100],[73,100],[76.81,96.19],[77,96.19]],.25,tag='interlock/armed-west')
+bridge('ARMED',[77,96.19],[79,96.19],'interlock/armed-host-crossing')
+track('ARMED',[[79,96.19],xy(pad('U8',1)),[84,96.19],[84,97.46],[84,98.73],[84,100],[84,102.54],xy(pad('U8',9))],.25,tag='interlock/armed')
+for pin in [4,12,13]:
+ x,y=xy(pad('U8',pin))
+ track('ARMED',[[84,y],[x,y]],.25,tag='interlock/armed-'+str(pin))
+# FPGA and host supervisor outputs feed the probe header and both PG3 inputs.
+track('PG3',[xy(pad('R2',1)),[58,65],[58,79],[37.54,79],xy(pad('J5',2)),[37.54,100],[40,100],xy(pad('U6',4))],.25,tag='interlock/pg3')
+track('PG3',[[40,100],[40,96.19],xy(pad('U6',1))],.25,tag='interlock/pg3-input')
+track('PG5',[xy(pad('R4',1)),[75,65],[75,77],[59.5,77]],.25,tag='interlock/pg5-source')
+bridge('PG5',[59.5,77],[56.5,77],'interlock/pg5-pg3-crossing')
+track('PG5',[[56.5,77],[40.08,77],[40.08,78]],.25,tag='interlock/pg5-probe-north')
+bridge('PG5',[40.08,78],[40.08,80],'interlock/pg5-probe-crossing')
+track('PG5',[[40.08,80],xy(pad('J5',3)),[40.08,93],[38.8,93],[38.8,97.46],[39,97.46]],.25,tag='interlock/pg5-probe-south')
+bridge('PG5',[39,97.46],[41,97.46],'interlock/pg5-input-crossing')
+track('PG5',[[41,97.46],xy(pad('U6',2))],.25,tag='interlock/pg5-input')
+# Pico supervisor crosses the two supply spines and probe power branches.
+track('PGP',[xy(pad('R6',1)),[153,71],[153,84],[126.5,84]],.25,tag='interlock/pgp-source')
+bridge('PGP',[126.5,84],[120.5,84],'interlock/pgp-east-crossing')
+track('PGP',[[120.5,84],[119.5,84.5],[114.5,84.5],[114,84],[79.5,84]],.25,tag='interlock/pgp-middle')
+bridge('PGP',[79.5,84],[76.5,84],'interlock/pgp-host-crossing')
+track('PGP',[[76.5,84],[72,84]],.25,tag='interlock/pgp-west')
+bridge('PGP',[72,84],[66.5,84],'interlock/pgp-probe-crossing')
+track('PGP',[[66.5,84],[44,84],[42.62,84],xy(pad('J5',4))],.25,tag='interlock/pgp-probe')
+track('PGP',[[44,84],[44,94]],.25,tag='interlock/pgp-input-north')
+bridge('PGP',[44,94],[44,101.27],'interlock/pgp-input-crossing')
+track('PGP',[[44,101.27],xy(pad('U6',5))],.25,tag='interlock/pgp-input')
 # Only GND is poured. Host 5V, module 5V and both 3V3 sources remain distinct.
 ground=k.ZONE(b);ground.SetLayer(k.B_Cu);ground.SetNet(nets['GND']);ground.SetZoneName('GND return - review layout')
 ground.SetLocalClearance(k.FromMM(.25));ground.SetPadConnection(k.ZONE_CONNECTION_FULL)
@@ -240,7 +280,7 @@ k.SaveBoard(str(BASE/'carrier.kicad_pcb'),b)
 plan={'schema':2,'fabrication_ready':False,'board_size_mm':[160,210],
  'unplaced_schematic_refs':['X2'],'mounting':'four provisional 3.2 mm M3 holes; no enclosure alignment claim',
  'fpga_attachment':'separate HX8K, three 1.27 mm 2x20 cables; mating candidate, bench continuity required',
- 'placements':placement,'routing':'partial: local decoupling, ground returns, power distribution, local supervisor and control branches; signal routing incomplete',
+ 'placements':placement,'routing':'partial: local decoupling, ground returns, power distribution, supervisor, interlock and control branches; signal routing incomplete',
  'decoupling':{cap:dict(device=d,supply_pin=p) for cap,(d,p) in decoupling.items()},
  'routes':routes,'vias':vias,'ground_plane':'B.Cu GND; excludes host reservation and all-layer SD hold',
  'sd_keepout':'all-copper routing hold; exact manufacturer restrictions still pending'}

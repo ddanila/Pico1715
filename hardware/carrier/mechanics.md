@@ -98,16 +98,18 @@ See https://www.kicad.org/libraries/license/.
 The board checker compares all 557 electrical pads, including repeated shield
 lands, with the freshly exported KiCad schematic nets. It checks schematic UUID
 association, footprint identity, explicit NCs, placement coordinates and retained
-SD exclusion zones. Twenty-one mutation controls reject wrong nets, missing pads or parts, broken schematic
+SD exclusion zones. Twenty-seven mutation controls reject wrong nets, missing pads or parts, broken schematic
 associations, removed routing/vias, excessive bypass distance, a wrong plane net,
 a weakened SD hold and a false release flag. Four controls remove copper and its
 manifest entry together, checking that independent connectivity assertions catch
 broken supervisor supply/sense/divider paths and resistor ground returns. Five
 additional controls remove a rail branch from each domain, a control branch, or
 a crossover via from both the board and manifest. The latter ensures opposite
-layers are not falsely treated as connected at coincident coordinates.
+layers are not falsely treated as connected at coincident coordinates. Six more
+controls break PG3/PG5/PGP, a qualification link, an armed-enable branch or a
+signal crossover via, again removing both copper and manifest entries.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **177
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **158
 unconnected items**, down from 336. This is partial routing, not a passing production
 DRC. The settings are default review settings, not a chosen fabricator's rules.
 
@@ -220,3 +222,30 @@ It checks every placed rail pad against the schematic except the explicit J3
 hold. It uses U11 as the V5_HOST continuity reference, without implying a live
 host supply. KiCad DRC remains responsible for physical clearances and filled
 plane connectivity. Regeneration and updated front/back previews are verified.
+
+## Supervisor-to-interlock routing (2026-10-27)
+
+PG3, PG5 and PGP now connect their supervisor/resistor networks to every
+qualification-gate input and the corresponding J5 probe contact. The internal
+RAILS_OK, POWERED, QUALIFIED, BACKEND_OK and RESET_OK paths are also complete.
+The board checker verifies all 26 schematic terminals across these eight nets.
+
+POWER_GOOD and LINK_OK have their local U6 feedback paths, and ARMED reaches all
+five U8 gate inputs from U7. Their external/header branches are still open:
+POWER_GOOD to EXT1, LINK_OK to U13/EXT3/J5, and ARMED to J5. Other qualification
+inputs (CDONE, personality, backend-ready, reset and mode), isolator enables and
+driver/bus signals still require routing. This is not an operational interlock
+or a validated startup-timing result.
+
+This increment adds 80 front/back segments and twenty signal vias. The new
+front routes are 0.25 mm; ten bottom crossovers use the existing 0.5 mm bridge
+helper and 0.6/0.3 mm through vias. Most crossovers are 2–3 mm, with the Pico
+supervisor crossings reaching 5.5, 6 and 7.27 mm. Ground copper remains around
+these gaps. Review return paths as the remaining signals are added; clearance
+DRC alone does not qualify coupling, propagation delay or power sequencing.
+
+The current board has 307 segments, 73 ground vias, 10 power vias and 20 signal
+vias. Geometric DRC remains clear and unconnected items fall from 177 to 158.
+All 27 PCB mutation controls pass, as do schematic ERC/connectivity, footprint
+and connector-coupon checks. The generated board is reproducible and previews
+are refreshed. X2 and SD release gates remain unchanged.

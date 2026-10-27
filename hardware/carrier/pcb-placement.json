@@ -382,7 +382,7 @@
       0
     ]
   },
-  "routing": "partial: local decoupling, ground returns, power distribution, local supervisor and control branches; signal routing incomplete",
+  "routing": "partial: local decoupling, ground returns, power distribution, supervisor, interlock and control branches; signal routing incomplete",
   "decoupling": {
     "C1": {
       "device": "RX1",
@@ -3635,6 +3635,1126 @@
       "width": 0.3,
       "layer": "F.Cu",
       "tag": "control/priority-pullup"
+    },
+    {
+      "net": "POWER_GOOD",
+      "start": [
+        42.525,
+        98.73
+      ],
+      "end": [
+        44,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/power-good"
+    },
+    {
+      "net": "POWER_GOOD",
+      "start": [
+        44,
+        98.73
+      ],
+      "end": [
+        45,
+        98
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/power-good"
+    },
+    {
+      "net": "POWER_GOOD",
+      "start": [
+        45,
+        98
+      ],
+      "end": [
+        46,
+        98
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/power-good"
+    },
+    {
+      "net": "POWER_GOOD",
+      "start": [
+        46,
+        98
+      ],
+      "end": [
+        46,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/power-good"
+    },
+    {
+      "net": "POWER_GOOD",
+      "start": [
+        46,
+        98.73
+      ],
+      "end": [
+        47.475,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/power-good"
+    },
+    {
+      "net": "RAILS_OK",
+      "start": [
+        42.525,
+        102.54
+      ],
+      "end": [
+        44,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/rails-ok"
+    },
+    {
+      "net": "RAILS_OK",
+      "start": [
+        44,
+        102.54
+      ],
+      "end": [
+        45,
+        101.8
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/rails-ok"
+    },
+    {
+      "net": "RAILS_OK",
+      "start": [
+        45,
+        101.8
+      ],
+      "end": [
+        46,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/rails-ok"
+    },
+    {
+      "net": "RAILS_OK",
+      "start": [
+        46,
+        102.54
+      ],
+      "end": [
+        47.475,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/rails-ok"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        47.475,
+        103.81
+      ],
+      "end": [
+        49,
+        103.81
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/link-feedback"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49,
+        103.81
+      ],
+      "end": [
+        49,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/link-feedback"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49,
+        97.46
+      ],
+      "end": [
+        47.475,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/link-feedback"
+    },
+    {
+      "net": "POWERED",
+      "start": [
+        47.475,
+        100.0
+      ],
+      "end": [
+        48,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/powered-exit"
+    },
+    {
+      "net": "POWERED",
+      "start": [
+        48,
+        100
+      ],
+      "end": [
+        50,
+        100
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/powered-crossing"
+    },
+    {
+      "net": "POWERED",
+      "start": [
+        50,
+        100
+      ],
+      "end": [
+        53,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/powered"
+    },
+    {
+      "net": "POWERED",
+      "start": [
+        53,
+        100
+      ],
+      "end": [
+        56.81,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/powered"
+    },
+    {
+      "net": "POWERED",
+      "start": [
+        56.81,
+        96.19
+      ],
+      "end": [
+        62.525,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/powered"
+    },
+    {
+      "net": "QUALIFIED",
+      "start": [
+        62.525,
+        98.73
+      ],
+      "end": [
+        61.2,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/qualified"
+    },
+    {
+      "net": "QUALIFIED",
+      "start": [
+        61.2,
+        98.73
+      ],
+      "end": [
+        61.2,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/qualified"
+    },
+    {
+      "net": "QUALIFIED",
+      "start": [
+        61.2,
+        100
+      ],
+      "end": [
+        62.525,
+        100.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/qualified"
+    },
+    {
+      "net": "BACKEND_OK",
+      "start": [
+        62.525,
+        102.54
+      ],
+      "end": [
+        67.475,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/backend-ok"
+    },
+    {
+      "net": "RESET_OK",
+      "start": [
+        67.475,
+        103.81
+      ],
+      "end": [
+        69.5,
+        103.81
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/reset-ok"
+    },
+    {
+      "net": "RESET_OK",
+      "start": [
+        69.5,
+        103.81
+      ],
+      "end": [
+        69.5,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/reset-ok"
+    },
+    {
+      "net": "RESET_OK",
+      "start": [
+        69.5,
+        98.73
+      ],
+      "end": [
+        67.475,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/reset-ok"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        67.475,
+        100.0
+      ],
+      "end": [
+        68.5,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-exit"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        68.5,
+        100
+      ],
+      "end": [
+        70.5,
+        100
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/armed-crossing"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        70.5,
+        100
+      ],
+      "end": [
+        73,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-west"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        73,
+        100
+      ],
+      "end": [
+        76.81,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-west"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        76.81,
+        96.19
+      ],
+      "end": [
+        77,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-west"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        77,
+        96.19
+      ],
+      "end": [
+        79,
+        96.19
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/armed-host-crossing"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        79,
+        96.19
+      ],
+      "end": [
+        82.525,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        82.525,
+        96.19
+      ],
+      "end": [
+        84,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        96.19
+      ],
+      "end": [
+        84,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        97.46
+      ],
+      "end": [
+        84,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        98.73
+      ],
+      "end": [
+        84,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        100
+      ],
+      "end": [
+        84,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        102.54
+      ],
+      "end": [
+        87.475,
+        102.54
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        100.0
+      ],
+      "end": [
+        82.525,
+        100.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-4"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        98.73
+      ],
+      "end": [
+        87.475,
+        98.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-12"
+    },
+    {
+      "net": "ARMED",
+      "start": [
+        84,
+        97.46
+      ],
+      "end": [
+        87.475,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/armed-13"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        61.0875,
+        65.0
+      ],
+      "end": [
+        58,
+        65
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        58,
+        65
+      ],
+      "end": [
+        58,
+        79
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        58,
+        79
+      ],
+      "end": [
+        37.54,
+        79
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        37.54,
+        79
+      ],
+      "end": [
+        37.54,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        37.54,
+        82.0
+      ],
+      "end": [
+        37.54,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        37.54,
+        100
+      ],
+      "end": [
+        40,
+        100
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        40,
+        100
+      ],
+      "end": [
+        42.525,
+        100.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        40,
+        100
+      ],
+      "end": [
+        40,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3-input"
+    },
+    {
+      "net": "PG3",
+      "start": [
+        40,
+        96.19
+      ],
+      "end": [
+        42.525,
+        96.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg3-input"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        79.0875,
+        65.0
+      ],
+      "end": [
+        75,
+        65
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-source"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        75,
+        65
+      ],
+      "end": [
+        75,
+        77
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-source"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        75,
+        77
+      ],
+      "end": [
+        59.5,
+        77
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-source"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        59.5,
+        77
+      ],
+      "end": [
+        56.5,
+        77
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pg5-pg3-crossing"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        56.5,
+        77
+      ],
+      "end": [
+        40.08,
+        77
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-north"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        40.08,
+        77
+      ],
+      "end": [
+        40.08,
+        78
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-north"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        40.08,
+        78
+      ],
+      "end": [
+        40.08,
+        80
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pg5-probe-crossing"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        40.08,
+        80
+      ],
+      "end": [
+        40.08,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-south"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        40.08,
+        82.0
+      ],
+      "end": [
+        40.08,
+        93
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-south"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        40.08,
+        93
+      ],
+      "end": [
+        38.8,
+        93
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-south"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        38.8,
+        93
+      ],
+      "end": [
+        38.8,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-south"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        38.8,
+        97.46
+      ],
+      "end": [
+        39,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-probe-south"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        39,
+        97.46
+      ],
+      "end": [
+        41,
+        97.46
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pg5-input-crossing"
+    },
+    {
+      "net": "PG5",
+      "start": [
+        41,
+        97.46
+      ],
+      "end": [
+        42.525,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pg5-input"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        159.0875,
+        71.0
+      ],
+      "end": [
+        153,
+        71
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-source"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        153,
+        71
+      ],
+      "end": [
+        153,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-source"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        153,
+        84
+      ],
+      "end": [
+        126.5,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-source"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        126.5,
+        84
+      ],
+      "end": [
+        120.5,
+        84
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pgp-east-crossing"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        120.5,
+        84
+      ],
+      "end": [
+        119.5,
+        84.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-middle"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        119.5,
+        84.5
+      ],
+      "end": [
+        114.5,
+        84.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-middle"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        114.5,
+        84.5
+      ],
+      "end": [
+        114,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-middle"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        114,
+        84
+      ],
+      "end": [
+        79.5,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-middle"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        79.5,
+        84
+      ],
+      "end": [
+        76.5,
+        84
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pgp-host-crossing"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        76.5,
+        84
+      ],
+      "end": [
+        72,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-west"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        72,
+        84
+      ],
+      "end": [
+        66.5,
+        84
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pgp-probe-crossing"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        66.5,
+        84
+      ],
+      "end": [
+        44,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-probe"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        44,
+        84
+      ],
+      "end": [
+        42.62,
+        84
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-probe"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        42.62,
+        84
+      ],
+      "end": [
+        42.62,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-probe"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        44,
+        84
+      ],
+      "end": [
+        44,
+        94
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-input-north"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        44,
+        94
+      ],
+      "end": [
+        44,
+        101.27
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "interlock/pgp-input-crossing"
+    },
+    {
+      "net": "PGP",
+      "start": [
+        44,
+        101.27
+      ],
+      "end": [
+        42.525,
+        101.27
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "interlock/pgp-input"
     }
   ],
   "vias": [
@@ -4467,6 +5587,206 @@
       "diameter": 0.6,
       "drill": 0.3,
       "tag": "p3v3/probe-crossing/z"
+    },
+    {
+      "net": "POWERED",
+      "at": [
+        48,
+        100
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/powered-crossing/a"
+    },
+    {
+      "net": "POWERED",
+      "at": [
+        50,
+        100
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/powered-crossing/z"
+    },
+    {
+      "net": "ARMED",
+      "at": [
+        68.5,
+        100
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/armed-crossing/a"
+    },
+    {
+      "net": "ARMED",
+      "at": [
+        70.5,
+        100
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/armed-crossing/z"
+    },
+    {
+      "net": "ARMED",
+      "at": [
+        77,
+        96.19
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/armed-host-crossing/a"
+    },
+    {
+      "net": "ARMED",
+      "at": [
+        79,
+        96.19
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/armed-host-crossing/z"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        59.5,
+        77
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-pg3-crossing/a"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        56.5,
+        77
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-pg3-crossing/z"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        40.08,
+        78
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-probe-crossing/a"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        40.08,
+        80
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-probe-crossing/z"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        39,
+        97.46
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-input-crossing/a"
+    },
+    {
+      "net": "PG5",
+      "at": [
+        41,
+        97.46
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pg5-input-crossing/z"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        126.5,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-east-crossing/a"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        120.5,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-east-crossing/z"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        79.5,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-host-crossing/a"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        76.5,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-host-crossing/z"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        72,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-probe-crossing/a"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        66.5,
+        84
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-probe-crossing/z"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        44,
+        94
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-input-crossing/a"
+    },
+    {
+      "net": "PGP",
+      "at": [
+        44,
+        101.27
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "interlock/pgp-input-crossing/z"
     }
   ],
   "ground_plane": "B.Cu GND; excludes host reservation and all-layer SD hold",

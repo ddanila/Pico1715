@@ -133,8 +133,8 @@ regeneration and both synthesized port contracts; `test-carrier-schematic` requi
 
 The [partially routed review board](carrier.kicad_pcb) has 74 electrical footprints,
 four provisional mounting holes and pad-to-net checks. Eighteen IC bypass capacitors
-have short supply/ground connections; 227 track segments, 73 ground vias, 10 power vias and a bottom
-ground plane are present. Geometric DRC is clear, with 177 connections still open. X2 remains unplaced; the FPGA
+have short supply/ground connections; 307 track segments, 103 vias and a bottom
+ground plane are present. Geometric DRC is clear, with 158 connections still open. X2 remains unplaced; the FPGA
 cable/header candidates and exact SD exclusions still need qualification. See
 [mechanics](mechanics.md) for selection evidence, the preview and remaining gates.
 Verify mating parts, cable continuity, X2 installation geometry and board fit. Complete load/startup/falling-rail
