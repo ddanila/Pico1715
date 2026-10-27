@@ -132,6 +132,8 @@ int main(int argc, char **argv) {
   }
   unsigned service_pc=option("PICO1715_KEY_SERVICE_PC",0,65535),previous_pc=65536;
   unsigned service_start=option("PICO1715_KEY_SERVICE_START",0,2000000000);
+  unsigned service_end=option("PICO1715_KEY_SERVICE_END",2000000000,2000000000);
+  if(service_end<service_start)return 2;
   uint64_t service_last=service_start,service_gap=0,service_visits=0;
   if (pico1715_mount(&f.controller, disk, 819200, 80, 2, 5, 3)) return 2;
   f.controller.writable = argc != 6; /* Only this process-owned copy can be modified. */
@@ -200,7 +202,7 @@ int main(int argc, char **argv) {
     if (stop_at && i >= stop_at) break;
     if(schedule_path)key_schedule_step(&scheduled,i,scheduled_receive,m);
     else keyboard_step(m,&f);
-    if(service_pc && i>=service_start && m->cpu.cpu.pc==service_pc && previous_pc!=service_pc){
+    if(service_pc && i>=service_start && i<service_end && m->cpu.cpu.pc==service_pc && previous_pc!=service_pc){
       if(service_visits && i-service_last>service_gap)service_gap=i-service_last;
       service_last=i;service_visits++;
     }

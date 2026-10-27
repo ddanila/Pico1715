@@ -151,7 +151,7 @@ injection remains the default.
 JSON includes attempted/accepted/rejected/late/pending counts, with disabled/full
 rejections distinguished. Optional `PICO1715_KEY_SERVICE_PC` observes entries to a
 guest service routine (optionally after `PICO1715_KEY_SERVICE_START` runner
-clocks) and reports visit count and maximum inter-entry gap in
+clocks and before `PICO1715_KEY_SERVICE_END`, default 2 billion) and reports visit count and maximum inter-entry gap in
 runner clocks; it never changes guest state. The first entry has no preceding
 gap. These are completed-byte scheduling tests, not electrical serial waveforms
 or a measured keyboard baud rate.
