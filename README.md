@@ -214,3 +214,7 @@ The reserve remains a draft with no GPIO integration or measured hold-up guarant
 
 The [browser workstation](docs/browser-workstation.md) builds model and firmware/RTL
 WebAssembly sessions for the classic-1715 DAC museum exhibit.
+
+[Session capture](docs/session-capture.md) connects both emulator backends to the
+workbench. The [guided bring-up runner](docs/bringup-runner.md) collects staged,
+hash-bound evidence; simulated rehearsal never qualifies hardware.

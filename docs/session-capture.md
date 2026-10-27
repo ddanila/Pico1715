@@ -37,3 +37,10 @@ The synthetic program checks full/I/O modes, size/time stops, reset and empty
 captures, Python format validation, unchanged guest registers/RAM and exact
 native/WASM bytes for both backends. Existing full-OS parity and native analyzer
 callback-oracle checks remain separate requirements.
+
+For repeatable native captures, `tools/capture_session.py` accepts a session shared
+library, input ROM/disk, backend and new output directory. `--clocks` bounds the
+run, `--start-clock` selects a later observation window, `--full` includes memory
+and fetches, and `--writable` is explicit. It emits the identical capture and
+metadata contracts plus console/media outputs. Keyboard commands begin at 30M
+clocks through the normal SIO path. No BDOS or instruction interception is used.

@@ -22,6 +22,7 @@ jobs:
       - run: python3 tools/check_firmware_faults.py --out build/firmware-fault-report
       - run: python3 tools/check_firmware_interrupts.py --out build/firmware-interrupt-report
       - run: python3 tools/check_firmware_timing.py --out build/firmware-timing-report
+      - run: python3 -m unittest discover -s tests -p test_bringup.py -v
       - run: python3 tools/check_controller_usb.py --out build/controller-usb-report
       - uses: actions/checkout@v4
         with:
