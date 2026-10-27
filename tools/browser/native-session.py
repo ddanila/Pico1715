@@ -13,11 +13,14 @@ m.p1715_init.argtypes = [C.c_void_p, C.c_uint, C.c_void_p, C.c_uint, C.c_int]
 calls = {'version': 0, 'stat': 1, 'reg': 1, 'run': 1, 'key': 1, 'reset': 0,
          'cancel': 0, 'break': 1, 'export': 0, 'capture_start': 3,
          'capture_stop': 0, 'capture_release': 0, 'capture_status': 1}
+calls.update(sim_capabilities=0, sim_fault=2, sim_config=1)
 for line in sys.stdin:
     try:
         req = json.loads(line)
         if req['op'] == 'init':
             rom, disk = bytes.fromhex(req['rom']), bytes.fromhex(req['disk'])
+            if req.get('absent') and m.p1715_sim_config(1):
+                raise ValueError('Initial media configuration rejected')
             result = m.p1715_init(rom, len(rom), disk, len(disk), req['writable'])
         elif req['op'] == 'call':
             name, args = req['name'], req['args']

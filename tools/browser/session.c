@@ -9,6 +9,7 @@
 #include "../../firmware/service.h"
 #include "../firmware_host/host_hal.h"
 int firmware_cosim_snapshot(unsigned);
+int firmware_cosim_sd_delay(unsigned);
 #endif
 #ifdef P1715_CAPTURE
 #include "../analyzer/session_capture.h"
@@ -16,21 +17,56 @@ int firmware_cosim_snapshot(unsigned);
 static pc1715 machine;
 static pico1715_controller controller;
 static uint8_t image[819200], keys[4096];
-static unsigned initialized,head,count,half,attempted,accepted,rejected,disabled,full;
+static unsigned initialized,head,count,half,attempted,accepted,rejected,disabled,full,boot_flags,initial_writable;
 static uint64_t ticks,due;
 static int target=-1,hit,exporting;
 static char text[128];
 static int result;
 int p1715_result(void){return result;}
 int p1715_version(void){return 2;}
+/* Simulation-only additions; not linked into physical firmware targets. */
+int p1715_sim_config(unsigned flags){if(initialized || flags>1)return -EINVAL;boot_flags=flags;return 0;}
+unsigned p1715_sim_capabilities(void){
+#ifdef P1715_FIRMWARE_COSIM
+    return 0xef; /* Runtime write-policy changes require a separate core-0 API. */
+#else
+    return 0x1f;
+#endif
+}
+int p1715_sim_fault(unsigned kind,unsigned value){
+    if(!initialized || exporting || kind>7 || !(p1715_sim_capabilities()&(1u<<kind)))return -EINVAL;
+    switch(kind){
+    case 0:if(value>1)return -EINVAL;controller.timing.corrupt_crc=value;break;
+    case 1:if(value>1030)return -EINVAL;controller.timing.drop_byte=value;break;
+    case 2:if(value>2458000)return -EINVAL;controller.timing.read_delay=value;break;
+    case 3:if(value>2458000)return -EINVAL;controller.timing.write_delay=value;break;
+    case 4:
+        if(value>1)return -EINVAL;
+#ifdef P1715_FIRMWARE_COSIM
+        return -EINVAL;
+#else
+        controller.writable=!value && initial_writable;break;
+#endif
+#ifdef P1715_FIRMWARE_COSIM
+    case 5:return firmware_cosim_sd_delay(value);
+    case 6:if(value>1)return -EINVAL;host_fail_write=value?host_sd_writes+1:0;break;
+    case 7:if(value!=1 || p1715_status.state!=2)return -EINVAL;p1715_shutdown_command=P1715_POWER_FAIL;break;
+#endif
+    default:return -EINVAL;
+    }
+    return 0;
+}
 int p1715_init(const uint8_t *rom,unsigned rom_size,const uint8_t *disk,unsigned disk_size,int writable){
     if(initialized || rom_size!=2048 || disk_size!=sizeof(image) || !rom || !disk)return result=-EINVAL;
     if(p1715_board_init(&machine))return result=-EINVAL;
     memcpy(machine.rom,rom,2048);memcpy(image,disk,sizeof(image));
     if(pico1715_mount(&controller,image,sizeof(image),80,2,5,3))return result=-EINVAL;
-    controller.writable=!!writable;
+    initial_writable=controller.writable=!!writable;
+#ifndef P1715_FIRMWARE_COSIM
+    if(boot_flags&1)controller.image=NULL;
+#endif
     controller.timing.enabled=1;
-    if(p1715_board_attach(&machine,&controller,0))return result=-EINVAL;
+    if(p1715_board_attach(&machine,&controller,boot_flags&1))return result=-EINVAL;
     initialized=1;return result=0;
 }
 static void tick(void){
@@ -106,6 +142,13 @@ double p1715_stat(unsigned i){
 #ifdef P1715_FIRMWARE_COSIM
     switch(i){case 20:return p1715_status.state;case 21:return p1715_status.dirty_blocks;
       case 22:return p1715_status.storage_error;case 23:return cosim_requests();case 24:return host_sd_writes;}
+    if(i==25)return p1715_status.shutdown;
+    if(i==26)return p1715_status.shutdown_reason;
+    if(i==27)return host_sd_reads;
 #endif
+    if(i==28)return controller.timing.corrupt_crc;
+    if(i==29)return controller.timing.drop_byte;
+    if(i==30)return controller.timing.read_delay;
+    if(i==31)return controller.timing.write_delay;
     return -1;
 }

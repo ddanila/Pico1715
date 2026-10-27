@@ -11,7 +11,7 @@ p.add_argument('--native',action='store_true')
 p.add_argument('--probes',action='store_true',help='also build Node CLI qualification probes')
 p.add_argument('--emcc',default=os.environ.get('EMCC',str(ROOT/'local/emsdk/upstream/emscripten/emcc')))
 a=p.parse_args();out=a.out.resolve();out.mkdir(parents=True,exist_ok=True);dac=a.dac.resolve()
-exports=['result','version','init','run','key','cancel','reset','break','hit','step','screen','ram','disk','peek','map','reg','disassemble','text','export','stat','capture_start','capture_stop','capture_release','capture_status','capture_data']
+exports=['result','version','init','run','key','cancel','reset','break','hit','step','screen','ram','disk','peek','map','reg','disassemble','text','export','stat','capture_start','capture_stop','capture_release','capture_status','capture_data','sim_config','sim_capabilities','sim_fault']
 for backend in (['model','firmware'] if a.backend=='all' else [a.backend]):
  work=out/backend;work.mkdir(exist_ok=True)
  cc='cc' if a.native else a.emcc

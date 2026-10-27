@@ -2,6 +2,7 @@
 // Shared orchestration: adapters expose the same session ABI in WASM or native.
 export const LIMIT_CLOCKS = 294960000;
 export const LIMIT_ACTIONS = 10000;
+export const FAULTS=Object.freeze({'crc':{id:0,max:1},'drop-byte':{id:1,max:1030},'read-delay':{id:2,max:2458000},'write-delay':{id:3,max:2458000},'write-protect':{id:4,max:1},'sd-delay':{id:5,max:1000000},'sd-write-failure':{id:6,max:1},'power-fail':{id:7,max:1}});
 const hashPattern = /^[0-9a-f]{64}$/;
 export async function sha256(bytes) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
@@ -15,6 +16,7 @@ function integer(value, min, max, name) {
 export function validateExperiment(value) {
   if (!value || value.schema !== 1 || value.kind !== 'pico1715-experiment') throw Error('Unsupported experiment');
   if (!['model','firmware'].includes(value.backend) || typeof value.writable !== 'boolean') throw Error('Invalid experiment configuration');
+  if(value.absent!==undefined&&typeof value.absent!=='boolean')throw Error('Invalid initial media configuration');
   for (const key of ['rom_sha256','disk_sha256']) if (!hashPattern.test(value[key] || '')) throw Error(`Invalid ${key}`);
   if (!hashPattern.test(value.engine_sha256 || '')) throw Error('Missing engine identity');
   integer(value.end_clock, 0, LIMIT_CLOCKS, 'end clock');
@@ -23,6 +25,7 @@ export function validateExperiment(value) {
   for (const action of value.actions) {
     integer(action.clock, previous, value.end_clock, 'action clock'); previous = action.clock;
     switch (action.type) {
+      case 'fault': {if(typeof action.fault!=='string'||!Object.hasOwn(FAULTS,action.fault))throw Error('Unsupported fault');const f=FAULTS[action.fault];integer(action.value,action.fault==='power-fail'?1:0,f.max,'fault value');if(value.backend==='model'&&f.id>4)throw Error('Fault requires firmware backend');if(value.backend==='firmware'&&f.id===4)throw Error('Firmware write protection is an initial session policy');break;}
       case 'key': integer(action.value, 1, 127, 'key'); break;
       case 'cancel': case 'reset': case 'capture-stop': case 'capture-release': break;
       case 'export': integer(action.calls, 1, 100000, 'export calls'); break;
@@ -42,14 +45,15 @@ export function validateExperiment(value) {
 }
 export function wasmAdapter(core) {
   return {
-    call(name, ...args) { const fn=core['_p1715_'+name]; if (!fn) throw Error(`Missing session capability: ${name}`); return fn(...args); },
+    call(name, ...args) { const fn=core['_p1715_'+name]; if (!fn) throw Error(`Missing session capability: ${name}`); const value=fn(...args);return ['run','step','export','init'].includes(name)?core._p1715_result():value; },
     read(name, length) { return core.HEAPU8.slice(core['_p1715_'+name](), core['_p1715_'+name]()+length); },
   };
 }
 export async function checkpoint(adapter) {
   const registers=[]; for(let i=0;i<23;i++) registers.push(await adapter.call('reg',i));
   const counters=[]; for(let i=0;i<25;i++) counters.push(await adapter.call('stat',i));
-  return {clock:counters[0],registers,counters,
+  const fault_state=[];for(let i=25;i<32;i++)fault_state.push(await adapter.call('stat',i));
+  return {clock:counters[0],registers,counters,fault_state,
     ram_sha256:await sha256(await adapter.read('ram',65536)),
     screen_sha256:await sha256(await adapter.read('screen',1920)),
     disk_sha256:await sha256(await adapter.read('disk',819200))};
@@ -57,6 +61,7 @@ export async function checkpoint(adapter) {
 export async function applyAction(adapter, action) {
   let result;
   switch(action.type) {
+    case 'fault': {const f=FAULTS[action.fault],caps=await adapter.call('sim_capabilities');if(!(caps&(1<<f.id)))throw Error('Fault capability unavailable');result=await adapter.call('sim_fault',f.id,action.value);break;}
     case 'key': result=await adapter.call('key',action.value); break;
     case 'reset': await adapter.call('reset'); return;
     case 'cancel': await adapter.call('cancel'); return;
@@ -95,7 +100,7 @@ export async function replay(adapter, experiment, {signal,onProgress=()=>{},yiel
     const actual=await applyAction(adapter,action);
     if(action.type==='checkpoint') {
       const differences=action.expected ? Object.keys(action.expected).filter(k=>JSON.stringify(actual[k])!==JSON.stringify(action.expected[k])) : [];
-      results.push({index:i,name:action.name,actual,differences});
+      results.push({index:i,name:action.name,actual,differences,verified:action.expected!==undefined});
       if(differences.length) return {schema:1,status:'diverged',first_divergence:i,checkpoints:results};
     }
   }

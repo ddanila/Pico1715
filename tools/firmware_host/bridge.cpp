@@ -271,6 +271,14 @@ extern "C" void firmware_cosim_start(int absent) {
     host_io_hook=sd_pause;host_cost_hook=charge;host_lock_hook=image_lock;
 }
 extern "C" int firmware_cosim_storage_busy(void){return worker_busy;}
+/* Simulation experiment API; preserve initialized coroutine state when removing
+ * a delay rather than switching a suspended service back to synchronous calls. */
+extern "C" int firmware_cosim_sd_delay(unsigned value){
+    if(value>1000000)return -EINVAL;
+    sd_write_delay=value;sd_count=0;
+    if(value)synchronous_steps=false;
+    return 0;
+}
 extern "C" void cosim_reset(void *) {
     if(worker_busy)resets_while_busy++;
     active=launched=false;phase=0;settle=8;

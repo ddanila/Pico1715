@@ -7,8 +7,9 @@ import {resolve,dirname,basename} from 'node:path';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {replay,sha256,validateExperiment,wasmAdapter,engineIdentity,openBundle} from './experiment.mjs';
 
-export async function nativeAdapter(module,rom,disk,writable) {
-  const child=spawn('python3',[fileURLToPath(new URL('./native-session.py',import.meta.url)),resolve(module)],{stdio:['pipe','pipe','inherit']});
+export async function nativeAdapter(module,rom,disk,writable,absent=false) {
+  const env=Object.fromEntries(Object.entries(process.env).filter(([k])=>!k.startsWith('PICO1715_')));
+  const child=spawn('python3',[fileURLToPath(new URL('./native-session.py',import.meta.url)),resolve(module)],{stdio:['pipe','pipe','inherit'],env});
   const pending=[];let failed;
   const fail=error=>{failed=error;for(const p of pending.splice(0))p.reject(error);};
   child.on('error',fail);child.on('exit',code=>fail(Error(`Native session exited (${code})`)));
@@ -16,15 +17,15 @@ export async function nativeAdapter(module,rom,disk,writable) {
   const request=value=>new Promise((resolve,reject)=>{if(failed)return reject(failed);pending.push({resolve,reject});child.stdin.write(JSON.stringify(value)+'\n');});
   const close=()=>{child.stdin.end();child.kill();};
   try {
-    if(await request({op:'init',rom:Buffer.from(rom).toString('hex'),disk:Buffer.from(disk).toString('hex'),writable})!==0)throw Error('Session initialization failed');
+    if(await request({op:'init',rom:Buffer.from(rom).toString('hex'),disk:Buffer.from(disk).toString('hex'),writable,absent})!==0)throw Error('Session initialization failed');
     return {call:(name,...args)=>request({op:'call',name,args}),read:async(name,length)=>new Uint8Array(Buffer.from(await request({op:'read',name,length}),'hex')),close};
   }catch(e){close();throw e;}
 }
-export async function loadAdapter(module,rom,disk,writable) {
-  if(module.endsWith('.so'))return nativeAdapter(module,rom,disk,writable);
+export async function loadAdapter(module,rom,disk,writable,absent=false) {
+  if(module.endsWith('.so'))return nativeAdapter(module,rom,disk,writable,absent);
   const core=await(await import(pathToFileURL(resolve(module)))).default();
   const p=core._malloc(rom.length),q=core._malloc(disk.length);
-  try{core.HEAPU8.set(rom,p);core.HEAPU8.set(disk,q);if(core._p1715_init(p,rom.length,q,disk.length,+writable)!==0)throw Error('Session initialization failed');}finally{core._free(p);core._free(q);}
+  try{core.HEAPU8.set(rom,p);core.HEAPU8.set(disk,q);if(absent&&(!core._p1715_sim_config||core._p1715_sim_config(1)!==0))throw Error('Absent-media capability unavailable');if(core._p1715_init(p,rom.length,q,disk.length,+writable)!==0)throw Error('Session initialization failed');}finally{core._free(p);core._free(q);}
   return {...wasmAdapter(core),close(){}};
 }
 async function main() {
@@ -43,7 +44,7 @@ async function main() {
     const manifest=JSON.parse(await readFile(resolve(dirname(module),'manifest.json'),'utf8'));
     if(![`pico1715-${experiment.backend}.so`,`pico1715-${experiment.backend}.mjs`].includes(basename(module))||manifest.dirty||!experiment.build||experiment.build.dirty||manifest.pico!==experiment.build.pico||manifest.dac!==experiment.build.dac||manifest.sha256[basename(module)]!==jsHash)throw Error('Rebinding requires matching clean source revisions and checked target artifacts');
   }
-  const adapter=await loadAdapter(module,rom,disk,experiment.writable);
+  const adapter=await loadAdapter(module,rom,disk,experiment.writable,experiment.absent);
   try{const result=await replay(adapter,experiment);result.engine={recorded:experiment.engine_sha256,executed:engine,rebound:engine!==experiment.engine_sha256};await writeFile(output,JSON.stringify(result,null,2)+'\n',{flag:'wx'});if(result.status!=='complete')process.exitCode=1;}finally{adapter.close();}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(e=>{console.error(e.message);process.exitCode=2;});
