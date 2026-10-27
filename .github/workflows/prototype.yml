@@ -58,6 +58,7 @@ jobs:
       - run: make -C build/cpm all test-rom
       - run: make test-browser-session DAC=build/dac
       - run: python3 tools/build_browser.py --dac build/dac
+      - run: python3 tools/build_analyzer_workbench.py --dac build/dac
       - run: python3 tools/build_browser.py --dac build/dac --native --out build/browser-native
       - run: python3 tests/browser_parity.py --backend model --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-model
       - run: python3 tests/browser_parity.py --backend firmware --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-firmware
