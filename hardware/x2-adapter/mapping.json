@@ -1,0 +1,777 @@
+{
+  "schema": 1,
+  "fabrication_ready": false,
+  "status": "provisional; physical orientation, mating and installation pending",
+  "size_mm": [
+    100,
+    33
+  ],
+  "origin_mm": [
+    20,
+    25
+  ],
+  "unused_header_pins": [
+    59,
+    60
+  ],
+  "mapping": [
+    {
+      "contact": "A1",
+      "header_pin": 1,
+      "net": "X2_A1",
+      "source_xy_mm": [
+        35.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        34.0,
+        52
+      ]
+    },
+    {
+      "contact": "B1",
+      "header_pin": 2,
+      "net": "X2_B1",
+      "source_xy_mm": [
+        35.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        34.0,
+        49.46
+      ]
+    },
+    {
+      "contact": "A2",
+      "header_pin": 3,
+      "net": "X2_A2",
+      "source_xy_mm": [
+        37.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        36.54,
+        52
+      ]
+    },
+    {
+      "contact": "B2",
+      "header_pin": 4,
+      "net": "X2_B2",
+      "source_xy_mm": [
+        37.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        36.54,
+        49.46
+      ]
+    },
+    {
+      "contact": "A3",
+      "header_pin": 5,
+      "net": "X2_A3",
+      "source_xy_mm": [
+        40.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        39.08,
+        52
+      ]
+    },
+    {
+      "contact": "B3",
+      "header_pin": 6,
+      "net": "X2_B3",
+      "source_xy_mm": [
+        40.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        39.08,
+        49.46
+      ]
+    },
+    {
+      "contact": "A4",
+      "header_pin": 7,
+      "net": "X2_A4",
+      "source_xy_mm": [
+        42.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        41.62,
+        52
+      ]
+    },
+    {
+      "contact": "B4",
+      "header_pin": 8,
+      "net": "X2_B4",
+      "source_xy_mm": [
+        42.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        41.62,
+        49.46
+      ]
+    },
+    {
+      "contact": "A5",
+      "header_pin": 9,
+      "net": "X2_A5",
+      "source_xy_mm": [
+        45.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        44.16,
+        52
+      ]
+    },
+    {
+      "contact": "B5",
+      "header_pin": 10,
+      "net": "X2_B5",
+      "source_xy_mm": [
+        45.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        44.16,
+        49.46
+      ]
+    },
+    {
+      "contact": "A6",
+      "header_pin": 11,
+      "net": "X2_A6",
+      "source_xy_mm": [
+        47.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        46.7,
+        52
+      ]
+    },
+    {
+      "contact": "B6",
+      "header_pin": 12,
+      "net": "X2_B6",
+      "source_xy_mm": [
+        47.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        46.7,
+        49.46
+      ]
+    },
+    {
+      "contact": "A7",
+      "header_pin": 13,
+      "net": "X2_A7",
+      "source_xy_mm": [
+        50.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        49.24,
+        52
+      ]
+    },
+    {
+      "contact": "B7",
+      "header_pin": 14,
+      "net": "X2_B7",
+      "source_xy_mm": [
+        50.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        49.24,
+        49.46
+      ]
+    },
+    {
+      "contact": "A8",
+      "header_pin": 15,
+      "net": "X2_A8",
+      "source_xy_mm": [
+        52.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        51.78,
+        52
+      ]
+    },
+    {
+      "contact": "B8",
+      "header_pin": 16,
+      "net": "X2_B8",
+      "source_xy_mm": [
+        52.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        51.78,
+        49.46
+      ]
+    },
+    {
+      "contact": "A9",
+      "header_pin": 17,
+      "net": "X2_A9",
+      "source_xy_mm": [
+        55.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        54.32,
+        52
+      ]
+    },
+    {
+      "contact": "B9",
+      "header_pin": 18,
+      "net": "X2_B9",
+      "source_xy_mm": [
+        55.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        54.32,
+        49.46
+      ]
+    },
+    {
+      "contact": "A10",
+      "header_pin": 19,
+      "net": "X2_A10",
+      "source_xy_mm": [
+        57.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        56.86,
+        52
+      ]
+    },
+    {
+      "contact": "B10",
+      "header_pin": 20,
+      "net": "X2_B10",
+      "source_xy_mm": [
+        57.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        56.86,
+        49.46
+      ]
+    },
+    {
+      "contact": "A11",
+      "header_pin": 21,
+      "net": "X2_A11",
+      "source_xy_mm": [
+        60.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        59.4,
+        52
+      ]
+    },
+    {
+      "contact": "B11",
+      "header_pin": 22,
+      "net": "X2_B11",
+      "source_xy_mm": [
+        60.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        59.4,
+        49.46
+      ]
+    },
+    {
+      "contact": "A12",
+      "header_pin": 23,
+      "net": "X2_A12",
+      "source_xy_mm": [
+        62.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        61.94,
+        52
+      ]
+    },
+    {
+      "contact": "B12",
+      "header_pin": 24,
+      "net": "X2_B12",
+      "source_xy_mm": [
+        62.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        61.94,
+        49.46
+      ]
+    },
+    {
+      "contact": "A13",
+      "header_pin": 25,
+      "net": "X2_A13",
+      "source_xy_mm": [
+        65.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        64.48,
+        52
+      ]
+    },
+    {
+      "contact": "B13",
+      "header_pin": 26,
+      "net": "X2_B13",
+      "source_xy_mm": [
+        65.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        64.48,
+        49.46
+      ]
+    },
+    {
+      "contact": "A14",
+      "header_pin": 27,
+      "net": "X2_A14",
+      "source_xy_mm": [
+        67.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        67.02000000000001,
+        52
+      ]
+    },
+    {
+      "contact": "B14",
+      "header_pin": 28,
+      "net": "X2_B14",
+      "source_xy_mm": [
+        67.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        67.02000000000001,
+        49.46
+      ]
+    },
+    {
+      "contact": "A15",
+      "header_pin": 29,
+      "net": "X2_A15",
+      "source_xy_mm": [
+        70.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        69.56,
+        52
+      ]
+    },
+    {
+      "contact": "B15",
+      "header_pin": 30,
+      "net": "X2_B15",
+      "source_xy_mm": [
+        70.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        69.56,
+        49.46
+      ]
+    },
+    {
+      "contact": "A16",
+      "header_pin": 31,
+      "net": "X2_A16",
+      "source_xy_mm": [
+        72.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        72.1,
+        52
+      ]
+    },
+    {
+      "contact": "B16",
+      "header_pin": 32,
+      "net": "X2_B16",
+      "source_xy_mm": [
+        72.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        72.1,
+        49.46
+      ]
+    },
+    {
+      "contact": "A17",
+      "header_pin": 33,
+      "net": "X2_A17",
+      "source_xy_mm": [
+        75.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        74.64,
+        52
+      ]
+    },
+    {
+      "contact": "B17",
+      "header_pin": 34,
+      "net": "X2_B17",
+      "source_xy_mm": [
+        75.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        74.64,
+        49.46
+      ]
+    },
+    {
+      "contact": "A18",
+      "header_pin": 35,
+      "net": "X2_A18",
+      "source_xy_mm": [
+        77.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        77.18,
+        52
+      ]
+    },
+    {
+      "contact": "B18",
+      "header_pin": 36,
+      "net": "X2_B18",
+      "source_xy_mm": [
+        77.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        77.18,
+        49.46
+      ]
+    },
+    {
+      "contact": "A19",
+      "header_pin": 37,
+      "net": "X2_A19",
+      "source_xy_mm": [
+        80.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        79.72,
+        52
+      ]
+    },
+    {
+      "contact": "B19",
+      "header_pin": 38,
+      "net": "X2_B19",
+      "source_xy_mm": [
+        80.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        79.72,
+        49.46
+      ]
+    },
+    {
+      "contact": "A20",
+      "header_pin": 39,
+      "net": "X2_A20",
+      "source_xy_mm": [
+        82.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        82.25999999999999,
+        52
+      ]
+    },
+    {
+      "contact": "B20",
+      "header_pin": 40,
+      "net": "X2_B20",
+      "source_xy_mm": [
+        82.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        82.25999999999999,
+        49.46
+      ]
+    },
+    {
+      "contact": "A21",
+      "header_pin": 41,
+      "net": "X2_A21",
+      "source_xy_mm": [
+        85.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        84.8,
+        52
+      ]
+    },
+    {
+      "contact": "B21",
+      "header_pin": 42,
+      "net": "X2_B21",
+      "source_xy_mm": [
+        85.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        84.8,
+        49.46
+      ]
+    },
+    {
+      "contact": "A22",
+      "header_pin": 43,
+      "net": "X2_A22",
+      "source_xy_mm": [
+        87.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        87.34,
+        52
+      ]
+    },
+    {
+      "contact": "B22",
+      "header_pin": 44,
+      "net": "X2_B22",
+      "source_xy_mm": [
+        87.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        87.34,
+        49.46
+      ]
+    },
+    {
+      "contact": "A23",
+      "header_pin": 45,
+      "net": "X2_A23",
+      "source_xy_mm": [
+        90.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        89.88,
+        52
+      ]
+    },
+    {
+      "contact": "B23",
+      "header_pin": 46,
+      "net": "X2_B23",
+      "source_xy_mm": [
+        90.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        89.88,
+        49.46
+      ]
+    },
+    {
+      "contact": "A24",
+      "header_pin": 47,
+      "net": "X2_A24",
+      "source_xy_mm": [
+        92.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        92.42,
+        52
+      ]
+    },
+    {
+      "contact": "B24",
+      "header_pin": 48,
+      "net": "X2_B24",
+      "source_xy_mm": [
+        92.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        92.42,
+        49.46
+      ]
+    },
+    {
+      "contact": "A25",
+      "header_pin": 49,
+      "net": "X2_A25",
+      "source_xy_mm": [
+        95.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        94.96000000000001,
+        52
+      ]
+    },
+    {
+      "contact": "B25",
+      "header_pin": 50,
+      "net": "X2_B25",
+      "source_xy_mm": [
+        95.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        94.96000000000001,
+        49.46
+      ]
+    },
+    {
+      "contact": "A26",
+      "header_pin": 51,
+      "net": "X2_A26",
+      "source_xy_mm": [
+        97.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        97.5,
+        52
+      ]
+    },
+    {
+      "contact": "B26",
+      "header_pin": 52,
+      "net": "X2_B26",
+      "source_xy_mm": [
+        97.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        97.5,
+        49.46
+      ]
+    },
+    {
+      "contact": "A27",
+      "header_pin": 53,
+      "net": "X2_A27",
+      "source_xy_mm": [
+        100.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        100.04,
+        52
+      ]
+    },
+    {
+      "contact": "B27",
+      "header_pin": 54,
+      "net": "X2_B27",
+      "source_xy_mm": [
+        100.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        100.04,
+        49.46
+      ]
+    },
+    {
+      "contact": "A28",
+      "header_pin": 55,
+      "net": "X2_A28",
+      "source_xy_mm": [
+        102.5,
+        31.5
+      ],
+      "header_xy_mm": [
+        102.58,
+        52
+      ]
+    },
+    {
+      "contact": "B28",
+      "header_pin": 56,
+      "net": "X2_B28",
+      "source_xy_mm": [
+        102.5,
+        36.5
+      ],
+      "header_xy_mm": [
+        102.58,
+        49.46
+      ]
+    },
+    {
+      "contact": "A29",
+      "header_pin": 57,
+      "net": "X2_A29",
+      "source_xy_mm": [
+        105.0,
+        31.5
+      ],
+      "header_xy_mm": [
+        105.12,
+        52
+      ]
+    },
+    {
+      "contact": "B29",
+      "header_pin": 58,
+      "net": "X2_B29",
+      "source_xy_mm": [
+        105.0,
+        36.5
+      ],
+      "header_xy_mm": [
+        105.12,
+        49.46
+      ]
+    }
+  ],
+  "source_sha256": {
+    "hardware/carrier/efs58/geometry.json": "0f724e9af7ab68470d9559f921775d90f081bc5d270006a690070879774956d9",
+    "tools/generate_x2_adapter.py": "490136bc0010cdcb582f76da8b77f9541608985b0714135bb7b7cd14a0edac8f"
+  }
+}

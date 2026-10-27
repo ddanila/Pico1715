@@ -26184,6 +26184,213 @@
       ],
       "diameter": 0.6,
       "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        127.1846,
+        142.9623
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        85.0204,
+        32.4699
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        84.6975,
+        84.9233
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.7079,
+        151.6004
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        123.7683,
+        133.0819
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        127.4001,
+        47.4583
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.4703,
+        141.7839
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        120.2204,
+        138.4415
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        120.8357,
+        88.007
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        124.8298,
+        38.5369
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        124.1298,
+        84.9912
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        68.6581,
+        104.7815
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        73.537,
+        98.2372
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        76.0364,
+        90.7219
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        83.7403,
+        24.3872
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.8529,
+        159.4587
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        26.2229,
+        30.9026
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        25.3229,
+        144.4917
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        39.9364,
+        27.8231
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        106.2947,
+        67.925
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        112.9626,
+        70.025
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        40.86,
+        65.6488
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
+    },
+    {
+      "net": "GND",
+      "at": [
+        106.3413,
+        75.3823
+      ],
+      "diameter": 0.6,
+      "drill": 0.3
     }
   ],
   "ground_layers": [
@@ -26204,5 +26411,260 @@
       38.380564
     ],
     "qualification": "Desk geometry/connectivity only; SD held, X2 unplaced, no hardware execution."
-  }
+  },
+  "desk_review_stitches": [
+    {
+      "signal_net": "F_CLK",
+      "signal_via": [
+        128.1846,
+        142.7623
+      ],
+      "ground_via": [
+        127.1846,
+        142.9623
+      ]
+    },
+    {
+      "signal_net": "F_IORQ_N",
+      "signal_via": [
+        84.4204,
+        33.2699
+      ],
+      "ground_via": [
+        85.0204,
+        32.4699
+      ]
+    },
+    {
+      "signal_net": "F_IORQ_N",
+      "signal_via": [
+        84.6975,
+        82.9233
+      ],
+      "ground_via": [
+        84.6975,
+        84.9233
+      ]
+    },
+    {
+      "signal_net": "F_IORQ_N",
+      "signal_via": [
+        133.2079,
+        152.5004
+      ],
+      "ground_via": [
+        132.7079,
+        151.6004
+      ]
+    },
+    {
+      "signal_net": "F_MREQ_N",
+      "signal_via": [
+        122.9683,
+        133.6819
+      ],
+      "ground_via": [
+        123.7683,
+        133.0819
+      ]
+    },
+    {
+      "signal_net": "F_MREQ_N",
+      "signal_via": [
+        125.8001,
+        48.6583
+      ],
+      "ground_via": [
+        127.4001,
+        47.4583
+      ]
+    },
+    {
+      "signal_net": "F_MREQ_N",
+      "signal_via": [
+        131.8703,
+        142.5839
+      ],
+      "ground_via": [
+        132.4703,
+        141.7839
+      ]
+    },
+    {
+      "signal_net": "F_RD_N",
+      "signal_via": [
+        121.0204,
+        139.0415
+      ],
+      "ground_via": [
+        120.2204,
+        138.4415
+      ]
+    },
+    {
+      "signal_net": "F_RD_N",
+      "signal_via": [
+        121.0357,
+        89.807
+      ],
+      "ground_via": [
+        120.8357,
+        88.007
+      ]
+    },
+    {
+      "signal_net": "F_RD_N",
+      "signal_via": [
+        124.2298,
+        39.3369
+      ],
+      "ground_via": [
+        124.8298,
+        38.5369
+      ]
+    },
+    {
+      "signal_net": "F_RD_N",
+      "signal_via": [
+        124.2298,
+        82.8912
+      ],
+      "ground_via": [
+        124.1298,
+        84.9912
+      ]
+    },
+    {
+      "signal_net": "F_RESET_N",
+      "signal_via": [
+        67.6581,
+        104.6815
+      ],
+      "ground_via": [
+        68.6581,
+        104.7815
+      ]
+    },
+    {
+      "signal_net": "F_RESET_N",
+      "signal_via": [
+        74.537,
+        97.3372
+      ],
+      "ground_via": [
+        73.537,
+        98.2372
+      ]
+    },
+    {
+      "signal_net": "F_RESET_N",
+      "signal_via": [
+        76.8364,
+        91.3219
+      ],
+      "ground_via": [
+        76.0364,
+        90.7219
+      ]
+    },
+    {
+      "signal_net": "F_RESET_N",
+      "signal_via": [
+        83.7403,
+        26.4872
+      ],
+      "ground_via": [
+        83.7403,
+        24.3872
+      ]
+    },
+    {
+      "signal_net": "F_RESET_N",
+      "signal_via": [
+        133.0529,
+        160.4587
+      ],
+      "ground_via": [
+        132.8529,
+        159.4587
+      ]
+    },
+    {
+      "signal_net": "F_WR_N",
+      "signal_via": [
+        25.2229,
+        31.0026
+      ],
+      "ground_via": [
+        26.2229,
+        30.9026
+      ]
+    },
+    {
+      "signal_net": "F_WR_N",
+      "signal_via": [
+        25.2229,
+        143.4917
+      ],
+      "ground_via": [
+        25.3229,
+        144.4917
+      ]
+    },
+    {
+      "signal_net": "F_WR_N",
+      "signal_via": [
+        41.0364,
+        28.9231
+      ],
+      "ground_via": [
+        39.9364,
+        27.8231
+      ]
+    },
+    {
+      "signal_net": "L_GP14",
+      "signal_via": [
+        107.2947,
+        68.025
+      ],
+      "ground_via": [
+        106.2947,
+        67.925
+      ]
+    },
+    {
+      "signal_net": "L_GP14",
+      "signal_via": [
+        113.1626,
+        68.025
+      ],
+      "ground_via": [
+        112.9626,
+        70.025
+      ]
+    },
+    {
+      "signal_net": "L_GP16",
+      "signal_via": [
+        42.16,
+        64.7488
+      ],
+      "ground_via": [
+        40.86,
+        65.6488
+      ]
+    },
+    {
+      "signal_net": "L_GP16",
+      "signal_via": [
+        106.4413,
+        76.3823
+      ],
+      "ground_via": [
+        106.3413,
+        75.3823
+      ]
+    }
+  ]
 }

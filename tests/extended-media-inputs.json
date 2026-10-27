@@ -1,0 +1,30 @@
+{
+  "rom_sha256": "51cb80639b5667f2611da71ce7305061566cf3474bda7db6fc82709d08e46d01",
+  "dac_commit": "98f8f808c08ce21f6b98a00b95185f1e2226e70d",
+  "images": {
+    "anasana.cpm": {
+      "sha256": "de42d43cc6a61b3cd29d55eefbbc63cdd583c55819b81c78994762cf6d1cbb9c",
+      "prompt_observed": true
+    },
+    "r1715.cpm": {
+      "sha256": "16c4389cd8d4b7759ece28efdda5b9b1a04536cdeb3f644c583d953d5ecd55c4",
+      "prompt_observed": true
+    },
+    "r1715ms.cpm": {
+      "sha256": "e6b1af3a2db51f1cc623f014ea2d9a0f6c6e7f1a98f220eb6c898791578ce3d7",
+      "prompt_observed": false
+    },
+    "r1715mt.cpm": {
+      "sha256": "a1c9b862c4cd57dd15b6b1918abc1a3e78d9cd0deb87d9ab41b4d34ebc09ae1c",
+      "prompt_observed": false
+    },
+    "scp3.cpm": {
+      "sha256": "67672142270d3b243c103104b7a28121a1e13de0d1c5bafff16c6cf95655dc31",
+      "prompt_observed": false
+    },
+    "scp30.cpm": {
+      "sha256": "79f8643e03a11de1eaef6dc29234cd3f0229a1a9040c66324227f48a9a3090b4",
+      "prompt_observed": false
+    }
+  }
+}

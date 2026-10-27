@@ -35378,6 +35378,236 @@
       "diameter": 0.6,
       "drill": 0.3,
       "tag": "additional/268"
+    },
+    {
+      "net": "GND",
+      "at": [
+        127.1846,
+        142.9623
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/269"
+    },
+    {
+      "net": "GND",
+      "at": [
+        85.0204,
+        32.4699
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/270"
+    },
+    {
+      "net": "GND",
+      "at": [
+        84.6975,
+        84.9233
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/271"
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.7079,
+        151.6004
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/272"
+    },
+    {
+      "net": "GND",
+      "at": [
+        123.7683,
+        133.0819
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/273"
+    },
+    {
+      "net": "GND",
+      "at": [
+        127.4001,
+        47.4583
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/274"
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.4703,
+        141.7839
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/275"
+    },
+    {
+      "net": "GND",
+      "at": [
+        120.2204,
+        138.4415
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/276"
+    },
+    {
+      "net": "GND",
+      "at": [
+        120.8357,
+        88.007
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/277"
+    },
+    {
+      "net": "GND",
+      "at": [
+        124.8298,
+        38.5369
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/278"
+    },
+    {
+      "net": "GND",
+      "at": [
+        124.1298,
+        84.9912
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/279"
+    },
+    {
+      "net": "GND",
+      "at": [
+        68.6581,
+        104.7815
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/280"
+    },
+    {
+      "net": "GND",
+      "at": [
+        73.537,
+        98.2372
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/281"
+    },
+    {
+      "net": "GND",
+      "at": [
+        76.0364,
+        90.7219
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/282"
+    },
+    {
+      "net": "GND",
+      "at": [
+        83.7403,
+        24.3872
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/283"
+    },
+    {
+      "net": "GND",
+      "at": [
+        132.8529,
+        159.4587
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/284"
+    },
+    {
+      "net": "GND",
+      "at": [
+        26.2229,
+        30.9026
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/285"
+    },
+    {
+      "net": "GND",
+      "at": [
+        25.3229,
+        144.4917
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/286"
+    },
+    {
+      "net": "GND",
+      "at": [
+        39.9364,
+        27.8231
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/287"
+    },
+    {
+      "net": "GND",
+      "at": [
+        106.2947,
+        67.925
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/288"
+    },
+    {
+      "net": "GND",
+      "at": [
+        112.9626,
+        70.025
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/289"
+    },
+    {
+      "net": "GND",
+      "at": [
+        40.86,
+        65.6488
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/290"
+    },
+    {
+      "net": "GND",
+      "at": [
+        106.3413,
+        75.3823
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "additional/291"
     }
   ],
   "ground_plane": "B.Cu + F.Cu GND; excludes host reservation and all-layer SD hold",

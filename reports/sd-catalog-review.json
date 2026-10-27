@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "review_date": "2026-10-27",
+  "routing_released": false,
+  "source": {
+    "url": "https://media.ret.hu/datasheet/DM3_Catalog_D49662_en.pdf",
+    "publisher": "Hirose",
+    "date_printed": "2025-03-01",
+    "page": 3,
+    "sha256": "a8506aadd6c8036a02d047c3285a2e6674315cacda383030554f28ecc8dfc8fd",
+    "visually_reviewed": true
+  },
+  "footprint_sha256": "cc0efdbdb9b21e7cc31a577ea45e753c8985b1c67cf1f58d39e352018f0cb938",
+  "confirmed": {
+    "pin_order": [
+      "DAT2",
+      "CD/DAT3",
+      "CMD",
+      "VDD",
+      "CLK",
+      "VSS",
+      "DAT0",
+      "DAT1"
+    ],
+    "signal_pad_mm": [
+      0.7,
+      1.2
+    ],
+    "signal_pitch_mm": 1.1,
+    "body_mm": [
+      13.85,
+      15.95,
+      1.68
+    ],
+    "card_positions_from_drawing_datum_mm": {
+      "overstroke": 16.75,
+      "lock": 17.55,
+      "eject": 21.55
+    },
+    "detect_switch": "open without card; closed with card"
+  },
+  "remaining": [
+    "Retrieve and visually check engineering drawing 0000947170 / EDC-325165-00-00; direct download returned HTTP 403.",
+    "Complete dimension-by-dimension exclusion and mechanical datum comparison, including detection lands; catalog checks above are not full footprint approval.",
+    "Review card insertion/ejection clearance at the rotated carrier placement."
+  ],
+  "retained_hold": "All-layer J3 rectangle plus five library F.Cu exclusions; 12 open connections retained."
+}

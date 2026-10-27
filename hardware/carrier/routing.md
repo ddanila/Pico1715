@@ -1,22 +1,22 @@
 # Carrier routing evidence
 
 All placed terminals outside the J3 SD hold are connected in the review PCB.
-The board contains 2,206 segments and 403 vias, with GND pours on F.Cu and B.Cu.
+The board contains 2,206 segments and 426 vias, with GND pours on F.Cu and B.Cu.
 Fresh KiCad 10.0.6 DRC reports **zero violations and 12 open connections**, all
 involving J3. X2 is still unplaced and therefore does not appear in that airwire
 count. This is not a fabrication release.
 
 The SD opens comprise P3V3, five ground/shield connections, four SPI signals and
 two unused-data pull-ups. The all-layer SD hold and the host connector reservation
-remain intact. The Hirose dimensional drawing could not be visually reviewed
-(the download returned 403 and the browser view was blank), so no land-pattern
-or exclusion approval is inferred from this routing work.
+remain intact. A readable 2025 manufacturer catalog now confirms the pin order
+and main pad dimensions; the full engineering-drawing/exclusion review remains
+open. See the [SD evidence](sd-review.md).
 
 ## Accepted copper
 
 `generate_carrier_pcb.py` retains the previous hand-routed placement, power,
 bypass and interlock geometry. [additional-routes.json](additional-routes.json)
-adds 1,827 segments and 269 vias. Its base hash covers the original placements,
+adds 1,827 segments and 292 vias. Its base hash covers the original placements,
 segments and vias; changing that baseline requires a new routing review.
 The JSON stores copper coordinates, not executable router output.
 
@@ -37,7 +37,7 @@ The existing KiCad 0.20 mm net-class clearance rule was not relaxed.
 
 Front GND fill reconnects ground sections separated by signal routing. A short
 SW1 return and one stitch at (52.8005, 38.380564) mm complete the ground network.
-The final board has 75 ground, 10 power and 318 signal vias. Both pours stop at
+The final board has 98 ground, 10 power and 318 signal vias. Both pours stop at
 the host reservation and respect the SD hold.
 
 ## Reproduction and verification
@@ -91,3 +91,29 @@ reproduction of the accepted board uses the checked JSON and generator.
 
 See [mechanics](mechanics.md), [the roadmap](../../docs/roadmap.md) and the
 [current PCB report](../../reports/carrier-pcb.json).
+
+## Desk electrical review (2026-10-27)
+
+The [routing metrics](../../reports/carrier-routing-review.json) screen copper
+length, long parallel segments, opposite-layer ground fill and signal-via return
+proximity. Reproduce with `/usr/bin/python3 tools/review_carrier_routing.py`.
+These are geometric indicators, not impedance, timing or EMC qualification.
+
+Twenty-three GND stitches were added near clock/control transitions where both
+layers already had ground fill and clearance allowed a via. The total is now
+98 ground, 10 power and 318 signal vias. The F_CLK transition's nearest GND via
+is 1.020 mm away, down from 6.654 mm. Every new stitch passed fresh KiCad DRC;
+positions and associated signal transitions are retained in additional-routes.json.
+
+F_CLK has 204.656 mm of total routed copper; F_WR_N has 259.701 mm.
+The screen flags an approximately 106.345 mm F_A0/F_A2 parallel run with 0.367 mm
+edge gap. Approximately 42% of the clock trace lacks opposite-layer filled GND
+at the sampled positions. Same-layer ground and PTH returns are not included in
+that metric, so it does not establish a broken return or its electrical impact.
+Stitching improves local return access but does not remove the long parallel runs.
+
+Before release, assess the actual driver edge rates, cable and host loading and
+measure ringing/setup/hold at the receiver. If the two-layer layout fails those
+checks, revise placement/routing or stack-up; the present geometric report cannot
+substitute for those measurements. See also the [assembly plan](assembly.md) and
+[separate provisional X2 adapter](../x2-adapter/README.md).

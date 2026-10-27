@@ -4,7 +4,9 @@ FCB=0280h, source DMA=0300h, read DMA=0400h, entry=0100h.
 Creates PICOTEST.TXT; writes, closes, resets, reopens and compares 20 records.
 """
 
-def program():
+def program(records=20):
+    if not 1 <= records <= 128:
+        raise ValueError("record count must be between 1 and 128")
     b = bytearray()
     labels = {}
     fix = []
@@ -32,7 +34,7 @@ def program():
     call(22, 640)
     emit(60)
     word(202, 'fail')
-    emit(6, 20)
+    emit(6, records)
     label('write')
     emit(197)
     call(21, 640)
@@ -49,7 +51,7 @@ def program():
     emit(60)
     word(202, 'fail')
     call(26, 1024)
-    emit(6, 20)
+    emit(6, records)
     label('read')
     emit(197)
     call(20, 640)
@@ -86,7 +88,7 @@ def program():
     b.extend(payload)
     return (bytes(b), payload)
 
-def install(image):
+def install(image, records=20, block=62):
     if len(image) != 819200:
         raise ValueError('workload requires qualified 80x2x5x1024 image')
     disk = bytearray(image)
@@ -95,18 +97,22 @@ def install(image):
     for entry in entries:
         if entry[0] < 16:
             used.update((int.from_bytes(entry[j:j + 2], 'little') for j in range(16, 32, 2)))
-    if 62 in used or any((bytes((c & 127 for c in e[1:12])) == b'PICOTESTCOM' for e in entries if e[0] < 16)):
+    if block is None:
+        block = next((i for i in range(2, (len(disk)-20480)//2048) if i not in used), None)
+    if block is None or not 2 <= block < (len(disk)-20480)//2048:
+        raise ValueError('no valid free fixture block')
+    if block in used or any((bytes((c & 127 for c in e[1:12])) == b'PICOTESTCOM' for e in entries if e[0] < 16)):
         raise ValueError('fixture block or filename occupied')
     slot = next((i for i, e in enumerate(entries) if e[0] == 229), None)
     if slot is None:
         raise ValueError('no free directory entry')
-    code, payload = program()
+    code, payload = program(records)
     entry = bytearray(32)
     entry[:12] = b'\x00PICOTESTCOM'
     entry[15] = (len(code) + 127) // 128
-    entry[16] = 62
+    entry[16:18] = block.to_bytes(2, 'little')
     disk[20480 + slot * 32:20480 + (slot + 1) * 32] = entry
-    offset = 20480 + 62 * 2048
+    offset = 20480 + block * 2048
     disk[offset:offset + len(code)] = code
     return (bytes(disk), payload)
 

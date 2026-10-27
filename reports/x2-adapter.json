@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "fabrication_ready": false,
+  "hardware_executed": false,
+  "routed_contacts": 58,
+  "tracks": 232,
+  "vias": 0,
+  "drc_violations": 0,
+  "unconnected_items": 0,
+  "schematic_parity_issues": 0,
+  "erc_violations": 0,
+  "ignored_checks": [
+    {
+      "description": "Footprint has no courtyard defined",
+      "key": "missing_courtyard"
+    },
+    {
+      "description": "Track endpoint not centered on via",
+      "key": "track_not_centered_on_via"
+    },
+    {
+      "description": "Tuning profile track geometries",
+      "key": "tuning_profile_track_geometries"
+    },
+    {
+      "description": "Footprint doesn't match symbol's footprint filters",
+      "key": "footprint_filters_mismatch"
+    },
+    {
+      "description": "Footprint component type doesn't match footprint pads",
+      "key": "footprint_type_mismatch"
+    }
+  ],
+  "limitations": [
+    "Reference-only connector geometry; physical orientation, fit and host installation pending.",
+    "KiCad default missing-courtyard check is ignored; no qualified EFS body envelope exists.",
+    "Separate passive breakout; carrier X2 remains unplaced."
+  ],
+  "source_sha256": {
+    "hardware/x2-adapter/adapter.kicad_pcb": "650df419143ee4c925c80c0b3358fe6abe1bd7d48b42c1032786df782899f77d",
+    "hardware/x2-adapter/adapter.kicad_sch": "bc8fa23a250e1e83210913ebaa4de11cc5c45339e4ce338518b2503d1553e049",
+    "hardware/x2-adapter/adapter.net.xml": "c7d08c1a2764a1bb09e40aa7d226bcaa3adf523dc39efc29775d5aba3a084add",
+    "hardware/x2-adapter/mapping.json": "6c552ead0b071ba8d6f6b2b9595bc74e1df3dab9e6800242f8cdec6e70522b09",
+    "tools/generate_x2_adapter.py": "490136bc0010cdcb582f76da8b77f9541608985b0714135bb7b7cd14a0edac8f",
+    "tests/x2_adapter_test.py": "969e59d054fe2f254bd4ec256ecdb2bddd46dc772a1c6db1c86504261c724a6d"
+  }
+}

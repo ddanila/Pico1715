@@ -143,7 +143,7 @@
   "supervisor_networks": 3,
   "resistor_ground_returns": 13,
   "routed_segments": 2206,
-  "ground_vias": 75,
+  "ground_vias": 98,
   "power_vias": 10,
   "signal_vias": 318,
   "complete_interlock_net_pads": {
@@ -213,10 +213,10 @@
     "tests/carrier_pcb_test.py": "199d00d57308d5e8140a36c73e9abd393482840c8079fea8158415f11ef17242",
     "tools/prepare_carrier_routing.py": "d5852ae2dbf63a7221a6cac95bc5586a1e7f1b30daa69cf052913497c7f12d60",
     "tools/import_carrier_routing.py": "ec55779a2db0e886d00ec47bd26fef6cf6cdb1259142d65fe15f183273325d84",
-    "hardware/carrier/additional-routes.json": "3f47eafb85d023b14c94d501a3b07d3465f8287b684fad7014cd4246ffcc8f27",
-    "hardware/carrier/carrier.kicad_pcb": "fc8e1b4e18d37a4eeb1e54c27343eaf7b20b35c13bc94c6701761d3b956ee96a",
+    "hardware/carrier/additional-routes.json": "2878ec3373d6f7877d49b2dbec4572fe928b1d4329ed64bf0cd1e9af6e0d4ebb",
+    "hardware/carrier/carrier.kicad_pcb": "0539046e017ff8e44112360fd9df7799e08b132d5751715baf8475de40c73a46",
     "hardware/carrier/carrier.kicad_pro": "12d975c42e0293bc665222bd45ea3ff96a171b29422a6868f9c4f954c86eeb2e",
-    "hardware/carrier/pcb-placement.json": "abae9e5f6fac72543cae7f2ce3b3b17026f129b08a1460812d53841d95bef986",
+    "hardware/carrier/pcb-placement.json": "2610634f483a31bb6409fd0492d59a5fcda94df0d8450e7368d9ce26f2855b22",
     "hardware/carrier/carrier.kicad_sch": "2d410ba33fdee766f9102f6bf6fbbf8f8979aea7162b4330696bb1fe18262c4a",
     "hardware/carrier/carrier.net.xml": "1b072c03842cebb34a688774334ff58221280ee24182fe266847425e5e73adb1"
   }

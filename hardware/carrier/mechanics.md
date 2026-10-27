@@ -299,3 +299,11 @@ The [routing workflow and evidence](routing.md) describe the preserved baseline,
 accepted supplemental copper and remaining SD/X2 holds. Ground connectivity
 alone does not qualify high-frequency return paths, cable ringing or timing;
 those reviews and physical validation remain before fabrication release.
+
+## Follow-up desk review
+
+The subsequent return-path screen added 23 ground stitches: the current board has
+2,206 segments and 426 vias (98 ground, 10 power, 318 signal). Earlier counts above
+record prior stages. See [routing review](routing.md), [SD evidence](sd-review.md),
+[assembly preparation](assembly.md) and the [provisional separate X2 breakout](../x2-adapter/README.md).
+The breakout's zero-airwire result does not close the carrier's unplaced X2 gate.

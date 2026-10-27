@@ -144,7 +144,7 @@ vendor-numbered switch footprint and Pico/SD pad contracts are now checked.
 The PCB places 74 electrical footprints and checks all 557 pads against exported
 schematic nets. Eighteen IC bypass capacitors now have short supply traces and
 ground vias, alongside module power routes and front/back ground pours. The current
-layout has 2,206 tracks and 403 vias; all placed non-SD terminals connect. Geometric
+layout has 2,206 tracks and 426 vias; all placed non-SD terminals connect. Geometric
 DRC is clear with 12 open connections, all at the held SD socket; see the
 [routing evidence](../hardware/carrier/routing.md). X2 remains unplaced; FPGA cables/header mating, SD drawing
 exclusions and enclosure fit remain open. Identify the FPGA boards already owned before freezing module
@@ -156,3 +156,18 @@ module bring-up, latency and bus measurements, actual X2 orientation/mechanics
 and boot tests, followed by schematic/layout review and ERC/DRC. Order a small
 prototype batch and qualify assembled devices before declaring RTM. Desk work
 does not close those gates.
+
+## Desk completion pass (2026-10-27)
+
+- Electrical routing screen and 23 additional ground stitches completed; long
+  routes/parallelism and physical timing qualification remain open.
+- Readable Hirose catalog checked; current engineering drawing and full SD
+  exclusion review remain pending. The 12 SD opens are retained.
+- Separate provisional 58-contact X2 breakout routed with schematic parity and
+  zero DRC/ERC violations. It is not an approved host connector or carrier route.
+- Assembly locator, pad/probe coordinates and staged bring-up plan prepared.
+- Six external images surveyed. Two reach the same SCP 0006 prompt and pass
+  three 96-record write/read/delete rounds with cold-boot checks (30 total cases).
+  Four images remain unqualified. No additional OS version is claimed supported.
+
+See [desk-work results](desk-completion.md) for reproduction and remaining gates.

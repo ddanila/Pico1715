@@ -133,7 +133,7 @@ regeneration and both synthesized port contracts; `test-carrier-schematic` requi
 
 The [partially routed review board](carrier.kicad_pcb) has 74 electrical footprints,
 four provisional mounting holes and pad-to-net checks. Eighteen IC bypass capacitors
-have short supply/ground connections; 2,206 track segments, 403 vias and front/back
+have short supply/ground connections; 2,206 track segments, 426 vias and front/back
 ground pours connect all placed non-SD terminals. Geometric DRC is clear; all 12
 remaining connections involve the held J3 socket. See [routing evidence](routing.md).
 X2 remains unplaced; the FPGA

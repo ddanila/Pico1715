@@ -180,3 +180,15 @@ test-efs58-coupon-cad:
 
 export-efs58-coupon:
 	python3 tools/export_efs58_coupon.py
+
+.PHONY: test-desk-review test-x2-adapter test-x2-adapter-cad
+test-desk-review:
+	python3 tests/desk_review_test.py
+
+test-x2-adapter:
+	python3 tests/x2_adapter_test.py
+
+test-x2-adapter-cad: test-x2-adapter
+	mkdir -p build/x2-adapter
+	kicad-cli sch erc hardware/x2-adapter/adapter.kicad_sch --exit-code-violations -o build/x2-adapter/erc.rpt
+	kicad-cli pcb drc hardware/x2-adapter/adapter.kicad_pcb --schematic-parity --exit-code-violations --format json -o build/x2-adapter/drc.json

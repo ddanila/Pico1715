@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "Adapter") (type "KiCad") (uri "${KIPRJMOD}/Adapter.pretty") (options "") (descr "Provisional breakout footprints")))
