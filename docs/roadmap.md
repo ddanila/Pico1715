@@ -13,7 +13,7 @@ qualification of the reset accessory remain planned.
 | Analyzer | Capture, triggers, PSRAM transport, USB download, decode/compare | Module/USB/capture bench qualification |
 | Reset | Standalone software and bounded pulse implementation | Isolated accessory circuit and physical reset test; carrier GP22 is SD CS |
 | Shutdown | Safe eject, reserve gating, failure/deadline tests | Optional charger/reserve/supervisor circuit and measured budgets |
-| Carrier | Schematic, pin profiles, 74 footprints, local bypass routing and ground plane | 212 open connections, remaining rail/signal routing, SD drawing review, installation fit |
+| Carrier | Schematic, pin profiles, 74 footprints, power distribution, local bypass routing and ground plane | 177 open connections, host/SD power entry and signal routing, SD drawing review, installation fit |
 | Host connector | Original EFS dimensions and four-contact printed test fixture | Qualify modern socket grip, then full connector/adapter design |
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
@@ -144,7 +144,7 @@ vendor-numbered switch footprint and Pico/SD pad contracts are now checked.
 The PCB places 74 electrical footprints and checks all 557 pads against exported
 schematic nets. Eighteen IC bypass capacitors now have short supply traces and
 ground vias, alongside module power routes and a bottom ground plane. The current
-layout has 129 tracks and 72 vias; geometric DRC is clear with 212 connections still
+layout has 227 tracks and 83 vias; geometric DRC is clear with 177 connections still
 open (previously 336). X2 remains unplaced; FPGA cables/header mating, SD drawing
 exclusions and enclosure fit remain open. Identify the FPGA boards already owned before freezing module
 connectors or final routing: the Olimex HX8K remains the reference option, not a

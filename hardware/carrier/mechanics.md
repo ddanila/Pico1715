@@ -98,13 +98,16 @@ See https://www.kicad.org/libraries/license/.
 The board checker compares all 557 electrical pads, including repeated shield
 lands, with the freshly exported KiCad schematic nets. It checks schematic UUID
 association, footprint identity, explicit NCs, placement coordinates and retained
-SD exclusion zones. Sixteen mutation controls reject wrong nets, missing pads or parts, broken schematic
+SD exclusion zones. Twenty-one mutation controls reject wrong nets, missing pads or parts, broken schematic
 associations, removed routing/vias, excessive bypass distance, a wrong plane net,
 a weakened SD hold and a false release flag. Four controls remove copper and its
 manifest entry together, checking that independent connectivity assertions catch
-broken supervisor supply/sense/divider paths and resistor ground returns.
+broken supervisor supply/sense/divider paths and resistor ground returns. Five
+additional controls remove a rail branch from each domain, a control branch, or
+a crossover via from both the board and manifest. The latter ensures opposite
+layers are not falsely treated as connected at coincident coordinates.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **212
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **177
 unconnected items**, down from 336. This is partial routing, not a passing production
 DRC. The settings are default review settings, not a chosen fabricator's rules.
 
@@ -145,7 +148,8 @@ explicit mapping in `pcb-placement.json` (U13 precedes U9 in that mapping).
 Supply traces are 1.75 mm for the SO/TSSOP placements and 2.05 mm for SOT parts;
 each capacitor has a 1.3 mm ground escape to its own 0.6/0.3 mm through via.
 IC ground inputs also escape to the bottom GND plane. These are pad-centre lengths,
-not measured loop inductance. C19 remains staged outside the SD hold.
+not measured loop inductance. C19 remains outside the SD hold; its power/ground routes were added in the
+2026-10-27 increment below.
 
 C20 is beside the FPGA 3V3 entry; C21 is beside Pico 3V3. C22 supports module 5V.
 The module 5V input is routed to EXT1 and through D1 to Pico VSYS. Those module
@@ -178,7 +182,7 @@ U10/U11/U12 now connect to their respective R1/R3/R5 pull-ups and R2/R4/R6
 pull-downs. R2/R4/R6 are rotated so the sense branch reaches the matching pad
 without crossing the supply route. The supervisor supply domains remain V3P3,
 V5_HOST and P3V3 respectively; upstream rail distribution and downstream
-power-good qualification gates are still unrouted.
+power-good qualification gates were still unrouted at this stage.
 
 All thirteen resistor ground pads have 1.5 mm top-layer returns to individual
 0.6/0.3 mm ground vias. This increment adds 37 segments and 13 vias, reducing
@@ -187,3 +191,32 @@ checker traverses actual copper endpoints for each supervisor network and checks
 each resistor's short via return independently of the routing manifest. This
 checks the intended local paths; filled-plane connectivity and clearances remain
 KiCad DRC responsibilities. No schematic values or net assignments changed.
+
+## Rail distribution and local controls (2026-10-27)
+
+The FPGA V3P3 source at EXT1 now reaches all 37 placed pads on that rail,
+including receiver/logic/isolator supplies, U9 unused inputs, pull-ups, the mode
+switch and probe header. Pico P3V3 reaches all 10 placed pads outside J3,
+including C19, SD pull-ups, U12 and the probe header. All 10 placed V5_HOST pads
+are interconnected, including the priority pull-up; their X2 supply entry remains
+unplaced. Neither 3V3 rail is joined to the other, and host 5V remains separate
+from module 5V. J3 power routing remains blocked by the SD drawing review.
+
+The FPGA trunk uses 0.8 mm top copper, with 0.5 mm supply branches and 0.3 mm
+pull-up/probe links. Two host-rail and three Pico-rail crossings use short 3 mm
+bottom traces and ten 0.6/0.3 mm vias. The bottom GND fill remains connected
+around those clearances; signal routing must account for these interruptions
+in its return paths. This is routing continuity evidence, not measured rail
+impedance, a load/transient budget, or approval of the provisional large outline.
+
+Local CDONE, mode-control and host-priority resistor branches are also routed.
+These nets still need their other signal connections. Total copper is now 227
+segments, 73 ground vias and 10 power vias. KiCad reports zero geometric
+violations and 177 unconnected items, down from 212 before this increment.
+
+The portable checker derives rail paths directly from copper on each layer,
+splits T junctions, and joins layers only at actual vias or through-hole pads.
+It checks every placed rail pad against the schematic except the explicit J3
+hold. It uses U11 as the V5_HOST continuity reference, without implying a live
+host supply. KiCad DRC remains responsible for physical clearances and filled
+plane connectivity. Regeneration and updated front/back previews are verified.

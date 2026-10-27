@@ -169,6 +169,65 @@ for ref in ['R2','R4','R6','R7','R8','R9','R10','R11','R12','R13','R16','R19','R
  pp=pad(ref,2);assert pp.GetNetname()=='/GND'
  x,y=xy(pp);at=[x,y+1.5]
  track('GND',[[x,y],at],.3,tag=ref+'/ground');via('GND',at,ref)
+# FPGA 3V3 distribution, entirely on the front to retain the bottom return plane.
+track('V3P3',[xy(pad('C20',1)),[26,36.05],[26,51],[26,140],[122,140],[162.65,140]],.8,tag='3v3/trunk-west-south')
+track('V3P3',[[122,140],[122,89],[122,69],[122,40.325]],.8,tag='3v3/trunk-east')
+track('V3P3',[[26,51],[55.9375,51],xy(pad('U10',3))],.5,tag='3v3/supervisor')
+for i in range(1,6):
+ ref='C'+str(i);x,y=xy(pad(ref,1))
+ track('V3P3',[[x+3,140],[x+3,y],[x,y]],.5,tag='3v3/'+ref)
+track('V3P3',[[122,89],[50.475,89]],.5,tag='3v3/logic-spine')
+for ref in ['C8','C9','C10','C12']:
+ x,y=xy(pad(ref,1))
+ track('V3P3',[[x+3,89],[x+3,y],[x,y]],.5,tag='3v3/'+ref)
+for ref in ['C16','C17','C18']:
+ x,y=xy(pad(ref,1))
+ track('V3P3',[[122,y],[x,y]],.5,tag='3v3/'+ref)
+x,y=xy(pad('C11',1))
+track('V3P3',[[122,69],[x+3,69],[x+3,y],[x,y]],.5,tag='3v3/C11')
+track('V3P3',[[110.475,94.44],[110.475,100],xy(pad('U9',11))],.3,tag='3v3/unused-inputs')
+track('V3P3',[[110.475,97.46],xy(pad('U9',13))],.3,tag='3v3/unused-input-13')
+track('V3P3',[[93.9125,69],xy(pad('R17',1))],.3,tag='3v3/link-pullup')
+track('V3P3',[[114.5,69],[114.5,71],xy(pad('R21',2))],.3,tag='3v3/link-idle')
+track('V3P3',[[70.56,89],xy(pad('J5',15))],.3,tag='3v3/probe')
+track('V3P3',[[162.65,140],[174,140],[174,79],[171.5,79],xy(pad('SW1',3))],.5,tag='3v3/mode-switch')
+# Pico-domain distribution stops outside the unresolved SD connector hold.
+track('P3V3',[xy(pad('C21',1)),[152.05,43],[156,43],[156,51.5],[156,57],[155.9375,57],xy(pad('U12',3))],.5,tag='p3v3/trunk')
+track('P3V3',[[153.9125,51.5],[166.9125,51.5]],.3,tag='p3v3/pullup-spine')
+for ref in ['R22','R23','R24']:
+ x,y=xy(pad(ref,1))
+ track('P3V3',[[x,51.5],[x,y]],.3,tag='p3v3/'+ref)
+track('P3V3',[[159.95,51.5],xy(pad('C19',1))],.3,tag='p3v3/sd-bypass')
+x,y=xy(pad('C19',2));at=[x,y+1.5]
+track('GND',[[x,y],at],.3,tag='C19/ground');via('GND',at,'C19')
+# Host rail interconnect; source remains the unplaced X2, not module 5V.
+track('V5_HOST',[xy(pad('R3',1)),[82,60],[82,68],[78,72],[78,87.5]],.5,tag='host5/north')
+track('V5_HOST',[[78,90.5],[78,110],[79,117]],.5,tag='host5/south')
+track('V5_HOST',[[79,117],[72.65,117],[72.65,117.535],xy(pad('C6',1))],.5,tag='host5/U4')
+track('V5_HOST',[[79,117],[79,122],xy(pad('R14',1))],.3,tag='host5/data-pullup')
+track('V5_HOST',[[79,117],[94,117],[94,122],xy(pad('R15',1))],.5,tag='host5/ieo-pullup')
+track('V5_HOST',[[87.1875,117],xy(pad('C7',1))],.5,tag='host5/U5')
+# Short bottom-layer crossings preserve isolation between the power domains.
+def bridge(net,a,z,tag):
+ via(net,a,tag+'/a');via(net,z,tag+'/z')
+ track(net,[a,z],.5,k.B_Cu,tag=tag)
+bridge('V5_HOST',[78,87.5],[78,90.5],'host5/logic-crossing')
+track('V5_HOST',[[94,117],[120.5,117]],.5,tag='host5/priority-west')
+bridge('V5_HOST',[120.5,117],[123.5,117],'host5/east-crossing')
+track('V5_HOST',[[123.5,117],[172,117],[172,85],[160.9125,85],xy(pad('R18',1))],.5,tag='host5/priority-east')
+# Probe supply passes between Pico header rows at 0.3 mm width, then crosses
+# three independent front-layer branches with short bottom-layer bridges.
+track('P3V3',[[152.05,41.3],[125,41.3],[125,86],[123.5,86]],.3,tag='p3v3/probe-east')
+bridge('P3V3',[123.5,86],[120.5,86],'p3v3/east-crossing')
+track('P3V3',[[120.5,86],[79.5,86]],.3,tag='p3v3/probe-middle')
+bridge('P3V3',[79.5,86],[76.5,86],'p3v3/host-crossing')
+track('P3V3',[[76.5,86],[72,86]],.3,tag='p3v3/probe-west')
+bridge('P3V3',[72,86],[69,86],'p3v3/probe-crossing')
+track('P3V3',[[69,86],[68.02,86],xy(pad('J5',14))],.3,tag='p3v3/probe-pad')
+# Local control branches with settled footprints and no host/SD geometry.
+track('CDONE',[xy(pad('J1',1)),[76.0875,32],xy(pad('R16',1))],.3,tag='control/cdone-pulldown')
+track('MODE_CTL',[xy(pad('R7',1)),[159.0875,80],[169,80],xy(pad('SW1',2))],.3,tag='control/mode-pulldown')
+track('H_PRIORITY',[xy(pad('R18',2)),[157,83],[157,73.8],xy(pad('SW1',5))],.3,tag='control/priority-pullup')
 # Only GND is poured. Host 5V, module 5V and both 3V3 sources remain distinct.
 ground=k.ZONE(b);ground.SetLayer(k.B_Cu);ground.SetNet(nets['GND']);ground.SetZoneName('GND return - review layout')
 ground.SetLocalClearance(k.FromMM(.25));ground.SetPadConnection(k.ZONE_CONNECTION_FULL)
@@ -181,7 +240,7 @@ k.SaveBoard(str(BASE/'carrier.kicad_pcb'),b)
 plan={'schema':2,'fabrication_ready':False,'board_size_mm':[160,210],
  'unplaced_schematic_refs':['X2'],'mounting':'four provisional 3.2 mm M3 holes; no enclosure alignment claim',
  'fpga_attachment':'separate HX8K, three 1.27 mm 2x20 cables; mating candidate, bench continuity required',
- 'placements':placement,'routing':'partial: local decoupling, ground returns, module power and local supervisor networks; signal routing incomplete',
+ 'placements':placement,'routing':'partial: local decoupling, ground returns, power distribution, local supervisor and control branches; signal routing incomplete',
  'decoupling':{cap:dict(device=d,supply_pin=p) for cap,(d,p) in decoupling.items()},
  'routes':routes,'vias':vias,'ground_plane':'B.Cu GND; excludes host reservation and all-layer SD hold',
  'sd_keepout':'all-copper routing hold; exact manufacturer restrictions still pending'}

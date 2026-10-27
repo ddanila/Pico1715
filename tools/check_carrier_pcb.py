@@ -66,10 +66,10 @@ def check(board,parts,xml,plan):
  segments=children(board,'segment');got=sorted(signature(t) for t in segments)
  want=sorted(('/'+t['net'],tuple(t['start']),tuple(t['end']),t['width'],t['layer']) for t in plan['routes'])
  assert got==want,'route inventory differs from copper'
- assert all(t[3]>=.25 and t[4]=='F.Cu' for t in got)
+ assert all(t[3]>=.25 and t[4] in ['F.Cu','B.Cu'] for t in got)
  via_actual=sorted((one(v,'net')[-1],tuple(map(float,one(v,'at')[1:])),float(one(v,'size')[1]),float(one(v,'drill')[1])) for v in children(board,'via'))
  assert via_actual==sorted(('/'+v['net'],tuple(v['at']),v['diameter'],v['drill']) for v in plan['vias'])
- assert all(v[0]=='/GND' for v in via_actual),'unexpected rail via'
+ assert all(v[0] in ['/GND','/V5_HOST','/P3V3'] for v in via_actual),'unexpected rail via'
  # Independent device list prevents a matching generator/manifest error from
  # assigning a cap to the wrong supply or moving it back to the staging row.
  devices=[*(('RX'+str(i),'20') for i in range(1,6)),('U4','20'),('U5','5'),
@@ -86,18 +86,35 @@ def check(board,parts,xml,plan):
   exits=[t[2] for t in got if t[0]=='/GND' and t[1]==g and math.dist(t[1],t[2])<=1.5]
   assert any(v[0]=='/GND' and v[1] in exits for v in via_actual),(cap,'short ground return missing')
   lengths.append(length)
- # Verify support circuits from actual copper, independently of route tags
- # and the manifest. These routes deliberately meet at explicit endpoints.
+ # Derive layer-aware connectivity from copper, including T junctions.
+ # A crossing on opposite layers is connected only by an actual via/PTH pad.
  def connected(net,a,z):
+  traces=[(start,end,layer) for n,start,end,_,layer in got if n=='/'+net]
+  junctions={a,z}|{v[1] for v in via_actual if v[0]=='/'+net}
+  for start,end,_ in traces:junctions.update([start,end])
+  through={v[1] for v in via_actual if v[0]=='/'+net}
+  for ref,f in actual.items():
+   for p in children(f,'pad'):
+    ns=children(p,'net')
+    if ns and ns[0][-1]=='/'+net and p[2]=='thru_hole':
+     through.add(pos(ref,p[1]));junctions.add(pos(ref,p[1]))
   edges={}
-  for n,start,end,_,_ in got:
-   if n!='/'+net:continue
-   edges.setdefault(start,set()).add(end);edges.setdefault(end,set()).add(start)
-  seen={a};pending=[a]
+  def join(x,y):
+   edges.setdefault(x,set()).add(y);edges.setdefault(y,set()).add(x)
+  for start,end,layer in traces:
+   dx,dy=end[0]-start[0],end[1]-start[1]
+   points=[p for p in junctions
+           if abs((p[0]-start[0])*dy-(p[1]-start[1])*dx)<1e-6
+           and min(start[0],end[0])-1e-6<=p[0]<=max(start[0],end[0])+1e-6
+           and min(start[1],end[1])-1e-6<=p[1]<=max(start[1],end[1])+1e-6]
+   points.sort(key=lambda p:math.dist(start,p))
+   for x,y in zip(points,points[1:]):join((x,layer),(y,layer))
+  for p in through:join((p,'F.Cu'),(p,'B.Cu'))
+  seen={(a,'F.Cu')};pending=list(seen)
   while pending:
    for point in edges.get(pending.pop(),()):
     if point not in seen:seen.add(point);pending.append(point)
-  return z in seen
+  return (z,'F.Cu') in seen
  for dev,up,down,rail,pg in [('U10','R1','R2','V3P3','PG3'),
                             ('U11','R3','R4','V5_HOST','PG5'),
                             ('U12','R5','R6','P3V3','PGP')]:
@@ -109,9 +126,25 @@ def check(board,parts,xml,plan):
   a=pos(ref,2)
   assert any(n=='/GND' and math.dist(a,z)<=1.5 and connected('GND',a,z)
              for n,z,_,_ in via_actual),(ref,'short plane return missing')
+ rail_counts={}
+ for net,source in [('V3P3',('EXT1',3)),('P3V3',('J2',36)),('V5_HOST',('U11',3))]:
+  targets=[(ref,pin[0]) for ref,c in expected.items() for pin in c['pins']
+           if pin[3]==net and ref!='J3']
+  for ref,pin in targets:
+   assert connected(net,pos(*source),pos(ref,pin)),(net,ref,pin,'rail disconnected')
+  rail_counts[net]=len(targets)
+ for net,a,z in [('CDONE',('J1',1),('R16',1)),
+                 ('MODE_CTL',('SW1',2),('R7',1)),
+                 ('H_PRIORITY',('SW1',5),('R18',2))]:
+  assert connected(net,pos(*a),pos(*z)),(net,'local control branch disconnected')
+ a=pos('C19',2)
+ assert any(n=='/GND' and math.dist(a,z)<=1.5 and connected('GND',a,z)
+            for n,z,_,_ in via_actual),'SD bypass ground return missing'
  return {'electrical_footprints':len(expected),'pads_checked':count,'unplaced':['X2'],'fabrication_ready':False,
          'supervisor_networks':3,'resistor_ground_returns':len(grounded),
-         'routed_segments':len(segments),'ground_vias':len(via_actual),'local_bypass_capacitors':len(devices),
+         'routed_segments':len(segments),'ground_vias':sum(v[0]=='/GND' for v in via_actual),
+         'power_vias':sum(v[0]!='/GND' for v in via_actual),'distributed_rail_pads':rail_counts,
+         'local_control_branches':3,'local_bypass_capacitors':len(devices),
          'maximum_bypass_supply_length_mm':round(max(lengths),3),'ground_plane':'B.Cu',
          'sd_hold_layers':['F.Cu','B.Cu']}
 def main():

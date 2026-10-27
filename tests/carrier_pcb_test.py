@@ -11,7 +11,8 @@ b=ROOT/'hardware/carrier';board=m.parse((b/'carrier.kicad_pcb').read_text());par
 m.check(board,parts,xml,plan)
 cases=('wrong-net','missing-pad','missing-part','wrong-path','lost-keepout','false-release',
        'lost-track','wrong-track-net','lost-via','wrong-ground-plane','lost-back-hold','far-bypass','lost-supervisor-supply','lost-supervisor-sense',
-       'lost-supervisor-divider','lost-resistor-return')
+       'lost-supervisor-divider','lost-resistor-return',
+       'lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-bridge-via')
 for kind in cases:
  d=copy.deepcopy(board);p=copy.deepcopy(plan)
  fp=m.children(d,'footprint')[0]
@@ -30,11 +31,17 @@ for kind in cases:
   c=next(f for f in m.children(d,'footprint') if any(q[1:3]==['Reference','C1'] for q in m.children(f,'property')))
   m.one(c,'at')[1]=str(float(m.one(c,'at')[1])+10)
   p['placements']['C1'][0]+=10
- elif kind.startswith('lost-supervisor-') or kind=='lost-resistor-return':
+ elif kind=='lost-bridge-via':
+  v=next(v for v in p['vias'] if v['tag']=='host5/logic-crossing/a')
+  actual=next(t for t in m.children(d,'via') if list(map(float,m.one(t,'at')[1:]))==v['at'])
+  d.remove(actual);p['vias'].remove(v)
+ elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control']:
   tag={'lost-supervisor-supply':'U10/pullup-supply',
        'lost-supervisor-sense':'U11/sense',
        'lost-supervisor-divider':'U12/divider',
-       'lost-resistor-return':'R19/ground'}[kind]
+       'lost-resistor-return':'R19/ground',
+       'lost-fpga-rail':'3v3/C8','lost-pico-rail':'p3v3/probe-pad',
+       'lost-host-rail':'host5/U5','lost-control':'control/mode-pulldown'}[kind]
   route=next(t for t in p['routes'] if t['tag']==tag)
   # Remove from both copper and inventory: connectivity must catch this even
   # when generator and manifest agree on the same missing connection.

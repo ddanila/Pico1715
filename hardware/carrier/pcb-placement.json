@@ -382,7 +382,7 @@
       0
     ]
   },
-  "routing": "partial: local decoupling, ground returns, module power and local supervisor networks; signal routing incomplete",
+  "routing": "partial: local decoupling, ground returns, power distribution, local supervisor and control branches; signal routing incomplete",
   "decoupling": {
     "C1": {
       "device": "RX1",
@@ -2263,6 +2263,1378 @@
       "width": 0.3,
       "layer": "F.Cu",
       "tag": "R20/ground"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        33.27,
+        36.05
+      ],
+      "end": [
+        26,
+        36.05
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-west-south"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        26,
+        36.05
+      ],
+      "end": [
+        26,
+        51
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-west-south"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        26,
+        51
+      ],
+      "end": [
+        26,
+        140
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-west-south"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        26,
+        140
+      ],
+      "end": [
+        122,
+        140
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-west-south"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        140
+      ],
+      "end": [
+        162.65,
+        140
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-west-south"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        140
+      ],
+      "end": [
+        122,
+        89
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-east"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        89
+      ],
+      "end": [
+        122,
+        69
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-east"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        69
+      ],
+      "end": [
+        122,
+        40.325
+      ],
+      "width": 0.8,
+      "layer": "F.Cu",
+      "tag": "3v3/trunk-east"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        26,
+        51
+      ],
+      "end": [
+        55.9375,
+        51
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/supervisor"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        55.9375,
+        51
+      ],
+      "end": [
+        55.9375,
+        55.0
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/supervisor"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        62.65,
+        140
+      ],
+      "end": [
+        62.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C1"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        62.65,
+        147.535
+      ],
+      "end": [
+        59.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C1"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        87.65,
+        140
+      ],
+      "end": [
+        87.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C2"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        87.65,
+        147.535
+      ],
+      "end": [
+        84.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C2"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        112.65,
+        140
+      ],
+      "end": [
+        112.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C3"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        112.65,
+        147.535
+      ],
+      "end": [
+        109.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C3"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        137.65,
+        140
+      ],
+      "end": [
+        137.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C4"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        137.65,
+        147.535
+      ],
+      "end": [
+        134.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C4"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        162.65,
+        140
+      ],
+      "end": [
+        162.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C5"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        162.65,
+        147.535
+      ],
+      "end": [
+        159.65,
+        147.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C5"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        89
+      ],
+      "end": [
+        50.475,
+        89
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/logic-spine"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        50.475,
+        89
+      ],
+      "end": [
+        50.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C8"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        50.475,
+        94.44
+      ],
+      "end": [
+        47.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C8"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        70.475,
+        89
+      ],
+      "end": [
+        70.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C9"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        70.475,
+        94.44
+      ],
+      "end": [
+        67.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C9"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        90.475,
+        89
+      ],
+      "end": [
+        90.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C10"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        90.475,
+        94.44
+      ],
+      "end": [
+        87.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C10"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        110.475,
+        89
+      ],
+      "end": [
+        110.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C12"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        110.475,
+        94.44
+      ],
+      "end": [
+        107.475,
+        94.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C12"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        40.325
+      ],
+      "end": [
+        110.8625,
+        40.325
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C16"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        57.325
+      ],
+      "end": [
+        110.8625,
+        57.325
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C17"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        74.325
+      ],
+      "end": [
+        110.8625,
+        74.325
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C18"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        122,
+        69
+      ],
+      "end": [
+        90.475,
+        69
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C11"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        90.475,
+        69
+      ],
+      "end": [
+        90.475,
+        72.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C11"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        90.475,
+        72.44
+      ],
+      "end": [
+        87.475,
+        72.44
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/C11"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        110.475,
+        94.44
+      ],
+      "end": [
+        110.475,
+        100
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/unused-inputs"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        110.475,
+        100
+      ],
+      "end": [
+        107.475,
+        100.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/unused-inputs"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        110.475,
+        97.46
+      ],
+      "end": [
+        107.475,
+        97.46
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/unused-input-13"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        93.9125,
+        69
+      ],
+      "end": [
+        93.9125,
+        72.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/link-pullup"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        114.5,
+        69
+      ],
+      "end": [
+        114.5,
+        71
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/link-idle"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        114.5,
+        71
+      ],
+      "end": [
+        116.0875,
+        71.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/link-idle"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        70.56,
+        89
+      ],
+      "end": [
+        70.56,
+        82.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "3v3/probe"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        162.65,
+        140
+      ],
+      "end": [
+        174,
+        140
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/mode-switch"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        174,
+        140
+      ],
+      "end": [
+        174,
+        79
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/mode-switch"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        174,
+        79
+      ],
+      "end": [
+        171.5,
+        79
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/mode-switch"
+    },
+    {
+      "net": "V3P3",
+      "start": [
+        171.5,
+        79
+      ],
+      "end": [
+        171.5,
+        76.2
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "3v3/mode-switch"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        152.05,
+        40.03
+      ],
+      "end": [
+        152.05,
+        43
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        152.05,
+        43
+      ],
+      "end": [
+        156,
+        43
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        156,
+        43
+      ],
+      "end": [
+        156,
+        51.5
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        156,
+        51.5
+      ],
+      "end": [
+        156,
+        57
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        156,
+        57
+      ],
+      "end": [
+        155.9375,
+        57
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        155.9375,
+        57
+      ],
+      "end": [
+        155.9375,
+        60.0
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "p3v3/trunk"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        153.9125,
+        51.5
+      ],
+      "end": [
+        166.9125,
+        51.5
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/pullup-spine"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        153.9125,
+        51.5
+      ],
+      "end": [
+        153.9125,
+        54.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/R22"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        159.9125,
+        51.5
+      ],
+      "end": [
+        159.9125,
+        55.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/R23"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        166.9125,
+        51.5
+      ],
+      "end": [
+        166.9125,
+        53.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/R24"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        159.95,
+        51.5
+      ],
+      "end": [
+        159.95,
+        49.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/sd-bypass"
+    },
+    {
+      "net": "GND",
+      "start": [
+        158.05,
+        49.0
+      ],
+      "end": [
+        158.05,
+        50.5
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "C19/ground"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        80.9125,
+        60.0
+      ],
+      "end": [
+        82,
+        60
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/north"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        82,
+        60
+      ],
+      "end": [
+        82,
+        68
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/north"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        82,
+        68
+      ],
+      "end": [
+        78,
+        72
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/north"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        78,
+        72
+      ],
+      "end": [
+        78,
+        87.5
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/north"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        78,
+        90.5
+      ],
+      "end": [
+        78,
+        110
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/south"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        78,
+        110
+      ],
+      "end": [
+        79,
+        117
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/south"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        79,
+        117
+      ],
+      "end": [
+        72.65,
+        117
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/U4"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        72.65,
+        117
+      ],
+      "end": [
+        72.65,
+        117.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/U4"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        72.65,
+        117.535
+      ],
+      "end": [
+        69.65,
+        117.535
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/U4"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        79,
+        117
+      ],
+      "end": [
+        79,
+        122
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "host5/data-pullup"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        79,
+        122
+      ],
+      "end": [
+        76.9125,
+        122.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "host5/data-pullup"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        79,
+        117
+      ],
+      "end": [
+        94,
+        117
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/ieo-pullup"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        94,
+        117
+      ],
+      "end": [
+        94,
+        122
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/ieo-pullup"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        94,
+        122
+      ],
+      "end": [
+        90.9125,
+        122.0
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/ieo-pullup"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        87.1875,
+        117
+      ],
+      "end": [
+        88.1875,
+        124.05
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/U5"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        78,
+        87.5
+      ],
+      "end": [
+        78,
+        90.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "host5/logic-crossing"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        94,
+        117
+      ],
+      "end": [
+        120.5,
+        117
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/priority-west"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        120.5,
+        117
+      ],
+      "end": [
+        123.5,
+        117
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "host5/east-crossing"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        123.5,
+        117
+      ],
+      "end": [
+        172,
+        117
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/priority-east"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        172,
+        117
+      ],
+      "end": [
+        172,
+        85
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/priority-east"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        172,
+        85
+      ],
+      "end": [
+        160.9125,
+        85
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/priority-east"
+    },
+    {
+      "net": "V5_HOST",
+      "start": [
+        160.9125,
+        85
+      ],
+      "end": [
+        160.9125,
+        83.0
+      ],
+      "width": 0.5,
+      "layer": "F.Cu",
+      "tag": "host5/priority-east"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        152.05,
+        41.3
+      ],
+      "end": [
+        125,
+        41.3
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-east"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        125,
+        41.3
+      ],
+      "end": [
+        125,
+        86
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-east"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        125,
+        86
+      ],
+      "end": [
+        123.5,
+        86
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-east"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        123.5,
+        86
+      ],
+      "end": [
+        120.5,
+        86
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "p3v3/east-crossing"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        120.5,
+        86
+      ],
+      "end": [
+        79.5,
+        86
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-middle"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        79.5,
+        86
+      ],
+      "end": [
+        76.5,
+        86
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "p3v3/host-crossing"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        76.5,
+        86
+      ],
+      "end": [
+        72,
+        86
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-west"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        72,
+        86
+      ],
+      "end": [
+        69,
+        86
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "p3v3/probe-crossing"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        69,
+        86
+      ],
+      "end": [
+        68.02,
+        86
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-pad"
+    },
+    {
+      "net": "P3V3",
+      "start": [
+        68.02,
+        86
+      ],
+      "end": [
+        68.02,
+        82.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "p3v3/probe-pad"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        72.0,
+        32.0
+      ],
+      "end": [
+        76.0875,
+        32
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/cdone-pulldown"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        76.0875,
+        32
+      ],
+      "end": [
+        76.0875,
+        36.0
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/cdone-pulldown"
+    },
+    {
+      "net": "MODE_CTL",
+      "start": [
+        159.0875,
+        77.0
+      ],
+      "end": [
+        159.0875,
+        80
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/mode-pulldown"
+    },
+    {
+      "net": "MODE_CTL",
+      "start": [
+        159.0875,
+        80
+      ],
+      "end": [
+        169,
+        80
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/mode-pulldown"
+    },
+    {
+      "net": "MODE_CTL",
+      "start": [
+        169,
+        80
+      ],
+      "end": [
+        169.0,
+        76.2
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/mode-pulldown"
+    },
+    {
+      "net": "H_PRIORITY",
+      "start": [
+        159.0875,
+        83.0
+      ],
+      "end": [
+        157,
+        83
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/priority-pullup"
+    },
+    {
+      "net": "H_PRIORITY",
+      "start": [
+        157,
+        83
+      ],
+      "end": [
+        157,
+        73.8
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/priority-pullup"
+    },
+    {
+      "net": "H_PRIORITY",
+      "start": [
+        157,
+        73.8
+      ],
+      "end": [
+        166.5,
+        73.8
+      ],
+      "width": 0.3,
+      "layer": "F.Cu",
+      "tag": "control/priority-pullup"
     }
   ],
   "vias": [
@@ -2985,6 +4357,116 @@
       "diameter": 0.6,
       "drill": 0.3,
       "tag": "R20"
+    },
+    {
+      "net": "GND",
+      "at": [
+        158.05,
+        50.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "C19"
+    },
+    {
+      "net": "V5_HOST",
+      "at": [
+        78,
+        87.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "host5/logic-crossing/a"
+    },
+    {
+      "net": "V5_HOST",
+      "at": [
+        78,
+        90.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "host5/logic-crossing/z"
+    },
+    {
+      "net": "V5_HOST",
+      "at": [
+        120.5,
+        117
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "host5/east-crossing/a"
+    },
+    {
+      "net": "V5_HOST",
+      "at": [
+        123.5,
+        117
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "host5/east-crossing/z"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        123.5,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/east-crossing/a"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        120.5,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/east-crossing/z"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        79.5,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/host-crossing/a"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        76.5,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/host-crossing/z"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        72,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/probe-crossing/a"
+    },
+    {
+      "net": "P3V3",
+      "at": [
+        69,
+        86
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "p3v3/probe-crossing/z"
     }
   ],
   "ground_plane": "B.Cu GND; excludes host reservation and all-layer SD hold",
