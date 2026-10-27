@@ -184,3 +184,14 @@ revision hold remains. A0/A2 spacing is improved; a shorter /WR experiment is
 retained separately because its return-path metrics worsened. The optional
 backup schematic passes ERC and has a calculation/test plan, with integration
 and physical qualification deliberately still open.
+
+## Native CP/M 3 software milestone
+
+The independent [cpm-plus-1715](https://github.com/ddanila/cpm-plus-1715) project
+provides a source-built nonbanked CP/M 3 BIOS/platform and fresh classic-profile
+media. Its reliability milestone covers attributed/fragmented SYS loading,
+checked host disk import/export, guest storage regressions, reproducible builds,
+and evidence-gated simulator packaging. Its qualification document records the
+current native and firmware/RTL coverage. This adds no hardware-readiness claim:
+connector orientation, mating parts, the held SD connections and measured bus
+and power behavior remain physical gates.

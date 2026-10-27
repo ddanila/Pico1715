@@ -220,6 +220,10 @@ extern "C" void firmware_cosim_start(int absent) {
     bool writable=card->writable;
     host_storage_init(output_image,absent);
     ready=p1715_service_init(card,writable)==0;
+    // service_init mounts the medium and resets controller settings. Apply
+    // explicit host-only fault injection afterwards; retain production timing.
+    card->timing.corrupt_crc=setting("PICO1715_CORRUPT_CRC",0,1);
+    card->timing.drop_byte=setting("PICO1715_DROP_BYTE",0,1030);
     last_poll=UINT64_MAX;last_worker=clock_epoch=0;worker_busy=false;
     sd_write_delay=0;sd_yields=resets_while_busy=0;
     if(const char *path=std::getenv("PICO1715_LOSS_TRACE")){

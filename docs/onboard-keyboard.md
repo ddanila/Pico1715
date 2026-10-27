@@ -128,3 +128,11 @@ observation-only test completion condition, not a guest acceleration mechanism;
 it changes no registers, RAM or I/O and does not itself establish test success.
 Empty or overlong stop text is rejected. Qualification must still inspect the
 screen, exported disk and fault counters independently.
+
+The CP/M 3 qualification harness now requires explicit negative evidence for CRC
+faults. The firmware host bridge applies `PICO1715_CORRUPT_CRC` and
+`PICO1715_DROP_BYTE` after service initialization, which remounts the image and
+clears the controller settings. Previously the CRC option was silently cleared
+in firmware co-simulation. A public-fixture control boot and injected-CRC boot
+now distinguish successful startup from the guest boot-error halt. Production
+firmware timing and defaults are unchanged.
