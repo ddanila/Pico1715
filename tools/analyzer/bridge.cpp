@@ -2,7 +2,7 @@
 #include "Vcycle_capture_top.h"
 #include "bridge.h"
 extern "C" {
-#include "machines/robotron1715/pc1715.h"
+#include "sample.h"
 }
 #include <array>
 #include <cstdio>
@@ -96,12 +96,8 @@ extern "C" void analyzer_event(const dac_trace_event *e) {
 }
 extern "C" void analyzer_observe() {
     uint64_t p=machine->cpu.pins;
-    uint64_t s=0x3fbf000000ULL|Z80_GET_ADDR(p)|((uint64_t)Z80_GET_DATA(p)<<16);
-    const uint64_t pins[]={Z80_MREQ,Z80_IORQ,Z80_RD,Z80_WR,Z80_M1,Z80_RFSH};
-    for(unsigned i=0;i<6;i++)if(p&pins[i])s&=~(1ULL<<(24+i));
-    // DAC defers I/O at a transaction seam, not the U880 half-clock WAIT edge.
-    if(machine->io_waiting) {s&=~(1ULL<<32);input_waits+=4;}
-    if(p&Z80_INT)s&=~(1ULL<<33);
+    uint64_t s=p1715_bus_sample(machine);
+    if(machine->io_waiting)input_waits+=4;
     bool refresh=(p&Z80_MREQ) && (p&Z80_RFSH);
     if(refresh && !refresh_before)refresh_intervals++;
     refresh_before=refresh;

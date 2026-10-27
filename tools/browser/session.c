@@ -10,6 +10,9 @@
 #include "../firmware_host/host_hal.h"
 int firmware_cosim_snapshot(unsigned);
 #endif
+#ifdef P1715_CAPTURE
+#include "../analyzer/session_capture.h"
+#endif
 static pc1715 machine;
 static pico1715_controller controller;
 static uint8_t image[819200], keys[4096];
@@ -19,7 +22,7 @@ static int target=-1,hit,exporting;
 static char text[128];
 static int result;
 int p1715_result(void){return result;}
-int p1715_version(void){return 1;}
+int p1715_version(void){return 2;}
 int p1715_init(const uint8_t *rom,unsigned rom_size,const uint8_t *disk,unsigned disk_size,int writable){
     if(initialized || rom_size!=2048 || disk_size!=sizeof(image) || !rom || !disk)return result=-EINVAL;
     if(p1715_board_init(&machine))return result=-EINVAL;
@@ -37,6 +40,9 @@ static void tick(void){
         if(!half){half=1;due=ticks+1000;}else{half=0;head=(head+1)%4096;count--;due=ticks+100000;}
     }
     p1715_board_tick(&machine);p1715_board_observe();ticks++;
+#ifdef P1715_CAPTURE
+    p1715_capture_observe(&machine);
+#endif
 }
 unsigned p1715_run(unsigned budget){
     if(!initialized || exporting)return result=0;
