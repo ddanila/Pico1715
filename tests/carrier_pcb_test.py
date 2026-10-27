@@ -13,7 +13,9 @@ cases=('wrong-net','missing-pad','missing-part','wrong-path','lost-keepout','fal
        'lost-track','wrong-track-net','lost-via','wrong-ground-plane','lost-back-hold','far-bypass','lost-supervisor-supply','lost-supervisor-sense',
        'lost-supervisor-divider','lost-resistor-return',
        'lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-bridge-via',
-       'lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-signal-via')
+       'lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-signal-via',
+       'lost-iso1-enable','lost-iso2-enable','lost-iso3-enable','lost-disable-pullup',
+       'lost-link-input','lost-link-header-via','lost-cdone-input','lost-personality-input')
 for kind in cases:
  d=copy.deepcopy(board);p=copy.deepcopy(plan)
  fp=m.children(d,'footprint')[0]
@@ -32,12 +34,14 @@ for kind in cases:
   c=next(f for f in m.children(d,'footprint') if any(q[1:3]==['Reference','C1'] for q in m.children(f,'property')))
   m.one(c,'at')[1]=str(float(m.one(c,'at')[1])+10)
   p['placements']['C1'][0]+=10
- elif kind in ['lost-bridge-via','lost-signal-via']:
-  tag='host5/logic-crossing/a' if kind=='lost-bridge-via' else 'interlock/pgp-input-crossing/a'
+ elif kind in ['lost-bridge-via','lost-signal-via','lost-link-header-via']:
+  tag={'lost-bridge-via':'host5/logic-crossing/a',
+       'lost-signal-via':'interlock/pgp-input-crossing/a',
+       'lost-link-header-via':'link-ok/header'}[kind]
   v=next(v for v in p['vias'] if v['tag']==tag)
   actual=next(t for t in m.children(d,'via') if list(map(float,m.one(t,'at')[1:]))==v['at'])
   d.remove(actual);p['vias'].remove(v)
- elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch']:
+ elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-iso1-enable','lost-iso2-enable','lost-iso3-enable','lost-disable-pullup','lost-link-input','lost-cdone-input','lost-personality-input']:
   tag={'lost-supervisor-supply':'U10/pullup-supply',
        'lost-supervisor-sense':'U11/sense',
        'lost-supervisor-divider':'U12/divider',
@@ -46,7 +50,11 @@ for kind in cases:
        'lost-host-rail':'host5/U5','lost-control':'control/mode-pulldown',
        'lost-pg3':'interlock/pg3-input','lost-pg5':'interlock/pg5-source',
        'lost-pgp':'interlock/pgp-source','lost-qualified':'interlock/qualified',
-       'lost-armed-branch':'interlock/armed-12'}[kind]
+       'lost-armed-branch':'interlock/armed-12',
+       'lost-iso1-enable':'link-enable/north','lost-iso2-enable':'link-enable/ISO2',
+       'lost-iso3-enable':'link-enable/ISO3','lost-disable-pullup':'link-enable/south',
+       'lost-link-input':'link-ok/gate-b','lost-cdone-input':'cdone/input',
+       'lost-personality-input':'personality/input'}[kind]
   route=next(t for t in p['routes'] if t['tag']==tag)
   # Remove from both copper and inventory: connectivity must catch this even
   # when generator and manifest agree on the same missing connection.

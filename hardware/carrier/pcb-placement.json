@@ -4755,6 +4755,1014 @@
       "width": 0.25,
       "layer": "F.Cu",
       "tag": "interlock/pgp-input"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        82.525,
+        76.73
+      ],
+      "end": [
+        84,
+        76.73
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/gate-exit"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        84,
+        76.73
+      ],
+      "end": [
+        84,
+        73
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "link-enable/gate-crossing"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        84,
+        73
+      ],
+      "end": [
+        92.0875,
+        73
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "link-enable/gate-crossing"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        92.0875,
+        73
+      ],
+      "end": [
+        92.0875,
+        74
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "link-enable/gate-crossing"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        92.0875,
+        72.0
+      ],
+      "end": [
+        92.0875,
+        74
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/south"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        92.0875,
+        74
+      ],
+      "end": [
+        92.0875,
+        82.8
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/south"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        92.0875,
+        82.8
+      ],
+      "end": [
+        114,
+        82.8
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/south"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        82.8
+      ],
+      "end": [
+        114,
+        76.725
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/south"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        76.725
+      ],
+      "end": [
+        114,
+        75.8
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/south"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        110.8625,
+        42.725
+      ],
+      "end": [
+        114,
+        42.725
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/north"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        42.725
+      ],
+      "end": [
+        114,
+        55.8
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/north"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        55.8
+      ],
+      "end": [
+        114,
+        58.8
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-enable/middle-rail-crossing"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        58.8
+      ],
+      "end": [
+        114,
+        59.725
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/middle"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        59.725
+      ],
+      "end": [
+        114,
+        67
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/middle"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        67
+      ],
+      "end": [
+        114,
+        75.8
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-enable/south-rail-crossing"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        59.725
+      ],
+      "end": [
+        110.8625,
+        59.725
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/ISO2"
+    },
+    {
+      "net": "LINK_OE_N",
+      "start": [
+        114,
+        76.725
+      ],
+      "end": [
+        110.8625,
+        76.725
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-enable/ISO3"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49,
+        97.46
+      ],
+      "end": [
+        49,
+        95.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/logic"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49,
+        95.5
+      ],
+      "end": [
+        52.78,
+        95.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/logic"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        95.5
+      ],
+      "end": [
+        52.78,
+        90.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/logic"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        90.5
+      ],
+      "end": [
+        52.78,
+        83
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-ok/probe-power-crossing"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        83
+      ],
+      "end": [
+        52.78,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/probe"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        82.0
+      ],
+      "end": [
+        52.78,
+        80.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/probe"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        80.5
+      ],
+      "end": [
+        52.78,
+        75.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-ok/supervisor-crossing"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        75.5
+      ],
+      "end": [
+        52.78,
+        74.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/header-approach"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        74.5
+      ],
+      "end": [
+        49.78,
+        74.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/header-approach"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49.78,
+        74.5
+      ],
+      "end": [
+        49.78,
+        65.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/header-approach"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        49.78,
+        65.5
+      ],
+      "end": [
+        49.78,
+        62.0
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "link-ok/header"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        52.78,
+        74.5
+      ],
+      "end": [
+        56.5,
+        74.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-west"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        56.5,
+        74.5
+      ],
+      "end": [
+        59.5,
+        74.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-ok/pg3-crossing"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        59.5,
+        74.5
+      ],
+      "end": [
+        74,
+        74.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-middle"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        74,
+        74.5
+      ],
+      "end": [
+        79.5,
+        74.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "link-ok/host-crossing"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        79.5,
+        74.5
+      ],
+      "end": [
+        81,
+        74.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-a"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        81,
+        74.5
+      ],
+      "end": [
+        81,
+        74.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-a"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        81,
+        74.19
+      ],
+      "end": [
+        82.525,
+        74.19
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-a"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        81,
+        74.5
+      ],
+      "end": [
+        81,
+        75.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-b"
+    },
+    {
+      "net": "LINK_OK",
+      "start": [
+        81,
+        75.46
+      ],
+      "end": [
+        82.525,
+        75.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "link-ok/gate-b"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        72.0,
+        32.0
+      ],
+      "end": [
+        70,
+        32
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/source"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        70,
+        32
+      ],
+      "end": [
+        70,
+        70
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/source"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        70,
+        70
+      ],
+      "end": [
+        59.5,
+        70
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/source"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        59.5,
+        70
+      ],
+      "end": [
+        48,
+        70
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "cdone/header-crossing"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        48,
+        70
+      ],
+      "end": [
+        45.16,
+        70
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/probe-north"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        70
+      ],
+      "end": [
+        45.16,
+        75.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/probe-north"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        75.5
+      ],
+      "end": [
+        45.16,
+        80.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "cdone/supervisor-crossing"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        80.5
+      ],
+      "end": [
+        45.16,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/probe"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        82.0
+      ],
+      "end": [
+        45.16,
+        83
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/probe"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        83
+      ],
+      "end": [
+        45.16,
+        85
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "cdone/pgp-crossing"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        85
+      ],
+      "end": [
+        45.16,
+        93.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/input-north"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        93.5
+      ],
+      "end": [
+        45.16,
+        100.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "cdone/input-crossing"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        45.16,
+        100.5
+      ],
+      "end": [
+        46.1,
+        101.27
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/input"
+    },
+    {
+      "net": "CDONE",
+      "start": [
+        46.1,
+        101.27
+      ],
+      "end": [
+        47.475,
+        101.27
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "cdone/input"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        54.86,
+        45.73
+      ],
+      "end": [
+        54.86,
+        44.4
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/source"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        54.86,
+        44.4
+      ],
+      "end": [
+        66,
+        44.4
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/source"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        66,
+        44.4
+      ],
+      "end": [
+        66,
+        68
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/source"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        66,
+        68
+      ],
+      "end": [
+        59.5,
+        68
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/source"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        59.5,
+        68
+      ],
+      "end": [
+        48,
+        68
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "personality/header-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        48,
+        68
+      ],
+      "end": [
+        48,
+        66.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/pulldown"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        48,
+        66.5
+      ],
+      "end": [
+        41.0875,
+        66.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/pulldown"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        41.0875,
+        66.5
+      ],
+      "end": [
+        41.0875,
+        68.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/pulldown"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        66,
+        68
+      ],
+      "end": [
+        66,
+        80.5
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "personality/qualification-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        66,
+        80.5
+      ],
+      "end": [
+        54,
+        80.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/probe-east"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        54,
+        80.5
+      ],
+      "end": [
+        54,
+        79.6
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/link-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        54,
+        79.6
+      ],
+      "end": [
+        51.5,
+        79.6
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/link-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        51.5,
+        79.6
+      ],
+      "end": [
+        50.24,
+        80.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/link-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        50.24,
+        80.5
+      ],
+      "end": [
+        50.24,
+        82.0
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/probe"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        50.24,
+        82.0
+      ],
+      "end": [
+        50.24,
+        83
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/probe"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        50.24,
+        83
+      ],
+      "end": [
+        50.24,
+        92
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "personality/power-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        50.24,
+        92
+      ],
+      "end": [
+        54,
+        92
+      ],
+      "width": 0.25,
+      "layer": "B.Cu",
+      "tag": "personality/power-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        54,
+        92
+      ],
+      "end": [
+        60,
+        92
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/input-north"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        60,
+        92
+      ],
+      "end": [
+        60,
+        94.5
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/input-north"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        60,
+        94.5
+      ],
+      "end": [
+        60,
+        97.46
+      ],
+      "width": 0.5,
+      "layer": "B.Cu",
+      "tag": "personality/powered-crossing"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "start": [
+        60,
+        97.46
+      ],
+      "end": [
+        62.525,
+        97.46
+      ],
+      "width": 0.25,
+      "layer": "F.Cu",
+      "tag": "personality/input"
     }
   ],
   "vias": [
@@ -5787,6 +6795,316 @@
       "diameter": 0.6,
       "drill": 0.3,
       "tag": "interlock/pgp-input-crossing/z"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        84,
+        76.73
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/gate-a"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        92.0875,
+        74
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/gate-z"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        114,
+        55.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/middle-rail-crossing/a"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        114,
+        58.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/middle-rail-crossing/z"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        114,
+        67
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/south-rail-crossing/a"
+    },
+    {
+      "net": "LINK_OE_N",
+      "at": [
+        114,
+        75.8
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-enable/south-rail-crossing/z"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        52.78,
+        90.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/probe-power-crossing/a"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        52.78,
+        83
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/probe-power-crossing/z"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        52.78,
+        80.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/supervisor-crossing/a"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        52.78,
+        75.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/supervisor-crossing/z"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        49.78,
+        65.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/header"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        56.5,
+        74.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/pg3-crossing/a"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        59.5,
+        74.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/pg3-crossing/z"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        74,
+        74.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/host-crossing/a"
+    },
+    {
+      "net": "LINK_OK",
+      "at": [
+        79.5,
+        74.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "link-ok/host-crossing/z"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        59.5,
+        70
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/header-crossing/a"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        48,
+        70
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/header-crossing/z"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        75.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/supervisor-crossing/a"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        80.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/supervisor-crossing/z"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        83
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/pgp-crossing/a"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        85
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/pgp-crossing/z"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        93.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/input-crossing/a"
+    },
+    {
+      "net": "CDONE",
+      "at": [
+        45.16,
+        100.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "cdone/input-crossing/z"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        59.5,
+        68
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/header-crossing/a"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        48,
+        68
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/header-crossing/z"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        66,
+        68
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/qualification-crossing/a"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        66,
+        80.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/qualification-crossing/z"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        50.24,
+        83
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/input-a"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        54,
+        92
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/input-z"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        60,
+        94.5
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/powered-crossing/a"
+    },
+    {
+      "net": "PERSONALITY_CTL",
+      "at": [
+        60,
+        97.46
+      ],
+      "diameter": 0.6,
+      "drill": 0.3,
+      "tag": "personality/powered-crossing/z"
     }
   ],
   "ground_plane": "B.Cu GND; excludes host reservation and all-layer SD hold",

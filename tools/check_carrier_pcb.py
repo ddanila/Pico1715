@@ -70,7 +70,7 @@ def check(board,parts,xml,plan):
  via_actual=sorted((one(v,'net')[-1],tuple(map(float,one(v,'at')[1:])),float(one(v,'size')[1]),float(one(v,'drill')[1])) for v in children(board,'via'))
  assert via_actual==sorted(('/'+v['net'],tuple(v['at']),v['diameter'],v['drill']) for v in plan['vias'])
  power_nets={'/V5_HOST','/P3V3'}
- signal_nets={'/POWERED','/ARMED','/PG5','/PGP'}
+ signal_nets={'/POWERED','/ARMED','/PG5','/PGP','/LINK_OK','/LINK_OE_N','/CDONE','/PERSONALITY_CTL'}
  assert all(v[0] in {'/GND'}|power_nets|signal_nets for v in via_actual),'unexpected via net'
  # Independent device list prevents a matching generator/manifest error from
  # assigning a cap to the wrong supply or moving it back to the staging row.
@@ -142,18 +142,17 @@ def check(board,parts,xml,plan):
  a=pos('C19',2)
  assert any(n=='/GND' and math.dist(a,z)<=1.5 and connected('GND',a,z)
             for n,z,_,_ in via_actual),'SD bypass ground return missing'
- # Fully routed interlock nets must reach every schematic terminal. POWER_GOOD, LINK_OK
+ # Fully routed interlock nets must reach every schematic terminal. POWER_GOOD
  # and ARMED currently have only the explicit gate-local paths below.
  interlock_counts={}
  for net in ['PG3','PG5','PGP','RAILS_OK','POWERED',
-             'QUALIFIED','BACKEND_OK','RESET_OK']:
+             'QUALIFIED','BACKEND_OK','RESET_OK','LINK_OK','LINK_OE_N','CDONE','PERSONALITY_CTL']:
   targets=[(c['ref'],pin[0]) for c in parts for pin in c['pins'] if pin[3]==net]
   assert len(targets)>=2
   for ref,pin in targets[1:]:
    assert connected(net,pos(*targets[0]),pos(ref,pin)),(net,ref,pin,'interlock disconnected')
   interlock_counts[net]=len(targets)
  partial_interlock={'POWER_GOOD':[('U6',3),('U6',12)],
-                    'LINK_OK':[('U6',8),('U6',13)],
                     'ARMED':[('U7',11),('U8',1),('U8',4),('U8',9),('U8',12),('U8',13)]}
  for net,targets in partial_interlock.items():
   for target in targets[1:]:

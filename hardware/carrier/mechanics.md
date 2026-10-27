@@ -98,7 +98,7 @@ See https://www.kicad.org/libraries/license/.
 The board checker compares all 557 electrical pads, including repeated shield
 lands, with the freshly exported KiCad schematic nets. It checks schematic UUID
 association, footprint identity, explicit NCs, placement coordinates and retained
-SD exclusion zones. Twenty-seven mutation controls reject wrong nets, missing pads or parts, broken schematic
+SD exclusion zones. Thirty-five mutation controls reject wrong nets, missing pads or parts, broken schematic
 associations, removed routing/vias, excessive bypass distance, a wrong plane net,
 a weakened SD hold and a false release flag. Four controls remove copper and its
 manifest entry together, checking that independent connectivity assertions catch
@@ -107,9 +107,11 @@ additional controls remove a rail branch from each domain, a control branch, or
 a crossover via from both the board and manifest. The latter ensures opposite
 layers are not falsely treated as connected at coincident coordinates. Six more
 controls break PG3/PG5/PGP, a qualification link, an armed-enable branch or a
-signal crossover via, again removing both copper and manifest entries.
+signal crossover via, again removing both copper and manifest entries. Eight
+additional controls cover each isolator OE branch, its default-off pull-up,
+U13 input fan-out, the LINK_OK header via, CDONE and personality qualification.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **158
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **145
 unconnected items**, down from 336. This is partial routing, not a passing production
 DRC. The settings are default review settings, not a chosen fabricator's rules.
 
@@ -249,3 +251,29 @@ vias. Geometric DRC remains clear and unconnected items fall from 177 to 158.
 All 27 PCB mutation controls pass, as do schematic ERC/connectivity, footprint
 and connector-coupon checks. The generated board is reproducible and previews
 are refreshed. X2 and SD release gates remain unchanged.
+
+## Isolator enable and qualification inputs (2026-10-27)
+
+LINK_OE_N now connects U13, the default-off R17 pull-up and all three isolator
+OE inputs. LINK_OK reaches U13's two inputs, EXT3 and J5, completing that net.
+CDONE reaches J5 and U6 from J1/R16, and PERSONALITY_CTL connects EXT2, R8,
+J5 and U7. Their nineteen terminals are checked independently from copper;
+there are now twelve fully routed qualification/control nets with 45 terminals.
+
+This increment adds 72 segments and 31 signal vias. Top signal routes use
+0.25 mm copper. Bottom crossings use the existing 0.5 mm helper where practical;
+two bent 0.25 mm paths avoid ground vias and another signal's crossover.
+The longest new individual bottom segment is 12.5 mm. The ground fill remains
+connected around these clearances; final return-path, delay and coupling review
+still needs the complete layout. No bench sequencing or fault response is claimed.
+
+Current totals are 379 segments, 73 ground vias, 10 power vias and 51 signal vias.
+ERC and geometric DRC are clear, with 145 unconnected items (previously 158).
+All 35 PCB mutation controls pass, including removal of each OE branch and the
+pull-up while keeping the copper inventory consistent. Preview rendering and
+byte-identical board regeneration were checked.
+
+Backend-ready L_GP21, F_RESET_N and MODE_CTL still need their full qualification
+paths. POWER_GOOD still needs its EXT1 branch and ARMED its J5 branch. Driver,
+data and host/SD routing also remain open. X2 remains unplaced and the SD hold
+is intact. The board is still not a fabrication release.
