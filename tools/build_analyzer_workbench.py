@@ -26,7 +26,7 @@ put(4,255);put(6,34,4);put(0x100,0,1);put(0x101,0x76,1)
 def save(name,rs,**kw):
  path=out/(name+'.p1715');path.write_bytes(Header(50000000,len(rs),**kw).encode()+b''.join(r.encode() for r in rs));return path
 normal=save('controller',rows)
-bad=list(rows);r=bad[20];bad[20]=Cycle(r.kind,r.flags,r.data^1,r.address,r.wait_samples,r.duration,r.tick,r.sequence);failed=save('crc-failure',bad)
+bad=list(rows);r=bad[30];bad[30]=Cycle(r.kind,r.flags,r.data^1,r.address,r.wait_samples,r.duration,r.tick,r.sequence);failed=save('crc-failure',bad)
 slow=[Cycle(r.kind,r.flags,r.data,r.address,60,80,r.tick,r.sequence) if r.kind==4 else r for r in rows];save('wait-heavy',slow)
 save('loss', [rows[0],*rows[3:]],dropped=2)
 save('filtered', [rows[0],*rows[3:]],filtered=2)
@@ -85,6 +85,7 @@ for name in ['controller','trigger','raw','wrap']:
   except (ValueError,struct.error):valid=False
   validation.append({'source':name,'bytes':base64.b64encode(b).decode(),'valid':valid})
 (out/'validation.json').write_text(json.dumps(validation)+'\n')
+assert oracle['crc-failure']['fields'].get('data BAD')==1, 'CRC example must preserve field framing'
 oracle['comparison']=compare(normal,failed);(out/'oracle.json').write_text(json.dumps(oracle,indent=2)+'\n')
 flags=['-O2','--no-entry','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sALLOW_MEMORY_GROWTH=1','-sEXPORTED_RUNTIME_METHODS=HEAPU8']
 exports=['init','feed','read','disconnect','complete','stopping','error','frame','reset_enable','advance','poll','step','reset_active','reset_calls','reset_fail']
