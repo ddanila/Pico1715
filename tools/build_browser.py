@@ -48,8 +48,13 @@ for backend in (['model','firmware'] if a.backend=='all' else [a.backend]):
   subprocess.run([cxx,'-O2',str(obj),*objects[1:],*probe_flags,'-o',str(work/'probe.cjs')],check=True)
 
 if not a.native:
+ shutil.copyfile(ROOT/'tools/browser/experiment.mjs',out/'experiment.mjs')
  def rev(path):return subprocess.check_output(['git','-C',str(path),'rev-parse','HEAD'],text=True).strip()
  for name,path in {'LICENSE':ROOT/'LICENSE','chips-LICENSE':dac/'third_party/cpu/chips/LICENSE','verilator-LICENSE':Path('/usr/share/doc/verilator/copyright')}.items():shutil.copyfile(path,out/name)
  files=[p for p in out.iterdir() if p.is_file() and p.name!='manifest.json']
- manifest={'schema':1,'abi':2,'pico':rev(ROOT),'dac':rev(dac),'dirty':bool(subprocess.check_output(['git','-C',str(ROOT),'status','--porcelain'],text=True)),'compiler':subprocess.check_output([a.emcc,'--version'],text=True).splitlines()[0],'verilator':subprocess.check_output(['verilator','--version'],text=True).strip(),'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
+ manifest={'schema':1,'abi':2,'pico':rev(ROOT),'dac':rev(dac),'dirty':any(subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True) for repo in (ROOT,dac)),'compiler':subprocess.check_output([a.emcc,'--version'],text=True).splitlines()[0],'verilator':subprocess.check_output(['verilator','--version'],text=True).strip(),'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
+ (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+else:
+ def rev(path):return subprocess.check_output(['git','-C',str(path),'rev-parse','HEAD'],text=True).strip()
+ manifest={'schema':1,'abi':2,'pico':rev(ROOT),'dac':rev(dac),'dirty':any(subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True) for repo in (ROOT,dac)),'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in out.glob('pico1715-*.so')}}
  (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')

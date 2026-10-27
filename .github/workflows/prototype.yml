@@ -63,6 +63,8 @@ jobs:
       - run: python3 tools/build_browser.py --dac build/dac --native --out build/browser-native
       - run: python3 tools/check_session_capture.py --build build/browser-native --out build/capture-parity
       - run: node tools/browser/check-capture.mjs build/browser build/capture-parity
+      - run: node --test tools/browser/experiment.test.mjs
+      - run: node tools/browser/check-experiment.mjs build/browser-native build/browser
       - run: python3 tests/browser_parity.py --backend model --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-model
       - run: python3 tests/browser_parity.py --backend firmware --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --out build/parity-firmware
       - run: PICO1715_FORCE_CONTEXT=1 PICO1715_COST_POLL_US=1 PICO1715_TEST_RESET=1 python3 tests/browser_parity.py --backend firmware --rom build/cpm/build/test.rom --disk build/cpm/out/cpm-plus-1715.img --cycles 200000 --out build/parity-context
