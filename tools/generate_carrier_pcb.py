@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
-"""Create the partially routed power/decoupling review board; requires system KiCad pcbnew and footprints."""
+"""Create the carrier review board with held SD and unplaced X2; requires system KiCad pcbnew and footprints."""
 import json
+import argparse
+import hashlib
 from pathlib import Path
 import uuid
 import pcbnew as k
 ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'hardware/carrier'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--additional',type=Path,default=BASE/'additional-routes.json')
+parser.add_argument('--base-only',action='store_true')
+parser.add_argument('--output-dir',type=Path,default=BASE)
+args=parser.parse_args()
+args.output_dir.mkdir(parents=True,exist_ok=True)
 parts=json.loads((BASE/'connections.json').read_text())['parts']
 b=k.BOARD()
 def vec(x,y):return k.VECTOR2I(round(x*1000000),round(y*1000000))
@@ -101,7 +109,7 @@ for i,(x,y) in enumerate([(24,24),(176,24),(24,226),(176,226)],1):
 rect(26,203,148,20,k.Dwgs_User)
 text('X2 RESERVED - installation and contact fit pending',100,210)
 text('No host cable or edge-contact geometry implied',100,217)
-text('Pico1715 / PARTIAL ROUTING - NOT FOR FABRICATION',100,196,k.F_SilkS,1.4)
+text('Pico1715 / SD HELD, X2 UNPLACED - NOT FOR FABRICATION',100,196,k.F_SilkS,1.4)
 text('EXT1 / EXT2 / EXT3: separate HX8K via 1.27 mm cables',100,180,size=1)
 text('5V ONLY',108,23,k.F_SilkS,1)
 text('CDONE / GND',74,27,k.F_SilkS,.8)
@@ -319,21 +327,39 @@ track('PERSONALITY_CTL',[[50.24,83],[50.24,92],[54,92]],.25,k.B_Cu,tag='personal
 track('PERSONALITY_CTL',[[54,92],[60,92],[60,94.5]],.25,tag='personality/input-north')
 bridge('PERSONALITY_CTL',[60,94.5],[60,97.46],'personality/powered-crossing')
 track('PERSONALITY_CTL',[[60,97.46],xy(pad('U7',2))],.25,tag='personality/input')
+# Reviewed supplemental routes are data, so regeneration does not depend on
+# the router or repeat its heuristic search. Reject stale placement/hand copper.
+base_route_sha256=hashlib.sha256(json.dumps(dict(placements=placement,routes=routes,vias=vias),sort_keys=True).encode()).hexdigest()
+ground_layers=['B.Cu']
+if not args.base_only:
+ extra=json.loads(args.additional.read_text())
+ assert extra['base_route_sha256']==base_route_sha256,'supplemental routes need re-review against changed base'
+ assert extra['omitted_refs']==['J3'] and extra['unplaced_refs']==['X2']
+ ground_layers=extra.get('ground_layers',['B.Cu'])
+ assert ground_layers in [['B.Cu'],['B.Cu','F.Cu']]
+ for i,t in enumerate(extra['routes']):
+  assert t['layer'] in ['F.Cu','B.Cu'] and t['width']>=.25
+  track(t['net'],[t['start'],t['end']],t['width'],k.F_Cu if t['layer']=='F.Cu' else k.B_Cu,tag='additional/'+str(i))
+ for i,v in enumerate(extra['vias']):
+  assert v['diameter']==.6 and v['drill']==.3
+  via(v['net'],v['at'],'additional/'+str(i))
 # Only GND is poured. Host 5V, module 5V and both 3V3 sources remain distinct.
-ground=k.ZONE(b);ground.SetLayer(k.B_Cu);ground.SetNet(nets['GND']);ground.SetZoneName('GND return - review layout')
-ground.SetLocalClearance(k.FromMM(.25));ground.SetPadConnection(k.ZONE_CONNECTION_FULL)
-ground.SetThermalReliefGap(k.FromMM(.25));ground.SetThermalReliefSpokeWidth(k.FromMM(.3))
-outline=ground.Outline();outline.NewOutline()
-for x,y in [(21,21),(179,21),(179,201),(21,201)]:outline.Append(int(k.FromMM(x)),int(k.FromMM(y)))
-stable(ground,'gnd-plane');b.Add(ground)
+for layer_name in ground_layers:
+ layer=k.B_Cu if layer_name=='B.Cu' else k.F_Cu
+ ground=k.ZONE(b);ground.SetLayer(layer);ground.SetNet(nets['GND']);ground.SetZoneName('GND return '+layer_name+' - review layout')
+ ground.SetLocalClearance(k.FromMM(.25));ground.SetPadConnection(k.ZONE_CONNECTION_FULL)
+ ground.SetThermalReliefGap(k.FromMM(.25));ground.SetThermalReliefSpokeWidth(k.FromMM(.3))
+ outline=ground.Outline();outline.NewOutline()
+ for x,y in [(21,21),(179,21),(179,201),(21,201)]:outline.Append(int(k.FromMM(x)),int(k.FromMM(y)))
+ stable(ground,'gnd-plane' if layer_name=='B.Cu' else 'gnd-plane-front');b.Add(ground)
 b.BuildConnectivity();k.ZONE_FILLER(b).Fill(b.Zones())
-k.SaveBoard(str(BASE/'carrier.kicad_pcb'),b)
-plan={'schema':2,'fabrication_ready':False,'board_size_mm':[160,210],
+k.SaveBoard(str(args.output_dir/'carrier.kicad_pcb'),b)
+plan={'base_route_sha256':base_route_sha256,'ground_layers':ground_layers,'schema':2,'fabrication_ready':False,'board_size_mm':[160,210],
  'unplaced_schematic_refs':['X2'],'mounting':'four provisional 3.2 mm M3 holes; no enclosure alignment claim',
  'fpga_attachment':'separate HX8K, three 1.27 mm 2x20 cables; mating candidate, bench continuity required',
- 'placements':placement,'routing':'partial: local decoupling, ground returns, power distribution, supervisor, interlock and control branches; signal routing incomplete',
+ 'placements':placement,'routing':('placed non-SD terminals connected; J3 held and X2 unplaced' if not args.base_only else 'hand-routed baseline only; signals incomplete'),
  'decoupling':{cap:dict(device=d,supply_pin=p) for cap,(d,p) in decoupling.items()},
- 'routes':routes,'vias':vias,'ground_plane':'B.Cu GND; excludes host reservation and all-layer SD hold',
+ 'routes':routes,'vias':vias,'ground_plane':' + '.join(ground_layers)+' GND; excludes host reservation and all-layer SD hold',
  'sd_keepout':'all-copper routing hold; exact manufacturer restrictions still pending'}
-(BASE/'pcb-placement.json').write_text(json.dumps(plan,indent=2)+'\n')
-print('Created partially routed board:',len(routes),'tracks,',len(vias),'vias; X2 explicitly unplaced')
+(args.output_dir/'pcb-placement.json').write_text(json.dumps(plan,indent=2)+'\n')
+print('Created review board:',len(routes),'tracks,',len(vias),'vias; X2 explicitly unplaced')

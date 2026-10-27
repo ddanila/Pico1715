@@ -111,9 +111,10 @@ signal crossover via, again removing both copper and manifest entries. Eight
 additional controls cover each isolator OE branch, its default-off pull-up,
 U13 input fan-out, the LINK_OK header via, CDONE and personality qualification.
 Results are recorded in [the PCB report](../../reports/carrier-pcb.json); older
-mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **145
-unconnected items**, down from 336. This is partial routing, not a passing production
-DRC. The settings are default review settings, not a chosen fabricator's rules.
+mechanics/desk reports remain historical snapshots. The current local KiCad DRC has zero geometric/silkscreen violations and **12
+unconnected items**, all involving the held SD socket. All other placed terminals
+are connected; X2 is still unplaced. See [routing completion evidence](routing.md).
+This is not a passing production DRC. The settings are default review settings, not a chosen fabricator's rules.
 
 The installed SD footprint already carries five F.Cu exclusion regions. Preserve
 these and the additional conservative **both-copper-layer** routing hold. Exact copper/layer
@@ -267,7 +268,7 @@ The longest new individual bottom segment is 12.5 mm. The ground fill remains
 connected around these clearances; final return-path, delay and coupling review
 still needs the complete layout. No bench sequencing or fault response is claimed.
 
-Current totals are 379 segments, 73 ground vias, 10 power vias and 51 signal vias.
+At this increment, totals were 379 segments, 73 ground vias, 10 power vias and 51 signal vias.
 ERC and geometric DRC are clear, with 145 unconnected items (previously 158).
 All 35 PCB mutation controls pass, including removal of each OE branch and the
 pull-up while keeping the copper inventory consistent. Preview rendering and
@@ -277,3 +278,24 @@ Backend-ready L_GP21, F_RESET_N and MODE_CTL still need their full qualification
 paths. POWER_GOOD still needs its EXT1 branch and ARMED its J5 branch. Driver,
 data and host/SD routing also remain open. X2 remains unplaced and the SD hold
 is intact. The board is still not a fabrication release.
+
+
+## Completion of placed non-SD connections
+
+The next routing pass completes the placed address/data buses, FPGA/Pico links,
+driver and debug branches, and the remaining qualification paths. The board now
+has 2,206 segments and 403 vias (75 ground, 10 power and 318 signal). The original
+power, bypass and interlock routes remain. Front ground fill and two new ground
+vias provide the SW1 return and reconnect the last separated ground section.
+
+All 557 pad assignments still match the exported schematic. Connectivity checks
+cover every placed non-SD signal terminal; KiCad reports zero violations and
+12 open connections, all involving J3. The 44 PCB mutation controls and three
+DRC failure controls reject missing bus/link/control routes, a missing signal
+via, a missing front pour and unrelated airwires. Front/back previews were
+rendered and inspected, and regeneration is byte-identical.
+
+The [routing workflow and evidence](routing.md) describe the preserved baseline,
+accepted supplemental copper and remaining SD/X2 holds. Ground connectivity
+alone does not qualify high-frequency return paths, cable ringing or timing;
+those reviews and physical validation remain before fabrication release.

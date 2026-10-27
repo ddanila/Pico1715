@@ -15,7 +15,9 @@ cases=('wrong-net','missing-pad','missing-part','wrong-path','lost-keepout','fal
        'lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-bridge-via',
        'lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-signal-via',
        'lost-iso1-enable','lost-iso2-enable','lost-iso3-enable','lost-disable-pullup',
-       'lost-link-input','lost-link-header-via','lost-cdone-input','lost-personality-input')
+       'lost-link-input','lost-link-header-via','lost-cdone-input','lost-personality-input',
+       'lost-address','lost-data','lost-backend','lost-reset-path','lost-mode-path',
+       'lost-priority','lost-power-good','lost-priority-via','lost-front-plane')
 for kind in cases:
  d=copy.deepcopy(board);p=copy.deepcopy(plan)
  fp=m.children(d,'footprint')[0]
@@ -41,6 +43,19 @@ for kind in cases:
   v=next(v for v in p['vias'] if v['tag']==tag)
   actual=next(t for t in m.children(d,'via') if list(map(float,m.one(t,'at')[1:]))==v['at'])
   d.remove(actual);p['vias'].remove(v)
+ elif kind in ['lost-address','lost-data','lost-backend','lost-reset-path','lost-mode-path','lost-priority','lost-power-good']:
+  net={'lost-address':'F_A0','lost-data':'F_DO3','lost-backend':'L_GP12',
+       'lost-reset-path':'F_RESET_N','lost-mode-path':'MODE_CTL',
+       'lost-priority':'H_PRIORITY','lost-power-good':'POWER_GOOD'}[kind]
+  # Keep manifest and PCB consistent while opening a completed signal net.
+  p['routes']=[t for t in p['routes'] if t['net']!=net]
+  d[:]=[t for t in d if not(isinstance(t,list) and t and t[0]=='segment' and m.one(t,'net')[-1]=='/'+net)]
+ elif kind=='lost-priority-via':
+  v=next(v for v in p['vias'] if v['net']=='H_PRIORITY' and v['at']==[154.8,116.1])
+  actual=next(t for t in m.children(d,'via') if list(map(float,m.one(t,'at')[1:]))==v['at'])
+  d.remove(actual);p['vias'].remove(v)
+ elif kind=='lost-front-plane':
+  d.remove(next(z for z in m.children(d,'zone') if not m.children(z,'keepout') and m.one(z,'layer')[1]=='F.Cu'))
  elif kind.startswith('lost-supervisor-') or kind in ['lost-resistor-return','lost-fpga-rail','lost-pico-rail','lost-host-rail','lost-control','lost-pg3','lost-pg5','lost-pgp','lost-qualified','lost-armed-branch','lost-iso1-enable','lost-iso2-enable','lost-iso3-enable','lost-disable-pullup','lost-link-input','lost-cdone-input','lost-personality-input']:
   tag={'lost-supervisor-supply':'U10/pullup-supply',
        'lost-supervisor-sense':'U11/sense',
@@ -67,3 +82,18 @@ for kind in cases:
  except AssertionError:pass
  else:raise AssertionError(kind)
 print(f'PCB mutation controls PASS: {len(cases)} unsafe changes rejected')
+
+# A held socket must not hide ordinary airwires or geometric violations.
+held=next(f for f in m.children(board,'footprint') if any(q[1:3]==['Reference','J3'] for q in m.children(f,'property')))
+held_id=m.one(m.children(held,'pad')[0],'uuid')[1]
+allowed={'violations':[],'unconnected_items':[{'items':[{'uuid':held_id},{'uuid':'ordinary'}]}]}
+assert m.check_drc(board,allowed)['drc_nonheld_unconnected_items']==0
+for drc in [
+ {'violations':[{'type':'clearance'}],'unconnected_items':[]},
+ {'violations':[],'unconnected_items':[{'items':[{'uuid':'ground-zone-a'},{'uuid':'ground-zone-b'}]}]},
+ {'violations':[],'unconnected_items':[{'items':[{'uuid':'signal-pad'},{'uuid':'signal-track'}]}]},
+]:
+ try:m.check_drc(board,drc)
+ except AssertionError:pass
+ else:raise AssertionError('DRC accepted non-held fault')
+print('DRC hold controls PASS: held socket accepted; 3 unrelated failures rejected')

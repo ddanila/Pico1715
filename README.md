@@ -96,10 +96,12 @@ combined carrier because GP22 serves SD chip select. X1/X2's reset contact alone
 does not reset the CPU on the documented motherboard.
 
 The [carrier layout](hardware/carrier/mechanics.md) now has local bypass placement,
-379 routed segments, 134 vias and a bottom ground plane. Geometric DRC reports
-zero violations, with **145 connections still unrouted**. This is partial layout,
-not a fabrication release. The optional backup-power circuit, broader OS coverage,
-remaining routing and physical tests are still open.
+2,206 routed segments, 403 vias and ground pours on both copper layers. All placed
+non-SD terminals are connected. KiCad DRC reports zero violations and **12 open
+connections, all involving the held SD socket**. X2 remains unplaced. See the
+[routing evidence](hardware/carrier/routing.md). This is not a fabrication release;
+SD/X2 geometry, return-path and timing review, optional backup power, broader OS
+coverage and physical tests remain open.
 
 Physical milestones remain:
 
