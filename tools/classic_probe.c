@@ -6,6 +6,8 @@
 #include <string.h>
 #include <inttypes.h>
 #include <errno.h>
+#include "keyboard_schedule.h"
+static int scheduled_receive(void *m,uint8_t byte){return pc1715_sio_receive(m,0,byte);}
 
 #ifdef P1715_ANALYZER
 #include "analyzer/bridge.h"
@@ -123,6 +125,13 @@ int main(int argc, char **argv) {
   fixture f = {.command = argc >= 5 ? argv[4] : "",
     .key_due = option("PICO1715_KEY_START", 20000000, 1000000000),
     .command_gap = option("PICO1715_COMMAND_GAP", 10000000, 1000000000)};
+  struct key_schedule scheduled={0};
+  const char *schedule_path=getenv("PICO1715_KEY_SCHEDULE");
+  if(schedule_path && (*f.command || key_schedule_load(&scheduled,schedule_path))) {
+    fprintf(stderr,"invalid keyboard schedule (or conflicting command)\n");return 2;
+  }
+  unsigned service_pc=option("PICO1715_KEY_SERVICE_PC",0,65535),previous_pc=65536;
+  uint64_t service_last=0,service_gap=0,service_visits=0;
   if (pico1715_mount(&f.controller, disk, 819200, 80, 2, 5, 3)) return 2;
   f.controller.writable = argc != 6; /* Only this process-owned copy can be modified. */
   #ifndef P1715_FIRMWARE_COSIM
@@ -188,7 +197,13 @@ int main(int argc, char **argv) {
       }
     }
     if (stop_at && i >= stop_at) break;
-    keyboard_step(m,&f);
+    if(schedule_path)key_schedule_step(&scheduled,i,scheduled_receive,m);
+    else keyboard_step(m,&f);
+    if(service_pc && m->cpu.cpu.pc==service_pc && previous_pc!=service_pc){
+      if(service_visits && i-service_last>service_gap)service_gap=i-service_last;
+      service_last=i;service_visits++;
+    }
+    previous_pc=m->cpu.cpu.pc;
     pc1715_run(m, 1);
     if(diagnostic_active){
       diagnostic_pc[m->cpu.cpu.pc]++;
@@ -246,7 +261,13 @@ int main(int argc, char **argv) {
     fprintf(diagnostic,"}}\n");if(fclose(diagnostic))return 2;
   }
   pico1715_controller c = f.controller;
-  printf("{\"cycles\":%" PRIu64 ",\"pc\":%u,\"rom_handoff_cycle\":%" PRIu64
+  printf("{\"key_scheduled\":%u,\"key_attempted\":%u,\"key_accepted\":%u,\"key_rejected\":%u,"
+         "\"key_late\":%u,\"key_disabled\":%u,\"key_full\":%u,\"key_pending\":%u,"
+         "\"key_service_visits\":%" PRIu64 ",\"key_service_max_gap\":%" PRIu64 ",",
+         schedule_path!=NULL,scheduled.attempted,scheduled.accepted,scheduled.rejected,
+         scheduled.late,scheduled.disabled,scheduled.full,scheduled.count-scheduled.next,
+         service_visits,service_gap);
+  printf("\"cycles\":%" PRIu64 ",\"pc\":%u,\"rom_handoff_cycle\":%" PRIu64
     ",\"rom_handoff_target\":%u,\"fields\":%" PRIu64 ",\"bytes\":%" PRIu64
     ",\"index_interrupts\":%" PRIu64 ",\"steps\":%" PRIu64
     ",\"cylinder\":%u,\"sector\":%u,\"format\":%u,\"control\":%u,"
@@ -281,6 +302,6 @@ int main(int argc, char **argv) {
     if (ferror(outputs[i])) failed = 1;
     if (fclose(outputs[i])) failed = 1;
   }
-  free(reset_image); free(m); free(disk);
+  free(scheduled.events); free(reset_image); free(m); free(disk);
   return handoff && !failed ? 0 : 1;
 }

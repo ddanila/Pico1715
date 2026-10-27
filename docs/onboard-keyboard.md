@@ -136,3 +136,21 @@ clears the controller settings. Previously the CRC option was silently cleared
 in firmware co-simulation. A public-fixture control boot and injected-CRC boot
 now distinguish successful startup from the guest boot-error halt. Production
 firmware timing and defaults are unchanged.
+
+## Independent completed-byte schedule
+
+`PICO1715_KEY_SCHEDULE=/path/events.txt` selects strict decimal `tick byte`
+lines (newline terminated, nondecreasing ticks, at most 65536 events, ticks below
+2 billion). A nonempty command argument is rejected in this mode. Every event is
+attempted exactly once at its runner-loop tick, before that tick's CPU execution.
+Disabled or full receivers reject the byte; there is no retry, FIFO wait or
+postponement. Equal-time events retain file order. The runner clock remains
+monotonic across CPU resets, so events are never replayed. Existing paced command
+injection remains the default.
+
+JSON includes attempted/accepted/rejected/late/pending counts, with disabled/full
+rejections distinguished. Optional `PICO1715_KEY_SERVICE_PC` observes entries to a
+guest service routine and reports visit count and maximum inter-entry gap in
+runner clocks; it never changes guest state. The first entry has no preceding
+gap. These are completed-byte scheduling tests, not electrical serial waveforms
+or a measured keyboard baud rate.
