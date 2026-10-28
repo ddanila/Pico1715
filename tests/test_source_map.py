@@ -19,6 +19,8 @@ class SourceMapTest(unittest.TestCase):
             value = module.generate(*args)
             self.assertEqual([r['code'] for r in value['entries']], [True, False])
             self.assertEqual(value['symbols'], [{'name': 'entry', 'address': 256}])
+            short = module.generate(source, listing.replace('entry 0100 256', 'entry 100 256'), bytes([0, 42]), 256, 'ram')
+            self.assertEqual(short['symbols'], value['symbols'])
             for changed in (listing.replace('0100  00', '0100  FF'), listing.replace('entry: nop', 'entry: halt'), listing+listing.splitlines()[0]+'\n'):
                 with self.assertRaises(ValueError):
                     module.generate(source, changed, bytes([0, 42]), 256, 'ram')

@@ -34,7 +34,7 @@ def generate(source, listing, binary, base, space, include_source=False):
             statement = re.sub(r'^\s*[\w.$]+:\s*', '', lines[line-1]).strip()
             code = not bool(re.match(r'(db|dw|ds|defb|defw|defs)\b', statement, re.I))
             entries.append({'address': address, 'length': len(emitted), 'line': line, 'code': code})
-        symbol = re.match(r'^([\w.$]+)\s+([0-9A-F]{4})\s+\d+\s*$', row)
+        symbol = re.match(r'^([\w.$]+)\s+([0-9A-F]{1,4})\s+\d+\s*$', row)
         if symbol and base <= int(symbol[2], 16) < base + len(binary):
             symbols.append({'name': symbol[1], 'address': int(symbol[2], 16)})
     if not entries:
