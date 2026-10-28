@@ -2,7 +2,7 @@
   "schema": 1,
   "fabrication_ready": false,
   "baseline_sha256": "f907b36ca87b46f107e0e3360de0a003562c4835769597ecb4752d308c67ccc7",
-  "board_sha256": "54386c73099620bff203f76c32f18944b5725cfb266e068ef8d93c3418ecd534",
+  "board_sha256": "af743329e3f4317c92598a6ba5b215ee09bf0be8df777a4ff98bc88d1bdd45e0",
   "layers": [
     "F.Cu",
     "In1.Cu",
@@ -15,6 +15,7 @@
   ],
   "stackup_target": "JLC04161H-7628",
   "stackup_supplier_confirmed": false,
+  "stackup_catalog_verified": true,
   "board_size_mm": [
     160,
     210
@@ -35,7 +36,7 @@
       100
     ]
   },
-  "sd_hold": true,
+  "sd_hold": false,
   "routed_additions": true,
   "hardware_executed": false
 }

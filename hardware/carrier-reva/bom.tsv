@@ -1,5 +1,5 @@
 Reference	Value	Footprint	Datasheet
-J6	61206021621_HOST_HARNESS	Connector_IDC:IDC-Header_2x30_P2.54mm_Vertical	https://www.we-online.com/components/products/datasheet/61206021621.pdf
+J6	61206021621_HOST_HARNESS	Pico1715_RevA:IDC_Wuerth_61206021621	https://www.we-online.com/components/products/datasheet/61206021621.pdf
 RX1	SN74LVC541ADWR	Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm	https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf
 RX2	SN74LVC541ADWR	Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm	https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf
 RX3	SN74LVC541ADWR	Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm	https://www.ti.com/lit/ds/symlink/sn74lvc541a.pdf
@@ -24,7 +24,7 @@ EXT2	OLIMEX_EXT2	Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical	-
 EXT3	OLIMEX_EXT3	Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical	-
 J1	PGM1_PIN5_CDONE_TAP	Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical	-
 J2	PIM724_PICO_PLUS2	Pico1715_Carrier:PIM724_SocketPair	https://shop.pimoroni.com/products/pimoroni-pico-plus-2
-J3	DM3AT-SF-PEJM5	Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5	https://www.hirose.com/product/p/CL0609-0031-0-00
+J3	693071010811	Pico1715_RevA:microSD_Wuerth_693071010811	https://www.we-online.com/components/products/datasheet/693071010811.pdf
 J4	REGULATED_5V_INPUT	Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical	-
 D1	SS14	Diode_SMD:D_SMA	https://www.vishay.com/docs/88746/ss12.pdf
 J5	BRINGUP_PROBES	Connector_PinHeader_2.54mm:PinHeader_1x15_P2.54mm_Vertical	-

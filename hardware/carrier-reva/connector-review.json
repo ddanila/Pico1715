@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "review_date": "2026-10-28",
+  "drawing_geometry_verified": true,
+  "physical_mating_verified": false,
+  "documents": [
+    {
+      "part": "61206021621",
+      "revision": "001.002 / 2020-06-09",
+      "url": "https://www.rxelectronics.id/datasheet/73/61206021621.pdf",
+      "sha256": "45fcf5f230cd3a17de3fd5fb80dbbcb5f2343e53d4226cdbc9296def30e618fa",
+      "reviewed_pages": [
+        1
+      ],
+      "body_mm": [
+        83.86,
+        9.1
+      ],
+      "pitch_mm": 2.54,
+      "pin_span_mm": 73.66,
+      "finished_hole_mm": 1.1,
+      "key_width_mm": 4.5
+    },
+    {
+      "part": "61206023021",
+      "revision": "002.000 / 2022-08-30",
+      "url": "https://www.ariat-tech.nl/datasheet/62/61206023021.pdf",
+      "sha256": "fc831d02d8ba43cc1f26480a294e53a4ce1b7d938e03251db5cb5686d17286ab",
+      "reviewed_pages": [
+        1
+      ],
+      "body_length_mm": 80.88,
+      "body_width_mm": 6,
+      "key_envelope_mm": 7,
+      "key_width_mm": 3.7
+    },
+    {
+      "part": "B3B-XH-A / XHP-3 / SXH-001T-P0.6",
+      "url": "https://www.jst.com/wp-content/uploads/2025/06/eXH.pdf",
+      "sha256": "1128a1bdb747cf3da211ed85e11c542f2d310652d8188a69b2dc0e8c40115ef8",
+      "reviewed_pages": [
+        2,
+        4,
+        5
+      ],
+      "body_mm": [
+        9.9,
+        5.75
+      ],
+      "pitch_mm": 2.5,
+      "finished_hole_range_mm": [
+        0.9,
+        1.0
+      ],
+      "selected_finished_hole_mm": 0.95,
+      "contact_wire_awg": [
+        28,
+        22
+      ]
+    }
+  ],
+  "j6_board_top_view": {
+    "pin1_mm": [
+      60,
+      215
+    ],
+    "pin2_mm": [
+      60,
+      212.46
+    ],
+    "pin59_mm": [
+      133.66,
+      215
+    ],
+    "pin60_mm": [
+      133.66,
+      212.46
+    ],
+    "key_side": "south, odd-numbered row",
+    "cable": "straight-through 60 conductors, maximum 100 mm, pin 1 stripe; verify every conductor by continuity before connection"
+  },
+  "j7_board_top_view": {
+    "pin1_mm": [
+      164,
+      100
+    ],
+    "pin2_mm": [
+      166.5,
+      100
+    ],
+    "pin3_mm": [
+      169,
+      100
+    ],
+    "pins": [
+      "GND",
+      "V5_MODULE",
+      "P_VSYS"
+    ],
+    "assembly": "leave empty for first assembly; keep D1 fitted"
+  },
+  "limitations": [
+    "Manufacturer drawing comparison is not physical mating validation.",
+    "EFS58 adapter contact fit remains independent of carrier fabrication.",
+    "Use the specified no-boss JST header, not B3B-XH-AM.",
+    "JST 0.95 mm finished hole requires tolerance within 0.90\u20131.00 mm."
+  ]
+}

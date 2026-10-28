@@ -1,8 +1,9 @@
 # SD replacement drawing evidence
 
-The current PCB still carries the **held Hirose footprint**. This record recovers
-engineering evidence for the proposed direct-mount Würth replacement; it is not
-footprint approval or authorization to mix the two footprints.
+The Rev A PCB now uses **Würth 693071010811** with an original project-local
+footprint. The independent checker verifies every pad coordinate and size against
+the recommended layout. All SD signals and supply connections are routed.
+The separate two-layer baseline retains its original held Hirose footprint.
 
 Manufacturer document: Würth 693071010811, revision 001.002, 2019-01-24,
 eight pages. Pages 1–3 were rendered and visually inspected on 2026-10-28.
@@ -20,12 +21,14 @@ card is inserted. An existing software assumption of closed-on-insertion would
 therefore be wrong if detection is added later. Current firmware does not use
 these detect contacts.
 
-Before adoption: derive and independently check every pad coordinate from the
-page-1 datum; resolve shielding versus switch connections without assuming the
-Hirose SH pin exists; review card access and push/eject travel from page 3;
-update both schematic and footprint, replace the held socket, route all SD
-connections, and re-run ERC/DRC and assembly review. Do not substitute the
-similarly named KiCad 693072010801 footprint: it is a different part.
+The upper-left body corner is the layout datum. Pads 9 and 10 are left NC;
+there is no invented Hirose-style SH pin. This leaves the mechanical switch
+terminals electrically unused; shell grounding/EMC is not asserted by the drawing.
+Card detection remains unused by firmware. A conservative F.Cu-only body exclusion
+leaves the two inner GND planes continuous. The mouth faces the north edge;
+keep the insertion/ejection corridor above the socket unobstructed by an enclosure,
+cables or tall components. Physical push/eject access still needs a fit check.
+Do not substitute KiCad's similarly named 693072010801 footprint.
 
 A PDF linked elsewhere on the Symmetron Hirose product page was also inspected
 and rejected: it actually describes **Amtek 5KTFP-08S0NHL02**, not DM3AT. Its

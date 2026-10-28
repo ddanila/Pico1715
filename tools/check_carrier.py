@@ -9,7 +9,7 @@ import re
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 
-def check(tree,manifest,designs=None):
+def check(tree,manifest,designs=None,sd_socket="hirose"):
     nets={}
     for n in tree.findall('nets/net'):
         for p in n.findall('node'):nets[p.attrib['ref'],p.attrib['pin']]=n.attrib['name'].lstrip('/')
@@ -90,7 +90,13 @@ def check(tree,manifest,designs=None):
     for p,gp in physical.items():assert net('J2',p)==f'P_GP{gp}'
     pins('J2',[36,39],['P3V3','P_VSYS']);assert nc('J2',40) and nc('J2',37)
     pins('J3',[2,3,4,5,6,7],['P_GP22','P_GP27','P3V3','P_GP26','GND','P_GP28'])
-    assert nc('J3',9) and nc('J3',10) and net('J3','SH')=='GND'
+    assert nc('J3',9) and nc('J3',10)
+    if sd_socket=='hirose':assert net('J3','SH')=='GND'
+    elif sd_socket=='wurth-693071010811':
+        assert parts['J3']['value']=='693071010811'
+        assert {str(p[0]) for p in parts['J3']['pins']}=={str(n) for n in range(1,11)}
+        assert net('J3','SH') is None
+    else:raise AssertionError('Unknown SD socket variant')
     pins('D1',[1,2],['P_VSYS','V5_MODULE'])
     pins('EXT1',[1,3],['V5_MODULE','V3P3']);pins('J4',[1,2],['V5_MODULE','GND'])
     assert len({net('X2','A29'),net('J2',36),net('EXT1',3),net('J4',1)})==4

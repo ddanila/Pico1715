@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "part": "693071010811",
+  "drawing_revision": "001.002",
+  "drawing_date": "2019-01-24",
+  "drawing_sha256": "e2859032e66b457131233f9345cd0066d3d0aa012c4782b16cf8f15464801d98",
+  "datum": "Upper-left dashed body corner, recommended PCB layout page 1; +X right, +Y down",
+  "pads": [
+    {
+      "pin": "1",
+      "at": [
+        8.94,
+        10.7
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "2",
+      "at": [
+        7.84,
+        10.3
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "3",
+      "at": [
+        6.74,
+        10.7
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "4",
+      "at": [
+        5.64,
+        10.9
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "5",
+      "at": [
+        4.54,
+        10.7
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "6",
+      "at": [
+        3.44,
+        10.9
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "7",
+      "at": [
+        2.34,
+        10.7
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "8",
+      "at": [
+        1.24,
+        10.7
+      ],
+      "size": [
+        0.8,
+        1.5
+      ]
+    },
+    {
+      "pin": "9",
+      "at": [
+        0.45,
+        13.55
+      ],
+      "size": [
+        1.4,
+        1.9
+      ]
+    },
+    {
+      "pin": "9",
+      "at": [
+        13.6,
+        14.55
+      ],
+      "size": [
+        1.4,
+        1.9
+      ]
+    },
+    {
+      "pin": "10",
+      "at": [
+        2.05,
+        0.4
+      ],
+      "size": [
+        1.8,
+        1.4
+      ]
+    },
+    {
+      "pin": "10",
+      "at": [
+        7.75,
+        0.4
+      ],
+      "size": [
+        1.8,
+        1.4
+      ]
+    }
+  ],
+  "board_at": [
+    161,
+    28.6
+  ],
+  "board_angle": 0,
+  "body": [
+    0,
+    0,
+    14,
+    15.2
+  ],
+  "top_copper_exclusion": [
+    0,
+    1.5,
+    14,
+    9.3
+  ],
+  "exclusion_basis": "Conservative project rule beneath body; not a manufacturer-specified all-layer prohibition",
+  "card_detection": "9\u201310 closed without card, open with card; unused, both NC",
+  "shield": "No separate SH terminal documented; none invented",
+  "physical_fit_tested": false
+}

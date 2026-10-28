@@ -33,7 +33,33 @@ def check_contract(c,tree):
     n=int(node.attrib['pin'])
     if n>58:net.remove(node);continue
     node.attrib.update(ref='X2',pin=('A' if n%2 else 'B')+str((n+1)//2))
- return check_interlocks(xml,mapped)
+ return check_interlocks(xml,mapped,sd_socket="wurth-693071010811")
+def check_sd_footprint(f):
+ # Independent transcription of drawing 001.002, recommended PCB layout.
+ assert f[1]=='Pico1715_RevA:microSD_Wuerth_693071010811'
+ expected=[('1',8.94,10.7,.8,1.5),('2',7.84,10.3,.8,1.5),('3',6.74,10.7,.8,1.5),('4',5.64,10.9,.8,1.5),('5',4.54,10.7,.8,1.5),('6',3.44,10.9,.8,1.5),('7',2.34,10.7,.8,1.5),('8',1.24,10.7,.8,1.5),('9',.45,13.55,1.4,1.9),('9',13.6,14.55,1.4,1.9),('10',2.05,.4,1.8,1.4),('10',7.75,.4,1.8,1.4)]
+ actual=[(p[1],*map(float,one(p,'at')[1:3]),*map(float,one(p,'size')[1:])) for p in children(f,'pad')]
+ assert sorted(actual)==sorted(expected),'SD pad geometry differs from drawing'
+ assert all(p[2:4]==['smd','rect'] and set(one(p,'layers')[1:])=={'F.Cu','F.Paste','F.Mask'} for p in children(f,'pad'))
+def check_connector_footprints(fps):
+ # Manufacturer dimensions independently transcribed, not read from generators.
+ f=fps['J6'];assert f[1]=='Pico1715_RevA:IDC_Wuerth_61206021621'
+ assert list(map(float,one(f,'at')[1:]))==[60,215,90]
+ for p in children(f,'pad'):
+  n=int(p[1]);assert list(map(float,one(p,'at')[1:3]))==[0 if n%2 else 2.54,round((n-1)//2*2.54,2)]
+  assert float(one(p,'drill')[1])==1.1 and list(map(float,one(p,'size')[1:]))==[1.7,1.7]
+ fab=next(x for x in children(f,'fp_rect') if one(x,'layer')[1]=='F.Fab')
+ assert list(map(float,one(fab,'start')[1:]))==[-3.28,-5.1]
+ assert list(map(float,one(fab,'end')[1:]))==[5.82,78.76]
+ f=fps['J7'];assert f[1]=='Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical'
+ assert list(map(float,one(f,'at')[1:]))==[164,100]
+ for p in children(f,'pad'):
+  assert list(map(float,one(p,'at')[1:3]))==[(int(p[1])-1)*2.5,0]
+  assert float(one(p,'drill')[1])==.95
+ fab=next(x for x in children(f,'fp_rect') if one(x,'layer')[1]=='F.Fab')
+ assert list(map(float,one(fab,'start')[1:]))==[-2.45,-2.35]
+ assert list(map(float,one(fab,'end')[1:]))==[7.45,3.4]
+
 def check_board(c,tree,board):
  parts={p['ref']:p for p in c['parts']}
  fps={next(x[2] for x in children(f,'property') if x[1]=='Reference'):f for f in children(board,'footprint')}
@@ -54,11 +80,13 @@ def check_board(c,tree,board):
  baseline=parse((ROOT/'hardware/carrier/carrier.kicad_pcb').read_text())
  for f in children(baseline,'footprint'):
   ref=next(x[2] for x in children(f,'property') if x[1]=='Reference')
-  assert one(fps[ref],'at')==one(f,'at'),(ref,'baseline placement changed')
+  if ref!='J3':assert one(fps[ref],'at')==one(f,'at'),(ref,'baseline placement changed')
  copper=[x[1] for x in one(board,'layers')[1:] if isinstance(x,list) and x[1].endswith('.Cu')]
  assert copper==['F.Cu','In1.Cu','In2.Cu','B.Cu'],copper
  zones=children(board,'zone');hold=[z for z in zones if children(z,'keepout')];assert len(hold)==1
- assert set(one(hold[0],'layers')[1:])=={'F.Cu','In1.Cu','In2.Cu','B.Cu'}
+ assert one(hold[0],'layer')[1]=='F.Cu'
+ assert [float(v) for v in one(fps['J3'],'at')[1:]]==[161,28.6]
+ check_sd_footprint(fps['J3']);check_connector_footprints(fps)
  for flag in ['tracks','vias','copperpour']:assert one(one(hold[0],'keepout'),flag)[1]=='not_allowed'
  for layer in ['In1.Cu','In2.Cu']:
   z=next(z for z in zones if children(z,'layer') and one(z,'layer')[1]==layer)

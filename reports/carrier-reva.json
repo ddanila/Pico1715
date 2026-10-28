@@ -12,7 +12,7 @@
   "hardware_executed": false,
   "fabrication_ready": false,
   "drc_violations": 0,
-  "drc_unconnected_items": 12,
+  "drc_unconnected_items": 0,
   "drc_nonheld_unconnected_items": 0,
   "drc_ignored_checks": [
     {
@@ -38,8 +38,8 @@
   ],
   "drc_note": "Rev A review only: all opens, including SD, block fabrication.",
   "source_sha256": {
-    "hardware/carrier-reva/connections.json": "cb0fd7134a17d2a87c896b50f59162885350507f1b812f66743fe5dd958e6976",
-    "hardware/carrier-reva/carrier.net.xml": "f36d1b70f7d748b4067abbce26375014f60ed5159a16c89007a068b0dc4d5198",
-    "hardware/carrier-reva/carrier.kicad_pcb": "54386c73099620bff203f76c32f18944b5725cfb266e068ef8d93c3418ecd534"
+    "hardware/carrier-reva/connections.json": "5b25a6dea29752fcb66edc4bef62d1b1a5b33a9051ba09deeb27426b5c4aa1b0",
+    "hardware/carrier-reva/carrier.net.xml": "b7a78f6ac0df5df073e28065002ff1b7eb82371c56587de920777fceeb21d063",
+    "hardware/carrier-reva/carrier.kicad_pcb": "af743329e3f4317c92598a6ba5b215ee09bf0be8df777a4ff98bc88d1bdd45e0"
   }
 }

@@ -213,7 +213,10 @@ the real controller with CTC/SIO priority, IM2 vectors, RETI and card isolation.
 The latest [desk-work pass](docs/desk-completion.md) adds a provisional routed
 58-contact X2 breakout, assembly/probe documentation, return-path screening with
 23 extra ground stitches, and a 30-case external-media survey/persistence suite.
-The SD drawing hold, actual connector fit and hardware qualification remain open.
+The separate [four-layer Rev A](hardware/carrier-reva/README.md) now uses the
+drawing-checked Würth SD socket and host header, with zero ERC/DRC violations
+and zero opens. Return-path closure, final manufacturing review, actual connector
+fit and hardware qualification remain open.
 
 Further desk work now includes [W-loader diagnosis](docs/boot-image-diagnosis.md),
 [indexed multi-extent and disk-full tests](docs/pattern-media.md) on native and

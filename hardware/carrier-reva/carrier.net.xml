@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/home/ddanila/fun/Pico1715/hardware/carrier-reva/carrier.kicad_sch</source>
-    <date>2026-10-28T10:35:33</date>
+    <date>2026-10-28T12:27:03</date>
     <tool>Eeschema 10.0.6-10.0.6~ubuntu26.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -33,8 +33,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c95d4d7a-6472-5b7d-bef6-1b3f9e1d54ad</tstamps>
       <units>
@@ -55,8 +55,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7dd9323c-3839-5029-9404-eff5b920c7e5</tstamps>
       <units>
@@ -77,8 +77,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ccedafcd-abd4-5a96-a46f-bed7475e4c32</tstamps>
       <units>
@@ -99,8 +99,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C4" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4e3ddba3-d5a4-501d-a264-96fee8fc305d</tstamps>
       <units>
@@ -121,8 +121,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C5" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>41b683ea-75f3-5c9c-8c55-7fa90dab7459</tstamps>
       <units>
@@ -143,8 +143,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C6" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4340ee9d-a0b5-50e3-b932-1ec98a630479</tstamps>
       <units>
@@ -165,8 +165,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C7" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4587da30-680e-503f-bf1c-2113ff9ed58b</tstamps>
       <units>
@@ -187,8 +187,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C8" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>862cb083-274d-5371-8f31-67b0a55170cc</tstamps>
       <units>
@@ -209,8 +209,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C9" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3da9cba7-ce1d-577f-bb43-9e9f83997b8a</tstamps>
       <units>
@@ -231,8 +231,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C10" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6c114eae-5607-5165-9d92-0ae08b674ff2</tstamps>
       <units>
@@ -253,8 +253,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C11" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>df3aaa73-111d-5e72-a93d-ba052207575d</tstamps>
       <units>
@@ -275,8 +275,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C12" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3bff65c0-8138-5d8c-a50a-7ea562db3893</tstamps>
       <units>
@@ -297,8 +297,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C13" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8f879511-764b-5121-aa24-3b1e9e1bb121</tstamps>
       <units>
@@ -319,8 +319,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C14" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6f5dd539-9c28-52c3-9454-03443ff504c3</tstamps>
       <units>
@@ -341,8 +341,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C15" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>cdb69aab-0ba1-5c1c-a818-f4b69c17f87f</tstamps>
       <units>
@@ -363,8 +363,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C16" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2d837302-fc55-5356-b90d-61ed9f9a0669</tstamps>
       <units>
@@ -385,8 +385,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C17" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b56c1275-0f9c-5dd5-95a4-32078da38074</tstamps>
       <units>
@@ -407,8 +407,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C18" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bb6d1a1d-a679-5a75-b1c8-a47aee05e8fb</tstamps>
       <units>
@@ -429,8 +429,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C19" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1d8653dd-cbe0-54c3-8975-01d980073f51</tstamps>
       <units>
@@ -451,8 +451,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C20" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>caf5287a-217c-54d3-bef3-e05fec8f52fb</tstamps>
       <units>
@@ -473,8 +473,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C21" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b2869ff9-c837-5fba-86c1-a5cf8d044b1e</tstamps>
       <units>
@@ -495,8 +495,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="C22" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e2a31ad9-e20b-5780-b75b-6995668c42d5</tstamps>
       <units>
@@ -518,8 +518,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="D1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>245f584b-b00e-527d-bb06-9ae746e78e65</tstamps>
       <units>
@@ -540,8 +540,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="EXT1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2a9069b7-429d-5adf-8207-2debee7b1703</tstamps>
       <units>
@@ -600,8 +600,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="EXT2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c6329056-7e79-5ccf-891a-6ee7737099a4</tstamps>
       <units>
@@ -660,8 +660,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="EXT3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a7d72e14-b8f0-5ca5-8522-bf02c4515bb0</tstamps>
       <units>
@@ -721,8 +721,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="ISO1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>99bf1208-a9e3-5e18-a445-a0ab60489e4d</tstamps>
       <units>
@@ -762,8 +762,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="ISO2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>776570fd-00f4-599b-a2fc-4d196003d25b</tstamps>
       <units>
@@ -803,8 +803,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="ISO3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>025c8871-54bc-547a-9f95-d3a5c869a780</tstamps>
       <units>
@@ -843,8 +843,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e5e2d69e-f11d-5116-b464-477bb92bc97f</tstamps>
       <units>
@@ -866,8 +866,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fa6f0bef-bdd5-561d-aff8-16afdf074465</tstamps>
       <units>
@@ -918,17 +918,17 @@
       </units>
     </comp>
     <comp ref="J3">
-      <value>DM3AT-SF-PEJM5</value>
-      <footprint>Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5</footprint>
-      <datasheet>https://www.hirose.com/product/p/CL0609-0031-0-00</datasheet>
+      <value>693071010811</value>
+      <footprint>Pico1715_RevA:microSD_Wuerth_693071010811</footprint>
+      <datasheet>https://www.we-online.com/components/products/datasheet/693071010811.pdf</datasheet>
       <fields>
-        <field name="Footprint">Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5</field>
-        <field name="Datasheet">https://www.hirose.com/product/p/CL0609-0031-0-00</field>
+        <field name="Footprint">Pico1715_RevA:microSD_Wuerth_693071010811</field>
+        <field name="Datasheet">https://www.we-online.com/components/products/datasheet/693071010811.pdf</field>
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0d73ea71-e116-5ab8-a84f-b64b5b98acc6</tstamps>
       <units>
@@ -944,7 +944,6 @@
             <pin num="8"/>
             <pin num="9"/>
             <pin num="10"/>
-            <pin num="SH"/>
           </pins>
         </unit>
       </units>
@@ -958,8 +957,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J4" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>edf6b7ee-33a2-5162-95ac-d51a53e84d0b</tstamps>
       <units>
@@ -980,8 +979,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J5" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2a01211b-b4fb-5810-9e39-d42e68b0543d</tstamps>
       <units>
@@ -1008,16 +1007,16 @@
     </comp>
     <comp ref="J6">
       <value>61206021621_HOST_HARNESS</value>
-      <footprint>Connector_IDC:IDC-Header_2x30_P2.54mm_Vertical</footprint>
+      <footprint>Pico1715_RevA:IDC_Wuerth_61206021621</footprint>
       <datasheet>https://www.we-online.com/components/products/datasheet/61206021621.pdf</datasheet>
       <fields>
-        <field name="Footprint">Connector_IDC:IDC-Header_2x30_P2.54mm_Vertical</field>
+        <field name="Footprint">Pico1715_RevA:IDC_Wuerth_61206021621</field>
         <field name="Datasheet">https://www.we-online.com/components/products/datasheet/61206021621.pdf</field>
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J6" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e7cb7252-556f-53c2-a8f5-864e55bb34c8</tstamps>
       <units>
@@ -1097,8 +1096,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="J7" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>70a0c744-b6c7-5990-9e36-79c6ee34c58a</tstamps>
       <units>
@@ -1120,8 +1119,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>eb72141f-7488-5c2a-9809-53c88eb2bf19</tstamps>
       <units>
@@ -1142,8 +1141,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2eb0c275-ca18-5ef6-94b1-4c4f68aff2c8</tstamps>
       <units>
@@ -1164,8 +1163,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1265855b-6779-552f-9900-5edd26596eea</tstamps>
       <units>
@@ -1186,8 +1185,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R4" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5480d574-766d-5e1c-844a-7dbfd1f6188c</tstamps>
       <units>
@@ -1208,8 +1207,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R5" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b1fdcadb-7448-517e-9e90-8d1a33d367fc</tstamps>
       <units>
@@ -1230,8 +1229,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R6" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>aa2d3ca6-3e83-5dd2-8014-0121625d801c</tstamps>
       <units>
@@ -1252,8 +1251,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R7" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b4688893-8c08-5e72-bfc7-9e1e87e233da</tstamps>
       <units>
@@ -1274,8 +1273,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R8" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>97ca6b08-97ff-50e6-8ac1-d80ac1865b6b</tstamps>
       <units>
@@ -1296,8 +1295,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R9" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>86f04f4d-d8c9-5174-b55d-3c1acc3d07d3</tstamps>
       <units>
@@ -1318,8 +1317,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R10" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8db95c87-08e9-5cf7-8f04-27995dc62878</tstamps>
       <units>
@@ -1340,8 +1339,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R11" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2615bbce-8a6a-530b-92db-1e222d2066bd</tstamps>
       <units>
@@ -1362,8 +1361,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R12" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>73ffa35e-028c-559e-96e5-2cc50642eefc</tstamps>
       <units>
@@ -1384,8 +1383,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R13" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ae451ff2-afb6-559c-9bc8-fa658bcce555</tstamps>
       <units>
@@ -1406,8 +1405,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R14" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ec4aba67-179c-5755-a64a-52ea3f104537</tstamps>
       <units>
@@ -1428,8 +1427,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R15" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fc2c62b9-42d9-5f8f-8899-121fdaa3531c</tstamps>
       <units>
@@ -1450,8 +1449,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R16" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d8e310be-5b83-5f91-8429-642abb816a0d</tstamps>
       <units>
@@ -1472,8 +1471,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R17" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e9134277-8496-5e1c-8eef-e16bba3730fd</tstamps>
       <units>
@@ -1494,8 +1493,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R18" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>15ef516b-a372-534a-a858-54d4d3125d7d</tstamps>
       <units>
@@ -1516,8 +1515,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R19" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8de2eb6a-4ea5-5110-8979-cff0dae61cab</tstamps>
       <units>
@@ -1538,8 +1537,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R20" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d8be43ee-bd46-5711-a976-ae08a641f168</tstamps>
       <units>
@@ -1560,8 +1559,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R21" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7bd06922-a548-5811-be33-e76eec787728</tstamps>
       <units>
@@ -1582,8 +1581,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R22" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ec18c049-9b96-5663-8a9e-9eace51863a9</tstamps>
       <units>
@@ -1604,8 +1603,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R23" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b82d6729-a48e-5ff0-b1f9-d23eba536580</tstamps>
       <units>
@@ -1626,8 +1625,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="R24" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f4d27aec-5652-5ae7-8374-46ca6f6897ae</tstamps>
       <units>
@@ -1649,8 +1648,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="RX1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bc9fcd43-0bcb-532c-8f4d-e9482ca92d17</tstamps>
       <units>
@@ -1690,8 +1689,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="RX2" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1f3b55e7-009f-5945-8b99-f9b83b0f7e73</tstamps>
       <units>
@@ -1731,8 +1730,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="RX3" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5bbeabeb-9069-59af-a466-430219c22562</tstamps>
       <units>
@@ -1772,8 +1771,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="RX4" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a1d9fea3-5bcc-542f-8fc0-e5f1bf06c9f8</tstamps>
       <units>
@@ -1813,8 +1812,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="RX5" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>881f3e22-2870-598c-b142-24c1abfddc77</tstamps>
       <units>
@@ -1854,8 +1853,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="SW1" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bd3e9e2e-a63a-502c-a16e-4ec843010284</tstamps>
       <units>
@@ -1881,8 +1880,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U4" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>dde9ac06-96ad-5e91-b5f9-f1a01fe370c3</tstamps>
       <units>
@@ -1922,8 +1921,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U5" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>740c7ab3-448e-5bc5-9838-df9f00328f1c</tstamps>
       <units>
@@ -1948,8 +1947,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U6" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>52369fdb-0db3-5a57-ae8d-0ba62b168a6b</tstamps>
       <units>
@@ -1983,8 +1982,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U7" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0a6a0aba-58e2-53aa-b9da-f183860a1035</tstamps>
       <units>
@@ -2018,8 +2017,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U8" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>eea3ae50-652c-503d-a6bf-8948c058e86f</tstamps>
       <units>
@@ -2053,8 +2052,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U9" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d9005259-7281-5542-9bd8-1476e6630a4c</tstamps>
       <units>
@@ -2088,8 +2087,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U10" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>9517ad6f-7737-5a82-a29a-58823c307009</tstamps>
       <units>
@@ -2112,8 +2111,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U11" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>de2bf083-9e34-5e71-8846-233c57deb974</tstamps>
       <units>
@@ -2136,8 +2135,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U12" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0b47ff3a-da76-5ad2-b255-e816d2542d5c</tstamps>
       <units>
@@ -2160,8 +2159,8 @@
         <field name="Description"/>
       </fields>
       <libsource lib="RevA" part="U13" description=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="hardware/carrier-reva/carrier.kicad_sch"/>
+      <property name="Sheetname" value="carrier"/>
+      <property name="Sheetfile" value="carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>427bf64e-5314-5f61-af3d-1499aed4f706</tstamps>
       <units>
@@ -2799,7 +2798,7 @@
     <libpart lib="RevA" part="J3">
       <fields>
         <field name="Reference">J3</field>
-        <field name="Value">DM3AT-SF-PEJM5</field>
+        <field name="Value">693071010811</field>
         <field name="Footprint"/>
         <field name="Datasheet"/>
         <field name="Description"/>
@@ -2815,7 +2814,6 @@
         <pin num="8" name="DAT1" type="passive"/>
         <pin num="9" name="DETECT_9_UNUSED" type="passive"/>
         <pin num="10" name="DETECT_10_UNUSED" type="passive"/>
-        <pin num="SH" name="SHIELD" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="RevA" part="J4">
@@ -3641,7 +3639,11 @@
       </pins>
     </libpart>
   </libparts>
-  <libraries/>
+  <libraries>
+    <library logical="RevA">
+      <uri>${KIPRJMOD}/RevA.kicad_sym</uri>
+    </library>
+  </libraries>
   <nets>
     <net code="1" name="/ARMED" class="Default">
       <node ref="J5" pin="9" pinfunction="ARMED_9" pintype="passive"/>
@@ -3927,7 +3929,6 @@
       <node ref="J2" pin="38" pinfunction="GND_38" pintype="passive"/>
       <node ref="J2" pin="8" pinfunction="GND_8" pintype="passive"/>
       <node ref="J3" pin="6" pinfunction="VSS_6" pintype="power_in"/>
-      <node ref="J3" pin="SH" pinfunction="SHIELD_SH" pintype="passive"/>
       <node ref="J4" pin="2" pinfunction="GND_2" pintype="power_out"/>
       <node ref="J5" pin="1" pinfunction="GND_1" pintype="passive"/>
       <node ref="J6" pin="1" pinfunction="0V_1" pintype="passive"/>

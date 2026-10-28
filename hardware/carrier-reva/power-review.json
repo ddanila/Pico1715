@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "board_sha256": "af743329e3f4317c92598a6ba5b215ee09bf0be8df777a4ff98bc88d1bdd45e0",
+  "hardware_qualified": false,
+  "method": "20 C copper resistivity 0.01724 ohm mm\u00b2/m, nominal 35 um outer copper. Upper bound using every branch at minimum width, not actual current-path extraction. 0.5 A is an analysis assumption, not a measured load or rating. Excludes return path, vias, connectors and diode. No thermal/transient or SD decoupling sign-off.",
+  "nets": [
+    {
+      "net": "V5_MODULE",
+      "total_branched_length_mm": 238.232,
+      "min_width_mm": 0.8,
+      "conservative_trace_resistance_20C_ohm": 0.1467,
+      "drop_at_assumed_0_5A_V": 0.0733
+    },
+    {
+      "net": "P_VSYS",
+      "total_branched_length_mm": 118.108,
+      "min_width_mm": 0.8,
+      "conservative_trace_resistance_20C_ohm": 0.0727,
+      "drop_at_assumed_0_5A_V": 0.0364
+    },
+    {
+      "net": "P3V3",
+      "total_branched_length_mm": 216.798,
+      "min_width_mm": 0.25,
+      "conservative_trace_resistance_20C_ohm": 0.4272,
+      "drop_at_assumed_0_5A_V": 0.2136
+    },
+    {
+      "net": "V3P3",
+      "total_branched_length_mm": 755.716,
+      "min_width_mm": 0.25,
+      "conservative_trace_resistance_20C_ohm": 1.489,
+      "drop_at_assumed_0_5A_V": 0.7445
+    }
+  ]
+}

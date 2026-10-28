@@ -372,7 +372,7 @@
       ],
       "x": 80.01,
       "y": 100.33,
-      "footprint": "Connector_IDC:IDC-Header_2x30_P2.54mm_Vertical",
+      "footprint": "Pico1715_RevA:IDC_Wuerth_61206021621",
       "datasheet": "https://www.we-online.com/components/products/datasheet/61206021621.pdf"
     },
     {
@@ -3209,7 +3209,7 @@
     },
     {
       "ref": "J3",
-      "value": "DM3AT-SF-PEJM5",
+      "value": "693071010811",
       "pins": [
         [
           1,
@@ -3270,18 +3270,12 @@
           "DETECT_10_UNUSED",
           "passive",
           null
-        ],
-        [
-          "SH",
-          "SHIELD",
-          "passive",
-          "GND"
         ]
       ],
       "x": 629.92,
       "y": 279.4,
-      "footprint": "Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5",
-      "datasheet": "https://www.hirose.com/product/p/CL0609-0031-0-00"
+      "footprint": "Pico1715_RevA:microSD_Wuerth_693071010811",
+      "datasheet": "https://www.we-online.com/components/products/datasheet/693071010811.pdf"
     },
     {
       "ref": "J4",
@@ -4784,8 +4778,8 @@
     "daughterboard_in_first_order": false
   },
   "holds": [
-    "SD engineering drawing and footprint approval",
-    "Connector mechanical/mating drawing review",
-    "Four-layer routing and independent manufacturing review"
+    "Whole-board return-path closure",
+    "Independent fabrication export and assembly review",
+    "Delivered Estonia quote"
   ]
 }
