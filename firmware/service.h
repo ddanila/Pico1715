@@ -32,8 +32,12 @@ void p1715_service_step(void);
 void p1715_storage_step(void);
 /* Single producer (core 1), single consumer (core 0), one bounded request.
    Submit/take never wait. Snapshot contains no live pointers or torn 64-bit words. */
-enum {P1715_CONTROL_STATUS=1,P1715_CONTROL_EJECT=2};
+enum {P1715_CONTROL_STATUS=1,P1715_CONTROL_EJECT=2,
+ P1715_CONTROL_TRACE_START=3,P1715_CONTROL_TRACE_STOP=4,P1715_CONTROL_TRACE_STATUS=5,
+ P1715_CONTROL_TRACE_READ=6,P1715_CONTROL_TRACE_REWIND=7};
 typedef struct {
+ uint32_t trace[12];
+ uint8_t trace_data[64];
  p1715_diagnostics diagnostics;
  uint64_t writes,rejected_writes,overruns,underflows,tx_overruns,tx_underruns;
 } p1715_control_status;

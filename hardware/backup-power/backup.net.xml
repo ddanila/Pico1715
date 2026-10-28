@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/home/ddanila/fun/Pico1715/hardware/backup-power/backup.kicad_sch</source>
-    <date>2026-10-27T10:29:00</date>
+    <date>2026-10-28T10:05:06</date>
     <tool>Eeschema 10.0.6-10.0.6~ubuntu26.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -235,7 +235,7 @@
       </units>
     </comp>
     <comp ref="J3">
-      <value>STATUS_INTERFACE_NO_GPIO_ASSIGNED</value>
+      <value>SPCE_STATUS_CABLE</value>
       <fields>
         <field name="Footprint"/>
         <field name="Datasheet"/>
@@ -253,6 +253,7 @@
             <pin num="2"/>
             <pin num="3"/>
             <pin num="4"/>
+            <pin num="5"/>
           </pins>
         </unit>
       </units>
@@ -683,16 +684,17 @@
     <libpart lib="Backup" part="J3">
       <fields>
         <field name="Reference">J3</field>
-        <field name="Value">STATUS_INTERFACE_NO_GPIO_ASSIGNED</field>
+        <field name="Value">SPCE_STATUS_CABLE</field>
         <field name="Footprint"/>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <pins>
-        <pin num="1" name="P3V3_FROM_PICO" type="power_out"/>
+        <pin num="1" name="P3V3" type="power_out"/>
         <pin num="2" name="GND" type="passive"/>
         <pin num="3" name="SUPPLY_OK" type="passive"/>
         <pin num="4" name="RESERVE_OK" type="passive"/>
+        <pin num="5" name="PRESENT_N" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Backup" part="R1">
@@ -914,6 +916,7 @@
       <node ref="J1" pin="2" pinfunction="GND_2" pintype="power_out"/>
       <node ref="J2" pin="2" pinfunction="GND_2" pintype="passive"/>
       <node ref="J3" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="J3" pin="5" pinfunction="PRESENT_N_5" pintype="passive"/>
       <node ref="R3" pin="2" pinfunction="2_2" pintype="passive"/>
       <node ref="R5" pin="2" pinfunction="2_2" pintype="passive"/>
       <node ref="R8" pin="2" pinfunction="2_2" pintype="passive"/>
@@ -924,7 +927,7 @@
     <net code="6" name="/P3V3" class="Default">
       <node ref="C3" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="C4" pin="1" pinfunction="1_1" pintype="passive"/>
-      <node ref="J3" pin="1" pinfunction="P3V3_FROM_PICO_1" pintype="power_out"/>
+      <node ref="J3" pin="1" pinfunction="P3V3_1" pintype="power_out"/>
       <node ref="R6" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="R9" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U3" pin="6" pinfunction="VCC_6" pintype="power_in"/>

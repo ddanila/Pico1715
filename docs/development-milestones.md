@@ -8,7 +8,7 @@ Simulation evidence does not release physical qualification gates.
 | --- | --- | --- | --- |
 | A | 4 replay, 2 bundles | Clocked replay from boot, hash-bound checkpoints, native/WASM parity, browser recording/import/export and missing-input handling | Implemented; native/WASM and browser checks pass |
 | B | 3 faults, 1 trace/source | Scheduled supported faults, control runs, failure bundles and reduction; observed fetch/disassembly/source links with explicit uncertainty | Core implemented; extensions below remain |
-| C | 5 combined mode | Controller-priority bounded transport, finite I/O/IACK/reset capture, disjoint PSRAM, loss accounting, capability negotiation, fit and co-simulation | Planned |
+| C | 5 combined mode | Controller-priority bounded transport, finite I/O/IACK/reset capture, disjoint PSRAM, loss accounting, capability negotiation, fit and co-simulation | Implemented experimentally; desk checks pass, physical qualification pending |
 | D | 6 rotation, 7 CTC/SIO | Explicit rotating-media profile and asynchronous serial/peripheral timing; preserve previous qualified profiles | Planned |
 | D | 8 applications, 9 diagnostics | Public source-built workloads, optional local historical manifests, transient-memory diagnostics and separate low-level diagnostic image | Planned |
 | E | 10 disk workbench | Extend existing explorer for classic CP/M, staged edits to a new image and independent host/guest checks | Planned |
@@ -43,5 +43,6 @@ Trace/source interpretation validates the source and binary identities, observed
 opcode/operand bytes and available banking evidence. Platform and portable
 diagnostic source profiles are included. Relocated RMAC BIOS mapping, event-based
 fault triggers, browser paired-control execution and integration with independent
-guest/host file-preservation oracles remain follow-ups. Milestones C–F remain
-unimplemented by these software increments; no physical qualification is implied.
+guest/host file-preservation oracles remain follow-ups. Combined mode C now has RTL/firmware, internal FPGA fit, timing-cost checks and
+classic CP/M write/cold-read verification; see [combined mode](combined-mode.md).
+D–F remain incomplete; no physical qualification is implied.

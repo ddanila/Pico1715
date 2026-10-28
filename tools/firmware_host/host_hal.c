@@ -12,6 +12,13 @@ void (*host_cost_hook)(unsigned);
 void (*host_lock_hook)(critical_section_t *,bool);
 static uint8_t sd[(P1715_IMAGE_LBA+P1715_IMAGE_BLOCKS)*512];
 static uint8_t psram[P1715_IMAGE_BYTES];
+#if P1715_COMBINED
+static uint8_t trace_ram[7u*1024u*1024u];
+uint8_t *p1715_psram_region(uint32_t offset,uint32_t size){
+ if(offset!=1024u*1024u || size!=sizeof(trace_ram))return NULL;
+ memset(trace_ram,0,sizeof(trace_ram));return trace_ram;
+}
+#endif
 static bool missing;
 static void put32(uint8_t *p,uint32_t n){for(unsigned i=0;i<4;i++)p[i]=(uint8_t)(n>>(8*i));}
 void host_storage_init(const uint8_t *image,bool absent){

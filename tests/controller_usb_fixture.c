@@ -57,3 +57,11 @@ static void during_write(bool writing,uint32_t lba){
  p1715_control_step();p1715_controller_usb_poll(&usb);
 }
 void fixture_io_control(void){host_io_hook=during_write;}
+#if P1715_COMBINED
+unsigned fixture_extension_read(unsigned reg){
+ host_inputs=(1u<<15)|(1u<<13)|(reg<<8);steps(1);
+ assert(host_outputs&(1u<<14));unsigned value=host_outputs&255;
+ host_inputs=1u<<15;steps(1);return value;
+}
+void fixture_extension_write(unsigned reg,uint8_t value){out(reg,value);}
+#endif

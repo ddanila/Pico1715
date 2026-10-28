@@ -21,6 +21,28 @@ module firmware_cosim_top(
  assign gpio_in={10'b0,1'b0,ack_index,reti_toggle,ack_toggle,2'b0,reset_n,
                  1'b0,request,write_req,reg_addr,data};
  assign contention=request && write_req && |gpio_dir[7:0];
+`ifdef P1715_COMBINED
+ // Resolve driven bus feedback on the opposite simulation edge. This models
+ // a bounded receiver observation, not analogue propagation qualification.
+ reg observed_wait_n=1;
+ reg [7:0] observed_data=0;
+ always @(negedge clk100)begin
+  observed_wait_n<=!wait_pull_low;
+  observed_data<=host_data_enable?host_rdata:(transaction?host_wdata:obs_data);
+ end
+ wire [36:0] capture_sample={4'b1111,observed_wait_n,reset_n,2'b11,
+  transaction?1'b1:obs_m1_n,transaction?wr_n:1'b1,transaction?rd_n:obs_rd_n,
+  transaction?iorq_n:(obs_iorq_n || obs_m1_n),transaction?1'b1:obs_mreq_n,
+  observed_data,8'b0,host_addr};
+ wire personality;
+ carrier_combined board(.clk100(clk100),.power_good(power_good),.backend_ready(gpio_out[21]),
+ .bus_sample(capture_sample),.host_dout(host_rdata),.host_oe(host_data_enable),
+ .wait_pull_low(wait_pull_low),.int_pull_low(int_pull_low),.ieo(ieo),.fault(fault),
+ .pico_data(data),.pico_reg(reg_addr),.pico_write(write_req),.pico_request(request),
+ .pico_ack(gpio_out[14]),.pico_index(gpio_out[16]),.pico_mark(gpio_out[17]),
+ .ack_toggle(ack_toggle),.reti_toggle(reti_toggle),.ack_index(ack_index),.personality_controller(personality));
+ wire unused_personality=personality;
+`else
  pico1715_top board(.clk100(clk100),.host_reset_n(reset_n),.power_good(power_good),
  .backend_ready(gpio_out[21]),.host_addr(host_addr),
  .host_din(transaction?host_wdata:obs_data),
@@ -31,6 +53,7 @@ module firmware_cosim_top(
  .ieo(ieo),.fault(fault),.pico_data(data),.pico_reg(reg_addr),.pico_write(write_req),
  .pico_request(request),.pico_ack(gpio_out[14]),.pico_index(gpio_out[16]),
  .pico_mark(gpio_out[17]),.ack_toggle(ack_toggle),.reti_toggle(reti_toggle),.ack_index(ack_index));
+`endif
  wire unused_ieo=ieo;
  wire [23:0] unused_gpio={gpio_out[31:22],gpio_out[20:18],gpio_out[15],gpio_out[13:8],gpio_dir[31:28]};
  wire [19:0] unused_dir=gpio_dir[27:8];

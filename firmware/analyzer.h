@@ -43,5 +43,8 @@ size_t p1715_analyzer_header_size(const p1715_analyzer *);
 void p1715_analyzer_trigger_info(const p1715_analyzer *,uint8_t *);
 int p1715_analyzer_read(const p1715_analyzer *,uint32_t,uint8_t *,size_t);
 void p1715_analyzer_step(p1715_analyzer *);
+/* Core-owned complete frame ingress for the combined mailbox transport.
+   Returns false on malformed evidence; no GPIO handshake is performed. */
+bool p1715_analyzer_frame(p1715_analyzer *,const uint8_t frame[22]);
 void p1715_analyzer_stop(p1715_analyzer *);
 #endif

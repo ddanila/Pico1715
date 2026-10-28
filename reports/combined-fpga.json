@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "target": "Olimex iCE40HX8K-EVB Rev B1",
+  "top": "carrier_combined",
+  "hardware_executed": false,
+  "internal_timing_passed": true,
+  "electrical_timing_qualified": false,
+  "fmax": {
+    "clk100$SB_IO_IN": {
+      "achieved": 683.5269775390625,
+      "constraint": 100
+    },
+    "clk50_$glb_clk": {
+      "achieved": 81.83975982666016,
+      "constraint": 50
+    }
+  },
+  "utilization": {
+    "ICESTORM_LC": {
+      "available": 7680,
+      "used": 1962
+    },
+    "ICESTORM_PLL": {
+      "available": 2,
+      "used": 0
+    },
+    "ICESTORM_RAM": {
+      "available": 32,
+      "used": 8
+    },
+    "SB_GB": {
+      "available": 8,
+      "used": 8
+    },
+    "SB_IO": {
+      "available": 206,
+      "used": 74
+    },
+    "SB_WARMBOOT": {
+      "available": 1,
+      "used": 0
+    }
+  },
+  "source_sha256": {
+    "hardware/rtl/bus_frontend.v": "04b0361a0e4a3b11f6930d0b1d55cf7adeb94da511082f7aec61886526ee5b55",
+    "hardware/rtl/irq_frontend.v": "8a7b67b78db8b9f3cb5c5a35c8b70d0cd71f57103a91baf3856eb1892f14b92b",
+    "hardware/rtl/pico1715_top.v": "c474529a1af56c98775d0153b6bb9599a4b845fbf954f1b5969d9dad422e9cef",
+    "hardware/rtl/combined_mailbox.v": "58ae7391d7486ca062f95d100d18a6092fb66f386de2f34bacca477f77f8f157",
+    "hardware/rtl/cycle_encoder.v": "9290c8a57d748259003c4df228c04e09ba121db96835a03a1ee4509a31e54d59",
+    "hardware/rtl/analyzer_record_fifo.v": "44b40f20986f425e853731f9c1dad326d7c0f3fe4058aa23cb7021cc7b9a8457",
+    "hardware/rtl/cycle_capture_top.v": "7f1070cc3af6f6d5bbf40490c156721b9a6f5cfd2d657cd4cd87620d78866df8",
+    "hardware/rtl/analyzer_link.v": "bb418875b8b7dcf2568b2d8525043f817103cd70c8e96f8c8fa6534511945ce9",
+    "hardware/rtl/analyzer_transport_top.v": "048de78af9f8538d8d359dd9519b38ee745e40d01ee4466f80794fbf733b7623",
+    "hardware/rtl/carrier_combined.v": "1e77f4c80ef5af5eb464105a06aa583d480ebe01803118b550125be46c4c6b41",
+    "hardware/boards/hx8k-carrier-combined.pcf": "f9bfdb9fa6c411422975d612b21eae70c616122fc345aa9fc7ce5c294d791582",
+    "hardware/boards/hx8k-carrier-combined.json": "32251633661b75fbec322d94943a62aa4d6d8ad5fa3720732acdf564c24182e1",
+    "hardware/boards/carrier-combined-clocks.sdc": "a3288171de2f6db3eaf39be6d155eaeeec19d28d8f44ddb44eb5e78ec3a13719"
+  },
+  "bitstream_sha256": "32098de97bf3e96cdace4ea2274a10475bdbae7483c7555b7b061f77d0961fcc",
+  "commands": [
+    [
+      "yosys",
+      "-Q",
+      "-T",
+      "-p",
+      "read_verilog -sv hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/combined_mailbox.v hardware/rtl/cycle_encoder.v hardware/rtl/analyzer_record_fifo.v hardware/rtl/cycle_capture_top.v hardware/rtl/analyzer_link.v hardware/rtl/analyzer_transport_top.v hardware/rtl/carrier_combined.v; synth_ice40 -top carrier_combined -json \"/home/ddanila/fun/Pico1715/build/hx8k-combined/design.json\"; check -assert; stat"
+    ],
+    [
+      "local/nextpnr-build/nextpnr-ice40",
+      "--hx8k",
+      "--package",
+      "ct256",
+      "--json",
+      "/home/ddanila/fun/Pico1715/build/hx8k-combined/design.json",
+      "--pcf",
+      "hardware/boards/hx8k-carrier-combined.pcf",
+      "--asc",
+      "/home/ddanila/fun/Pico1715/build/hx8k-combined/design.asc",
+      "--freq",
+      "100",
+      "--report",
+      "/home/ddanila/fun/Pico1715/build/hx8k-combined/timing.json",
+      "--sdc",
+      "hardware/boards/carrier-combined-clocks.sdc"
+    ],
+    [
+      "local/fpga-tools/usr/bin/icepack",
+      "/home/ddanila/fun/Pico1715/build/hx8k-combined/design.asc",
+      "/home/ddanila/fun/Pico1715/build/hx8k-combined/design.bin"
+    ]
+  ],
+  "tool_versions": {
+    "yosys": "Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)",
+    "local/nextpnr-build/nextpnr-ice40": "\"nextpnr-ice40\" -- Next Generation Place and Route (Version 22c5adf)"
+  }
+}

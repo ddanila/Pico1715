@@ -40,6 +40,14 @@ Pico power isolation, SD and button/SAFE-LED support. Both new FPGA targets rout
 with passing internal timing. Physical assembly, USB/timing qualification and
 PCB layout remain open.
 
+An experimental third [combined controller/capture personality](docs/combined-mode.md)
+now runs disk service and finite analyzer capture concurrently. Classic CP/M guest
+write/cold-read tests preserve existing files, and the HX8K build meets its
+internal clock constraints. Capture loss under load is explicitly reported.
+The optional [reserve supervisor](docs/reserve-interface.md) uses PIM724 SP/CE
+GPIO32/33/36 and defaults to zero qualified energy. See the
+[Rev A order gates](docs/rev-a-release.md) for remaining PCB work.
+
 The first compatibility target is the **ordinary PC 1715**, retaining its boot
 ROM and operating-system floppy routines. It must not be confused with the
 **1715W/M**: the existing DAC emulator and available S550/TOS/M reference boot

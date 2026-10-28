@@ -125,6 +125,13 @@ static bool commit(p1715_analyzer *a){
  a->io.fence(a->io.user); /* PSRAM contents must be visible before final ACK. */
  return true;
 }
+bool p1715_analyzer_frame(p1715_analyzer *a,const uint8_t frame[22]){
+ if(!a || !frame || a->state==P1715_LA_DONE || a->state==P1715_LA_ERROR)return false;
+ memcpy(a->frame,frame,22);
+ if(!commit(a)){fail(a);return false;}
+ if(a->terminal)a->state=P1715_LA_DONE;
+ return true;
+}
 void p1715_analyzer_step(p1715_analyzer *a){
  if(a->state==P1715_LA_DONE || a->state==P1715_LA_ERROR)return;
  uint64_t now=a->io.time_us(a->io.user);

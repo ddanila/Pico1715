@@ -8,6 +8,7 @@ def check(parts,xml):
  by={p['ref']:p for p in parts};pins={(p['ref'],str(n)):net for p in parts for n,_,_,net in p['pins']}
  for net in xml.findall('./nets/net'):
   for node in net.findall('node'):assert '/'+pins[(node.attrib['ref'],node.attrib['pin'])]==net.attrib['name']
+ assert [pins[('J3',str(i))] for i in range(1,6)]==['P3V3','GND','SUPPLY_OK','RESERVE_OK','GND']
  for ref,k,a in [('D1','P_VSYS','V5_MODULE'),('D2','CHARGE_IN','V5_MODULE'),('D3','P_VSYS','CAP_FUSED')]:assert [pins[(ref,str(i))] for i in (1,2)]==[k,a]
  assert [pins[('R1',str(i))] for i in (1,2)]==['CHARGE_IN','CAP_TOP'] and by['R1']['value']=='100R_1W_1pct'
  for ref,hi,lo in [('U1','CAP_TOP','CAP_MID'),('U2','CAP_MID','GND')]:assert [pins[(ref,str(i))] for i in (1,2,3)]==[hi,hi,lo]

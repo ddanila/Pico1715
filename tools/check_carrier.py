@@ -100,7 +100,7 @@ def check(tree,manifest,designs=None):
         assert nc(h,5) and nc(h,6)
         if h!='EXT1':assert nc(h,1) and nc(h,3)
     bindings={}
-    for mode in ('controller','analyzer'):
+    for mode in ('controller','analyzer','combined'):
         prefix=ROOT/f'hardware/boards/hx8k-carrier-{mode}'
         rows=json.loads(prefix.with_suffix('.json').read_text())['signals']
         pcf=dict(re.findall(r'^set_io (\S+) (\S+)$',prefix.with_suffix('.pcf').read_text(),re.M))
@@ -111,11 +111,11 @@ def check(tree,manifest,designs=None):
             assert net(*r['header'])==r['adapter_net'],r
             previous=bindings.setdefault(r['package_pin'],r['adapter_net'])
             assert previous==r['adapter_net'],r
-        if mode=='analyzer':
+        if mode in ('analyzer','combined'):
             for i,n in enumerate(inputs):assert next(r for r in rows if r['signal']==f'bus_sample[{i}]')['adapter_net']=='F_'+n
-        if designs:
+        if designs and mode in designs:
             ports=designs[mode]['modules']['carrier_'+mode]['ports']
-            assert ports['personality_controller']['bits']==['1' if mode=='controller' else '0']
+            assert ports['personality_controller']['bits']==['0' if mode=='analyzer' else '1']
             if mode=='analyzer':
                 assert ports['bus_sample']['direction']=='input'
                 assert {p for p,v in ports.items() if v['direction']=='output'}=={'pico_data','pico_index','pico_request','personality_controller'}

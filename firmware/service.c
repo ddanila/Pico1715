@@ -6,6 +6,13 @@
 #include "../model/controller.h"
 #include <string.h>
 #include <stdatomic.h>
+#if P1715_COMBINED
+#include "combined.h"
+static p1715_combined trace;
+static uint32_t trace_cursor;
+uint8_t *p1715_psram_region(uint32_t,uint32_t);
+
+#endif
 _Static_assert(ATOMIC_INT_LOCK_FREE==2,"control mailbox requires lock-free unsigned atomics");
 #define LINK_WRITE 12
 #define LINK_REQ 13
@@ -35,6 +42,22 @@ static atomic_uint control_state; /* 0 free, 1 request, 2 response */
 static unsigned control_command,control_iterations;
 static int control_result;
 static p1715_control_status control_status;
+#if P1715_COMBINED
+static int trace_control(unsigned command){
+ if(command==P1715_CONTROL_TRACE_START){
+  if(p1715_status.state!=2 || p1715_status.shutdown!=P1715_RUNNING)return -1;
+  int r=p1715_combined_start(&trace,time_us_64());if(!r)trace_cursor=0;return r;
+ }
+ if(command==P1715_CONTROL_TRACE_STOP){p1715_combined_stop(&trace);return 0;}
+ if(command==P1715_CONTROL_TRACE_STATUS)return 0;
+ if(command!=P1715_CONTROL_TRACE_READ && command!=P1715_CONTROL_TRACE_REWIND)return -1;
+ if(!trace.active || trace.capture.state!=P1715_LA_DONE || p1715_status.shutdown!=P1715_SAFE)return -1;
+ if(command==P1715_CONTROL_TRACE_REWIND){trace_cursor=0;return 0;}
+ uint32_t total=32+trace.capture.records*16,n=total-trace_cursor;if(n>64)n=64;
+ if(p1715_analyzer_read(&trace.capture,trace_cursor,control_status.trace_data,n))return -1;
+ control_status.trace[7]=n;trace_cursor+=n;return 0;
+}
+#endif
 void p1715_background_hook(void (*hook)(void)){background_hook=hook;}
 bool p1715_control_submit(unsigned command){
  if(atomic_load_explicit(&control_state,memory_order_acquire)!=0)return false;
@@ -48,8 +71,18 @@ bool p1715_control_take(p1715_control_status *status,int *result){
 }
 void p1715_control_step(void){
  if(atomic_load_explicit(&control_state,memory_order_acquire)!=1)return;
+ memset(&control_status,0,sizeof(control_status));
  control_result=control_command==P1715_CONTROL_STATUS?0:
   control_command==P1715_CONTROL_EJECT?p1715_shutdown_request(P1715_EJECT):-1;
+#if P1715_COMBINED
+ if(control_command>=P1715_CONTROL_TRACE_START)control_result=trace_control(control_command);
+ control_status.trace[0]=trace.ram?1:0;control_status.trace[1]=trace.active?trace.capture.state:0;
+ control_status.trace[2]=trace.capture.records;control_status.trace[3]=trace.capture.fpga_dropped;
+ control_status.trace[4]=trace.capture.local_dropped;control_status.trace[5]=trace.active?32+trace.capture.records*16:0;
+ control_status.trace[6]=trace_cursor;control_status.trace[8]=trace.framing_errors;
+ control_status.trace[9]=trace.capture.crc_errors;control_status.trace[10]=trace.capture.filtered;
+ control_status.trace[11]=trace.command;
+#endif
  critical_section_enter_blocking(&image_lock);
  /* Charge the existing snapshot cost in simulation; no USB work runs here. */
  P1715_WORK(P1715_COST_SNAPSHOT);
@@ -184,6 +217,10 @@ static int service_init(pico1715_controller *c,bool writable,bool protect,uint32
  gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_pull_up(HOST_RESET);
  critical_section_init(&image_lock);p1715_status.state=1;
  if(protect && !worst){p1715_status.state=0xe4;return -1;}
+ #if P1715_COMBINED
+ p1715_combined_init(&trace,p1715_psram_region(P1715_LA_RAM_OFFSET,P1715_LA_RAM_SIZE),P1715_LA_RAM_SIZE);
+ trace_cursor=0;
+#endif
  image=p1715_psram();if(!image){p1715_status.state=0xe1;return -1;}
  if(p1715_sd_init()||p1715_store_open(&store)){p1715_status.state=0xe2;return -1;}
  for(unsigned i=0;i<P1715_IMAGE_BLOCKS;i++)if(p1715_store_read(&store,i,image+i*512)){
@@ -213,6 +250,9 @@ void p1715_service_step(void){
   if(!gpio_get(HOST_RESET)){
    tx_pending=false;
    gpio_put(BACKEND_READY,0);gpio_put(LINK_ACK,0);gpio_set_dir_masked(255,0);
+   #if P1715_COMBINED
+   p1715_combined_reset(&trace);
+#endif
    if(!reset_seen){pico1715_reset(&card);start=time_us_64();reset_seen=true;}
    ack_seen=reti_seen=responded=false;prefetch_allowed=true;outputs();return;
   }
@@ -238,6 +278,19 @@ void p1715_service_step(void){
   }
   if(responded)return;
   uint32_t pins=gpio_get_all();unsigned reg=(pins>>8)&15;bool write=(pins>>LINK_WRITE)&1;
+#if P1715_COMBINED
+  uint8_t extension_reply;
+  if(reg>=12){
+   // Charge a conservative existing PSRAM/snapshot cost for a complete frame.
+   if(write && reg==15 && trace.received==21)P1715_WORK(P1715_COST_SNAPSHOT);
+   if(!request_live()){abandon_response();return;}
+  }
+  if(p1715_combined_request(&trace,reg,write,(uint8_t)pins,&extension_reply,time_us_64())){
+   if(!request_live()){abandon_response();return;}
+   if(!write){gpio_put_masked(255,extension_reply);gpio_set_dir_masked(255,255);}
+   __dmb();gpio_put(LINK_ACK,1);responded=true;return;
+  }
+#endif
   uint16_t port=reg<8?reg:0x20+(reg&3);
   if(pico1715_wait(&card,port,write))return;
   uint64_t begun=time_us_64();uint8_t data=255;

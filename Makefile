@@ -214,3 +214,31 @@ test-browser-session: build/browser-session-test
 build/browser-session-test: tests/browser_session_test.c tools/browser/session.c tools/session.h model/controller.c
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(WARN) -I$(DAC) tests/browser_session_test.c tools/browser/session.c model/controller.c $(DAC)/machines/robotron1715/pc1715.c $(DAC)/common/cpu/z80.c $(DAC)/common/trace/trace.c -o $@
+
+.PHONY: test-combined-mailbox
+test-combined-mailbox:
+	mkdir -p build
+	iverilog -g2012 -Wall -s combined_mailbox_tb -o build/combined-mailbox-test hardware/rtl/combined_mailbox.v tests/combined_mailbox_tb.v
+	vvp build/combined-mailbox-test
+	verilator --lint-only -Wall --top-module combined_mailbox hardware/rtl/combined_mailbox.v
+	yosys -Q -T -p 'read_verilog -sv hardware/rtl/combined_mailbox.v; synth_ice40 -top combined_mailbox; check -assert; stat' > build/combined-mailbox-synthesis.log
+
+COMBINED_RTL = hardware/rtl/bus_frontend.v hardware/rtl/irq_frontend.v hardware/rtl/pico1715_top.v hardware/rtl/combined_mailbox.v $(ANALYZER_TRANSPORT_RTL) hardware/rtl/carrier_combined.v
+.PHONY: test-carrier-combined
+test-carrier-combined: test-combined-mailbox
+	python3 tools/generate_combined_profile.py --check
+	iverilog -g2012 -Wall -s carrier_combined_tb -o build/carrier-combined-test $(COMBINED_RTL) tests/carrier_combined_tb.v
+	vvp build/carrier-combined-test
+	verilator --lint-only -Wall --top-module carrier_combined $(COMBINED_RTL)
+
+.PHONY: test-combined-endpoint
+test-combined-endpoint:
+	mkdir -p build
+	$(CC) $(WARN) tests/combined_test.c firmware/combined.c firmware/analyzer.c -o build/combined-endpoint-test
+	./build/combined-endpoint-test
+
+.PHONY: test-reserve-supervisor
+test-reserve-supervisor:
+	mkdir -p build
+	$(CC) -std=c11 -Wall -Wextra -Werror -fsanitize=undefined tests/reserve_test.c firmware/reserve.c -o build/reserve-test
+	./build/reserve-test

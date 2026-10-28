@@ -14,10 +14,32 @@ module pico1715_top(
  output reg ack_toggle,reti_toggle,ack_index
 );
  reg clk50=0;
- always @(posedge clk100) clk50<=!clk50;
+ always @(posedge clk100)clk50<=!clk50;
+ wire [7:0] request_data;
+ assign pico_data=(host_reset_n && backend_ready && power_good && pico_request && pico_write)?request_data:8'bz;
+ pico1715_core core(.*, .response_data(pico_data),.request_data(request_data));
+endmodule
+
+/* verilator lint_off DECLFILENAME */
+// SPDX-License-Identifier: MIT
+`timescale 1ns/1ps
+// Bench top: HX8K board 100 MHz -> 50 MHz frontend. No X2 contacts assumed.
+module pico1715_core(
+ input wire clk50, host_reset_n, power_good, backend_ready,
+ input wire [7:0] host_addr,host_din,
+ input wire iorq_n,m1_n,mreq_n,rd_n,wr_n,iei,
+ output wire [7:0] host_dout,
+ output wire host_oe,wait_pull_low,int_pull_low,ieo,fault,
+ input wire [7:0] response_data,
+ output wire [7:0] request_data,
+ output wire [3:0] pico_reg,
+ output wire pico_write,pico_request,
+ input wire pico_ack,pico_index,pico_mark,
+ output reg ack_toggle,reti_toggle,ack_index
+);
  wire reset_n=host_reset_n && backend_ready;
  wire alive=reset_n && power_good;
- wire [7:0] request_data,normal_data,vector_data;
+ wire [7:0] normal_data,vector_data;
  wire normal_oe,irq_oe,ack_pulse,reti_pulse,in_service,irq_ieo;
  // A latched mailbox fault removes this card from interrupt arbitration.
  // Clear ownership/partial RETI and bypass the chain until host/backend reset.
@@ -28,14 +50,13 @@ module pico1715_top(
  reg direction_next,mask_next,mirrored;
  wire index_pending=index_sync[1];
  wire mark_pending=mark_sync[1];
- assign pico_data=(alive && pico_request && pico_write)?request_data:8'bz;
  assign host_dout=irq_oe?vector_data:normal_data;
  assign host_oe=alive && !fault && (normal_oe || irq_oe);
  bus_frontend bus(.clk(clk50),.reset_n(reset_n),.power_good(power_good),
  .host_addr({8'b0,host_addr}),.host_wdata(host_din),.iorq_n(iorq_n),.m1_n(m1_n),
  .rd_n(rd_n),.wr_n(wr_n),.request(pico_request),.request_write(pico_write),
  .request_reg(pico_reg),.request_data(request_data),.response_ack(pico_ack),
- .response_data(pico_data),.wait_pull_low(wait_pull_low),.host_data_enable(normal_oe),
+ .response_data(response_data),.wait_pull_low(wait_pull_low),.host_data_enable(normal_oe),
  .host_rdata(normal_data),.fault(fault));
  irq_frontend irq(.clk(clk50),.reset_n(irq_reset_n),.power_good(power_good),.iei(iei),
  .pending(index_pending||mark_pending),.vector(index_pending?index_vector:mark_vector),
@@ -66,3 +87,4 @@ module pico1715_top(
   end
  end
 endmodule
+/* verilator lint_on DECLFILENAME */

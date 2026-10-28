@@ -18,6 +18,9 @@ static pc1715 *machine;
 static pico1715_controller *card;
 static uint8_t *output_image;
 static bool active,launched,ready,last_ack,last_reti,last_response;
+#if P1715_COMBINED
+static bool trace_start_pending,trace_enabled;
+#endif
 static uint16_t address;
 static int writing;
 static uint64_t phase,requests,acks,returns,last_poll,last_worker;
@@ -195,6 +198,9 @@ static void service(bool force=false) {
         if(serving_busy && host_time_us>=serving_due)resume_core(0);
         pins();
         loss_sample();
+#if P1715_COMBINED
+        if(trace_start_pending){p1715_control_status s;int r;if(p1715_control_take(&s,&r)){assert(!r);trace_start_pending=false;}}
+#endif
     }
     worker_pump();
 }
@@ -227,6 +233,11 @@ extern "C" void firmware_cosim_start(int absent) {
     bool writable=card->writable;
     host_storage_init(output_image,absent);
     ready=p1715_service_init(card,writable)==0;
+#if P1715_COMBINED
+    trace_enabled=ready && setting("PICO1715_COMBINED_CAPTURE",1,1);
+    trace_start_pending=trace_enabled;
+    if(trace_enabled)assert(p1715_control_submit(P1715_CONTROL_TRACE_START));
+#endif
     // service_init mounts the medium and resets controller settings. Apply
     // explicit host-only fault injection afterwards; retain production timing.
     card->timing.corrupt_crc=setting("PICO1715_CORRUPT_CRC",0,1);
@@ -353,6 +364,35 @@ extern "C" void cosim_observe(void){
 extern "C" uint64_t cosim_requests(void){return requests;}
 extern "C" uint64_t cosim_acks(void){return acks;}
 extern "C" uint64_t cosim_returns(void){return returns;}
+#if P1715_COMBINED
+static p1715_control_status combined_command(unsigned command){
+    assert(!trace_start_pending && p1715_control_submit(command));
+    p1715_control_status s;int result;unsigned waited=0;
+    while(!p1715_control_take(&s,&result)){
+        host_time_us++;for(unsigned i=0;i<100;i++)clock_edge();assert(++waited<1000000);
+    }
+    assert(!result);return s;
+}
+static void combined_export(){
+    if(!trace_enabled)return;
+    combined_command(P1715_CONTROL_TRACE_STOP);
+    p1715_control_status s;unsigned waited=0;
+    do{s=combined_command(P1715_CONTROL_TRACE_STATUS);assert(++waited<10000);}while(s.trace[1]!=4 && s.trace[1]!=5);
+    assert(s.trace[1]==4 && !s.trace[8] && !s.trace[9]);
+    combined_command(P1715_CONTROL_EJECT);
+    while(p1715_status.shutdown==P1715_DRAINING){host_time_us++;for(unsigned i=0;i<100;i++)clock_edge();assert(++waited<1000000);}
+    assert(p1715_status.shutdown==P1715_SAFE);
+    combined_command(P1715_CONTROL_TRACE_REWIND);
+    FILE *file=nullptr;
+    if(const char *path=std::getenv("PICO1715_COMBINED_TRACE")){file=std::fopen(path,"wx");if(!file){std::perror("combined trace");std::abort();}}
+    unsigned total=s.trace[5],downloaded=0;
+    do{s=combined_command(P1715_CONTROL_TRACE_READ);unsigned n=s.trace[7];assert(n && n<=64);
+        downloaded+=n;assert(downloaded==s.trace[6]);if(file)assert(std::fwrite(s.trace_data,1,n,file)==n);
+    }while(downloaded<total);
+    assert(downloaded==total);if(file)std::fclose(file);
+    std::fprintf(stderr,"Combined capture records=%u dropped=%u local_dropped=%u bytes=%u\n",s.trace[2],s.trace[3],s.trace[4],total);
+}
+#endif
 extern "C" void firmware_cosim_export(void){
     // Finish any exposed host transaction before stopping new serving steps.
     // Suspended steps must finish so the worker cannot inherit a stranded lock.
@@ -367,6 +407,9 @@ extern "C" void firmware_cosim_export(void){
         }while(rtl.wait_pull_low);
         finish();
     }
+#if P1715_COMBINED
+    combined_export();
+#endif
     exporting=true;
     uint64_t deadline=host_time_us+60000000;
     while(serving_busy || (host_worker && !p1715_status.storage_error &&

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "hardware_executed": false,
+  "binary_sha256": "6f30e5863b68e4fe04dc894426b9c9ee5538406433e75856428a0d13930951e5",
+  "cases": [
+    {
+      "case": "info",
+      "records": 12304,
+      "capture_header": {
+        "clock_hz": 50000000,
+        "count": 12304,
+        "dropped": 17857,
+        "filtered": 11448668,
+        "capture_mask": 368,
+        "trigger": null
+      },
+      "disk_sha256": "a9c195bd985e1d42fa801091289545c851d1439fb7a041932e7a16f9cc72c42e",
+      "capture_sha256": "31dcb6732baa244167aae590395ab168c63ad2b96f3ba3202af2783181bd26f3"
+    },
+    {
+      "case": "write",
+      "records": 161576,
+      "capture_header": {
+        "clock_hz": 50000000,
+        "count": 161576,
+        "dropped": 206617,
+        "filtered": 55971699,
+        "capture_mask": 368,
+        "trigger": null
+      },
+      "disk_sha256": "fba2c5e6c744c818fbebd97b4790764e1abcd82fe3309d5380550b2947379fd1",
+      "capture_sha256": "4ed61e3b9dcd5fed91dd909f2d1eea6f2d021e279856c9d79508d45e1cfc72ca"
+    },
+    {
+      "case": "cold-verify",
+      "records": 29610,
+      "capture_header": {
+        "clock_hz": 50000000,
+        "count": 29610,
+        "dropped": 40173,
+        "filtered": 17748385,
+        "capture_mask": 368,
+        "trigger": null
+      },
+      "disk_sha256": "fba2c5e6c744c818fbebd97b4790764e1abcd82fe3309d5380550b2947379fd1",
+      "capture_sha256": "fcfdc6e66aa7ebbcbdf068c09e6de592b4f6b130055af9249ec1deeaaadaa97d"
+    }
+  ],
+  "limitations": "Synthetic bus receiver observations and unmeasured service costs; capture loss is reported, not waived. No physical timing or power-loss qualification."
+}

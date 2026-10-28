@@ -49,11 +49,11 @@
     },
     {
       "ref": "J3",
-      "value": "STATUS_INTERFACE_NO_GPIO_ASSIGNED",
+      "value": "SPCE_STATUS_CABLE",
       "pins": [
         [
           1,
-          "P3V3_FROM_PICO",
+          "P3V3",
           "power_out",
           "P3V3"
         ],
@@ -74,6 +74,12 @@
           "RESERVE_OK",
           "passive",
           "RESERVE_OK"
+        ],
+        [
+          5,
+          "PRESENT_N",
+          "passive",
+          "GND"
         ]
       ],
       "x": 276.86,

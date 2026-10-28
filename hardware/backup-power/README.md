@@ -2,7 +2,7 @@
 
 The [KiCad schematic](backup.kicad_sch) and [rendered sheet](preview/backup.svg)
 provide a concrete, separate backup circuit for review. **Not fabrication-ready,
-not connected to carrier GPIOs, and not qualified for protected writeback.**
+not integrated into the carrier PCB, and not qualified for protected writeback.**
 Omitting the entire reserve branch leaves the existing D1 supply path operational.
 D1 in this drawing represents the carrier's existing diode; do not fit a duplicate
 feed or connect the reserve to V5_HOST, V5_MODULE or the FPGA rail.
@@ -43,9 +43,10 @@ approximately 4.56 V and 4.72 V. The calculator includes deliberately wider
 reference/offset/hysteresis/resistor allowances instead of treating these nominal
 values as guaranteed thresholds.
 
-J3 is an interface contract, **not an assigned Pico header**. Available pins,
-firmware sampling and the carrier ECO remain unresolved; no existing GPIO is
-silently reused. The required core-0 integration is:
+J3 is a five-wire cable interface, **not a pin-for-pin Pico connector**. Its
+PIM724 SP/CE mapping and opt-in core-0 supervisor are documented in the
+[reserve interface](../../docs/reserve-interface.md). The carrier power ECO and
+analog threshold qualification remain unresolved. The integration contract is:
 
 1. Start with backup ABSENT and writes protected. A high RESERVE_OK alone cannot
    establish fitted capacitance or capacitor health; an open capacitor can also

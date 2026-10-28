@@ -16,6 +16,7 @@ neither old analyzer bitstream nor old analyzer harness fits this carrier.
 | --- | --- | --- |
 | PASSIVE | carrier analyzer / analyzer | 37 input-only receivers; data, WAIT and INT outputs disabled; priority bypassed physically |
 | CONTROLLER | carrier controller / controller | Data, WAIT, INT and IEO enabled only after all qualifiers pass |
+| CONTROLLER | carrier combined / controller with `P1715_COMBINED=ON` | Same drive qualifiers, plus finite concurrent I/O/IACK/reset capture |
 
 **Change the selector and firmware only with host, module supply and USB power
 off.** This design does not support live mode switching or hot insertion.
@@ -33,7 +34,11 @@ controller FPGA image loaded. A separate FPGA personality output is LOW for the
 analyzer and HIGH for the controller, additionally disarming analyzer firmware
 when the selector is accidentally left in controller position. This is not
 protection against arbitrary faulty bitstreams while deliberately in CONTROLLER.
-Always pair the matching Pico and FPGA personalities.
+Always pair the matching Pico and FPGA personalities. See the experimental
+[combined-mode contract](../../docs/combined-mode.md) for arbitration and capture
+loss limits. The optional [SP/CE reserve cable](../../docs/reserve-interface.md)
+uses separate Pico pins; its power connections are not yet integrated into this
+carrier PCB.
 
 The eight host-drive qualifiers are FPGA 3.3 V good, host 5 V good, Pico 3.3 V
 good, configuration done, controller personality, backend ready, host /RESET2

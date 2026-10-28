@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a separate optional reserve schematic; no carrier pin assignment."""
+"""Generate a separate optional reserve schematic; PIM724 SP/CE status assignment."""
 import json,uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'hardware/backup-power'
@@ -10,7 +10,7 @@ def add(ref,value,pins,footprint='',datasheet=''):
 def two(ref,value,a,b,names=('1','2')):add(ref,value,[(1,names[0],'passive',a),(2,names[1],'passive',b)])
 add('J1','RAW_5V_INPUT',[(1,'5V','power_out','V5_MODULE'),(2,'GND','power_out','GND')])
 add('J2','PICO_VSYS_OUTPUT',[(1,'VSYS','passive','P_VSYS'),(2,'GND','passive','GND')])
-add('J3','STATUS_INTERFACE_NO_GPIO_ASSIGNED',[(1,'P3V3_FROM_PICO','power_out','P3V3'),(2,'GND','passive','GND'),(3,'SUPPLY_OK','passive','SUPPLY_OK'),(4,'RESERVE_OK','passive','RESERVE_OK')])
+add('J3','SPCE_STATUS_CABLE',[(1,'P3V3','power_out','P3V3'),(2,'GND','passive','GND'),(3,'SUPPLY_OK','passive','SUPPLY_OK'),(4,'RESERVE_OK','passive','RESERVE_OK'),(5,'PRESENT_N','passive','GND')])
 # Diode pin 1=K, 2=A. D1 represents the EXISTING carrier feed, not a parallel second feed.
 two('D1','SS14_EXISTING_CARRIER','P_VSYS','V5_MODULE',('K','A'))
 two('D2','SS14_CHARGE_BLOCK','CHARGE_IN','V5_MODULE',('K','A'))
@@ -45,7 +45,7 @@ for c in parts:
   props+=f'(property {q(name)} {q(val)} (at {c["x"]} {c["y"]+dy} 0) (effects (font (size 1.27 1.27))'+(' hide' if name in ['Footprint','Datasheet'] else '')+')) '
  instances.append(f'(symbol (lib_id "Backup:{ref}") (at {c["x"]} {c["y"]} 0) (unit 1) (in_bom yes) (on_board yes) (uuid {uid(ref)}) {props} (instances (project "backup" (path "/{rootid}" (reference "{ref}") (unit 1)))))')
 notes=[]
-for y,text in [(15,'Pico1715 optional reserve / electrical draft / NOT FOR FABRICATION'),(23,'D1 is the existing carrier diode. Omit the entire reserve branch for normal operation.'),(31,'J3 status pins have NO carrier GPIO allocation. Protected mode remains disabled pending integration and bench evidence.'),(350,'Pico + PSRAM + SD are backed up. FPGA and host rails are NOT backed up. Verify off-state isolation of every crossing.'),(358,'C1/C2: candidate 3 V EDLCs; U1/U2 shunt-clamp each cell near 2.495 V. Verify transient balance and clamp stability.'),(366,'Use current-limited charging through R1; discharge bypasses R1 through F1/D3. Fuse and thermal selection are provisional.')]:
+for y,text in [(15,'Pico1715 optional reserve / electrical draft / NOT FOR FABRICATION'),(23,'D1 is the existing carrier diode. Omit the entire reserve branch for normal operation.'),(31,'J3 cable maps to PIM724 SP/CE: 1=7, 2=1, 3=3/GP32, 4=6/GP33, 5=2/GP36. Qualified reserve defaults to zero.'),(350,'Pico + PSRAM + SD are backed up. FPGA and host rails are NOT backed up. Verify off-state isolation of every crossing.'),(358,'C1/C2: candidate 3 V EDLCs; U1/U2 shunt-clamp each cell near 2.495 V. Verify transient balance and clamp stability.'),(366,'Use current-limited charging through R1; discharge bypasses R1 through F1/D3. Fuse and thermal selection are provisional.')]:
  notes.append(f'(text {q(text)} (at 20 {y} 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid {uid(text)}))')
 OUT.mkdir(exist_ok=True)
 (OUT/'backup.kicad_sch').write_text(f'(kicad_sch (version 20250114) (generator "pico1715") (uuid {rootid}) (paper "A2") (lib_symbols '+''.join(libs)+') '+''.join(instances+wires+labels+notes)+')\n')

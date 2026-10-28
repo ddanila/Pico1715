@@ -9,6 +9,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 mode=p.add_mutually_exclusive_group()
+mode.add_argument('--combined', action='store_true', help='experimental simultaneous carrier controller/analyzer')
 mode.add_argument('--analyzer', action='store_true', help='passive analyzer adapter only')
 mode.add_argument('--fixture', action='store_true', help='standalone diagnostic; disconnect host/adapter')
 p.add_argument('--carrier', action='store_true', help='combined carrier A wiring, controller or --analyzer')
@@ -17,6 +18,7 @@ p.add_argument('--nextpnr', default='nextpnr-ice40')
 p.add_argument('--icepack', default='icepack')
 p.add_argument('--out', type=Path, default=None)
 a = p.parse_args()
+if a.combined:a.carrier=True
 if a.carrier and a.fixture:p.error('--carrier and --fixture are incompatible')
 if a.out is None:
     a.out = ROOT / ('build/analyzer-hx8k' if a.analyzer else 'build/fixture' if a.fixture else 'build/hx8k')
@@ -37,6 +39,12 @@ if a.carrier:
     top='carrier_analyzer' if a.analyzer else 'carrier_controller'
     sources.append('hardware/rtl/'+top+'.v')
     pcf='hardware/boards/hx8k-carrier-'+('analyzer' if a.analyzer else 'controller')+'.pcf'
+if a.combined:
+    top='carrier_combined'
+    pcf='hardware/boards/hx8k-carrier-combined.pcf'
+    sources=['hardware/rtl/'+n+'.v' for n in ('bus_frontend','irq_frontend','pico1715_top','combined_mailbox','cycle_encoder','analyzer_record_fifo','cycle_capture_top','analyzer_link','analyzer_transport_top','carrier_combined')]
+    if a.out == ROOT/'build/hx8k-carrier':
+        a.out=ROOT/'build/hx8k-combined';a.out.mkdir(parents=True,exist_ok=True);out=a.out.resolve()
 commands = [
     [a.yosys, '-Q', '-T', '-p', 'read_verilog -sv ' + ' '.join(sources) +
      '; synth_ice40 -top ' + top + ' -json "' + str(out / 'design.json') +
@@ -48,6 +56,7 @@ commands = [
 ]
 if a.analyzer:
     commands[1] += ['--sdc','hardware/boards/carrier-analyzer-clocks.sdc' if a.carrier else 'hardware/boards/analyzer-clocks.sdc']
+if a.combined:commands[1] += ['--sdc','hardware/boards/carrier-combined-clocks.sdc']
 if a.fixture:
     commands[1] += ['--sdc', 'hardware/boards/fixture-clocks.sdc']
 for name, command in zip(('synth', 'route', 'pack'), commands):
@@ -57,6 +66,9 @@ timing = json.loads((out / 'timing.json').read_text())
 assert timing['fmax'] and all(v['achieved'] >= v['constraint'] for v in timing['fmax'].values())
 files = sources + [pcf, 'hardware/boards/hx8k-analyzer-pins.json' if a.analyzer else 'hardware/boards/hx8k-pins.json']
 if a.carrier:files[-1]='hardware/boards/hx8k-carrier-'+('analyzer' if a.analyzer else 'controller')+'.json'
+if a.combined:
+    files[-1]='hardware/boards/hx8k-carrier-combined.json'
+    files.append('hardware/boards/carrier-combined-clocks.sdc')
 if a.analyzer:
     files.append('hardware/boards/carrier-analyzer-clocks.sdc' if a.carrier else 'hardware/boards/analyzer-clocks.sdc')
 if a.fixture:

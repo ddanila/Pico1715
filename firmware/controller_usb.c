@@ -10,6 +10,13 @@ static void reply(p1715_controller_usb *u,unsigned error,const p1715_control_sta
  uint8_t *p=u->response;memcpy(p,"P1CR",4);p[4]=1;p[5]=u->request[5];p[6]=(uint8_t)error;p[7]=0;
  memcpy(p+8,u->request+8,4);put32(p+12,s?P1715_CONTROL_PAYLOAD:0);
  if(s){
+#if P1715_COMBINED
+  if(u->request[5]>=P1715_CONTROL_TRACE_START){
+   for(unsigned i=0;i<12;i++)put32(p+16+4*i,s->trace[i]);
+   memcpy(p+64,s->trace_data,64);
+  }else
+#endif
+  {
   const p1715_diagnostics *d=&s->diagnostics;
   uint32_t fields[]={d->state,d->dirty_blocks,d->storage_error,d->max_service_us,
    d->shutdown,d->shutdown_reason,d->backup,d->write_policy,d->dirty_limit,d->storage_busy};
@@ -17,6 +24,7 @@ static void reply(p1715_controller_usb *u,unsigned error,const p1715_control_sta
   uint64_t wide[]={d->requests,d->reserve_us,d->shutdown_deadline,s->writes,s->rejected_writes,
    s->overruns,s->underflows,s->tx_overruns,s->tx_underruns};
   for(unsigned i=0;i<9;i++)put64(p+56+8*i,wide[i]);
+  }
  }
  size_t n=16+(s?P1715_CONTROL_PAYLOAD:0);put32(p+n,p1715_crc32(p,n));
  u->pending=n+4;u->sent=0;u->received=0;
@@ -36,7 +44,11 @@ void p1715_controller_usb_receive(p1715_controller_usb *u,uint8_t b){
  if(u->request[4]!=1 || u->request[6] || u->request[7] ||
     get32(u->request+12)!=p1715_crc32(u->request,12)){reply(u,1,NULL);return;}
  unsigned cmd=u->request[5];
- if(cmd!=P1715_CONTROL_STATUS && cmd!=P1715_CONTROL_EJECT){reply(u,2,NULL);return;}
+ if(cmd!=P1715_CONTROL_STATUS && cmd!=P1715_CONTROL_EJECT
+#if P1715_COMBINED
+    && (cmd<P1715_CONTROL_TRACE_START || cmd>P1715_CONTROL_TRACE_REWIND)
+#endif
+ ){reply(u,2,NULL);return;}
  if(!p1715_control_submit(cmd)){reply(u,4,NULL);return;}
  u->waiting=true;u->discard=false;
 }

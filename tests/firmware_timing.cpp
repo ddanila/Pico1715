@@ -251,7 +251,43 @@ static void control_stress(unsigned snapshot,unsigned usb_delay,bool eject){
  printf("control responses=%u worker_delay=%u eject=%u\n",control_responses,usb_delay,eject);
  record(eject?"usb-eject":"usb-status-flood",snapshot,complete,equal);
 }
+#if P1715_COMBINED
+static p1715_control_status trace_command(unsigned cmd){
+ assert(p1715_control_submit(cmd));p1715_control_status status;int result;
+ unsigned waited=0;while(!p1715_control_take(&status,&result)){us(10);assert((waited+=10)<100000);}
+ assert(!result);return status;
+}
+static void combined_capture(bool delayed){
+ fresh();
+ if(delayed){cost[P1715_COST_POLL]=1;cost[P1715_COST_READ]=1;cost[P1715_COST_WRITE]=2;cost[P1715_COST_FIELD]=4;cost[P1715_COST_COMMIT]=4;cost[P1715_COST_SNAPSHOT]=4;}
+ trace_command(P1715_CONTROL_TRACE_START);us(1000);
+ assert(arm());bool equal=false;assert(read_field(equal) && equal);
+ assert(write_sector(0x96));worker_enabled=true;sd_cost=1000;
+ for(unsigned i=0;i<4;i++){assert(arm());assert(read_field(equal) && equal);}
+ trace_command(P1715_CONTROL_TRACE_STOP);
+ p1715_control_status status;unsigned waited=0;
+ do{us(100);status=trace_command(P1715_CONTROL_TRACE_STATUS);assert((waited+=100)<1000000);}while(status.trace[1]!=4 && status.trace[1]!=5);
+ assert(status.trace[1]==4 && status.trace[2]>0 && !status.trace[8] && !status.trace[9]);
+ trace_command(P1715_CONTROL_EJECT);
+ while(p1715_status.shutdown==P1715_DRAINING){us(100);assert((waited+=100)<1000000);}
+ assert(p1715_status.shutdown==P1715_SAFE && !p1715_status.dirty_blocks);
+ assert(!memcmp(card.image,host_storage_image(),P1715_IMAGE_BYTES));
+ trace_command(P1715_CONTROL_TRACE_REWIND);
+ unsigned downloaded=0,total=status.trace[5];
+ FILE *output=std::fopen("build/combined-capture.p1715","wb");assert(output);
+ do{status=trace_command(P1715_CONTROL_TRACE_READ);unsigned n=status.trace[7];assert(n && n<=64);
+  if(!downloaded)assert(!memcmp(status.trace_data,"P1715CY\0",8));
+  assert(std::fwrite(status.trace_data,1,n,output)==n);downloaded+=n;assert(status.trace[6]==downloaded);
+ }while(downloaded<total);
+ std::fclose(output);
+ assert(downloaded==total && !late_replies && !reset_replies && !p1715_status.storage_error);
+ printf("combined firmware/RTL PASS: records=%u fpga_dropped=%u bytes=%u persisted writes=%llu\n",status.trace[2],status.trace[3],downloaded,(unsigned long long)card.writes);
+}
+#endif
 int main(int argc,char **argv){
+#if P1715_COMBINED
+ if(argc==2 && !strcmp(argv[1],"--combined")){combined_capture(false);combined_capture(true);return 0;}
+#endif
  if(argc==2 && !strcmp(argv[1],"--control")){
   control_stress(0,0,false);control_stress(8,1000,false);
   control_stress(128,0,false);control_stress(8,1000,true);return 0;

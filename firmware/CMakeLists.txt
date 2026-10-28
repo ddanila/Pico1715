@@ -72,3 +72,27 @@ target_compile_definitions(pico1715 PRIVATE P1715_CARRIER=$<BOOL:${P1715_CARRIER
 if(P1715_CARRIER)
  target_sources(pico1715 PRIVATE carrier_panel.c)
 endif()
+
+option(P1715_COMBINED "Experimental combined controller/capture mailbox" OFF)
+if(P1715_COMBINED AND NOT P1715_CARRIER)
+ message(FATAL_ERROR "Combined transport requires the carrier profile")
+endif()
+target_compile_definitions(pico1715 PRIVATE P1715_COMBINED=$<BOOL:${P1715_COMBINED}>)
+if(P1715_COMBINED)
+ target_sources(pico1715 PRIVATE combined.c analyzer.c)
+endif()
+
+option(P1715_RESERVE_SUPERVISOR "Experimental PIM724 SP/CE reserve sensing" OFF)
+set(P1715_QUALIFIED_RESERVE_US "0" CACHE STRING "Measured assembly reserve; zero never permits READY")
+if(NOT "${P1715_QUALIFIED_RESERVE_US}" MATCHES "^[0-9]+$" OR P1715_QUALIFIED_RESERVE_US GREATER 4294967295)
+ message(FATAL_ERROR "P1715_QUALIFIED_RESERVE_US must be an unsigned 32-bit microsecond count")
+endif()
+if(P1715_RESERVE_SUPERVISOR AND NOT P1715_CARRIER)
+ message(FATAL_ERROR "SP/CE supervisor requires the reference PIM724 carrier profile")
+endif()
+target_compile_definitions(pico1715 PRIVATE
+ P1715_RESERVE_SUPERVISOR=$<BOOL:${P1715_RESERVE_SUPERVISOR}>
+ P1715_QUALIFIED_RESERVE_US=${P1715_QUALIFIED_RESERVE_US})
+if(P1715_RESERVE_SUPERVISOR)
+ target_sources(pico1715 PRIVATE reserve.c)
+endif()
