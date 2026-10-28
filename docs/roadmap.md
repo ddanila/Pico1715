@@ -1,10 +1,10 @@
 # Remaining desk work and hardware plan
 
-Status reviewed 2026-10-27. Completed desk work does not substitute for hardware
+Status reviewed 2026-10-28. Completed desk work does not substitute for hardware
 qualification. USB capture/download, controller status/eject, reserve-aware shutdown,
 interrupt-chain modelling and firmware service-cost/fault suites are implemented.
 The combined controller/analyzer carrier has a checked schematic and both FPGA
-personalities; its PCB is partially routed. An optional backup-power electrical draft is now available; physical qualification
+personalities; its Rev A carrier PCB is fully connected and passes ERC/DRC, but is not released for fabrication. An optional backup-power electrical draft is now available; physical qualification
 of it and the reset accessory remain pending.
 
 | Area | Completed on the desk | Next unresolved work |
@@ -13,13 +13,29 @@ of it and the reset accessory remain pending.
 | Analyzer | Capture, triggers, PSRAM transport, USB download, decode/compare | Module/USB/capture bench qualification |
 | Reset | Standalone software and bounded pulse implementation | Isolated accessory circuit and physical reset test; carrier GP22 is SD CS |
 | Shutdown | Safe eject, reserve gating, failure/deadline tests | Optional circuit drafted; GPIO integration, load-test qualification and measured budgets pending |
-| Carrier | Schematic, pin profiles, 74 footprints; all placed non-SD terminals routed; zero geometric DRC violations | 12 held SD connections; X2 footprint/routing, SD drawing review, return-path/timing qualification, installation fit |
+| Carrier | Rev A: 76 schematic parts, keyed J6 harness, documented SD footprint, all nets connected; zero ERC/DRC violations; closer SD decoupling; exact-byte export checks | Supplier acceptance and final delivered quote; subsequent physical qualification |
 | Host connector | Original EFS dimensions and four-contact printed test fixture | Provisional 58-contact breakout complete; qualify grip, orientation and installation |
 
 The [compact trigger increment](analyzer-triggers.md) now adds configurable
 event/address/data matching, rolling history and bounded post-trigger capture.
 The [classic controller decoder](analyzer-decoder.md) now adds annotated timelines,
 MFM field CRC checks and comparison against emulator reference captures.
+
+## Carrier order preparation
+
+The current [manufacturing specification](../hardware/carrier-reva/manufacturing.md)
+covers five bare four-layer boards and one initial assembly. Candidate export now
+checks every drilled hole against the PCB and parses all eleven manufacturing files
+independently. Fabrication packaging copies the exact inspected exports and rejects
+changed source/evidence or changed manufacturing bytes. It does not regenerate
+Gerbers after inspection.
+
+C19 now has a shorter direct SD power connection and local ground via. The new
+power-path report explicitly separates assumed DC load budgets from measured
+hardware qualification. A provisional supplier configuration price is recorded;
+shipping and tax are still unresolved. All 408 signal vias now meet the 4 mm return-transition target; clock/write
+copper is unchanged. Planar assembly and local plane-gap review is complete.
+Supplier acceptance and the postcode-specific checkout total remain open.
 
 ## Explicit analyzer mode and remote reset
 

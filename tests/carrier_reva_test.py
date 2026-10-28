@@ -67,6 +67,11 @@ class RevATests(unittest.TestCase):
    self.assertTrue(release_blockers(bad,r,'hash',False))
   bad=copy.deepcopy(g);bad['signal_via_returns'][0]['nearest_ground_transition_mm']=4.001
   self.assertTrue(release_blockers(bad,r,'hash',False))
+  for invalid in [float('nan'),float('inf'),-1,None,'4']:
+   bad=copy.deepcopy(g);bad['signal_via_returns'][0]['nearest_ground_transition_mm']=invalid
+   self.assertTrue(release_blockers(bad,r,'hash',False))
+   bad=copy.deepcopy(g);bad['nets']['F_CLK']['copper_length_mm']=invalid
+   self.assertTrue(release_blockers(bad,r,'hash',False))
   bad=copy.deepcopy(g);bad['signal_via_returns']=[]
   self.assertTrue(release_blockers(bad,r,'hash',False))
  def test_lossless_filter(self):

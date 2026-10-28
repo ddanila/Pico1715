@@ -43,8 +43,10 @@ must not report a protected write budget without measured hold-up evidence.
 The candidate is 160 × 210 mm. F.Cu/B.Cu carry signals and power; In1.Cu/In2.Cu
 are GND. The proposed 1.6 mm ENIG stack-up targets JLC04161H-7628 but remains
 subject to supplier confirmation. The SD body exclusion applies only to F.Cu.
-Existing outer copper is retained; the routing workflow removes F_CLK and
-F_WR_N for re-routing and adds the host/reserve connections. Router output is
+Existing outer copper is retained; the routing workflow defaults to removing
+F_CLK and F_WR_N for re-routing and adds the host/reserve connections. Repeat
+`--replace-net NET` to select other nets without disturbing previously replaced
+routes. Router output is
 never itself sign-off evidence.
 
 - `make test-carrier-reva`: portable net parity and interface mutation tests.
@@ -63,11 +65,12 @@ its netlist with KiCad's `kicadxml` format, then generate the PCB with
 `/usr/bin/python3 tools/generate_carrier_reva_pcb.py`. The board generator needs
 KiCad 10's system Python module. It uses the checked-in `routes.json` by default. `--base-only` explicitly
 creates the uncompleted placement candidate. `--routes` selects a different
-candidate for review.
+candidate for review. The checked `placement-overrides.json` moves only C19;
+connector/module positions and mounting holes stay fixed.
 
-A fabrication release still needs closure of the remaining return-path outliers,
-a complete assembly review,
-independently inspected fabrication exports, source hashes and a delivered
-Estonia quote. Physical EFS fit, power isolation, signal integrity and functional
+All 408 signal vias now meet the 4 mm return target, and planar assembly/plane
+gap desk review is recorded in `assembly-review.json`. A fabrication release
+has independently inspected exports bound by hashes; release still requires supplier acceptance and a
+postcode-specific delivered Estonia quote. Physical EFS fit, power isolation, signal integrity and functional
 bring-up remain later gates. Assemble and test one board before populating four
 more. CPU RESET2 remains an input, not a board-driven CPU reset output.

@@ -25,7 +25,7 @@ def stitch(board,routes,out,max_distance=2,whole_board=False):
  planes={z.GetLayer():z for z in b.Zones() if not z.GetIsRuleArea()}
  def free(p):
   x,y=p
-  if not(21.6<x<178.4 and 21.6<y<228.4) or (160.47<x<175.53 and 29.57<y<38.43):return False
+  if not(20.81<x<179.19 and 20.81<y<229.19) or (160.47<x<175.53 and 29.57<y<38.43):return False
   if np.any((x>=rects[:,0])&(x<=rects[:,2])&(y>=rects[:,1])&(y<=rects[:,3])):return False
   t=np.clip(np.sum((p-lines[:,:2])*delta,axis=1)/length2,0,1)
   if np.any(np.sum((p-lines[:,:2]-t[:,None]*delta)**2,axis=1)<lines[:,4]**2):return False

@@ -20,7 +20,7 @@ def review(path,out):
   for pad in f.Pads():
    if pad.GetDrillSize().x and pad.GetNetname()!='/GND':antipads.append((point(pad.GetPosition()),math.hypot(k.ToMM(pad.GetSize().x),k.ToMM(pad.GetSize().y))/2+.25))
    if pad.GetNetname()=='/GND' and pad.GetAttribute()==k.PAD_ATTRIB_PTH:ground.append(point(pad.GetPosition()))
- nets,parallel=metrics(plan);planes={z.GetLayer():z for z in b.Zones() if not z.GetIsRuleArea()};coverage=defaultdict(lambda:[0,0,0])
+ nets,parallel=metrics(plan);planes={z.GetLayer():z for z in b.Zones() if not z.GetIsRuleArea()};coverage=defaultdict(lambda:[0,0,0]);gap_samples=[]
  for t in plan['routes']:
   if t['net']=='GND':continue
   layer=k.In1_Cu if t['layer']=='F.Cu' else k.In2_Cu
@@ -30,14 +30,23 @@ def review(path,out):
    coverage[t['net']][0]+=ds
    if not planes[layer].HitTestFilledArea(layer,k.VECTOR2I(round(p[0]*1e6),round(p[1]*1e6))):
     coverage[t['net']][1]+=ds
-    if not any(math.dist(p,c)<=radius for c,radius in antipads):coverage[t['net']][2]+=ds
+    if not any(math.dist(p,c)<=radius for c,radius in antipads):
+     coverage[t['net']][2]+=ds
+     nearest,radius=min(antipads,key=lambda item:abs(math.dist(p,item[0])-item[1]))
+     distance=math.dist(p,nearest)
+     radial_ground=None
+     for step in range(1,101):
+      d=distance+step*.001
+      q=[nearest[j]+(p[j]-nearest[j])*d/distance for j in range(2)]
+      if planes[layer].HitTestFilledArea(layer,k.VECTOR2I(round(q[0]*1e6),round(q[1]*1e6))):radial_ground=round(d,6);break
+     gap_samples.append(dict(net=t['net'],reference_layer=b.GetLayerName(layer),at=[round(v,6) for v in p],sample_length_mm=round(ds,6),nearest_antipad_center=nearest,nominal_radius_mm=round(radius,6),sample_radius_mm=round(distance,6),radial_ground_resumes_mm=radial_ground))
  for net,(length,uncovered,away) in coverage.items():
   nets[net]['uncovered_away_from_nominal_antipads_mm']=round(away,3)
   nets[net]['uncovered_near_nominal_antipads_mm']=round(uncovered-away,3)
   nets[net]['adjacent_ground_uncovered_mm']=round(uncovered,3)
   nets[net]['adjacent_ground_uncovered_percent']=round(100*uncovered/length,2) if length else 0
  returns=[dict(net=v['net'],at=v['at'],nearest_ground_transition_mm=round(min(math.dist(v['at'],g) for g in ground),3)) for v in plan['vias'] if v['net'] not in {'GND','V3P3','P3V3','V5_HOST','V5_MODULE','P_VSYS'}]
- result=dict(schema=1,hardware_executed=False,signal_integrity_qualified=False,fabrication_ready=False,method={'sample_step_max_mm':.25,'reference':'F.Cu→In1.Cu; B.Cu→In2.Cu','limits':'Centre-line samples only, not impedance or transient simulation. Antipad classification uses nominal pad/via envelopes plus 0.25 mm clearance; it is a screening classification, not proof of a continuous return path. Copper lengths include branches. Return distance includes GND vias and plated through-hole pads, not ground-path impedance.'},nets=dict(sorted(nets.items())),parallel_candidates=parallel,signal_via_returns=returns,return_target_mm=4,return_outliers=[v for v in returns if v['nearest_ground_transition_mm']>4],source_sha256={str(path.resolve().relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest(),str(Path(__file__).resolve().relative_to(ROOT)):hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
+ result=dict(schema=1,hardware_executed=False,signal_integrity_qualified=False,fabrication_ready=False,method={'sample_step_max_mm':.25,'reference':'F.Cu→In1.Cu; B.Cu→In2.Cu','limits':'Centre-line samples only, not impedance or transient simulation. Antipad classification uses nominal pad/via envelopes plus 0.25 mm clearance; it is a screening classification, not proof of a continuous return path. Copper lengths include branches. Return distance includes GND vias and plated through-hole pads, not ground-path impedance.'},nets=dict(sorted(nets.items())),parallel_candidates=parallel,signal_via_returns=returns,plane_gap_samples=gap_samples,return_target_mm=4,return_outliers=[v for v in returns if v['nearest_ground_transition_mm']>4],source_sha256={str(path.resolve().relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest(),str(Path(__file__).resolve().relative_to(ROOT)):hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
  out.write_text(json.dumps(result,indent=2)+'\n');print('Rev A geometry review:',len(nets),'nets; not signal-integrity qualification')
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--board',type=Path,default=ROOT/'hardware/carrier-reva/carrier.kicad_pcb');p.add_argument('--out',type=Path,required=True);a=p.parse_args();review(a.board,a.out)

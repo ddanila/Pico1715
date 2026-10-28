@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Four-layer Rev A candidate, with reproducible reviewed outer-layer copper."""
-import argparse,hashlib,json,uuid,tempfile
+import argparse,hashlib,json,uuid,tempfile,math
 from pathlib import Path
 import pcbnew as k
 from generate_carrier_reva import uid
 ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'hardware/carrier';OUT=ROOT/'hardware/carrier-reva'
 vec=lambda x,y:k.VECTOR2I(round(x*1e6),round(y*1e6))
 def stable(o,key):o.SetUuid(k.KIID(uid(key)))
-def generate(out,routes=None):
+def generate(out,routes=None,placements=None):
  out.mkdir(parents=True,exist_ok=True)
  extra=json.loads(routes.read_text()) if routes else None
  source=(BASE/'carrier.kicad_pcb').read_text()
@@ -22,6 +22,14 @@ def generate(out,routes=None):
  b.SetCopperLayerCount(4)
  c=json.loads((OUT/'connections.json').read_text());parts={p['ref']:p for p in c['parts']}
  for f in b.GetFootprints():f.SetPath(k.KIID_PATH('/'+uid('root')+'/'+uid(f.GetReference())))
+ if placements:
+  overrides=json.loads(placements.read_text())
+  assert set(overrides)<= {"C19"}, "Only reviewed SD decoupler placement may change"
+  for values in overrides.values():
+   assert len(values)==3 and all(isinstance(v,(int,float)) and math.isfinite(v) for v in values)
+  for f in b.GetFootprints():
+   if f.GetReference() in overrides:
+    x,y,angle=overrides[f.GetReference()];f.SetPosition(vec(x,y));f.SetOrientationDegrees(angle)
  for ref,pos,angle in [('J3',(161,28.6),0),('J6',(60,215),90),('J7',(164,100),0)]:
   p=parts[ref];lib,name=p['footprint'].split(':');f=k.FootprintLoad(str(OUT/(lib+'.pretty')) if lib=='Pico1715_RevA' else '/usr/share/kicad/footprints/'+lib+'.pretty',name)
   assert f is not None,p['footprint']
@@ -91,4 +99,4 @@ def generate(out,routes=None):
  (out/'pcb-review.json').write_text(json.dumps(report,indent=2)+'\n')
  print('Rev A 4-layer candidate:',len(list(b.GetFootprints())),'footprints; SD body exclusion retained')
 if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,default=OUT);p.add_argument('--routes',type=Path);p.add_argument('--base-only',action='store_true');a=p.parse_args();routes=None if a.base_only else (a.routes or (OUT/'routes.json' if (OUT/'routes.json').exists() else None));generate(a.out,routes)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,default=OUT);p.add_argument('--routes',type=Path);p.add_argument('--base-only',action='store_true');p.add_argument('--placements',type=Path);a=p.parse_args();routes=None if a.base_only else (a.routes or (OUT/'routes.json' if (OUT/'routes.json').exists() else None));generate(a.out,routes,a.placements or (OUT/'placement-overrides.json' if (OUT/'placement-overrides.json').exists() else None))

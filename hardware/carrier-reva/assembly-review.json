@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "board_sha256": "f47c027a67253affdb1d56c400f6ae8714c98bb4dc1ed7e9e58c1b5e8218a78c",
+  "review_date": "2026-10-28",
+  "physical_fit_verified": false,
+  "plane_gaps_reviewed": true,
+  "assembly_access_reviewed": true,
+  "scope": "Desk review of planar geometry and manufacturer drawings; not enclosure, mating-height, thermal, transient or hardware qualification.",
+  "plane_findings": [
+    "408 signal vias have a GND via or plated GND pad within 4 mm. Clock/write copper and via counts preserved.",
+    "Four remaining centre-line screening samples were inspected in independent Gerber enlargements. F_FAULT, F_WR_N and P_VSYS samples are at local via-clearance boundaries; radial ground resumes within 0.001\u20130.002 mm of the samples.",
+    "SD_DAT1 sample is in the small joined clearance between two SD_DAT1 vias. Ground surrounds the pair; this is a local antipad opening, not an unexplained board-length reference gap. No signal-integrity qualification is claimed."
+  ],
+  "assembly_findings": [
+    "Fresh KiCad DRC has zero violations, including footprint courtyards. F.Fab/F.CrtYd/Edge.Cuts assembly drawing inspected.",
+    "SD mouth faces north with no component in its insertion corridor. Top mounting hole is west of the socket corridor. C19 is outside the socket courtyard; fit C19 and other low passives before the socket.",
+    "Pico module outline and all connector/mounting positions remain fixed. Check USB access and socket/header mating height on the first assembly.",
+    "J6 body and mate dimensions reviewed against manufacturer drawings; key faces south. Install tall headers after small SMD parts, verify cable continuity before motherboard connection.",
+    "J7 remains unpopulated for first assembly; keep D1 fitted. EFS adapter contact fit and enclosure clearance are later physical checks."
+  ],
+  "evidence_sha256": {
+    "reports/carrier-reva-inspection/F_FAULT.png": "a66dcff6baaa5e7a26806a5966a8c0c36e47aec73458736c42c4ce536e098964",
+    "reports/carrier-reva-inspection/F_WR_N.png": "8fd2cff8b421bf2a8b9381a57809999bbaba1e524fb24d88f816e51bded9077f",
+    "reports/carrier-reva-inspection/P_VSYS.png": "3a3a44e893ed432e26b830ca6900a30a9b407fdc092e9068e18c213d68418b5b",
+    "reports/carrier-reva-inspection/SD_DAT1.png": "f26a09b64dcf24ba6cb2736b84073af0545799ca95bc4e37a525a1712b0da196",
+    "reports/carrier-reva-inspection/assembly.svg": "13ca0d112274bbda72ef8b929325c673c6a07abdf69870e176a8215d95ea0682"
+  }
+}

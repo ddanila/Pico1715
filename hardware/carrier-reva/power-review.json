@@ -1,36 +1,107 @@
 {
-  "schema": 1,
-  "board_sha256": "af743329e3f4317c92598a6ba5b215ee09bf0be8df777a4ff98bc88d1bdd45e0",
+  "schema": 2,
+  "tool_sha256": "5fdd36cfa921b3ed6417daa7ce986402d387685e57a10e2b144094b3b992e4f2",
+  "board_sha256": "f47c027a67253affdb1d56c400f6ae8714c98bb4dc1ed7e9e58c1b5e8218a78c",
   "hardware_qualified": false,
-  "method": "20 C copper resistivity 0.01724 ohm mm\u00b2/m, nominal 35 um outer copper. Upper bound using every branch at minimum width, not actual current-path extraction. 0.5 A is an analysis assumption, not a measured load or rating. Excludes return path, vias, connectors and diode. No thermal/transient or SD decoupling sign-off.",
+  "method": "Shortest conductive trace path at 20 C, nominal 35 um copper and 18 um via barrel; parallel paths ignored. Total rail budget conservatively applied to each path. Pad metal idealized; return plane, connector and diode losses require separate budget. This does not establish thermal or transient limits.",
   "nets": [
     {
       "net": "V5_MODULE",
-      "total_branched_length_mm": 238.232,
-      "min_width_mm": 0.8,
-      "conservative_trace_resistance_20C_ohm": 0.1467,
-      "drop_at_assumed_0_5A_V": 0.0733
+      "source": "J4.1",
+      "assumed_total_rail_budget_A": 1.0,
+      "paths": [
+        {
+          "target": "EXT1.1",
+          "trace_and_via_resistance_ohm": 0.05726,
+          "drop_at_budget_V": 0.05726
+        },
+        {
+          "target": "D1.2",
+          "trace_and_via_resistance_ohm": 0.00807,
+          "drop_at_budget_V": 0.00807
+        }
+      ]
     },
     {
       "net": "P_VSYS",
-      "total_branched_length_mm": 118.108,
-      "min_width_mm": 0.8,
-      "conservative_trace_resistance_20C_ohm": 0.0727,
-      "drop_at_assumed_0_5A_V": 0.0364
+      "source": "D1.1",
+      "assumed_total_rail_budget_A": 0.5,
+      "paths": [
+        {
+          "target": "J2.39",
+          "trace_and_via_resistance_ohm": 0.02556,
+          "drop_at_budget_V": 0.01278
+        }
+      ]
     },
     {
       "net": "P3V3",
-      "total_branched_length_mm": 216.798,
-      "min_width_mm": 0.25,
-      "conservative_trace_resistance_20C_ohm": 0.4272,
-      "drop_at_assumed_0_5A_V": 0.2136
+      "source": "J2.36",
+      "assumed_total_rail_budget_A": 0.2,
+      "paths": [
+        {
+          "target": "J3.4",
+          "trace_and_via_resistance_ohm": 0.02645,
+          "drop_at_budget_V": 0.00529
+        },
+        {
+          "target": "U12.3",
+          "trace_and_via_resistance_ohm": 0.02772,
+          "drop_at_budget_V": 0.00554
+        }
+      ]
     },
     {
       "net": "V3P3",
-      "total_branched_length_mm": 755.716,
-      "min_width_mm": 0.25,
-      "conservative_trace_resistance_20C_ohm": 1.489,
-      "drop_at_assumed_0_5A_V": 0.7445
+      "source": "EXT1.3",
+      "assumed_total_rail_budget_A": 0.1,
+      "paths": [
+        {
+          "target": "RX1.20",
+          "trace_and_via_resistance_ohm": 0.10829,
+          "drop_at_budget_V": 0.01083
+        },
+        {
+          "target": "RX2.20",
+          "trace_and_via_resistance_ohm": 0.12368,
+          "drop_at_budget_V": 0.01237
+        },
+        {
+          "target": "RX3.20",
+          "trace_and_via_resistance_ohm": 0.13907,
+          "drop_at_budget_V": 0.01391
+        },
+        {
+          "target": "RX4.20",
+          "trace_and_via_resistance_ohm": 0.15447,
+          "drop_at_budget_V": 0.01545
+        },
+        {
+          "target": "RX5.20",
+          "trace_and_via_resistance_ohm": 0.16986,
+          "drop_at_budget_V": 0.01699
+        },
+        {
+          "target": "ISO1.20",
+          "trace_and_via_resistance_ohm": 0.20679,
+          "drop_at_budget_V": 0.02068
+        },
+        {
+          "target": "ISO2.20",
+          "trace_and_via_resistance_ohm": 0.19633,
+          "drop_at_budget_V": 0.01963
+        },
+        {
+          "target": "ISO3.20",
+          "trace_and_via_resistance_ohm": 0.18586,
+          "drop_at_budget_V": 0.01859
+        },
+        {
+          "target": "U10.3",
+          "trace_and_via_resistance_ohm": 0.0511,
+          "drop_at_budget_V": 0.00511
+        }
+      ]
     }
   ]
 }

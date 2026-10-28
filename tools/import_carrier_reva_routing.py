@@ -24,6 +24,8 @@ def extract(directory, output):
     vias=[v for v in prior.get('vias',[]) if v['net'] not in meta['replace_nets']]
     for t in old.GetTracks():
         net = t.GetNetname().removeprefix('/')
+        if meta.get('replace_only') and net not in meta['replace_nets']:
+            continue  # Preserve untouched copper exactly, including rounding fragments.
         if net == 'GND':
             continue  # Ground is filled on the final four-layer board.
         if isinstance(t, k.PCB_VIA):
@@ -34,7 +36,7 @@ def extract(directory, output):
             layer=old.GetLayerName(t.GetLayer()); width=round(k.ToMM(t.GetWidth()),6)
             for a,z in uncovered(point(t.GetStart()),point(t.GetEnd()),segments.get((net,layer,width),[])):
                 tracks.append(dict(net=net,layer=layer,width=max(.25,width),start=a,end=z))
-    result=dict(schema=1,baseline_sha256=hashlib.sha256((ROOT/'hardware/carrier/carrier.kicad_pcb').read_bytes()).hexdigest(),source_sha256=meta['source_sha256'],session_sha256=hashlib.sha256((directory/'carrier.ses').read_bytes()).hexdigest(),replace_nets=meta['replace_nets'],tracks=sorted(tracks,key=lambda r:(r['net'],r['layer'],r['start'],r['end'])),vias=sorted(vias,key=lambda r:(r['net'],r['at'])))
+    result=dict(schema=1,baseline_sha256=hashlib.sha256((ROOT/'hardware/carrier/carrier.kicad_pcb').read_bytes()).hexdigest(),source_sha256=meta['source_sha256'],session_sha256=hashlib.sha256((directory/'carrier.ses').read_bytes()).hexdigest(),replace_nets=sorted(set(meta['replace_nets'])|set(prior.get('replace_nets',[]))),tracks=sorted(tracks,key=lambda r:(r['net'],r['layer'],r['start'],r['end'])),vias=sorted(vias,key=lambda r:(r['net'],r['at'])))
     output.write_text(json.dumps(result,indent=2)+'\n')
     print('UNREVIEWED candidate:',len(tracks),'tracks,',len(vias),'vias')
 if __name__=='__main__':

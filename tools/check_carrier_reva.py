@@ -80,7 +80,9 @@ def check_board(c,tree,board):
  baseline=parse((ROOT/'hardware/carrier/carrier.kicad_pcb').read_text())
  for f in children(baseline,'footprint'):
   ref=next(x[2] for x in children(f,'property') if x[1]=='Reference')
-  if ref!='J3':assert one(fps[ref],'at')==one(f,'at'),(ref,'baseline placement changed')
+  if ref not in {'J3','C19'}:assert one(fps[ref],'at')==one(f,'at'),(ref,'baseline placement changed')
+ assert list(map(float,one(fps['C19'],'at')[1:]))==[166.5,46.6,-90], 'SD decoupler placement'
+ assert json.loads((BASE/'placement-overrides.json').read_text())=={'C19':[166.5,46.6,270]}
  copper=[x[1] for x in one(board,'layers')[1:] if isinstance(x,list) and x[1].endswith('.Cu')]
  assert copper==['F.Cu','In1.Cu','In2.Cu','B.Cu'],copper
  zones=children(board,'zone');hold=[z for z in zones if children(z,'keepout')];assert len(hold)==1

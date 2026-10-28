@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "checked_date": "2026-10-28",
+  "supplier": "JLCPCB",
+  "capability_source": "https://jlcpcb.com/capabilities/Capabilities",
+  "stackup": "JLC04161H-7628",
+  "thickness_mm": 1.6,
+  "finish": "ENIG",
+  "quantity": 5,
+  "ordinary_pth_tolerance_mm": [
+    -0.08,
+    0.13
+  ],
+  "j7_required_finished_range_mm": [
+    0.9,
+    1.0
+  ],
+  "selected_precision_process": "Supplier press-fit-hole tolerance option; assembled connector remains soldered",
+  "precision_nominal_mm": 0.95,
+  "precision_tolerance_mm": [
+    -0.05,
+    0.05
+  ],
+  "precision_positions_mm": [
+    [
+      164,
+      100
+    ],
+    [
+      166.5,
+      100
+    ],
+    [
+      169,
+      100
+    ]
+  ],
+  "catalog_compatible": true,
+  "order_specific_acceptance": false,
+  "quotation": {
+    "checked_on": "2026-10-28",
+    "source": "https://cart.jlcpcb.com/quote",
+    "status": "provisional_configuration_estimate_not_order",
+    "quantity": 5,
+    "size_mm": [
+      160,
+      210
+    ],
+    "layers": 4,
+    "thickness_mm": 1.6,
+    "stackup": "JLC04161H-7628",
+    "finish": "ENIG 1 microinch",
+    "outer_copper_oz": 1,
+    "inner_copper_oz": 0.5,
+    "precision_hole_option": true,
+    "currency": "EUR",
+    "engineering": 22.44,
+    "finish_charge": 18.4,
+    "board_charge": 18.67,
+    "precision_hole_charge": 37.18,
+    "subtotal": 96.7,
+    "estimated_weight_kg": 0.7,
+    "shipping": 24.09,
+    "tax": null,
+    "delivered_total": null,
+    "limitation": "Public configuration estimate; postcode-specific surcharges, tax collection, handling fees and Gerber-specific acceptance require checkout/supplier review. No order placed.",
+    "shipping_service": "DHL Express",
+    "shipping_country": "Estonia",
+    "transit_business_days": "2-4",
+    "estimated_vat_rate": 0.24,
+    "estimated_vat": 28.99,
+    "planning_total_including_estimated_vat": 149.78,
+    "postcode_specific_verified": false,
+    "vat_source": "https://www.emta.ee/en/business-client/taxes-and-payment/value-added-tax/vat-rates-and-supply-exempt-tax/standard-vat-rate"
+  },
+  "purchase_authorized": false
+}

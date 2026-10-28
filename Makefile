@@ -247,6 +247,7 @@ test-reserve-supervisor:
 test-carrier-reva:
 	python3 tools/check_carrier_reva.py
 	python3 tests/carrier_reva_test.py
+	python3 tests/carrier_reva_release_test.py
 
 test-carrier-reva-cad:
 	mkdir -p build/carrier-reva

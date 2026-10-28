@@ -7,15 +7,18 @@ from check_carrier_pcb import parse,check_drc
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'hardware/carrier-reva'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
-def package(out,mode="review"):
+def package(out,mode="review",candidate=None):
  if mode=="fabrication":
   from check_reva_release import check_release
-  check_release()
+  review=check_release()
+  if candidate is None:raise SystemExit('Fabrication mode requires --candidate with the exact reviewed exports')
+  from export_carrier_reva import verify_candidate
+  approved=verify_candidate(candidate,review)
  if out.exists():raise SystemExit('Use a new output directory to avoid mixing evidence.')
  out.mkdir(parents=True)
  c=json.loads((BASE/'connections.json').read_text());board=parse((BASE/'carrier.kicad_pcb').read_text())
  shutil.copyfile(BASE/'carrier.kicad_pro',out/'carrier.kicad_pro')
- for name in ['carrier.kicad_sch','RevA.kicad_sym','sym-lib-table','fp-lib-table','carrier.kicad_pcb','connections.json','bom.tsv','pcb-review.json','sd-land-pattern.json','connector-review.json','harness.svg','release-review.json','power-review.json']:
+ for name in ['carrier.kicad_sch','RevA.kicad_sym','sym-lib-table','fp-lib-table','carrier.kicad_pcb','connections.json','bom.tsv','pcb-review.json','sd-land-pattern.json','connector-review.json','harness.svg','release-review.json','power-review.json','assembly-review.json','placement-overrides.json','supplier-process.json']:
   shutil.copyfile(BASE/name,out/name)
  shutil.copytree(ROOT/'hardware/carrier/Pico1715_Carrier.pretty',out/'Pico1715_Carrier.pretty')
  shutil.copytree(BASE/'Pico1715_RevA.pretty',out/'Pico1715_RevA.pretty')
@@ -44,17 +47,23 @@ def package(out,mode="review"):
  (out/'harness.tsv').write_text('IDC pin\tEFS contact\tNet\n'+''.join(f"{x['pin']}\t{x['contact']}\t{x['net'] or 'NC'}\n" for x in c['host_harness']['pins'])+'59\t-\tNC\n60\t-\tNC\n')
  (out/'README.txt').write_text('ENGINEERING REVIEW ONLY — NOT FOR FABRICATION\nNo manufacturing Gerbers or purchase approval.\nProject-local custom footprints and symbols are included; standard KiCad 10 footprint libraries are required.\nOpen gates: '+ '; '.join(c['holds'])+'\nAll ordinary and SD airwires must be closed before release.\n')
  if mode=='fabrication':
-  from export_carrier_reva import export
-  export(out/'fabrication')
+  from export_carrier_reva import copy_reviewed_exports
+  copy_reviewed_exports(candidate,out/'fabrication',review)
+  shutil.copyfile(candidate/'manifest.json',out/'candidate-manifest.json')
+  for name,digest in approved['files'].items():assert sha(out/'fabrication'/name)==digest
+  (out/'fabrication'/'README.txt').write_text('PROTOTYPE FABRICATION RELEASE. Exact inspected exports; see parent manifest and manufacturing.md. Not purchase approval or hardware qualification.\n')
   (out/'README.txt').write_text('PROTOTYPE FABRICATION RELEASE — NOT HARDWARE QUALIFICATION OR PURCHASE APPROVAL\nSee manufacturing.md for required stack-up and hole tolerances.\n')
  files={str(p.relative_to(out)):sha(p) for p in sorted(out.rglob('*')) if p.is_file()}
  manifest=dict(schema=1,kind='prototype-fabrication' if mode=='fabrication' else 'engineering-review-not-for-fabrication',fabrication_ready=mode=='fabrication',working_tree_dirty=bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),git_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),source_sha256={str(p.relative_to(ROOT)):sha(p) for p in sorted(BASE.rglob('*')) if p.is_file() and p.suffix!='.kicad_prl'},files=files)
  (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
- if mode=='fabrication':check_release()
+ if mode=='fabrication':
+  assert check_release()==review,'release review changed during packaging'
+  verify_candidate(candidate,review)
+  for name,digest in approved['files'].items():assert sha(out/'fabrication'/name)==digest
  archive=out.with_suffix('.fabrication.zip' if mode=='fabrication' else '.review.zip')
  with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(out.rglob('*')):
    if p.is_file():z.write(p,str(p.relative_to(out)))
  print('Bundle:',archive,'— prototype release' if mode=='fabrication' else '— fabrication BLOCKED')
 if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);p.add_argument('--mode',choices=['review','fabrication'],default='review');a=p.parse_args();package(a.out.resolve(),a.mode)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);p.add_argument('--mode',choices=['review','fabrication'],default='review');p.add_argument('--candidate',type=Path);a=p.parse_args();package(a.out.resolve(),a.mode,a.candidate.resolve() if a.candidate else None)
