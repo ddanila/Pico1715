@@ -1,0 +1,45 @@
+{
+  "qualification": "desk only; physical, analog and power-transition qualification pending",
+  "gating_combinations": 2048,
+  "host_receiver_channels": 37,
+  "pico_isolation_channels": 22,
+  "shared_pin_profiles_verified": true,
+  "synthesized_ports_checked": false,
+  "placed_components": 76,
+  "mounting_holes": 4,
+  "inner_ground_planes": 2,
+  "schema": 1,
+  "hardware_executed": false,
+  "fabrication_ready": false,
+  "drc_violations": 0,
+  "drc_unconnected_items": 12,
+  "drc_nonheld_unconnected_items": 0,
+  "drc_ignored_checks": [
+    {
+      "description": "Footprint has no courtyard defined",
+      "key": "missing_courtyard"
+    },
+    {
+      "description": "Track endpoint not centered on via",
+      "key": "track_not_centered_on_via"
+    },
+    {
+      "description": "Tuning profile track geometries",
+      "key": "tuning_profile_track_geometries"
+    },
+    {
+      "description": "Footprint doesn't match symbol's footprint filters",
+      "key": "footprint_filters_mismatch"
+    },
+    {
+      "description": "Footprint component type doesn't match footprint pads",
+      "key": "footprint_type_mismatch"
+    }
+  ],
+  "drc_note": "Rev A review only: all opens, including SD, block fabrication.",
+  "source_sha256": {
+    "hardware/carrier-reva/connections.json": "cb0fd7134a17d2a87c896b50f59162885350507f1b812f66743fe5dd958e6976",
+    "hardware/carrier-reva/carrier.net.xml": "f36d1b70f7d748b4067abbce26375014f60ed5159a16c89007a068b0dc4d5198",
+    "hardware/carrier-reva/carrier.kicad_pcb": "54386c73099620bff203f76c32f18944b5725cfb266e068ef8d93c3418ecd534"
+  }
+}

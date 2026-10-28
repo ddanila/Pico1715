@@ -242,3 +242,16 @@ test-reserve-supervisor:
 	mkdir -p build
 	$(CC) -std=c11 -Wall -Wextra -Werror -fsanitize=undefined tests/reserve_test.c firmware/reserve.c -o build/reserve-test
 	./build/reserve-test
+
+.PHONY: test-carrier-reva test-carrier-reva-cad
+test-carrier-reva:
+	python3 tools/check_carrier_reva.py
+	python3 tests/carrier_reva_test.py
+
+test-carrier-reva-cad:
+	mkdir -p build/carrier-reva
+	kicad-cli sch erc hardware/carrier-reva/carrier.kicad_sch --exit-code-violations -o build/carrier-reva/erc.rpt
+	kicad-cli sch export netlist hardware/carrier-reva/carrier.kicad_sch --format kicadxml -o build/carrier-reva/carrier.net.xml
+	python3 tools/check_carrier_reva.py --netlist build/carrier-reva/carrier.net.xml
+	kicad-cli pcb drc hardware/carrier-reva/carrier.kicad_pcb --format json -o build/carrier-reva/drc.json
+	python3 tools/check_carrier_reva.py --drc build/carrier-reva/drc.json --allow-open --out build/carrier-reva/review.json
